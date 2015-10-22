@@ -1,4 +1,4 @@
-package at.fhv.itb13.sportify.application;
+package at.fhv.itb13.sportify.presentation;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

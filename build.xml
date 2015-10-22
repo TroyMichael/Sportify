@@ -20,4 +20,5 @@
     <target name="run">
         <java jar="build/jar/HelloWorld.jar" fork="true"/>
     </target>
+    <echo message="Hello, world"/>
 </project>

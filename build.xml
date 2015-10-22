@@ -31,6 +31,10 @@
             </manifest>
         </jar>
     </target>
+    <!--Test-->
+    <target name="junit">
+
+    </target>
     <!--Run the Jar-->
     <target name="run">
         <java jar="${jarname}" fork="true"/>

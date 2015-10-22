@@ -24,6 +24,6 @@
         <property name="hibernate.search.default.indexBase">/oculus/indexes</property> -->
 
         <!-- mapped classes -->
-        <!-- <mapping class="at.fhv.itb13.sportify.Member" /> -->
+        <!-- <mapping class="at.fhv.itb13.sportify.Person" /> -->
     </session-factory>
 </hibernate-configuration>

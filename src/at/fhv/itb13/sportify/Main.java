@@ -1,3 +1,5 @@
+package at.fhv.itb13.sportify;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;

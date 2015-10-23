@@ -13,17 +13,26 @@
     <property name="test.dir" location="test" />
     <!--Mainclass-->
     <property name="mainclass" value="HelloWorld"/>
+
+
+
+
     <!--Clean the build directory before building it-->
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
     <!--Compile the new input-->
-    <target name="compile">
+    <target name="compile" depends="clean">
         <mkdir dir="${buildclassses.dir}"/>
         <javac srcdir="${src.dir}" destdir="${buildclassses.dir}"/>
     </target>
+
+    <target name="compiletest">
+        <mkdir dir="build/test"/>
+        <javac srcdir="test" destdir="build/test"/>
+    </target>
     <!--Pack it into a JAR-->
-    <target name="jar">
+    <target name="jar" depends="compile">
         <mkdir dir="${buildjar.dir}"/>
         <jar destfile="${jarname}" basedir="${buildclassses.dir}">
             <manifest>
@@ -33,10 +42,12 @@
     </target>
     <!--Test-->
     <target name="junit">
-
+        <junit printsummary="yes"  fork="true" haltonfailure="no">
+            <formatter type="xml"></formatter>
+        </junit>
     </target>
     <!--Run the Jar-->
-    <target name="run">
+    <target name="run" depends ="jar">
         <java jar="${jarname}" fork="true"/>
     </target>
     <echo message="Run complete"/>

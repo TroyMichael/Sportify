@@ -15,8 +15,6 @@
     <property name="mainclass" value="HelloWorld"/>
 
 
-
-
     <!--Clean the build directory before building it-->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -50,5 +48,4 @@
     <target name="run" depends ="jar">
         <java jar="${jarname}" fork="true"/>
     </target>
-    <echo message="Run complete"/>
 </project>

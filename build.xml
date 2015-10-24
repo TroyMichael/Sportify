@@ -29,13 +29,14 @@
         <javac srcdir="test" includeantruntime="true" destdir="build/test"/>
     </target>
     <target name="test" depends="compiletest">
-        <junit printsummary="yes" haltonfailure="no" fork="no">
+        <junit printsummary="yes" haltonfailure="no" fork="yes">
             <formatter type="plain"  ></formatter>
             <classpath>
                 <pathelement path="build/test"/>
                 <pathelement path="lib/junit-4.12.jar"/>
+                <pathelement path="lib/hamcrest-core-1.3.jar"/>
             </classpath>
-            <batchtest fork="no">
+            <batchtest fork="yes">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />
                 </fileset>

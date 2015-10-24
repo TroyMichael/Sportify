@@ -29,7 +29,7 @@
         <javac srcdir="test" includeantruntime="true" destdir="build/test"/>
     </target>
     <target name="test" depends="compiletest">
-        <junit printsummary="yes" haltonfailure="no" fork="yes">
+        <junit printsummary="yes" haltonfailure="no" fork="no">
             <formatter type="plain"  ></formatter>
             <classpath>
                 <pathelement path="./lib/junit-4.12.jar"/>

@@ -34,6 +34,7 @@
             <formatter type="plain"  ></formatter>
             <classpath>
                 <pathelement location="build/test"/>
+                <pathelement path="lib/junit-4.12.jar"/>
             </classpath>
             <batchtest fork="no">
                 <fileset dir="build/test">

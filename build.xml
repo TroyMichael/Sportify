@@ -19,7 +19,7 @@
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
-    <!--Compile the new input-->
+    <!--Compile the project-->
     <target name="compile" depends="clean">
         <mkdir dir="${buildclassses.dir}"/>
         <javac srcdir="${src.dir}" destdir="${buildclassses.dir}"/>
@@ -27,7 +27,20 @@
 
     <target name="compiletest">
         <mkdir dir="build/test"/>
-        <javac srcdir="test" destdir="build/test"/>
+        <javac srcdir="test" includeantruntime="true" destdir="build/test"/>
+    </target>
+    <target name="test" depends="compiletest">
+        <junit printsummary="yes" haltonfailure="no" fork="no">
+            <formatter type="plain"  ></formatter>
+            <classpath>
+                <pathelement location="build/test"/>
+            </classpath>
+            <batchtest fork="no">
+                <fileset dir="build/test">
+                    <include name="**/*Test*" />
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
     <!--Pack it into a JAR-->
     <target name="jar" depends="compile">
@@ -37,12 +50,6 @@
                 <attribute name="Main-Class" value="${mainclass}"/>
             </manifest>
         </jar>
-    </target>
-    <!--Test-->
-    <target name="junit">
-        <junit printsummary="yes"  fork="true" haltonfailure="no">
-            <formatter type="xml"></formatter>
-        </junit>
     </target>
     <!--Run the Jar-->
     <target name="run" depends ="jar">

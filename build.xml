@@ -33,8 +33,8 @@
             <formatter type="plain"  ></formatter>
             <classpath>
                 <pathelement path="build/test"/>
-                <pathelement path="lib/junit-4.12.jar"/>
-                <pathelement path="lib/hamcrest-core-1.3.jar"/>
+                <pathelement path="../../lib/junit-4.12.jar"/>
+                <pathelement path="../../lib/hamcrest-core-1.3.jar"/>
             </classpath>
             <batchtest fork="yes">
                 <fileset dir="build/test">

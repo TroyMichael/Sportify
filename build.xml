@@ -40,7 +40,7 @@
     </target>
 
     <target name="test" depends="compiletest">
-        <junit printsummary="yes" haltonfailure="no" fork="no">
+        <junit printsummary="yes" haltonfailure="no" fork="true">
             <formatter type="plain"  ></formatter>
             <classpath refid="classpath.test"/>
 

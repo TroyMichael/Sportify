@@ -13,9 +13,12 @@
     <property name="test.dir" location="test" />
     <!--Mainclass-->
     <property name="mainclass" value="HelloWorld"/>
-
-    <path id="classpath">
-        <fileset dir="./lib" includes="**/*.jar"/>
+    <path id="classpath.base">
+    </path>
+    <path id="classpath.test">
+        <pathelement location="./lib/junit-4.12.jar" />
+        <pathelement location="build/test" />
+        <path refid="classpath.base" />
     </path>
 
     <!--Clean the build directory before building it-->
@@ -28,9 +31,12 @@
         <javac srcdir="${src.dir}" destdir="${buildclassses.dir}"/>
     </target>
 
-    <target name="compiletest">
+    <target name="compiletest" depends="compile">
         <mkdir dir="build/test"/>
-        <javac includeantruntime="false" srcdir="test"  destdir="build/test"/>
+
+        <javac includeantruntime="false" srcdir="test"  destdir="build/test">
+            <classpath refid="classpath.test"/>
+        </javac>
     </target>
 
     <target name="test" depends="compiletest">
@@ -41,6 +47,7 @@
                 <pathelement path="./lib/hamcrest-core-1.3.jar"/>
                 <pathelement location="build/test"/>
             </classpath>
+
             <batchtest fork="yes">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />

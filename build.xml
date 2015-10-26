@@ -44,7 +44,7 @@
             <formatter type="plain"  ></formatter>
             <classpath refid="classpath.test"/>
 
-            <batchtest fork="no">
+            <batchtest fork="true">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />
                 </fileset>

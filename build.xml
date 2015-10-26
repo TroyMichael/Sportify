@@ -14,6 +14,9 @@
     <!--Mainclass-->
     <property name="mainclass" value="HelloWorld"/>
     <path id="classpath.base">
+        <fileset dir="lib">
+            <include name="**/*.jar" />
+        </fileset>
     </path>
     <path id="classpath.test">
         <pathelement location="./lib/junit-4.12.jar" />
@@ -29,13 +32,16 @@
     <!--Compile the project-->
     <target name="compile" depends="clean">
         <mkdir dir="${buildclassses.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${buildclassses.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${buildclassses.dir}">
+            <classpath refid="classpath.base"></classpath>
+        </javac>
     </target>
 
     <target name="compiletest" depends="compile">
         <mkdir dir="build/test"/>
 
         <javac includeantruntime="false" srcdir="test"  destdir="build/test">
+            <classpath refid="classpath.base"/>
             <classpath refid="classpath.test"/>
         </javac>
     </target>

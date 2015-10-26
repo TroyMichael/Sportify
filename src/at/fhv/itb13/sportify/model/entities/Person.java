@@ -1,18 +1,18 @@
 package at.fhv.itb13.sportify.model.entities;
 
-import at.fhv.itb13.sportify.model.interfaces.MemberRestricted;
+import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
 
 /**
  * Created by Niklas Fessler on 10/22/15.
  */
 
-public class Member implements MemberRestricted{
+public class Person implements PersonRestricted {
     private String _fname = "";
     private String _lname = "";
     private String _address = "";
     private String _birthdate = "";
 
-    public Member(String _fname, String _lname, String _address, String _birthdate) {
+    public Person(String _fname, String _lname, String _address, String _birthdate) {
         this._fname = _fname;
         this._lname = _lname;
         this._address = _address;

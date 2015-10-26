@@ -1,23 +1,71 @@
-<project name="Sportify">
+<project name="Sportify" default="run">
+    <!--Sourcedirection-->
+    <property name="src.dir" location="src"/>
+    <!--Location where all files are generated to-->
+    <property name="build.dir" location="build" />
+    <!--Destination where the .class files are generated to-->
+    <property name="buildclassses.dir" location="build/classes"/>
+    <!--Where the Jar File is generated to. Needed to create the package-->
+    <property name="buildjar.dir" location="build/jar"/>
+    <!--Path + Name of the generated jar file-->
+    <property name="jarname" location="build/jar/HelloWorld.jar"/>
+    <!--Path to the test files-->
+    <property name="test.dir" location="test" />
+    <!--Mainclass-->
+    <property name="mainclass" value="HelloWorld"/>
+    <path id="classpath.base">
+    </path>
+    <path id="classpath.test">
+        <pathelement location="./lib/junit-4.12.jar" />
+        <pathelement location="./lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="build/test" />
+        <path refid="classpath.base" />
+    </path>
+
+    <!--Clean the build directory before building it-->
     <target name="clean">
-        <delete dir="build"/>
+        <delete dir="${build.dir}"/>
+    </target>
+    <!--Compile the project-->
+    <target name="compile" depends="clean">
+        <mkdir dir="${buildclassses.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${buildclassses.dir}"/>
     </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes"/>
+    <target name="compiletest" depends="compile">
+        <mkdir dir="build/test"/>
+
+        <javac includeantruntime="false" srcdir="test"  destdir="build/test">
+            <classpath refid="classpath.test"/>
+        </javac>
     </target>
 
-    <target name="jar">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+    <target name="test" depends="compiletest">
+        <junit printsummary="yes" haltonfailure="no" fork="true">
+            <formatter type="plain"  ></formatter>
+            <classpath refid="classpath.test"/>
+
+            <batchtest fork="true">
+                <fileset dir="build/test">
+                    <include name="**/*Test*" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+    <!--Pack it into a JAR-->
+    <target name="jar" depends="compile">
+        <mkdir dir="${buildjar.dir}"/>
+        <jar destfile="${jarname}" basedir="${buildclassses.dir}">
             <manifest>
-                <attribute name="Main-Class" value="HelloWorld"/>
+                <attribute name="Main-Class" value="${mainclass}"/>
             </manifest>
         </jar>
     </target>
-
-    <target name="run">
-        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    <!--Run the Jar-->
+    <target name="run" depends ="jar">
+        <java jar="${jarname}" fork="true"/>
+    </target>
+    <!--Run All Tests-->
+    <target name="runtest" depends="test">
     </target>
 </project>

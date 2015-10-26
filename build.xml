@@ -30,7 +30,7 @@
 
     <target name="compiletest">
         <mkdir dir="build/test"/>
-        <javac srcdir="test"  destdir="build/test"/>
+        <javac includeantruntime="false" srcdir="test"  destdir="build/test"/>
     </target>
 
     <target name="test" depends="compiletest">

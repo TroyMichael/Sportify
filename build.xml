@@ -42,13 +42,9 @@
     <target name="test" depends="compiletest">
         <junit printsummary="yes" haltonfailure="no" fork="no">
             <formatter type="plain"  ></formatter>
-            <classpath>
-                <pathelement id="junit.jar" path="junit-4.jar"/>
-                <pathelement path="./lib/hamcrest-core-1.3.jar"/>
-                <pathelement location="build/test"/>
-            </classpath>
+            <classpath refid="classpath.test"/>
 
-            <batchtest fork="yes">
+            <batchtest fork="no">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />
                 </fileset>

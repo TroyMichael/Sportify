@@ -47,11 +47,11 @@
     </target>
 
     <target name="test" depends="compiletest">
-        <junit printsummary="yes" haltonfailure="no" fork="true">
-            <formatter type="plain"  ></formatter>
+        <mkdir dir="build/reports"></mkdir>
+        <junit printsummary="yes" haltonfailure="no" fork="true" dir="build/reports">
+            <formatter type="xml"/>
             <classpath refid="classpath.test"/>
-
-            <batchtest fork="true">
+            <batchtest fork="true" todir="build/reports">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />
                 </fileset>
@@ -73,5 +73,12 @@
     </target>
     <!--Run All Tests-->
     <target name="runtest" depends="test">
+        <mkdir dir="build/reports"></mkdir>
+        <junitreport todir="./build/reports">
+            <fileset dir="./build/reports">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="./report/html"/>
+        </junitreport>
     </target>
 </project>

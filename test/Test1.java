@@ -1,5 +1,5 @@
 import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by mod on 10/22/15.
@@ -7,7 +7,6 @@ import org.junit.Test;
 public class Test1 {
     @Test
     public void test(){
-        int i =  2;
-
+       assertEquals(true,true);
     }
 }

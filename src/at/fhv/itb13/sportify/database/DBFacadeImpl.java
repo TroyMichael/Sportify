@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.model.Person;
+import at.fhv.itb13.sportify.model.entities.Person;
 import at.fhv.itb13.sportify.util.HibernateUtil;
 
 import java.util.List;
@@ -64,4 +64,6 @@ public class DBFacadeImpl implements DBFacade {
     public <T extends PersistentObject> void delete(T object) {
         _daoMap.get(object.getClass()).delete(object);
     }
+
+
 }

@@ -1,8 +1,8 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.model.Person;
+import at.fhv.itb13.sportify.model.entities.Person;
 
-class PersonDAO extends GenericDAOImpl<Person, String> {
+public class PersonDAO extends GenericDAOImpl<Person, String> {
 
     public PersonDAO() {
         super(Person.class);

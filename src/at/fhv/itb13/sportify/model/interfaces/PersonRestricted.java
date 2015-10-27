@@ -16,9 +16,7 @@ public interface PersonRestricted {
 
     String getCity();
 
-    String getTelephoneNumber();
+    String getEmail();
 
     String getBirthdate();
-
-    boolean isPayed();
 }

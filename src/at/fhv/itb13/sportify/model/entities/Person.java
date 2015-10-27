@@ -1,11 +1,7 @@
 package at.fhv.itb13.sportify.model.entities;
 
 import at.fhv.itb13.sportify.database.PersistentObjectImpl;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.*;;
 
 /**
  * Created by Niklas Fessler on 10/22/15.

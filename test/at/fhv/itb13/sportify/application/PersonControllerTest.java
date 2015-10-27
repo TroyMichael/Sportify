@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.application;
 
-import at.fhv.itb13.sportify.application.controller.PersonController;
+//import at.fhv.itb13.sportify.application.controller.PersonController;
 
 /**
  * Created by mod on 10/27/15.

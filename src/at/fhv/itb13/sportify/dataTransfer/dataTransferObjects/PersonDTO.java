@@ -1,15 +1,13 @@
-package at.fhv.itb13.sportify.model.entities;
+package at.fhv.itb13.sportify.dataTransfer.dataTransferObjects;
 
+import at.fhv.itb13.sportify.dataTransfer.DTOObject;
 import at.fhv.itb13.sportify.database.PersistentObjectImpl;
-import javax.persistence.*;;
+import at.fhv.itb13.sportify.model.entities.Person;
 
 /**
- * Created by Niklas Fessler on 10/22/15.
+ * Created by KYUSS on 27.10.2015.
  */
-
-@Entity
-@Table(name = "person")
-public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportify.model.interfaces.PersonRestricted {
+public class PersonDTO extends DTOObject {
     private String _fname = "";
     private String _lname = "";
     private String _street = "";
@@ -19,19 +17,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     private String _email = "";
     private String _birthdate = "";
 
-    public Person (String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate) {
-        _fname = fname;
-        _lname = lname;
-        _street = street;
-        _houseNumber = houseNumber;
-        _postalCode = postalCode;
-        _city = city;
-        _email = email;
-        _birthdate = birthdate;
-    }
-    @Basic
-    @Column(name = "firstname")
-    @Override
     public String getFName() {
         return _fname;
     }
@@ -40,9 +25,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _fname = fname;
     }
 
-    @Basic
-    @Column(name = "lastname")
-    @Override
     public String getLName() {
         return _lname;
     }
@@ -51,9 +33,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _lname = lname;
     }
 
-    @Basic
-    @Column(name = "street")
-    @Override
     public String getStreet() {
         return _street;
     }
@@ -62,9 +41,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _street = street;
     }
 
-    @Basic
-    @Column(name = "housenumber")
-    @Override
     public String getHouseNumber() {
         return _houseNumber;
     }
@@ -73,9 +49,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _houseNumber = houseNumber;
     }
 
-    @Basic
-    @Column(name = "postalcode")
-    @Override
     public String getPostalCode() {
         return _postalCode;
     }
@@ -84,9 +57,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _postalCode = postalCode;
     }
 
-    @Basic
-    @Column(name = "city")
-    @Override
     public String getCity() {
         return _city;
     }
@@ -95,9 +65,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _city = city;
     }
 
-    @Basic
-    @Column(name = "email")
-    @Override
     public String getEmail() {
         return _email;
     }
@@ -106,14 +73,28 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _email = email;
     }
 
-    @Basic
-    @Column(name = "birthdate")
-    @Override
     public String getBirthdate() {
         return _birthdate;
     }
 
     public void setBirthdate (String birthdate) {
         _birthdate = birthdate;
+    }
+
+    @Override
+    public DTOObject build(PersistentObjectImpl entity) {
+        //will return new PersonDTO as DTOObject
+        Person person = (Person) entity;
+
+        _fname = person.getFName();
+        _lname = person.getLName();
+        _street = person.getStreet();
+        _houseNumber = person.getHouseNumber();
+        _postalCode = person.getPostalCode();
+        _city = person.getCity();
+        _email = person.getEmail();
+        _birthdate = person.getBirthdate();
+
+        return this;
     }
 }

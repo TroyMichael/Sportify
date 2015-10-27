@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.model.entities;
 
-import at.fhv.itb13.sportify.database.PersistentObject;
 import at.fhv.itb13.sportify.database.PersistentObjectImpl;
 import org.hibernate.annotations.Entity;
 import org.hibernate.annotations.Table;
@@ -11,6 +10,7 @@ import javax.persistence.Column;
 /**
  * Created by Niklas Fessler on 10/22/15.
  */
+
 @Entity
 @Table(name = "person")
 public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportify.model.interfaces.PersonRestricted {
@@ -43,8 +43,9 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setFName (String fname) {
         _fname = fname;
     }
+
     @Basic
-    @Column(name = "lasname")
+    @Column(name = "lastname")
     @Override
     public String getLName() {
         return _lname;
@@ -53,6 +54,7 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setLName (String lname) {
         _lname = lname;
     }
+
     @Basic
     @Column(name = "street")
     @Override
@@ -63,6 +65,7 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setStreet (String street) {
         _street = street;
     }
+
     @Basic
     @Column(name = "housenumber")
     @Override
@@ -73,8 +76,9 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setHouseNumber (String houseNumber) {
         _houseNumber = houseNumber;
     }
+
     @Basic
-    @Column(name = "postcode")
+    @Column(name = "postalcode")
     @Override
     public String getPostalCode() {
         return _postalCode;
@@ -83,6 +87,7 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setPostalCode (String postalCode) {
         _postalCode = postalCode;
     }
+
     @Basic
     @Column(name = "city")
     @Override
@@ -93,8 +98,9 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setCity (String city) {
         _city = city;
     }
+
     @Basic
-    @Column(name = "lasname")
+    @Column(name = "email")
     @Override
     public String getEmail() {
         return _email;
@@ -103,6 +109,7 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
     public void setEmail (String email) {
         _email = email;
     }
+
     @Basic
     @Column(name = "birthdate")
     @Override

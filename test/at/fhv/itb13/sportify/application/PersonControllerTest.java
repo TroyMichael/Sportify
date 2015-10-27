@@ -1,17 +1,14 @@
 package at.fhv.itb13.sportify.application;
 
-import at.fhv.itb13.sportify.application.controller.PersonController;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+//import at.fhv.itb13.sportify.application.controller.PersonController;
 
 /**
  * Created by mod on 10/27/15.
  * TODO: Change Name to an existing one
  */
 public class PersonControllerTest {
-    private PersonController _personController;
-
+//    private PersonController _personController;
+//
 //    /**
 //     * Check if an existing person can be found.
 //     */

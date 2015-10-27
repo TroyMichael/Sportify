@@ -51,6 +51,7 @@
         <junit printsummary="yes" haltonfailure="no" fork="true" dir="build/reports">
             <formatter type="xml"/>
             <classpath refid="classpath.test"/>
+            <classpath path="src"></classpath>
             <batchtest fork="true" todir="build/reports">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />

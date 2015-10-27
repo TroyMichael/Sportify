@@ -29,7 +29,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _email = email;
         _birthdate = birthdate;
     }
-    @Basic
     @Column(name = "firstname")
     @Override
     public String getFName() {
@@ -40,7 +39,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _fname = fname;
     }
 
-    @Basic
     @Column(name = "lastname")
     @Override
     public String getLName() {
@@ -51,7 +49,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _lname = lname;
     }
 
-    @Basic
     @Column(name = "street")
     @Override
     public String getStreet() {
@@ -62,7 +59,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _street = street;
     }
 
-    @Basic
     @Column(name = "housenumber")
     @Override
     public String getHouseNumber() {
@@ -73,7 +69,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _houseNumber = houseNumber;
     }
 
-    @Basic
     @Column(name = "postalcode")
     @Override
     public String getPostalCode() {
@@ -84,7 +79,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _postalCode = postalCode;
     }
 
-    @Basic
     @Column(name = "city")
     @Override
     public String getCity() {
@@ -95,7 +89,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _city = city;
     }
 
-    @Basic
     @Column(name = "email")
     @Override
     public String getEmail() {
@@ -106,7 +99,6 @@ public class Person extends PersistentObjectImpl implements at.fhv.itb13.sportif
         _email = email;
     }
 
-    @Basic
     @Column(name = "birthdate")
     @Override
     public String getBirthdate() {

@@ -1,11 +1,12 @@
 package at.fhv.itb13.sportify.application.controller;
 
-import at.fhv.itb13.sportify.application.exception.PersonNotFoundException;
 import at.fhv.itb13.sportify.database.DBFacade;
 import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
 import at.fhv.itb13.sportify.model.entities.Person;
+import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,10 +35,14 @@ public class PersonController {
      * @param person save this object
      */
     public void create(Person person) {
-        _facade.beginTransaction();
-        _facade.create(person);
-        _facade.commitTransaction();
-        //     _facade.rollbackTransaction();
+        try {
+            _facade.beginTransaction();
+            _facade.create(person);
+            _facade.commitTransaction();
+            _facade.rollbackTransaction();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -46,10 +51,14 @@ public class PersonController {
      * @param person person object with changed values
      */
     public void saveOrupdate(Person person) {
+       try{
         _facade.beginTransaction();
         _facade.createOrUpdate(person);
         _facade.commitTransaction();
-
+        _facade.rollbackTransaction();
+    }catch(Exception e){
+        e.printStackTrace();
+    }
     }
 
     /**
@@ -59,21 +68,23 @@ public class PersonController {
      * @param input search for this parameter
      * @return the searched person or throws an exception
      */
-    /*
-    * TODO: exception statt null
-     */
-    public Person getPerson(String input) throws PersonNotFoundException {
-        _facade.beginTransaction();
-        List<Person> personList = _facade.getAll(Person.class);
-        for (Person person : personList) {
-            if (input == person.getFName()) {
-                return person;
-            }
-            if (input == person.getLName()) {
-                return person;
-            } else {
-                throw new PersonNotFoundException();
-            }
-        }  return null; //never reached
+    public List<PersonRestricted> getPerson(String input){
+        List<PersonRestricted> foundpersons = new LinkedList<>();
+       try {
+           _facade.beginTransaction();
+           List<Person> personList = _facade.getAll(Person.class);
+           for (Person person : personList) {
+               if (input == person.getFName()) {
+                   foundpersons.add(person);
+                }
+               if (input == person.getLName()) {
+                   foundpersons.add(person);
+               }
+           }
+           return foundpersons;
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+        return null;
     }
 }

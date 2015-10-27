@@ -1,53 +1,99 @@
 package at.fhv.itb13.sportify.model.entities;
 
-import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
-
 /**
  * Created by Niklas Fessler on 10/22/15.
  */
 
-public class Person implements PersonRestricted {
+public class Person implements at.fhv.itb13.sportify.model.interfaces.PersonRestricted {
     private String _fname = "";
     private String _lname = "";
-    private String _address = "";
+    private String _street = "";
+    private String _houseNumber = "";
+    private String _postalCode = "";
+    private String _city = "";
+    private String _telephoneNumber = "";
     private String _birthdate = "";
 
-    public Person(String _fname, String _lname, String _address, String _birthdate) {
-        this._fname = _fname;
-        this._lname = _lname;
-        this._address = _address;
-        this._birthdate = _birthdate;
+    public Person (String fname, String lname, String street, String houseNumber, String postalCode, String city, String telephoneNumber, String birthdate) {
+        _fname = fname;
+        _lname = lname;
+        _street = street;
+        _houseNumber = houseNumber;
+        _postalCode = postalCode;
+        _city = city;
+        _telephoneNumber = telephoneNumber;
+        _birthdate = birthdate;
     }
 
+    @Override
     public String getFName() {
         return _fname;
     }
 
-    public void setFName(String _fname) {
-        this._fname = _fname;
+    public void setFName (String fname) {
+        _fname = fname;
     }
 
+    @Override
     public String getLName() {
         return _lname;
     }
 
-    public void setLName(String _lname) {
-        this._lname = _lname;
+    public void setLName (String lname) {
+        _lname = lname;
     }
 
-    public String getAddress() {
-        return _address;
+    @Override
+    public String getStreet() {
+        return _street;
     }
 
-    public void setAddress(String _address) {
-        this._address = _address;
+    public void setStreet (String street) {
+        _street = street;
     }
 
+    @Override
+    public String getHouseNumber() {
+        return _houseNumber;
+    }
+
+    public void setHouseNumber (String houseNumber) {
+        _houseNumber = houseNumber;
+    }
+
+    @Override
+    public String getPostalCode() {
+        return _postalCode;
+    }
+
+    public void setPostalCode (String postalCode) {
+        _postalCode = postalCode;
+    }
+
+    @Override
+    public String getCity() {
+        return _city;
+    }
+
+    public void setCity (String city) {
+        _city = city;
+    }
+
+    @Override
+    public String getTelephoneNumber() {
+        return _telephoneNumber;
+    }
+
+    public void setTelephoneNumber (String telephoneNumber) {
+        _telephoneNumber = telephoneNumber;
+    }
+
+    @Override
     public String getBirthdate() {
         return _birthdate;
     }
 
-    public void setBirthdate(String _birthdate) {
-        this._birthdate = _birthdate;
+    public void setBirthdate (String birthdate) {
+        _birthdate = birthdate;
     }
 }

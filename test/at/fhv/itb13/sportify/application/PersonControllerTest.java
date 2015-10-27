@@ -1,12 +1,9 @@
 package at.fhv.itb13.sportify.application;
 
-import at.fhv.itb13.sportify.application.Exception.PersonNotFoundException;
 import at.fhv.itb13.sportify.application.controller.PersonController;
-import at.fhv.itb13.sportify.model.entities.Person;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
-import org.junit.Test;
 
 /**
  * Created by mod on 10/27/15.

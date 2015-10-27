@@ -1,4 +1,4 @@
-package at.fhv.itb13.sportify.application.Exception;
+package at.fhv.itb13.sportify.application.exception;
 
 /**
  * Created by mod on 10/27/15.

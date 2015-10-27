@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.application.controller;
 
-import at.fhv.itb13.sportify.application.Exception.PersonNotFoundException;
+import at.fhv.itb13.sportify.application.exception.PersonNotFoundException;
 import at.fhv.itb13.sportify.database.DBFacade;
 import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
@@ -60,7 +60,7 @@ public class PersonController {
      * @return the searched person or throws an exception
      */
     /*
-    * TODO: Exception statt null
+    * TODO: exception statt null
      */
     public Person getPerson(String input) throws PersonNotFoundException {
         _facade.beginTransaction();

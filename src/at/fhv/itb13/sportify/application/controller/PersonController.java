@@ -10,25 +10,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Niklas Fessler on 10/27/15.
- * Search, edit or delete a Person from the Database
- * Controller is Singelton
+ * Created by mod on 10/27/15.
  */
 public class PersonController {
+    private static PersonController ourInstance = new PersonController();
     private DBFacade _facade;
-    private static PersonController _personController;
+    public static PersonController getInstance() {
+        return ourInstance;
+    }
 
-    private void PersonController() {
+    private PersonController() {
         _facade = new DBFacadeImpl(new PersonDAO());
     }
-
-    public static PersonController getInstance() {
-        if (_personController == null) {
-            _personController = new PersonController();
-        }
-        return _personController;
-    }
-
     /**
      * Create a new Entry in the table person
      *
@@ -51,14 +44,14 @@ public class PersonController {
      * @param person person object with changed values
      */
     public void saveOrupdate(Person person) {
-       try{
-        _facade.beginTransaction();
-        _facade.createOrUpdate(person);
-        _facade.commitTransaction();
-        _facade.rollbackTransaction();
-    }catch(Exception e){
-        e.printStackTrace();
-    }
+        try{
+            _facade.beginTransaction();
+            _facade.createOrUpdate(person);
+            _facade.commitTransaction();
+            _facade.rollbackTransaction();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -70,21 +63,22 @@ public class PersonController {
      */
     public List<PersonRestricted> getPerson(String input){
         List<PersonRestricted> foundpersons = new LinkedList<>();
-       try {
-           _facade.beginTransaction();
-           List<Person> personList = _facade.getAll(Person.class);
-           for (Person person : personList) {
-               if (input == person.getFName()) {
-                   foundpersons.add(person);
+        try {
+            _facade.beginTransaction();
+            List<Person> personList = _facade.getAll(Person.class);
+            for (Person person : personList) {
+                System.out.println(person.getFName());
+                if (input == person.getFName()) {
+                    foundpersons.add(person);
                 }
-               if (input == person.getLName()) {
-                   foundpersons.add(person);
-               }
-           }
-           return foundpersons;
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+                if (input == person.getLName()) {
+                    foundpersons.add(person);
+                }
+            }
+            return foundpersons;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 }

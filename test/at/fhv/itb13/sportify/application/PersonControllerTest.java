@@ -1,6 +1,11 @@
 package at.fhv.itb13.sportify.application;
 
 import at.fhv.itb13.sportify.application.controller.PersonController;
+import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 
 /**
  * Created by mod on 10/27/15.
@@ -8,20 +13,22 @@ import at.fhv.itb13.sportify.application.controller.PersonController;
  */
 public class PersonControllerTest {
      private PersonController _personController;
-//
-//    /**
-//     * Check if an existing person can be found.
-//     */
-//    @Test
-//    public void getExistingPerson(){
-//        try{
-//            _personController = PersonController.getInstance();
-//            Person p = _personController.getPerson("Molitur");
-//            assertNotEquals(p,null);
-//        }catch(PersonNotFoundException pnfe){
-//            pnfe.printStackTrace();
-//        }
-//    }
+
+    /**
+     * Check if an existing person can be found.
+     */
+    @Test
+    public void getExistingPerson(){
+        try{
+            _personController = PersonController.getInstance();
+
+            for(PersonRestricted p :_personController.getPerson("Molitur")) {
+                 assertEquals(p, null);
+            }
+        }catch(Exception pnfe){
+            pnfe.printStackTrace();
+        }
+    }
 //
 //    /**
 //     * Check if the exeption is thrown if the person does not exist.

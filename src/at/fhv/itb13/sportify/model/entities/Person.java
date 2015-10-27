@@ -13,6 +13,7 @@ public class Person implements at.fhv.itb13.sportify.model.interfaces.PersonRest
     private String _city = "";
     private String _telephoneNumber = "";
     private String _birthdate = "";
+    private boolean _payed = false;
 
     public Person (String fname, String lname, String street, String houseNumber, String postalCode, String city, String telephoneNumber, String birthdate) {
         _fname = fname;
@@ -95,5 +96,13 @@ public class Person implements at.fhv.itb13.sportify.model.interfaces.PersonRest
 
     public void setBirthdate (String birthdate) {
         _birthdate = birthdate;
+    }
+
+    @Override
+    public boolean isPayed() {
+        return _payed;
+    }
+    public void isPayed(boolean _payed) {
+        this._payed = _payed;
     }
 }

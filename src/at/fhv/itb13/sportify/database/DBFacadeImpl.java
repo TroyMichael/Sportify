@@ -3,6 +3,7 @@ package at.fhv.itb13.sportify.database;
 import at.fhv.itb13.sportify.model.entities.Person;
 import at.fhv.itb13.sportify.util.HibernateUtil;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class DBFacadeImpl implements DBFacade {
         _personDAO = personDAO;
 
         // add DAO objects to hash map
+        _daoMap = new HashMap();
         _daoMap.put(Person.class, _personDAO);
     }
 

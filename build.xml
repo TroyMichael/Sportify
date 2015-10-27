@@ -14,6 +14,8 @@
     <!--Mainclass-->
     <property name="mainclass" value="HelloWorld"/>
     <path id="classpath.base">
+        <pathelement location="./src"/>
+        <pathelement location="./build/*.java"/>
         <fileset dir="lib">
             <include name="**/*.jar" />
         </fileset>
@@ -33,7 +35,7 @@
     <target name="compile" depends="clean">
         <mkdir dir="${buildclassses.dir}"/>
         <javac srcdir="${src.dir}" destdir="${buildclassses.dir}">
-            <classpath refid="classpath.base"></classpath>
+            <classpath refid="classpath.base"/>
         </javac>
     </target>
 
@@ -51,7 +53,8 @@
         <junit printsummary="yes" haltonfailure="no" fork="true" dir="build/reports">
             <formatter type="xml"/>
             <classpath refid="classpath.test"/>
-            <classpath path="src"></classpath>
+            <classpath refid="classpath.base"/>
+            <classpath path="build"/>
             <batchtest fork="true" todir="build/reports">
                 <fileset dir="build/test">
                     <include name="**/*Test*" />

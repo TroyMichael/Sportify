@@ -13,7 +13,13 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class PersonControllerTest {
      private PersonController _personController;
+    /**
+     * Create a User
+     */
+    @Test
+    public void createPerson(){
 
+    }
     /**
      * Check if an existing person can be found.
      */
@@ -22,26 +28,26 @@ public class PersonControllerTest {
         try{
             _personController = PersonController.getInstance();
 
-            for(PersonRestricted p :_personController.getPerson("Molitur")) {
-                 assertEquals(p, null);
+            for(PersonRestricted p :_personController.getPerson("Helen")) {
+                 assertNotEquals(p, null);
             }
         }catch(Exception pnfe){
             pnfe.printStackTrace();
         }
     }
-//
-//    /**
-//     * Check if the exeption is thrown if the person does not exist.
-//     */
-//    public void getNonExistingPerson(){
-//        try{
-//            _personController = PersonController.getInstance();
-//            _personController.getPerson("YouShouldNotExistInDatabase");
-//        }catch(PersonNotFoundException pnfe){
-//            assertNotEquals(pnfe,null);
-//
-//        }
-//    }
+    @Test
+    /**
+     * Check if the exeption is thrown if the person does not exist.
+     */
+    public void getNonExistingPerson(){
+        try{
+            _personController = PersonController.getInstance();
+            _personController.getPerson("YouShouldNotExistInDatabase");
+        }catch(Exception pnfe){
+            assertNotEquals(pnfe,null);
+
+        }
+    }
 //
 //    /**
 //     * Change Value of existing Person

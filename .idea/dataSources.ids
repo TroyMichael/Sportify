@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="MySQL - sportify@52.89.2.255" uuid="5197f75b-2894-4c74-9e58-18de8dd1cfa6">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="sportify"/>
+    <table name="person" schema="" catalog="sportify" type="TABLE">
+      <column name="firstname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="lastname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="street" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="housenumber" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="postalcode" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="city" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="email" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="birthdate" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="JzAxLjAxLjE5NTAn"/>
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
   </data-source>
 </component>

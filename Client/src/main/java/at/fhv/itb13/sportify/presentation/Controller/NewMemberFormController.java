@@ -44,6 +44,7 @@ public class NewMemberFormController {
     private void SaveNewMember() {
 
         if (validateInput()) {
+<<<<<<< HEAD:Client/src/main/java/at/fhv/itb13/sportify/presentation/Controller/NewMemberFormController.java
             PersonDTOImpl newMember = new PersonDTOImpl();
             newMember.setFName(_fNameTextField.getText());
             newMember.setLName(_lNameTextField.getText());
@@ -55,6 +56,19 @@ public class NewMemberFormController {
             newMember.setBirthdate(_birthdayTextField.getText());
 
             //PersonController.getInstance().create(newMember);
+=======
+            PersonDTOImpl newMember = new PersonDTOImpl(
+                    _fNameTextField.getText(),
+                    _lNameTextField.getText(),
+                    _streetTextField.getText(),
+                    _streetNoTextField.getText(),
+                    _postalCodeTextField.getText(),
+                    _cityTextField.getText(),
+                    _eMailTextField.getText(),
+                    _birthdayTextField.getText()
+            );
+            PersonController.getInstance().create(newMember);
+>>>>>>> 7b88525b61a55e06035b5e6b65cd60ffa15862d0:src/main/java/at/fhv/itb13/sportify/presentation/Controller/NewMemberFormController.java
         }
 
     }

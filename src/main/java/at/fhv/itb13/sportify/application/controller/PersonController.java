@@ -1,5 +1,8 @@
 package at.fhv.itb13.sportify.application.controller;
 
+import at.fhv.itb13.sportify.dataTransfer.DTOObject;
+import at.fhv.itb13.sportify.dataTransfer.dtoInterfaces.PersonDTO;
+import at.fhv.itb13.sportify.dataTransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.database.DBFacade;
 import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
@@ -15,25 +18,36 @@ import java.util.List;
 public class PersonController {
     private static PersonController ourInstance = new PersonController();
     private DBFacade _facade;
+
     public static PersonController getInstance() {
         return ourInstance;
+    }
+
+    private PersonMapper _personMapper;
+
+    public PersonController(PersonMapper personMapper) {
+        _personMapper = personMapper;
     }
 
     private PersonController() {
         _facade = new DBFacadeImpl(new PersonDAO());
     }
+
+
     /**
      * Create a new Entry in the table person
      *
      * @param person save this object
      */
-    public void create(Person person) {
+    public void create(PersonDTO person) {
+
         try {
+            Person personDomain = _personMapper.toDomainObject(person);
             _facade.beginTransaction();
-            _facade.create(person);
+            _facade.create(personDomain);
             _facade.commitTransaction();
             _facade.rollbackTransaction();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -43,13 +57,16 @@ public class PersonController {
      *
      * @param person person object with changed values
      */
-    public void saveOrupdate(Person person) {
-        try{
+    public void saveOrupdate(PersonDTO person) {
+
+
+        try {
+            Person personDomain = _personMapper.toDomainObject(person);
             _facade.beginTransaction();
-            _facade.createOrUpdate(person);
+            _facade.createOrUpdate(personDomain);
             _facade.commitTransaction();
             _facade.rollbackTransaction();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -61,7 +78,7 @@ public class PersonController {
      * @param input search for this parameter
      * @return the searched person or throws an exception
      */
-    public List<PersonRestricted> getPerson(String input){
+    public List<PersonRestricted> getPerson(String input) {
         List<PersonRestricted> foundpersons = new LinkedList<>();
         try {
             _facade.beginTransaction();
@@ -76,7 +93,7 @@ public class PersonController {
                 }
             }
             return foundpersons;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

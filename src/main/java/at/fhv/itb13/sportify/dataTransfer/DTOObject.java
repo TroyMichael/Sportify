@@ -1,15 +1,16 @@
 package at.fhv.itb13.sportify.dataTransfer;
 
-import at.fhv.itb13.sportify.database.PersistentObjectImpl;
-
 import java.io.Serializable;
 
 /**
- * Created by KYUSS on 27.10.2015.
+ * Created by KYUSS on 28.10.2015.
  */
-public abstract class DTOObject implements Serializable {
+public interface DTOObject extends Serializable {
+    String getId();
 
-    public abstract DTOObject build(PersistentObjectImpl entity);
+    void setId(String id);
 
-    //TODO Version Control bei UpdateObject
+    int getVersion();
+
+    void setVersion(int version);
 }

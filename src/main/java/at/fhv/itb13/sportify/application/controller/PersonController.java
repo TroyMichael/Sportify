@@ -25,15 +25,10 @@ public class PersonController {
 
     private PersonMapper _personMapper;
 
-    public PersonController(PersonMapper personMapper) {
+    private PersonController(PersonMapper personMapper) {
         _personMapper = personMapper;
         _facade = new DBFacadeImpl(new PersonDAO());
     }
-
-    private PersonController() {
-        _facade = new DBFacadeImpl(new PersonDAO());
-    }
-
 
     /**
      * Create a new Entry in the table person
@@ -76,22 +71,44 @@ public class PersonController {
      * TODO: Suche nicht sehr performant
      * Search for a specific Person in the Database
      *
-     * @param input search for this parameter
      * @return the searched person or throws an exception
      */
-    public List<PersonRestricted> getPerson(String input) {
-        List<PersonRestricted> foundpersons = new LinkedList<>();
+    public List<PersonDTO> getPerson(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate) {
+        List<PersonDTO> foundpersons = new LinkedList<>();
+        List<Person> temp = new LinkedList<>();
         try {
             _facade.beginTransaction();
             List<Person> personList = _facade.getAll(Person.class);
             for (Person person : personList) {
-                System.out.println(person.getFName());
-                if (input == person.getFName()) {
-                    foundpersons.add(person);
+               if(fname == person.getFName()){
+                   temp.add(person);
+               }
+            }
+            for(Person p : temp){
+                if(lname != p.getLName()){
+                    temp.remove(p);
                 }
-                if (input == person.getLName()) {
-                    foundpersons.add(person);
+                else if(street != p.getStreet()){
+                    temp.remove(p);
                 }
+                else if(houseNumber != p.getHouseNumber()){
+                    temp.remove(p);
+                }
+                else if(postalCode != p.getPostalCode()){
+                    temp.remove(p);
+                }
+                else if(city != p.getCity()){
+                    temp.remove(p);
+                }
+                else if(email != p.getEmail()){
+                    temp.remove(p);
+                }
+                else if(birthdate != p.getBirthdate()){
+                    temp.remove(p);
+                }
+            }
+            for(Person p:temp){
+                foundpersons.add(_personMapper.toDTOObject(p));
             }
             return foundpersons;
         } catch (Exception e) {

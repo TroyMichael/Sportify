@@ -1,7 +1,8 @@
-package at.fhv.itb13.sportify.dataTransfer.mapper;
+package at.fhv.itb13.sportify.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.dataTransfer.dtoInterfaces.PersonDTO;
-import at.fhv.itb13.sportify.model.entities.Person;
+import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.model.Person;
 import junit.framework.TestCase;
 
 /**

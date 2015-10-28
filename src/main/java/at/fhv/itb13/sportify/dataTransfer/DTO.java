@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by KYUSS on 28.10.2015.
  */
-public interface DTOObject extends Serializable {
+public interface DTO extends Serializable {
     String getId();
 
     void setId(String id);

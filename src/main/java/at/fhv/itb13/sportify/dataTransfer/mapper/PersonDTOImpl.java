@@ -1,12 +1,12 @@
 package at.fhv.itb13.sportify.dataTransfer.mapper;
 
-import at.fhv.itb13.sportify.dataTransfer.DTOObjectImpl;
+import at.fhv.itb13.sportify.dataTransfer.DTOImpl;
 import at.fhv.itb13.sportify.dataTransfer.dtoInterfaces.PersonDTO;
 
 /**
  * Created by KYUSS on 27.10.2015.
  */
-public class PersonDTOImplImpl extends DTOObjectImpl implements PersonDTO {
+public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private String _fname = "";
     private String _lname = "";
     private String _street = "";

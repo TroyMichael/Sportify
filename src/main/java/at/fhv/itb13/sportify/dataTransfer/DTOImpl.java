@@ -5,7 +5,7 @@ import at.fhv.itb13.sportify.util.IdGenerator;
 /**
  * Created by KYUSS on 27.10.2015.
  */
-public abstract class DTOObjectImpl implements DTOObject {
+public abstract class DTOImpl implements DTO {
 
     private String _id = IdGenerator.createId();
     private int _version;

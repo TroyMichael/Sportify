@@ -1,13 +1,13 @@
 package at.fhv.itb13.sportify.dataTransfer.dtoInterfaces;
 
-import at.fhv.itb13.sportify.dataTransfer.DTOObject;
+import at.fhv.itb13.sportify.dataTransfer.DTO;
 
 import java.io.Serializable;
 
 /**
  * Created by KYUSS on 28.10.2015.
  */
-public interface PersonDTO extends Serializable, DTOObject {
+public interface PersonDTO extends Serializable, DTO {
     String getFName();
 
     void setFName(String fname);

@@ -1,7 +1,7 @@
 package at.fhv.itb13.sportify.presentation.Controller;
 
 import at.fhv.itb13.sportify.application.controller.PersonController;
-import at.fhv.itb13.sportify.dataTransfer.mapper.PersonDTOImplImpl;
+import at.fhv.itb13.sportify.dataTransfer.mapper.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -46,7 +46,7 @@ public class NewMemberFormController {
     private void SaveNewMember() {
 
         if (validateInput()) {
-            PersonDTOImplImpl newMember = new PersonDTOImplImpl();
+            PersonDTOImpl newMember = new PersonDTOImpl();
             newMember.setFName(_fNameTextField.getText());
             newMember.setLName(_lNameTextField.getText());
             newMember.setStreet(_streetTextField.getText());

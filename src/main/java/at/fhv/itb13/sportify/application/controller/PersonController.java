@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.application.controller;
 
-import at.fhv.itb13.sportify.dataTransfer.DTOObject;
 import at.fhv.itb13.sportify.dataTransfer.dtoInterfaces.PersonDTO;
 import at.fhv.itb13.sportify.dataTransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.database.DBFacade;
@@ -8,7 +7,6 @@ import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
 import at.fhv.itb13.sportify.model.entities.Person;
 import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
-import at.fhv.itb13.sportify.util.IdGenerator;
 
 import java.util.LinkedList;
 import java.util.List;

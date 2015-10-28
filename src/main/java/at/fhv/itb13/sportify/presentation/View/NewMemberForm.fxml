@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.presentation.Controller.NewMemberFormController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="263.0" prefWidth="399.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <Label text="Name" />
+            <Label text="Street" GridPane.rowIndex="1" />
+            <Label text="Postal Code" GridPane.rowIndex="2" />
+            <Label text="City" GridPane.rowIndex="3" />
+            <Label text="Telephone Number" GridPane.rowIndex="4" />
+            <Label text="E-Mail" GridPane.rowIndex="5" />
+            <Label text="Date of Birth" GridPane.rowIndex="6" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1">
+               <children>
+                  <TextField fx:id="_fNameTextField" promptText="First Name" />
+                  <TextField fx:id="_lNameTextField" promptText="Last Name" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="_streetTextField" promptText="Street" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="_streetNoTextField" prefHeight="25.0" prefWidth="109.0" promptText="Street No." HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <TextField fx:id="_postalCodeTextField" promptText="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="_cityTextField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="_telephoneNoTextField" promptText="Telephone Number" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="_eMailTextField" promptText="E-Mail" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="_birthdayTextField" promptText="Date of Birth (dd.MM.yyyy)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="113.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="237.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <HBox layoutX="311.0" layoutY="278.0" prefHeight="25.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="311.0" AnchorPane.rightAnchor="186.0" AnchorPane.topAnchor="278.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#SaveNewMember" text="Save" />
+            <Button mnemonicParsing="false" onAction="#CancelNewMember" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

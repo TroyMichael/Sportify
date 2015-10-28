@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.application;
 
 import at.fhv.itb13.sportify.application.controller.PersonController;
+import at.fhv.itb13.sportify.dataTransfer.dtoInterfaces.PersonDTO;
 import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -28,7 +29,7 @@ public class PersonControllerTest {
         try{
             _personController = PersonController.getInstance();
 
-            for(PersonRestricted p :_personController.getPerson("Börje")) {
+            for(PersonDTO p :_personController.getPerson("Simon", "", "", "", "", "", "", "")) {
                  assertNotEquals(p, null);
             }
         }catch(Exception pnfe){
@@ -42,7 +43,7 @@ public class PersonControllerTest {
     public void getNonExistingPerson(){
         try{
             _personController = PersonController.getInstance();
-            _personController.getPerson("YouShouldNotExistInDatabase");
+            _personController.getPerson("YouShouldNotExistInDatabase", "", "", "", "", "", "", "");
         }catch(Exception pnfe){
             assertNotEquals(pnfe,null);
 

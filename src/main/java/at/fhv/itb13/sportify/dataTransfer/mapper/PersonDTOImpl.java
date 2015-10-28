@@ -16,6 +16,17 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private String _email = "";
     private String _birthdate = "";
 
+    public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate){
+        _fname = fname;
+        _lname = lname;
+        _street = street;
+        _houseNumber = housenumber;
+        _postalCode = postalcode;
+        _city = city;
+        _email = email;
+        _birthdate = birthdate;
+    }
+
     @Override
     public String getFName() {
         return _fname;
@@ -95,6 +106,4 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     public void setBirthdate(String birthdate) {
         _birthdate = birthdate;
     }
-
-
 }

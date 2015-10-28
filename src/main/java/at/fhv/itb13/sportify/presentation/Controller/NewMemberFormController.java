@@ -46,16 +46,16 @@ public class NewMemberFormController {
     private void SaveNewMember() {
 
         if (validateInput()) {
-            PersonDTOImpl newMember = new PersonDTOImpl();
-            newMember.setFName(_fNameTextField.getText());
-            newMember.setLName(_lNameTextField.getText());
-            newMember.setStreet(_streetTextField.getText());
-            newMember.setHouseNumber(_streetNoTextField.getText());
-            newMember.setPostalCode(_postalCodeTextField.getText());
-            newMember.setCity(_cityTextField.getText());
-            newMember.setEmail(_eMailTextField.getText());
-            newMember.setBirthdate(_birthdayTextField.getText());
-
+            PersonDTOImpl newMember = new PersonDTOImpl(
+                    _fNameTextField.getText(),
+                    _lNameTextField.getText(),
+                    _streetTextField.getText(),
+                    _streetNoTextField.getText(),
+                    _postalCodeTextField.getText(),
+                    _cityTextField.getText(),
+                    _eMailTextField.getText(),
+                    _birthdayTextField.getText()
+            );
             PersonController.getInstance().create(newMember);
         }
 

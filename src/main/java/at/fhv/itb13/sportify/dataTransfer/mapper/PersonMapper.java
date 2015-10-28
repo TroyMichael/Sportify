@@ -34,15 +34,16 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
     @Override
     public PersonDTO toDTOObject(Person person) throws DomainObjectIsNullException {
         if (person != null){
-            PersonDTO personDTO = new PersonDTOImpl();
-            personDTO.setFName(person.getFName());
-            personDTO.setLName(person.getLName());
-            personDTO.setStreet(person.getStreet());
-            personDTO.setHouseNumber(person.getHouseNumber());
-            personDTO.setPostalCode(person.getPostalCode());
-            personDTO.setCity(person.getCity());
-            personDTO.setEmail(person.getEmail());
-            personDTO.setBirthdate(person.getBirthdate());
+            PersonDTO personDTO = new PersonDTOImpl(
+                    person.getFName(),
+                    person.getLName(),
+                    person.getStreet(),
+                    person.getHouseNumber(),
+                    person.getPostalCode(),
+                    person.getCity(),
+                    person.getEmail(),
+                    person.getBirthdate()
+            );
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             return personDTO;

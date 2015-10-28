@@ -11,6 +11,5 @@ public abstract class DTOObject implements Serializable {
 
     public abstract DTOObject build(PersistentObjectImpl entity);
 
-
     //TODO Version Control bei UpdateObject
 }

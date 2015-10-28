@@ -56,7 +56,7 @@ public class NewMemberFormController {
             newMember.setEmail(_eMailTextField.getText());
             newMember.setBirthdate(_birthdayTextField.getText());
 
-            //PersonController.getInstance().create(newMember);
+            PersonController.getInstance().create(newMember);
         }
 
     }

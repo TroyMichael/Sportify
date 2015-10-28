@@ -8,15 +8,17 @@ import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
 import at.fhv.itb13.sportify.model.entities.Person;
 import at.fhv.itb13.sportify.model.interfaces.PersonRestricted;
+import at.fhv.itb13.sportify.util.IdGenerator;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by mod on 10/27/15.
+ *
  */
 public class PersonController {
-    private static PersonController ourInstance = new PersonController();
+    private static PersonController ourInstance = new PersonController(new PersonMapper());
     private DBFacade _facade;
 
     public static PersonController getInstance() {
@@ -27,6 +29,7 @@ public class PersonController {
 
     public PersonController(PersonMapper personMapper) {
         _personMapper = personMapper;
+        _facade = new DBFacadeImpl(new PersonDAO());
     }
 
     private PersonController() {
@@ -46,8 +49,8 @@ public class PersonController {
             _facade.beginTransaction();
             _facade.create(personDomain);
             _facade.commitTransaction();
-            _facade.rollbackTransaction();
         } catch (Exception e) {
+            _facade.rollbackTransaction();
             e.printStackTrace();
         }
     }
@@ -65,8 +68,8 @@ public class PersonController {
             _facade.beginTransaction();
             _facade.createOrUpdate(personDomain);
             _facade.commitTransaction();
-            _facade.rollbackTransaction();
         } catch (Exception e) {
+            _facade.rollbackTransaction();
             e.printStackTrace();
         }
     }

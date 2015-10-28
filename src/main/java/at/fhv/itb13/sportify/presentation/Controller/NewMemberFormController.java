@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.presentation.Controller;
 
+import at.fhv.itb13.sportify.application.controller.PersonController;
+import at.fhv.itb13.sportify.dataTransfer.mapper.PersonDTOImplImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -43,9 +45,42 @@ public class NewMemberFormController {
     @FXML
     private void SaveNewMember() {
 
-        System.out.println(_fNameTextField.getText());
-        System.out.println(_lNameTextField.getText());
+        if (validateInput()) {
+            PersonDTOImplImpl newMember = new PersonDTOImplImpl();
+            newMember.setFName(_fNameTextField.getText());
+            newMember.setLName(_lNameTextField.getText());
+            newMember.setStreet(_streetTextField.getText());
+            newMember.setHouseNumber(_streetNoTextField.getText());
+            newMember.setPostalCode(_postalCodeTextField.getText());
+            newMember.setCity(_cityTextField.getText());
+            newMember.setEmail(_eMailTextField.getText());
+            newMember.setBirthdate(_birthdayTextField.getText());
 
+            //PersonController.getInstance().create(newMember);
+        }
+
+    }
+
+
+    private Boolean validateInput() {
+        Boolean validation = true;
+
+        if (_fNameTextField.getText().length() == 0) {
+            _fNameTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        if (_lNameTextField.getText().length() == 0) {
+            _lNameTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        if (_birthdayTextField.getText().length() == 0) {
+            _birthdayTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        return validation;
     }
 
     @FXML

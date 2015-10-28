@@ -28,7 +28,7 @@ public class PersonControllerTest {
         try{
             _personController = PersonController.getInstance();
 
-            for(PersonRestricted p :_personController.getPerson("Helen")) {
+            for(PersonRestricted p :_personController.getPerson("Börje")) {
                  assertNotEquals(p, null);
             }
         }catch(Exception pnfe){

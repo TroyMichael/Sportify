@@ -1,0 +1,64 @@
+<project name="Sportify">
+    <!-- General -->
+    <!--Build Dir-->
+    <property name="build.dir" location="build"/>
+
+    <!-- Client -->
+    <property name="client.dir" location="Client"/>
+    <property name="clientbuild.dir" location="${build.dir}/client"/>
+    <!-- TODO: Define Server and Shared -->
+    <!-- import libraries-->
+    <path id="classpath.base">
+        <fileset dir="./lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- Clean Build -->
+    <target name="clean" depends="clean_client">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="build">
+
+    </target>
+
+    <!--Client-->
+    <!--Source Dir-->
+    <property name="clientsrc.dir" location="${client.dir}/src/main"/>
+    <!--Source Dir Test-->
+    <property name="clienttest.dir" location="${client.dir}/src/test"/>
+    <!--Build Dir for src of Client -->
+    <property name="clientbuildsrc.dir" location="${clientbuild.dir}/build"/>
+    <!--Build Dir for Tests of Client-->
+    <property name="clientbuildtest.dir" location="${clientbuild.dir}/test"/>
+    <!-- define classpath for Client -->
+    <path id="classpath.clienttest">
+        <path refid="classpath.base"/>
+        <pathelement location="${clientbuildsrc.dir}"/>
+        <pathelement location="${clientbuildtest.dir}"/>
+    </path>
+
+    <!-- Clean Client build folder -->
+    <target name="clean_client">
+        <delete dir="${clientbuild.dir}"/>
+    </target>
+    <!-- Build Src files -->
+    <target name="build_client_src" depends="clean_client">
+        <mkdir dir="${clientbuildsrc.dir}"/>
+        <javac srcdir="${clientsrc.dir}" destdir="${clientbuildsrc.dir}">
+                <classpath refid="classpath.base"/>
+        </javac>
+    </target>
+    <!-- Build Test Files -->
+    <target name="build_client_test" depends="build_client_src">
+        <mkdir dir="${clientbuildtest.dir}"/>
+        <javac srcdir="${clienttest.dir}" destdir="${clientbuildtest.dir}">
+            <classpath refid="classpath.base"/>
+        </javac>
+    </target>
+    <!-- Compile Client -->
+
+    <target name="build_client" depends="build_client_test"/>
+    <!-- TODO: Define Dirs for Server and Shared -->
+</project>

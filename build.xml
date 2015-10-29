@@ -173,7 +173,7 @@
     </target>
 
     <!--generate Report for Server-->
-    <target name="report_server">
+    <target name="report_server" depends="test_server">
         <mkdir dir="${mainreport.dir}"/>
         <junitreport todir="${mainreport.dir}">
             <fileset dir="${serverreport.dir}">

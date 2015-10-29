@@ -20,11 +20,11 @@
     </path>
 
     <!-- Clean Build -->
-    <target name="clean" depends="clean_client">
+    <target name="clean" depends="clean_client,clean_shared">
         <delete dir="${build.dir}"/>
     </target>
     <!-- Build All -->
-    <target name="build" depends="build_client">
+    <target name="build" depends="build_shared,build_client">
 
     </target>
 
@@ -36,6 +36,25 @@
     <target name="report" depends="report_client">
 
     </target>
+
+
+    <!-- Shared -->
+    <!--Source Dir-->
+    <property name="sharedsrc.dir" location="${shared.dir}/src/main"/>
+    <property name="sharedbuild.dir" location="${build.dir}/shared/build"/>
+    <property name="sharedbuildsrc.dir" location="${sharedbuild.dir}/src"/>
+
+    <target name="clean_shared">
+        <delete dir="${sharedbuild.dir}"/>
+    </target>
+    <target name="build_shared_src">
+        <mkdir dir="${sharedbuildsrc.dir}"/>
+        <javac srcdir="${sharedsrc.dir}" destdir="${sharedbuildsrc.dir}">
+            <classpath refid="classpath.base"/>
+        </javac>
+    </target>
+    <target name="build_shared" depends="build_shared_src"/>
+
     <!--Client-->
     <!--Source Dir-->
     <property name="clientsrc.dir" location="${client.dir}/src/main"/>
@@ -46,8 +65,9 @@
     <!--Build Dir for Tests of Client-->
     <property name="clientbuildtest.dir" location="${clientbuild.dir}/test"/>
     <!-- define classpath for Client -->
-    <path id="classpath.clienttest">
+    <path id="classpath.client">
         <path refid="classpath.base"/>
+        <pathelement location="${sharedbuildsrc.dir}"/>
         <pathelement location="${clientbuildsrc.dir}"/>
         <pathelement location="${clientbuildtest.dir}"/>
     </path>
@@ -60,14 +80,14 @@
     <target name="build_client_src" depends="clean_client">
         <mkdir dir="${clientbuildsrc.dir}"/>
         <javac srcdir="${clientsrc.dir}" destdir="${clientbuildsrc.dir}">
-                <classpath refid="classpath.base"/>
+                <classpath refid="classpath.client"/>
         </javac>
     </target>
     <!-- Build Test Files -->
     <target name="build_client_test" depends="build_client_src">
         <mkdir dir="${clientbuildtest.dir}"/>
         <javac srcdir="${clienttest.dir}" destdir="${clientbuildtest.dir}">
-            <classpath refid="classpath.base"/>
+            <classpath refid="classpath.client"/>
         </javac>
     </target>
 
@@ -76,7 +96,7 @@
         <mkdir dir="${clienttest.dir}"/>
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${clientreport.dir}">
             <formatter type="xml"/>
-            <classpath refid="classpath.clienttest"/>
+            <classpath refid="classpath.client"/>
             <batchtest fork="true" todir="${clientreport.dir}">
                 <fileset dir="${clientbuildtest.dir}">
                     <include name="**/*Test*"/>
@@ -98,15 +118,6 @@
     <!-- Compile Client -->
 
     <target name="build_client" depends="build_client_test"/>
+
     <!-- TODO: Define Dirs for Server-->
-
-
-    <!-- Shared -->
-    <!--Source Dir-->
-    <property name="sharedsrc.dir" location="${client.dir}/src/main"/>
-    <!--Build Dir for src of Client -->
-    <property name="clientbuildsrc.dir" location="${clientbuild.dir}/build"/>
-    <target name="clean_shared">
-        <delete dir=""/>
-    </target>
 </project>

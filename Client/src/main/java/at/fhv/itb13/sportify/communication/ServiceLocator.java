@@ -9,14 +9,25 @@ import java.rmi.Naming;
  */
 public class ServiceLocator {
 
-    private static final String RMISERVER = "rmi://localhost/";
+    private static final String RMI_SERVER = "rmi://localhost/";
+    private static ServiceLocator _instance;
+
+    public static ServiceLocator getInstance() {
+        if (_instance == null) {
+            _instance = new ServiceLocator();
+        }
+        return _instance;
+    }
 
     private PersonRemote _personRemote;
+
+    private ServiceLocator() {
+    }
 
     public PersonRemote getPersonRemote() {
         if (_personRemote == null) {
             try {
-                _personRemote = (PersonRemote) Naming.lookup(RMISERVER + "PersonServant");
+                _personRemote = (PersonRemote) Naming.lookup(RMI_SERVER + "PersonServant");
             } catch (Exception e) {
                 e.printStackTrace();
             }

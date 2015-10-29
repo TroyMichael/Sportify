@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - sportify@52.89.2.255" uuid="21f06c9b-e54f-47c0-8991-10963a3607e9">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>sportify.*</schema-pattern>
+      <default-schemas>sportify.*</default-schemas>
+    </data-source>
+  </component>
+</project>

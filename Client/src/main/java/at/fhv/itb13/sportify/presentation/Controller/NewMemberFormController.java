@@ -1,8 +1,11 @@
 package at.fhv.itb13.sportify.presentation.controller;
 
+import at.fhv.itb13.sportify.communication.ServiceLocator;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
+import java.rmi.RemoteException;
 
 /**
  * Created by Michael on 26.10.2015.
@@ -39,24 +42,11 @@ public class NewMemberFormController {
 
     @FXML
     private TextField _birthdayTextField;
-    
+
     @FXML
     private void SaveNewMember() {
 
         if (validateInput()) {
-<<<<<<< HEAD:Client/src/main/java/at/fhv/itb13/sportify/presentation/Controller/NewMemberFormController.java
-            PersonDTOImpl newMember = new PersonDTOImpl();
-            newMember.setFName(_fNameTextField.getText());
-            newMember.setLName(_lNameTextField.getText());
-            newMember.setStreet(_streetTextField.getText());
-            newMember.setHouseNumber(_streetNoTextField.getText());
-            newMember.setPostalCode(_postalCodeTextField.getText());
-            newMember.setCity(_cityTextField.getText());
-            newMember.setEmail(_eMailTextField.getText());
-            newMember.setBirthdate(_birthdayTextField.getText());
-
-            //PersonController.getInstance().create(newMember);
-=======
             PersonDTOImpl newMember = new PersonDTOImpl(
                     _fNameTextField.getText(),
                     _lNameTextField.getText(),
@@ -67,8 +57,11 @@ public class NewMemberFormController {
                     _eMailTextField.getText(),
                     _birthdayTextField.getText()
             );
-            PersonController.getInstance().create(newMember);
->>>>>>> 7b88525b61a55e06035b5e6b65cd60ffa15862d0:src/main/java/at/fhv/itb13/sportify/presentation/Controller/NewMemberFormController.java
+            try {
+                ServiceLocator.getInstance().getPersonRemote().create(newMember);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
 
     }

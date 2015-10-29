@@ -2,11 +2,16 @@
     <!-- General -->
     <!--Build Dir-->
     <property name="build.dir" location="build"/>
-
+    <property name="report.dir" location="${build.dir}/reports"/>
+    <property name="mainreport.dir" location="${report.dir}/main"/>
     <!-- Client -->
     <property name="client.dir" location="Client"/>
     <property name="clientbuild.dir" location="${build.dir}/client"/>
-    <!-- TODO: Define Server and Shared -->
+    <property name="clientreport.dir" location="${report.dir}/client"/>
+    <!-- Shared -->
+    <property name="shared.dir" location="Shared"/>
+    <property name="shared.dir" location="${build.dir}/shared"/>
+    <!-- TODO: Define Server-->
     <!-- import libraries-->
     <path id="classpath.base">
         <fileset dir="./lib">
@@ -18,11 +23,19 @@
     <target name="clean" depends="clean_client">
         <delete dir="${build.dir}"/>
     </target>
-
-    <target name="build">
+    <!-- Build All -->
+    <target name="build" depends="build_client">
 
     </target>
 
+    <!-- Run All Tests -->
+    <target name="test" depends="test_client">
+
+    </target>
+    <!-- Build Report -->
+    <target name="report" depends="report_client">
+
+    </target>
     <!--Client-->
     <!--Source Dir-->
     <property name="clientsrc.dir" location="${client.dir}/src/main"/>
@@ -57,8 +70,43 @@
             <classpath refid="classpath.base"/>
         </javac>
     </target>
+
+    <!-- run Tests -->
+    <target name="test_client">
+        <mkdir dir="${clienttest.dir}"/>
+        <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${clientreport.dir}">
+            <formatter type="xml"/>
+            <classpath refid="classpath.clienttest"/>
+            <batchtest fork="true" todir="${clientreport.dir}">
+                <fileset dir="${clientbuildtest.dir}">
+                    <include name="**/*Test*"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!--generate Report for Client-->
+    <target name="report_client">
+        <mkdir dir="${mainreport.dir}"/>
+        <junitreport todir="${mainreport.dir}">
+            <fileset dir="${clientreport.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${mainreport.dir}"/>
+        </junitreport>
+    </target>
     <!-- Compile Client -->
 
     <target name="build_client" depends="build_client_test"/>
-    <!-- TODO: Define Dirs for Server and Shared -->
+    <!-- TODO: Define Dirs for Server-->
+
+
+    <!-- Shared -->
+    <!--Source Dir-->
+    <property name="sharedsrc.dir" location="${client.dir}/src/main"/>
+    <!--Build Dir for src of Client -->
+    <property name="clientbuildsrc.dir" location="${clientbuild.dir}/build"/>
+    <target name="clean_shared">
+        <delete dir=""/>
+    </target>
 </project>

@@ -97,7 +97,7 @@
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${clientreport.dir}">
             <formatter type="xml"/>
             <classpath refid="classpath.client"/>
-            <batchtest fork="true" todir="${clientreport.dir}">
+            <batchtest fork="no" todir="${clientreport.dir}">
                 <fileset dir="${clientbuildtest.dir}">
                     <include name="**/*Test*"/>
                 </fileset>

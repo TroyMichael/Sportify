@@ -14,7 +14,6 @@ public class PersonServant implements PersonRemote {
 
     @Override
     public void create(PersonDTO personDto) throws RemoteException {
-        //TODO
         _personController = PersonController.getInstance();
         _personController.create(personDto);
     }

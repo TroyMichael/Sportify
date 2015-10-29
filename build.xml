@@ -37,7 +37,7 @@
 
     </target>
     <!-- Build Report -->
-    <target name="report" depends="report_client,report_server">
+    <target name="report" depends="build_shared,report_client,report_server">
 
     </target>
 

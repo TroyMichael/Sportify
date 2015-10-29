@@ -34,7 +34,6 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
 
     @Override
     public PersonDTO toDTOObject(Person person) throws DomainObjectIsNullException {
-<<<<<<< HEAD:Server/src/main/java/at/fhv/itb13/sportify/communication/datatransfer/mapper/PersonMapper.java
         if (person != null) {
             PersonDTO personDTO = new PersonDTOImpl();
             personDTO.setFName(person.getFName());
@@ -45,19 +44,17 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setCity(person.getCity());
             personDTO.setEmail(person.getEmail());
             personDTO.setBirthdate(person.getBirthdate());
-=======
-        if (person != null){
-            PersonDTO personDTO = new PersonDTOImpl(
-                    person.getFName(),
-                    person.getLName(),
-                    person.getStreet(),
-                    person.getHouseNumber(),
-                    person.getPostalCode(),
-                    person.getCity(),
-                    person.getEmail(),
-                    person.getBirthdate()
-            );
->>>>>>> 7b88525b61a55e06035b5e6b65cd60ffa15862d0:src/main/java/at/fhv/itb13/sportify/dataTransfer/mapper/PersonMapper.java
+//        if (person != null){
+//            PersonDTO personDTO = new PersonDTOImpl(
+//                    person.getFName(),
+//                    person.getLName(),
+//                    person.getStreet(),
+//                    person.getHouseNumber(),
+//                    person.getPostalCode(),
+//                    person.getCity(),
+//                    person.getEmail(),
+//                    person.getBirthdate()
+//            );
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             return personDTO;

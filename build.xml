@@ -95,8 +95,8 @@
     </target>
 
     <!-- run Tests -->
-    <target name="test_client">
-        <mkdir dir="${clienttest.dir}"/>
+    <target name="test_client" depends="build_client_test">
+        <mkdir dir="${clientreport.dir}"/>
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${clientreport.dir}">
             <formatter type="xml"/>
             <classpath refid="classpath.client"/>
@@ -109,7 +109,7 @@
     </target>
 
     <!--generate Report for Client-->
-    <target name="report_client">
+    <target name="report_client" depends="test_client">
         <mkdir dir="${mainreport.dir}"/>
         <junitreport todir="${mainreport.dir}">
             <fileset dir="${clientreport.dir}">
@@ -159,12 +159,12 @@
     </target>
 
     <!-- run Tests -->
-    <target name="test_server">
-        <mkdir dir="${servertest.dir}"/>
+    <target name="test_server" depends="build_server_test">
+        <mkdir dir="${serverreport.dir}"/>
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${serverreport.dir}">
             <formatter type="xml"/>
             <classpath refid="classpath.server"/>
-            <batchtest fork="true" todir="${serverreport.dir}">
+            <batchtest fork="no" todir="${serverreport.dir}">
                 <fileset dir="${serverbuildtest.dir}">
                     <include name="**/*Test*"/>
                 </fileset>

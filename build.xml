@@ -11,7 +11,11 @@
     <!-- Shared -->
     <property name="shared.dir" location="Shared"/>
     <property name="shared.dir" location="${build.dir}/shared"/>
-    <!-- TODO: Define Server-->
+    <!-- Server-->
+    <property name="server.dir" location="Server"/>
+    <property name="serverbuild.dir" location="${build.dir}/server"/>
+    <property name="serverreport.dir" location="${report.dir}/server"/>
+
     <!-- import libraries-->
     <path id="classpath.base">
         <fileset dir="./lib">
@@ -20,23 +24,22 @@
     </path>
 
     <!-- Clean Build -->
-    <target name="clean" depends="clean_client,clean_shared">
+    <target name="clean" depends="clean_client,clean_shared,clean_server">
         <delete dir="${build.dir}"/>
     </target>
     <!-- Build All -->
-    <target name="build" depends="build_shared,build_client">
+    <target name="build" depends="build_shared,build_client,build_server">
 
     </target>
 
     <!-- Run All Tests -->
-    <target name="test" depends="test_client">
+    <target name="test" depends="test_client,test_server">
 
     </target>
     <!-- Build Report -->
-    <target name="report" depends="report_client">
+    <target name="report" depends="report_client,report_server">
 
     </target>
-
 
     <!-- Shared -->
     <!--Source Dir-->
@@ -119,5 +122,67 @@
 
     <target name="build_client" depends="build_client_test"/>
 
-    <!-- TODO: Define Dirs for Server-->
+    <!--Server-->
+    <!--Source Dir-->
+    <property name="serversrc.dir" location="${server.dir}/src/main"/>
+    <!--Source Dir Test-->
+    <property name="servertest.dir" location="${server.dir}/src/test"/>
+    <!--Build Dir for src of Server -->
+    <property name="serverbuildsrc.dir" location="${serverbuild.dir}/build"/>
+    <!--Build Dir for Tests of Server-->
+    <property name="serverbuildtest.dir" location="${serverbuild.dir}/test"/>
+    <!-- define classpath for Server-->
+    <path id="classpath.server">
+        <path refid="classpath.base"/>
+        <pathelement location="${sharedbuildsrc.dir}"/>
+        <pathelement location="${serverbuildsrc.dir}"/>
+        <pathelement location="${serverbuildtest.dir}"/>
+    </path>
+
+    <!-- Clean Server build folder -->
+    <target name="clean_server">
+        <delete dir="${serverbuild.dir}"/>
+    </target>
+    <!-- Build Src files -->
+    <target name="build_server_src" depends="clean_server">
+        <mkdir dir="${serverbuildsrc.dir}"/>
+        <javac srcdir="${serversrc.dir}" destdir="${serverbuildsrc.dir}">
+            <classpath refid="classpath.server"/>
+        </javac>
+    </target>
+    <!-- Build Test Files -->
+    <target name="build_server_test" depends="build_server_src">
+        <mkdir dir="${serverbuildtest.dir}"/>
+        <javac srcdir="${servertest.dir}" destdir="${serverbuildtest.dir}">
+            <classpath refid="classpath.server"/>
+        </javac>
+    </target>
+
+    <!-- run Tests -->
+    <target name="test_server">
+        <mkdir dir="${servertest.dir}"/>
+        <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${serverreport.dir}">
+            <formatter type="xml"/>
+            <classpath refid="classpath.server"/>
+            <batchtest fork="true" todir="${serverreport.dir}">
+                <fileset dir="${serverbuildtest.dir}">
+                    <include name="**/*Test*"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!--generate Report for Server-->
+    <target name="report_server">
+        <mkdir dir="${mainreport.dir}"/>
+        <junitreport todir="${mainreport.dir}">
+            <fileset dir="${serverreport.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${mainreport.dir}"/>
+        </junitreport>
+    </target>
+
+    <!-- Compile Server-->
+    <target name="build_server" depends="build_server_test"/>
 </project>

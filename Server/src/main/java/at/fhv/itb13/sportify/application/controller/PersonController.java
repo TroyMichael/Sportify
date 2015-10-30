@@ -65,6 +65,38 @@ public class PersonController {
         }
     }
 
+    public List <PersonDTO> searchPerson (PersonDTO personDTO){
+        List <PersonDTO> foundPersons = new LinkedList<>();
+        List <Person> personList = new LinkedList<>();
+
+        _facade.beginTransaction();
+        personList = _facade.getAll(Person.class);
+        List <Person> temporaryResults = new LinkedList<>();
+
+        if (personDTO.getLName().length() > 0){
+            for (Person person : personList){
+                if (personDTO.getLName() == person.getLName()){
+                    temporaryResults.add(person);
+                }
+            }
+        } else if (personDTO.getFName().length() > 0){
+            for (Person person : personList){
+                if (personDTO.getFName() == person.getFName()){
+                    temporaryResults.add(person);
+                }
+            }
+        } else if (personDTO.getBirthdate().length() > 0){
+            for (Person person : personList){
+                if (personDTO.getBirthdate() == person.getBirthdate()){
+                    temporaryResults.add(person);
+                }
+            }
+        }
+        return null;
+    }
+
+
+
     /**
      * TODO: Suche nicht sehr performant
      * Search for a specific Person in the Database

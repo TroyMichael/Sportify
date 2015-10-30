@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="at.fhv.itb13.sportify.presentation.controller.NewMemberFormController">
+            fx:controller="at.fhv.itb13.sportify.presentation.Controller.NewMemberFormController">
     <children>
         <GridPane layoutX="14.0" layoutY="14.0" prefHeight="263.0" prefWidth="399.0" AnchorPane.leftAnchor="15.0"
                   AnchorPane.topAnchor="15.0">

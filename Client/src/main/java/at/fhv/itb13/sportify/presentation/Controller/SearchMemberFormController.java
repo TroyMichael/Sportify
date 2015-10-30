@@ -1,11 +1,14 @@
 package at.fhv.itb13.sportify.presentation.Controller;
 
 import at.fhv.itb13.sportify.communication.ServiceLocator;
+import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.presentation.SportifyGUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
@@ -14,7 +17,7 @@ import java.rmi.RemoteException;
  * and then creates a DTO.
  */
 
-public class NewMemberFormController {
+public class SearchMemberFormController {
 
     @FXML
     private TextField _fNameTextField;
@@ -44,10 +47,10 @@ public class NewMemberFormController {
     private TextField _birthdayTextField;
 
     @FXML
-    private void SaveNewMember() {
+    private void SearchMember() {
 
-        if (validateInput()) {
-            PersonDTOImpl newMember = new PersonDTOImpl(
+
+            PersonDTOImpl member = new PersonDTOImpl(
                     _fNameTextField.getText(),
                     _lNameTextField.getText(),
                     _streetTextField.getText(),
@@ -57,38 +60,20 @@ public class NewMemberFormController {
                     _eMailTextField.getText(),
                     _birthdayTextField.getText()
             );
+            List<PersonDTO> results;
             try {
-                ServiceLocator.getInstance().getPersonRemote().create(newMember);
+               results= ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
+                LoadSearchResultView(results);
+
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
 
+
+    private void LoadSearchResultView(List<PersonDTO> results) { SportifyGUI.getSharedMainApp().loadSearchResultView(results); }
+
     }
 
-    private Boolean validateInput() {
-        Boolean validation = true;
 
-        if (_fNameTextField.getText().length() == 0) {
-            _fNameTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        }
-
-        if (_lNameTextField.getText().length() == 0) {
-            _lNameTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        }
-
-        if (_birthdayTextField.getText().length() == 0) {
-            _birthdayTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        }
-
-        return validation;
-    }
-
-    @FXML
-    private void CancelNewMember() {
-        System.out.println("Cancelled");
-    }
-}

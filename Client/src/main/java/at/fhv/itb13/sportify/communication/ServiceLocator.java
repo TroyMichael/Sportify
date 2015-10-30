@@ -12,8 +12,10 @@ import java.rmi.RemoteException;
  */
 public class ServiceLocator {
 
-    private static final String RMI_SERVER = "rmi://localhost/";
+    private static final String RMI_SERVER = "rmi://localhost:12345/";
+
     private static ServiceLocator _instance;
+
     private PersonRemote _personRemote;
 
     private ServiceLocator() {

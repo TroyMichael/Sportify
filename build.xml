@@ -195,6 +195,7 @@
         </exec>
         <exec executable="rmiregistry" spawn="true">
             <arg value="-J-Djava.rmi.server.useCodebaseOnly=false"/>
+            <arg value="12345"/>
         </exec>
     </target>
 

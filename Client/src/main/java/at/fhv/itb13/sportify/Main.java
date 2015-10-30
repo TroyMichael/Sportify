@@ -2,9 +2,7 @@ package at.fhv.itb13.sportify;
 
 //import at.fhv.itb13.sportify.communication.servants.PersonServant;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
+import at.fhv.itb13.sportify.presentation.SportifyGUI;
 
 /**
  * Created by Michael on 27.10.2015.
@@ -12,6 +10,8 @@ import java.rmi.RemoteException;
 public class Main {
 
     public static void main(String[] args) {
+        SportifyGUI.run(args);
+        System.out.println("Client started!");
 //        try {
 //            PersonServant personServant = new PersonServant();
 //            //NAMING mit client fixieren

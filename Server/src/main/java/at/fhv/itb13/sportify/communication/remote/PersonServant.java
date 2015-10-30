@@ -1,16 +1,22 @@
-package at.fhv.itb13.sportify.communication.servants;
+package at.fhv.itb13.sportify.communication.remote;
 
 import at.fhv.itb13.sportify.application.controller.PersonController;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.communication.remote.PersonRemote;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Patrick on 28.10.2015.
  */
-public class PersonServant implements PersonRemote {
+public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     private PersonController _personController;
+
+    public PersonServant() throws RemoteException {
+        super();
+        _personController = PersonController.getInstance();
+    }
 
     @Override
     public void create(PersonDTO personDto) throws RemoteException {

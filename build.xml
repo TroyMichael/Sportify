@@ -83,7 +83,7 @@
     <target name="build_client_src" depends="clean_client">
         <mkdir dir="${clientbuildsrc.dir}"/>
         <javac srcdir="${clientsrc.dir}" destdir="${clientbuildsrc.dir}">
-                <classpath refid="classpath.client"/>
+            <classpath refid="classpath.client"/>
         </javac>
     </target>
     <!-- Build Test Files -->
@@ -185,4 +185,32 @@
 
     <!-- Compile Server-->
     <target name="build_server" depends="build_server_test"/>
+
+    <!-- Restart the RMI registry -->
+    <target name="restart_rmi_registry">
+        <exec executable="taskkill" spawn="true">
+            <arg value="/f"/>
+            <arg value="/im"/>
+            <arg value="rmiregistry.exe"/>
+        </exec>
+        <exec executable="rmiregistry" spawn="true">
+            <arg value="-J-Djava.rmi.server.useCodebaseOnly=false"/>
+            <arg value="12345"/>
+        </exec>
+    </target>
+
+    <!-- Start the Server -->
+    <target name="run_server" depends="build_shared,build_server,restart_rmi_registry">
+        <java classname="at.fhv.itb13.sportify.Main">
+            <classpath refid="classpath.server"/>
+            <arg value="-Djava.rmi.server.codebase=file:///${sharedbuild.dir}"/>
+        </java>
+    </target>
+
+    <!-- Start the Client -->
+    <target name="run_client" depends="build_shared,build_client">
+        <java classname="at.fhv.itb13.sportify.Main">
+            <classpath refid="classpath.client"/>
+        </java>
+    </target>
 </project>

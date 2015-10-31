@@ -50,7 +50,7 @@ public class SearchMemberFormController {
     private void SearchMember() {
 
 
-            PersonDTOImpl member = new PersonDTOImpl(
+            PersonDTO member = new PersonDTOImpl(
                     _fNameTextField.getText(),
                     _lNameTextField.getText(),
                     _streetTextField.getText(),

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.presentation.Controller.SearchResultViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.presentation.Controller.SearchResultViewController">
    <children>
       <SplitPane dividerPositions="0.16331658291457288" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -19,10 +19,10 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView layoutX="-72.0" layoutY="-7.0" prefHeight="328.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="_personTable" layoutX="-72.0" layoutY="-7.0" prefHeight="328.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Firstname" />
-                                  <TableColumn prefWidth="75.0" text="Lastname" />
+                                  <TableColumn fx:id="_firstNameColumn" prefWidth="75.0" text="Firstname" />
+                                  <TableColumn fx:id="_lastNameColumn" prefWidth="75.0" text="Lastname" />
                                 </columns>
                               </TableView>
                            </children>

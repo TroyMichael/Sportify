@@ -61,19 +61,21 @@ public class SearchMemberFormController {
                     _birthdayTextField.getText()
             );
             List<PersonDTO> results;
-            try {
-               results= ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
-                LoadSearchResultView(results);
+  //          try {
+//               results= ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
+                LoadSearchResultView(null);
 
 
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+     //       } catch (RemoteException e) {
+       //         e.printStackTrace();
+         //   }
         }
 
 
     private void LoadSearchResultView(List<PersonDTO> results) { SportifyGUI.getSharedMainApp().loadSearchResultView(results); }
 
-    }
+//    private void LoadSearchResultView(List<PersonDTO> results) { SportifyGUI.getSharedMainApp().loadSearchResultView(null); }
+
+}
 
 

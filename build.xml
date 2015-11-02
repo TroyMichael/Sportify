@@ -154,6 +154,9 @@
     <!-- Build Src files -->
     <target name="build_server_src" depends="clean_server">
         <mkdir dir="${serverbuildsrc.dir}"/>
+        <copy todir="${serverbuildsrc.dir}">
+            <fileset dir="${serversrc.dir}/resources" includes="**"/>
+        </copy>
         <javac srcdir="${serversrc.dir}" destdir="${serverbuildsrc.dir}">
             <classpath refid="classpath.server"/>
         </javac>

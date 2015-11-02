@@ -1,7 +1,9 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 
+import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -96,6 +98,56 @@ public class MemberDataController {
         _saveButton.setVisible(true);
 
         _fNameTextField.setEditable(true);
+        _lNameTextField.setEditable(true);
+        _cityTextField.setEditable(true);
+        _birthdayTextField.setEditable(true);
+        _eMailTextField.setEditable(true);
+        _postalCodeTextField.setEditable(true);
+        _streetNoTextField.setEditable(true);
+        _streetTextField.setEditable(true);
 
+    }
+
+    @FXML
+    private void clickSaveButton(){
+        if (validateInput()) {
+            PersonDTOImpl newMember = new PersonDTOImpl(
+                    _fNameTextField.getText(),
+                    _lNameTextField.getText(),
+                    _streetTextField.getText(),
+                    _streetNoTextField.getText(),
+                    _postalCodeTextField.getText(),
+                    _cityTextField.getText(),
+                    _eMailTextField.getText(),
+                    _birthdayTextField.getText()
+            );
+            try {
+                ServiceLocator.getInstance().getPersonRemote().editPerson(newMember);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private Boolean validateInput() {
+        Boolean validation = true;
+
+        if (_fNameTextField.getText().length() == 0) {
+            _fNameTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        if (_lNameTextField.getText().length() == 0) {
+            _lNameTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        if (_birthdayTextField.getText().length() == 0) {
+            _birthdayTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        }
+
+        return validation;
     }
 }

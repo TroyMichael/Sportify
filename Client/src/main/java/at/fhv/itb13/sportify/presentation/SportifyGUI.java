@@ -89,9 +89,10 @@ public class SportifyGUI extends Application {
         loadView("view/SearchMemberForm.fxml");
     }
 
-    public void loadSearchResultView(List<PersonDTO> results) {
+    public void loadSearchResultView(List<PersonDTO> results, String searchInput) {
         SearchResultViewController cont =  (SearchResultViewController) loadView("view/SearchResultView.fxml");
         cont.setResult(results);
+        cont.setSearchInput(searchInput);
 
 
     }

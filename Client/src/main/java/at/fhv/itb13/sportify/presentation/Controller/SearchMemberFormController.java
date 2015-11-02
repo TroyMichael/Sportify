@@ -49,7 +49,7 @@ public class SearchMemberFormController {
     @FXML
     private void SearchMember() {
 
-
+        String input = getInput();
             PersonDTO member = new PersonDTOImpl(
                     _fNameTextField.getText(),
                     _lNameTextField.getText(),
@@ -63,7 +63,7 @@ public class SearchMemberFormController {
             List<PersonDTO> results;
   //          try {
 //               results= ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
-                LoadSearchResultView(null);
+                LoadSearchResultView(null, input);
 
 
      //       } catch (RemoteException e) {
@@ -72,10 +72,38 @@ public class SearchMemberFormController {
         }
 
 
-    private void LoadSearchResultView(List<PersonDTO> results) { SportifyGUI.getSharedMainApp().loadSearchResultView(results); }
+    private void LoadSearchResultView(List<PersonDTO> results, String searchInput) { SportifyGUI.getSharedMainApp().loadSearchResultView(results, searchInput); }
 
-//    private void LoadSearchResultView(List<PersonDTO> results) { SportifyGUI.getSharedMainApp().loadSearchResultView(null); }
 
+    private String getInput(){
+        String str = new String();
+
+        if(_fNameTextField.getText().length() > 0){
+            str = str + ", " +  _fNameTextField.getText();
+        }
+        if(_lNameTextField.getText().length() > 0){
+            str = str + ", " + _lNameTextField.getText();
+        }
+        if(_streetTextField.getText().length() > 0){
+            str = str + ", " + _streetTextField.getText();
+        }
+        if(_streetNoTextField.getText().length() > 0){
+            str = str + ", " + _streetNoTextField.getText();
+        }
+        if(_postalCodeTextField.getText().length() > 0){
+            str = str + ", " + _fNameTextField.getText();
+        }
+        if(_cityTextField.getText().length() > 0){
+            str = str + ", " + _cityTextField.getText();
+        }
+        if(_eMailTextField.getText().length() > 0){
+            str = str + ", " + _eMailTextField.getText();
+        }
+        if(_birthdayTextField.getText().length() > 0){
+            str = str + ", " + _birthdayTextField.getText();
+        }
+        return str;
+    }
 }
 
 

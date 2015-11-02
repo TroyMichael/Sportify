@@ -5,11 +5,11 @@ import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +26,9 @@ public class SearchResultViewController {
     private TableColumn<PersonDTO, String> _firstNameColumn;
     @FXML
     private TableColumn<PersonDTO, String> _lastNameColumn;
+
+    @FXML
+    private Label _searchInput;
 
     public void setResult(List<PersonDTO> result) {
       //  _result = result;
@@ -45,7 +48,10 @@ public class SearchResultViewController {
         _result.add(p1);
         _result.add(p2);
 
+    }
 
+    public void setSearchInput(String searchInput){
+        _searchInput.setText(searchInput);
     }
 
     @FXML
@@ -53,8 +59,8 @@ public class SearchResultViewController {
 
         setResult(null);
         // Initialize the person table with the three columns.
-        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("Firstname"));
-        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("Lastname"));
+        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         if(_result.size() > 0){
 
@@ -67,9 +73,9 @@ public class SearchResultViewController {
 
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Patient found");
-            alert.setHeaderText("Sorry, the Patient could not be found.");
-            alert.setContentText("Please make sure you have entered the right name or Social Insurance Number.");
+            alert.setTitle("No Member found");
+            alert.setHeaderText("Sorry, the Member could not be found.");
+            alert.setContentText("Please make sure you have entered the right data.");
             alert.showAndWait();
         }
 

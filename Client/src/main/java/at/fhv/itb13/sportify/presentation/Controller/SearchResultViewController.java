@@ -2,12 +2,14 @@ package at.fhv.itb13.sportify.presentation.Controller;
 
 import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.presentation.SportifyGUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -29,6 +31,9 @@ public class SearchResultViewController {
 
     @FXML
     private Label _searchInput;
+
+    @FXML
+    private BorderPane _borderPane;
 
     public void setResult(List<PersonDTO> result) {
       //  _result = result;
@@ -62,6 +67,7 @@ public class SearchResultViewController {
         _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
         _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
+
         if(_result.size() > 0){
 
             ObservableList<PersonDTO> obsRestults = FXCollections.observableArrayList();
@@ -79,7 +85,12 @@ public class SearchResultViewController {
             alert.showAndWait();
         }
 
+        // Listen for selection changes and show the person details when changed.
+        _personTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> LoadMemberDataView(newValue, _borderPane));
+
     }
 
+    private void LoadMemberDataView(PersonDTO person, BorderPane pane) { SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane); }
 
 }

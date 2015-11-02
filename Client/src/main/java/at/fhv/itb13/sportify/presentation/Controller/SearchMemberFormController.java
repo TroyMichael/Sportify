@@ -79,28 +79,28 @@ public class SearchMemberFormController {
         String str = new String();
 
         if(_fNameTextField.getText().length() > 0){
-            str = str + ", " +  _fNameTextField.getText();
+            str = str +  _fNameTextField.getText() + ", " ;
         }
         if(_lNameTextField.getText().length() > 0){
-            str = str + ", " + _lNameTextField.getText();
+            str = str  + _lNameTextField.getText() + ", ";
         }
         if(_streetTextField.getText().length() > 0){
-            str = str + ", " + _streetTextField.getText();
+            str = str  + _streetTextField.getText() + ", ";
         }
         if(_streetNoTextField.getText().length() > 0){
-            str = str + ", " + _streetNoTextField.getText();
+            str = str  + _streetNoTextField.getText() + ", ";
         }
         if(_postalCodeTextField.getText().length() > 0){
-            str = str + ", " + _fNameTextField.getText();
+            str = str  + _fNameTextField.getText() + ", ";
         }
         if(_cityTextField.getText().length() > 0){
-            str = str + ", " + _cityTextField.getText();
+            str = str  + _cityTextField.getText() + ", ";
         }
         if(_eMailTextField.getText().length() > 0){
-            str = str + ", " + _eMailTextField.getText();
+            str = str  + _eMailTextField.getText() + ", ";
         }
         if(_birthdayTextField.getText().length() > 0){
-            str = str + ", " + _birthdayTextField.getText();
+            str = str  + _birthdayTextField.getText() + ", ";
         }
         return str;
     }

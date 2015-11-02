@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.presentation;
 
 import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.presentation.Controller.MemberDataController;
 import at.fhv.itb13.sportify.presentation.Controller.SearchMemberFormController;
 import at.fhv.itb13.sportify.presentation.Controller.SearchResultViewController;
 import javafx.application.Application;
@@ -66,13 +67,13 @@ public class SportifyGUI extends Application {
      * @param viewURL the URL to the FXML File that contains the view
      * @return the view's controller
      */
-    private Object loadView(String viewURL) {
+    private Object loadView(String viewURL, BorderPane pane) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SportifyGUI.class.getResource(viewURL));
             Node view = loader.load();
 
-            _rootLayout.setCenter(view);
+           pane.setCenter(view);
 
             return loader.getController();
         } catch (IOException e) {
@@ -82,19 +83,22 @@ public class SportifyGUI extends Application {
     }
 
     public void loadNewMemberForm() {
-        loadView("view/NewMemberForm.fxml");
+        loadView("view/NewMemberForm.fxml", _rootLayout);
     }
 
     public void loadSearchMemberForm() {
-        loadView("view/SearchMemberForm.fxml");
+        loadView("view/SearchMemberForm.fxml", _rootLayout);
     }
 
     public void loadSearchResultView(List<PersonDTO> results, String searchInput) {
-        SearchResultViewController cont =  (SearchResultViewController) loadView("view/SearchResultView.fxml");
+        SearchResultViewController cont =  (SearchResultViewController) loadView("view/SearchResultView.fxml", _rootLayout);
         cont.setResult(results);
         cont.setSearchInput(searchInput);
+    }
 
-
+    public void loadMemberDataView(PersonDTO person, BorderPane pane) {
+        MemberDataController cont =  (MemberDataController) loadView("view/MemberData.fxml", pane);
+        cont.setPerson(person);
     }
 
     public static SportifyGUI getSharedMainApp() {

@@ -1,8 +1,8 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
-import at.fhv.itb13.sportify.communication.remote.PersonRemote;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,13 +26,13 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     }
 
     @Override
-    public List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException{
+    public List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException {
         return _personController.searchPerson(personDto);
 
     }
 
     @Override
-    public void editPerson(PersonDTO personDTO) throws RemoteException{
+    public void editPerson(PersonDTO personDTO) throws RemoteException {
         _personController.saveOrupdate(personDTO);
     }
 }

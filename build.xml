@@ -1,4 +1,4 @@
-<project name="Sportify">
+<project name="Sportify" xmlns:fx="javafx:com.sun.javafx.tools.ant">
     <!-- General -->
     <!--Build Dir-->
     <property name="build.dir" location="build"/>
@@ -225,8 +225,8 @@
     </target>
 
     <!-- Start the Client -->
-    <target name="run_client" depends="build_shared_src,build_client,copy_shared">
-        <java classname="at.fhv.itb13.sportify.Main">
+    <target name="run_client">
+        <java classname="at.fhv.itb13.sportify.client.Main">
             <classpath refid="classpath.client"/>
         </java>
     </target>

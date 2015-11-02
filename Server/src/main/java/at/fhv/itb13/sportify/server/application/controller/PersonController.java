@@ -51,7 +51,6 @@ public class PersonController {
      * Update the content of a person
      *
      * @param person person object with changed values
-     *
      */
     public void saveOrupdate(PersonDTO person) {
         try {
@@ -65,59 +64,59 @@ public class PersonController {
         }
     }
 
-    public List <PersonDTO> searchPerson (PersonDTO personDTO){
-        List <Person> personList = new LinkedList<>();
+    public List<PersonDTO> searchPerson(PersonDTO personDTO) {
+        List<Person> personList = new LinkedList<>();
         _facade.beginTransaction();
         personList = _facade.getAll(Person.class);
 
-        List <List<Person>> resultsSet = new ArrayList<List<Person>>();
-        List <Person> lastNameResults;
-        List <Person> firstNameResults;
-        List <Person> streetResults;
-        List <Person> houseNumberResults;
-        List <Person> postalCodeResults;
-        List <Person> cityResults;
-        List <Person> emailResults;
-        List <Person> birthdateResults;
+        List<List<Person>> resultsSet = new ArrayList<List<Person>>();
+        List<Person> lastNameResults;
+        List<Person> firstNameResults;
+        List<Person> streetResults;
+        List<Person> houseNumberResults;
+        List<Person> postalCodeResults;
+        List<Person> cityResults;
+        List<Person> emailResults;
+        List<Person> birthdateResults;
 
 
-        if (personDTO.getLName().length() > 0){
+        if (personDTO.getLName().length() > 0) {
             lastNameResults = personList.stream().filter(person -> person.getLName().equals(personDTO.getLName())).collect(Collectors.toList());
             resultsSet.add(lastNameResults);
         }
-        if (personDTO.getFName().length() > 0){
+        if (personDTO.getFName().length() > 0) {
             firstNameResults = personList.stream().filter(person -> person.getFName().equals(personDTO.getFName())).collect(Collectors.toList());
             resultsSet.add(firstNameResults);
         }
-        if (personDTO.getStreet().length() > 0){
+        if (personDTO.getStreet().length() > 0) {
             streetResults = personList.stream().filter(person -> person.getStreet().equals(personDTO.getStreet())).collect(Collectors.toList());
             resultsSet.add(streetResults);
         }
-        if (personDTO.getHouseNumber().length() > 0){
+        if (personDTO.getHouseNumber().length() > 0) {
             houseNumberResults = personList.stream().filter(person -> person.getHouseNumber().equals(personDTO.getHouseNumber())).collect(Collectors.toList());
             resultsSet.add(houseNumberResults);
         }
-        if (personDTO.getPostalCode().length() > 0){
+        if (personDTO.getPostalCode().length() > 0) {
             postalCodeResults = personList.stream().filter(person -> person.getPostalCode().equals(personDTO.getPostalCode())).collect(Collectors.toList());
             resultsSet.add(postalCodeResults);
         }
-        if (personDTO.getCity().length() > 0){
+        if (personDTO.getCity().length() > 0) {
             cityResults = personList.stream().filter(person -> person.getCity().equals(personDTO.getCity())).collect(Collectors.toList());
             resultsSet.add(cityResults);
         }
-        if (personDTO.getEmail().length() > 0){
+        if (personDTO.getEmail().length() > 0) {
             emailResults = personList.stream().filter(person -> person.getEmail().equals(personDTO.getEmail())).collect(Collectors.toList());
             resultsSet.add(emailResults);
         }
-        if (personDTO.getBirthdate().length() > 0){
+        if (personDTO.getBirthdate().length() > 0) {
             birthdateResults = personList.stream().filter(person -> person.getBirthdate().equals(personDTO.getBirthdate())).collect(Collectors.toList());
             resultsSet.add(birthdateResults);
         }
 
-        List <Person> personResults = new ArrayList<>();
+        List<Person> personResults = new ArrayList<>();
         personResults.addAll(getCommonElements(resultsSet));
 
-        List <PersonDTO> personDTOResults = null;
+        List<PersonDTO> personDTOResults = null;
         try {
             personDTOResults = _personMapper.listToDTO(personResults);
         } catch (DomainObjectIsNullException e) {
@@ -127,12 +126,12 @@ public class PersonController {
         return personDTOResults;
     }
 
-    private Set <Person> getCommonElements (Collection <? extends Collection <Person>> collections){
-        Set <Person> common = new LinkedHashSet<Person>();
-        if (!collections.isEmpty()){
-            Iterator <? extends Collection<Person>> iterator = collections.iterator();
+    private Set<Person> getCommonElements(Collection<? extends Collection<Person>> collections) {
+        Set<Person> common = new LinkedHashSet<Person>();
+        if (!collections.isEmpty()) {
+            Iterator<? extends Collection<Person>> iterator = collections.iterator();
             common.addAll(iterator.next());
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 common.retainAll(iterator.next());
             }
         }

@@ -10,7 +10,7 @@
         <property name="connection.url">jdbc:mysql://52.89.2.255/sportify</property>
 
         <!-- transaction management -->
-        <!-- <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property> -->
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
@@ -24,6 +24,6 @@
         <property name="hibernate.search.default.indexBase">/oculus/indexes</property> -->
 
         <!-- mapped classes -->
-        <mapping class="at.fhv.itb13.sportify.model.Person"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.Person"/>
     </session-factory>
 </hibernate-configuration>

@@ -11,14 +11,5 @@ public class Main {
 
     public static void main(String[] args) {
         SportifyGUI.run(args);
-        System.out.println("Client started!");
-//        try {
-//            PersonServant personServant = new PersonServant();
-//            //NAMING mit client fixieren
-//            Naming.rebind("rmi://localhost/PersonServant", personServant);
-//        } catch (RemoteException | MalformedURLException e) {
-//            e.printStackTrace();
-//            //TODO handle exception
-//        }
     }
 }

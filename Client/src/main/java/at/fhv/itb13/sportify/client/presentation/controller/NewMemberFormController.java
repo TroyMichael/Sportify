@@ -1,7 +1,7 @@
-package at.fhv.itb13.sportify.presentation.Controller;
+package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.communication.ServiceLocator;
-import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 

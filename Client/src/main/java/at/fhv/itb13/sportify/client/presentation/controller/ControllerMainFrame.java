@@ -1,6 +1,6 @@
-package at.fhv.itb13.sportify.presentation.Controller;
+package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.presentation.SportifyGUI;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import javafx.fxml.FXML;
 
 /**
@@ -20,5 +20,7 @@ public class ControllerMainFrame {
     }
 
     @FXML
-    private void LoadSearchMemberView() { SportifyGUI.getSharedMainApp().loadSearchMemberForm(); }
+    private void LoadSearchMemberView() {
+        SportifyGUI.getSharedMainApp().loadSearchMemberForm();
+    }
 }

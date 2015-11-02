@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.client.presentation;
 
-import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.presentation.Controller.SearchMemberFormController;
 import at.fhv.itb13.sportify.presentation.Controller.SearchResultViewController;
 import javafx.application.Application;
@@ -93,8 +93,6 @@ public class SportifyGUI extends Application {
         SearchResultViewController cont =  (SearchResultViewController) loadView("view/SearchResultView.fxml");
         cont.setResult(results);
         cont.setSearchInput(searchInput);
-
-
     }
 
     public static SportifyGUI getSharedMainApp() {

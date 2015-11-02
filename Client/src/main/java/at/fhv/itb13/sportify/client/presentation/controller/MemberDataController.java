@@ -111,18 +111,17 @@ public class MemberDataController {
     @FXML
     private void clickSaveButton(){
         if (validateInput()) {
-            PersonDTOImpl newMember = new PersonDTOImpl(
-                    _fNameTextField.getText(),
-                    _lNameTextField.getText(),
-                    _streetTextField.getText(),
-                    _streetNoTextField.getText(),
-                    _postalCodeTextField.getText(),
-                    _cityTextField.getText(),
-                    _eMailTextField.getText(),
-                    _birthdayTextField.getText()
-            );
+            _person.setFName(_fNameTextField.getText());
+            _person.setLName(_lNameTextField.getText());
+            _person.setStreet(_streetTextField.getText());
+            _person.setHouseNumber(_streetNoTextField.getText());
+            _person.setPostalCode(_postalCodeTextField.getText());
+            _person.setCity(_cityTextField.getText());
+            _person.setEmail(_eMailTextField.getText());
+            _person.setBirthdate(_birthdayTextField.getText());
+
             try {
-                ServiceLocator.getInstance().getPersonRemote().editPerson(newMember);
+                ServiceLocator.getInstance().getPersonRemote().editPerson(_person);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

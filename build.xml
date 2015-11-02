@@ -10,7 +10,7 @@
     <property name="clientreport.dir" location="${report.dir}/client"/>
     <!-- Shared -->
     <property name="shared.dir" location="Shared"/>
-    <property name="shared.dir" location="${build.dir}/shared"/>
+    <property name="sharedbuild.dir" location="${build.dir}/shared"/>
     <!-- Server-->
     <property name="server.dir" location="Server"/>
     <property name="serverbuild.dir" location="${build.dir}/server"/>
@@ -27,36 +27,40 @@
     <target name="clean" depends="clean_client,clean_shared,clean_server">
         <delete dir="${build.dir}"/>
     </target>
-    <!-- Build All -->
-    <target name="build" depends="build_shared,build_client,build_server">
 
-    </target>
+    <!-- Build All -->
+    <target name="build" depends="build_shared_src,build_client,build_server,copy_shared"/>
 
     <!-- Run All Tests -->
-    <target name="test" depends="test_client,test_server">
+    <target name="test" depends="test_client,test_server"/>
 
-    </target>
     <!-- Build Report -->
-    <target name="report" depends="build_shared,report_client,report_server">
-
-    </target>
+    <target name="report" depends="report_client,report_server"/>
 
     <!-- Shared -->
     <!--Source Dir-->
     <property name="sharedsrc.dir" location="${shared.dir}/src/main"/>
-    <property name="sharedbuild.dir" location="${build.dir}/shared/build"/>
-    <property name="sharedbuildsrc.dir" location="${sharedbuild.dir}/src"/>
+    <property name="sharedbuildsrc.dir" location="${sharedbuild.dir}/build"/>
 
     <target name="clean_shared">
         <delete dir="${sharedbuild.dir}"/>
     </target>
+
     <target name="build_shared_src">
         <mkdir dir="${sharedbuildsrc.dir}"/>
         <javac srcdir="${sharedsrc.dir}" destdir="${sharedbuildsrc.dir}">
             <classpath refid="classpath.base"/>
         </javac>
     </target>
-    <target name="build_shared" depends="build_shared_src"/>
+
+    <target name="copy_shared" depends="build_shared_src">
+        <copy todir="${clientbuildsrc.dir}">
+            <fileset dir="${sharedbuildsrc.dir}" includes="**"/>
+        </copy>
+        <copy todir="${serverbuildsrc.dir}">
+            <fileset dir="${sharedbuildsrc.dir}" includes="**"/>
+        </copy>
+    </target>
 
     <!--Client-->
     <!--Source Dir-->
@@ -79,6 +83,7 @@
     <target name="clean_client">
         <delete dir="${clientbuild.dir}"/>
     </target>
+
     <!-- Build Src files -->
     <target name="build_client_src" depends="clean_client">
         <mkdir dir="${clientbuildsrc.dir}"/>
@@ -86,6 +91,7 @@
             <classpath refid="classpath.client"/>
         </javac>
     </target>
+
     <!-- Build Test Files -->
     <target name="build_client_test" depends="build_client_src">
         <mkdir dir="${clientbuildtest.dir}"/>
@@ -118,6 +124,7 @@
             <report format="frames" todir="${mainreport.dir}"/>
         </junitreport>
     </target>
+
     <!-- Compile Client -->
 
     <target name="build_client" depends="build_client_test"/>
@@ -143,6 +150,7 @@
     <target name="clean_server">
         <delete dir="${serverbuild.dir}"/>
     </target>
+
     <!-- Build Src files -->
     <target name="build_server_src" depends="clean_server">
         <mkdir dir="${serverbuildsrc.dir}"/>
@@ -150,6 +158,7 @@
             <classpath refid="classpath.server"/>
         </javac>
     </target>
+
     <!-- Build Test Files -->
     <target name="build_server_test" depends="build_server_src">
         <mkdir dir="${serverbuildtest.dir}"/>
@@ -200,15 +209,20 @@
     </target>
 
     <!-- Start the Server -->
-    <target name="run_server" depends="build_shared,build_server,restart_rmi_registry">
-        <java classname="at.fhv.itb13.sportify.Main">
+    <target name="run_server" depends="restart_rmi_registry">
+        <exec executable="taskkill" spawn="true">
+            <arg value="/f"/>
+            <arg value="/im"/>
+            <arg value="java.exe"/>
+        </exec>
+        <java classname="at.fhv.itb13.sportify.server.Main">
             <classpath refid="classpath.server"/>
-            <arg value="-Djava.rmi.server.codebase=file:///${sharedbuild.dir}"/>
+            <arg value="-Djava.rmi.server.codebase=file:///${serverbuild.dir}/build/"/>
         </java>
     </target>
 
     <!-- Start the Client -->
-    <target name="run_client" depends="build_shared,build_client">
+    <target name="run_client" depends="build_shared_src,build_client,copy_shared">
         <java classname="at.fhv.itb13.sportify.Main">
             <classpath refid="classpath.client"/>
         </java>

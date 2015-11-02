@@ -1,7 +1,8 @@
 package at.fhv.itb13.sportify.application.controller;
 
-import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.server.application.controller.PersonController;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import junit.framework.TestCase;
 
 import java.util.List;

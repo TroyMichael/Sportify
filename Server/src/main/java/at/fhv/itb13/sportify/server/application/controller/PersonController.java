@@ -96,49 +96,49 @@ public class PersonController {
 
         //search for all persons whose last names fits the search query
         if (personDTO.getLName().length() > 0) {
-            lastNameResults = personList.stream().filter(person -> person.getLName().toLowerCase().equals(personDTO.getLName().toLowerCase())).collect(Collectors.toList());
+            lastNameResults = personList.stream().filter(person -> person.getLName().toLowerCase().contains(personDTO.getLName().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(lastNameResults);
         }
 
         //search for all persons whose first names fits the search query
         if (personDTO.getFName().length() > 0) {
-            firstNameResults = personList.stream().filter(person -> person.getFName().toLowerCase().equals(personDTO.getFName().toLowerCase())).collect(Collectors.toList());
+            firstNameResults = personList.stream().filter(person -> person.getFName().toLowerCase().contains(personDTO.getFName().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(firstNameResults);
         }
 
         //search for all persons whose street names fits the search query
         if (personDTO.getStreet().length() > 0) {
-            streetResults = personList.stream().filter(person -> person.getStreet().toLowerCase().equals(personDTO.getStreet().toLowerCase())).collect(Collectors.toList());
+            streetResults = personList.stream().filter(person -> person.getStreet().toLowerCase().contains(personDTO.getStreet().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(streetResults);
         }
 
         //search for all persons whose house number fits the search query
         if (personDTO.getHouseNumber().length() > 0) {
-            houseNumberResults = personList.stream().filter(person -> person.getHouseNumber().toLowerCase().equals(personDTO.getHouseNumber().toLowerCase())).collect(Collectors.toList());
+            houseNumberResults = personList.stream().filter(person -> person.getHouseNumber().toLowerCase().contains(personDTO.getHouseNumber().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(houseNumberResults);
         }
 
         //search for all persons whose psotal code fits the search query
         if (personDTO.getPostalCode().length() > 0) {
-            postalCodeResults = personList.stream().filter(person -> person.getPostalCode().toLowerCase().equals(personDTO.getPostalCode().toLowerCase())).collect(Collectors.toList());
+            postalCodeResults = personList.stream().filter(person -> person.getPostalCode().toLowerCase().contains(personDTO.getPostalCode().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(postalCodeResults);
         }
 
         //search for all persons whose city fits the search query
         if (personDTO.getCity().length() > 0) {
-            cityResults = personList.stream().filter(person -> person.getCity().toLowerCase().equals(personDTO.getCity().toLowerCase())).collect(Collectors.toList());
+            cityResults = personList.stream().filter(person -> person.getCity().toLowerCase().contains(personDTO.getCity().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(cityResults);
         }
 
         //search for all persons whose email address fits the search query
         if (personDTO.getEmail().length() > 0) {
-            emailResults = personList.stream().filter(person -> person.getEmail().toLowerCase().equals(personDTO.getEmail().toLowerCase())).collect(Collectors.toList());
+            emailResults = personList.stream().filter(person -> person.getEmail().toLowerCase().contains(personDTO.getEmail().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(emailResults);
         }
 
         //search for all persons whose birthdate fits the search query
         if (personDTO.getBirthdate().length() > 0) {
-            birthdateResults = personList.stream().filter(person -> person.getBirthdate().toLowerCase().equals(personDTO.getBirthdate().toLowerCase())).collect(Collectors.toList());
+            birthdateResults = personList.stream().filter(person -> person.getBirthdate().toLowerCase().contains(personDTO.getBirthdate().toLowerCase())).collect(Collectors.toList());
             resultsSet.add(birthdateResults);
         }
 

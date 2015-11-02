@@ -27,7 +27,7 @@ public class PersonControllerTest extends TestCase {
     public void testSearchPerson() throws Exception {
         PersonController personController = PersonController.getInstance();
         PersonDTO personDTO = new PersonDTOImpl();
-        personDTO.setFName("Patrick");
+        personDTO.setFName("caro");
         //personDTO.setLName("Harrison");
         //personDTO.setStreet("Kennedy");
         //personDTO.setCity("Dornbirn");

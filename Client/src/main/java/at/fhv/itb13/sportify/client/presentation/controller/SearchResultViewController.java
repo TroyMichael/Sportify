@@ -38,37 +38,7 @@ public class SearchResultViewController {
     private BorderPane _borderPane;
 
     public void setResult(List<PersonDTO> result) {
-        //  _result = result;
-
-        _result = new LinkedList<>();
-
-        PersonDTO p1 = new PersonDTOImpl();
-        p1.setFName("Caroline");
-        p1.setLName("Meusburger");
-        p1.setBirthdate("22.07.1994");
-
-        PersonDTO p2 = new PersonDTOImpl();
-        p2.setFName("Patrick Kai");
-        p2.setLName("Poiger");
-        p2.setBirthdate("02.06.1992");
-
-        _result.add(p1);
-        _result.add(p2);
-
-    }
-
-    public void setSearchInput(String searchInput) {
-        _searchInput.setText(searchInput);
-    }
-
-    @FXML
-    private void initialize() {
-
-        setResult(null);
-        // Initialize the person table with the three columns.
-        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
-        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
-
+        _result = new LinkedList<>(result);
 
         if (_result.size() > 0) {
 
@@ -86,6 +56,20 @@ public class SearchResultViewController {
             alert.setContentText("Please make sure you have entered the right data.");
             alert.showAndWait();
         }
+
+    }
+
+    public void setSearchInput(String searchInput) {
+        _searchInput.setText(searchInput);
+    }
+
+    @FXML
+    private void initialize() {
+
+
+        // Initialize the person table with the three columns.
+        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         // Listen for selection changes and show the person details when changed.
         _personTable.getSelectionModel().selectedItemProperty().addListener(

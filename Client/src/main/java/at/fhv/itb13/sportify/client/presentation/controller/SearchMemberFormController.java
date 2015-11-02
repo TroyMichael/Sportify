@@ -1,11 +1,15 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
+import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -58,15 +62,24 @@ public class SearchMemberFormController {
                 _eMailTextField.getText(),
                 _birthdayTextField.getText()
         );
-        List<PersonDTO> results;
-        //          try {
-//               results= ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
-        LoadSearchResultView(null, input);
+        List<PersonDTO> results = new LinkedList<>();
+        try {
 
+            results = ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
+          if(results != null) {
+              LoadSearchResultView(results, input);
+          }
+          else{
+              Alert alert = new Alert(Alert.AlertType.WARNING);
+              alert.setTitle("No Member found");
+              alert.setHeaderText("Sorry, the Member could not be found.");
+              alert.setContentText("Please make sure you have entered the right data.");
+              alert.showAndWait();
+          }
 
-        //       } catch (RemoteException e) {
-        //         e.printStackTrace();
-        //   }
+             } catch (RemoteException e) {
+                 e.printStackTrace();
+           }
     }
 
 

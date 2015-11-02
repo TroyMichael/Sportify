@@ -1,5 +1,8 @@
 package at.fhv.itb13.sportify.client.presentation;
 
+import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.presentation.Controller.SearchMemberFormController;
+import at.fhv.itb13.sportify.presentation.Controller.SearchResultViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -8,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SportifyGUI extends Application {
 
@@ -79,6 +83,18 @@ public class SportifyGUI extends Application {
 
     public void loadNewMemberForm() {
         loadView("view/NewMemberForm.fxml");
+    }
+
+    public void loadSearchMemberForm() {
+        loadView("view/SearchMemberForm.fxml");
+    }
+
+    public void loadSearchResultView(List<PersonDTO> results, String searchInput) {
+        SearchResultViewController cont =  (SearchResultViewController) loadView("view/SearchResultView.fxml");
+        cont.setResult(results);
+        cont.setSearchInput(searchInput);
+
+
     }
 
     public static SportifyGUI getSharedMainApp() {

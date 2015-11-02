@@ -26,7 +26,7 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     }
 
     @Override
-    public List<PersonDTO> searchPerson(PersonDTO personDto) {
+    public List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException{
         return null;
     }
 }

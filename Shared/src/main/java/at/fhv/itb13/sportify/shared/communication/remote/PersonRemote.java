@@ -12,5 +12,5 @@ import java.util.List;
 public interface PersonRemote extends Remote {
     void create(PersonDTO personDto) throws RemoteException;
 
-    List<PersonDTO> searchPerson(PersonDTO personDto);
+    List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException;
 }

@@ -6,6 +6,9 @@ import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.model.Person;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by KYUSS on 28.10.2015.
  */
@@ -61,5 +64,13 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
         } else {
             throw new DomainObjectIsNullException();
         }
+    }
+
+    public List<PersonDTO> listToDTO (List <Person> persons) throws DomainObjectIsNullException {
+        List <PersonDTO> personDTOs= new ArrayList<>();
+        for (Person person : persons){
+            personDTOs.add(toDTOObject(person));
+        }
+        return personDTOs;
     }
 }

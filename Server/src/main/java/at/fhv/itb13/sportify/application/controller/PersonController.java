@@ -1,14 +1,17 @@
 package at.fhv.itb13.sportify.application.controller;
 
+import at.fhv.itb13.sportify.communication.datatransfer.exceptions.DTOIsNullException;
+import at.fhv.itb13.sportify.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.communication.remote.PersonRemote;
 import at.fhv.itb13.sportify.database.DBFacade;
 import at.fhv.itb13.sportify.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.database.PersonDAO;
 import at.fhv.itb13.sportify.model.Person;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by mod on 10/27/15.
@@ -50,10 +53,9 @@ public class PersonController {
      * Update the content of a person
      *
      * @param person person object with changed values
+     *
      */
     public void saveOrupdate(PersonDTO person) {
-
-
         try {
             Person personDomain = _personMapper.toDomainObject(person);
             _facade.beginTransaction();
@@ -66,78 +68,77 @@ public class PersonController {
     }
 
     public List <PersonDTO> searchPerson (PersonDTO personDTO){
-        List <PersonDTO> foundPersons = new LinkedList<>();
         List <Person> personList = new LinkedList<>();
-
         _facade.beginTransaction();
         personList = _facade.getAll(Person.class);
-        List <Person> temporaryResults = new LinkedList<>();
+
+        List <List<Person>> resultsSet = new ArrayList<List<Person>>();
+        List <Person> lastNameResults;
+        List <Person> firstNameResults;
+        List <Person> streetResults;
+        List <Person> houseNumberResults;
+        List <Person> postalCodeResults;
+        List <Person> cityResults;
+        List <Person> emailResults;
+        List <Person> birthdateResults;
+
 
         if (personDTO.getLName().length() > 0){
-            for (Person person : personList){
-                if (personDTO.getLName() == person.getLName()){
-                    temporaryResults.add(person);
-                }
-            }
-        } else if (personDTO.getFName().length() > 0){
-            for (Person person : personList){
-                if (personDTO.getFName() == person.getFName()){
-                    temporaryResults.add(person);
-                }
-            }
-        } else if (personDTO.getBirthdate().length() > 0){
-            for (Person person : personList){
-                if (personDTO.getBirthdate() == person.getBirthdate()){
-                    temporaryResults.add(person);
-                }
-            }
+            lastNameResults = personList.stream().filter(person -> person.getLName().equals(personDTO.getLName())).collect(Collectors.toList());
+            resultsSet.add(lastNameResults);
         }
-        return null;
-    }
+        if (personDTO.getFName().length() > 0){
+            firstNameResults = personList.stream().filter(person -> person.getFName().equals(personDTO.getFName())).collect(Collectors.toList());
+            resultsSet.add(firstNameResults);
+        }
+        if (personDTO.getStreet().length() > 0){
+            streetResults = personList.stream().filter(person -> person.getStreet().equals(personDTO.getStreet())).collect(Collectors.toList());
+            resultsSet.add(streetResults);
+        }
+        if (personDTO.getHouseNumber().length() > 0){
+            houseNumberResults = personList.stream().filter(person -> person.getHouseNumber().equals(personDTO.getHouseNumber())).collect(Collectors.toList());
+            resultsSet.add(houseNumberResults);
+        }
+        if (personDTO.getPostalCode().length() > 0){
+            postalCodeResults = personList.stream().filter(person -> person.getPostalCode().equals(personDTO.getPostalCode())).collect(Collectors.toList());
+            resultsSet.add(postalCodeResults);
+        }
+        if (personDTO.getCity().length() > 0){
+            cityResults = personList.stream().filter(person -> person.getCity().equals(personDTO.getCity())).collect(Collectors.toList());
+            resultsSet.add(cityResults);
+        }
+        if (personDTO.getEmail().length() > 0){
+            emailResults = personList.stream().filter(person -> person.getEmail().equals(personDTO.getEmail())).collect(Collectors.toList());
+            resultsSet.add(emailResults);
+        }
+        if (personDTO.getBirthdate().length() > 0){
+            birthdateResults = personList.stream().filter(person -> person.getBirthdate().equals(personDTO.getBirthdate())).collect(Collectors.toList());
+            resultsSet.add(birthdateResults);
+        }
 
+        List <Person> personResults = new ArrayList<>();
+        personResults.addAll(getCommonElements(resultsSet));
 
-
-    /**
-     * TODO: Suche nicht sehr performant
-     * Search for a specific Person in the Database
-     *
-     * @return the searched person or throws an exception
-     */
-    public List<PersonDTO> getPerson(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate) {
-        List<PersonDTO> foundpersons = new LinkedList<>();
-        List<Person> temp = new LinkedList<>();
+        List <PersonDTO> personDTOResults = null;
         try {
-            _facade.beginTransaction();
-            List<Person> personList = _facade.getAll(Person.class);
-            for (Person person : personList) {
-                if (fname == person.getFName()) {
-                    temp.add(person);
-                }
-            }
-            for (Person p : temp) {
-                if (lname != p.getLName()) {
-                    temp.remove(p);
-                } else if (street != p.getStreet()) {
-                    temp.remove(p);
-                } else if (houseNumber != p.getHouseNumber()) {
-                    temp.remove(p);
-                } else if (postalCode != p.getPostalCode()) {
-                    temp.remove(p);
-                } else if (city != p.getCity()) {
-                    temp.remove(p);
-                } else if (email != p.getEmail()) {
-                    temp.remove(p);
-                } else if (birthdate != p.getBirthdate()) {
-                    temp.remove(p);
-                }
-            }
-            for (Person p : temp) {
-                foundpersons.add(_personMapper.toDTOObject(p));
-            }
-            return foundpersons;
-        } catch (Exception e) {
+            personDTOResults = _personMapper.listToDTO(personResults);
+        } catch (DomainObjectIsNullException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return personDTOResults;
     }
+
+    private Set <Person> getCommonElements (Collection <? extends Collection <Person>> collections){
+        Set <Person> common = new LinkedHashSet<Person>();
+        if (!collections.isEmpty()){
+            Iterator <? extends Collection<Person>> iterator = collections.iterator();
+            common.addAll(iterator.next());
+            while (iterator.hasNext()){
+                common.retainAll(iterator.next());
+            }
+        }
+        return common;
+    }
+
 }

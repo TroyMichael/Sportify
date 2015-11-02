@@ -47,5 +47,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
+      <Button fx:id="_editButton" layoutX="377.0" layoutY="278.0" mnemonicParsing="false" onAction="#clickEditButton" text="Edit" />
+      <Button fx:id="_saveButton" layoutX="362.0" layoutY="278.0" mnemonicParsing="false" text="Save" visible="false" />
     </children>
 </AnchorPane>

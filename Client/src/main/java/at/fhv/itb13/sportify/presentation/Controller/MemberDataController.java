@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.communication.ServiceLocator;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
@@ -44,6 +45,12 @@ public class MemberDataController {
     @FXML
     private TextField _birthdayTextField;
 
+    @FXML
+    private Button _saveButton;
+
+    @FXML
+    private Button _editButton;
+
     private PersonDTO _person;
 
 
@@ -79,11 +86,17 @@ public class MemberDataController {
         }
      }
 
-
-
-
     @FXML
     private void initialize() {
+
+    }
+
+    @FXML
+    private void clickEditButton(){
+        _editButton.setVisible(false);
+        _saveButton.setVisible(true);
+
+        _fNameTextField.setEditable(true);
 
     }
 }

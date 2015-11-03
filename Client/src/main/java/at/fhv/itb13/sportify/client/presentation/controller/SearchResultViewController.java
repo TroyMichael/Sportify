@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.util.LinkedList;
@@ -23,7 +21,6 @@ import java.util.List;
  *
  */
 public class SearchResultViewController {
-    private List<PersonDTO> _result;
 
     @FXML
     private TableView<PersonDTO> _personTable;
@@ -38,13 +35,13 @@ public class SearchResultViewController {
     @FXML
     private BorderPane _borderPane;
 
-    public void setResult(List<PersonDTO> result) {
-        _result = new LinkedList<>(result);
+    public void setResult(List<PersonDTO> argResult) {
+        List<PersonDTO> result = new LinkedList<>(argResult);
 
-        if (_result.size() > 0) {
+        if (result.size() > 0) {
 
             ObservableList<PersonDTO> obsRestults = FXCollections.observableArrayList();
-            for (PersonDTO p : _result) {
+            for (PersonDTO p : result) {
                 obsRestults.add(p);
             }
 
@@ -71,10 +68,10 @@ public class SearchResultViewController {
 
         // Listen for selection changes and show the person details when changed.
         _personTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> LoadMemberDataView(newValue, _borderPane));
+                (observable, oldValue, newValue) -> loadMemberDataView(newValue, _borderPane));
     }
 
-    private void LoadMemberDataView(PersonDTO person, BorderPane pane) {
+    private void loadMemberDataView(PersonDTO person, BorderPane pane) {
         SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane);
     }
 }

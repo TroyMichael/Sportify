@@ -11,16 +11,16 @@ import javafx.fxml.FXML;
 public class ControllerMainFrame {
 
     @FXML
-    private void LoadAddNewMemberView() {
+    private void loadAddNewMemberView() {
         SportifyGUI.getSharedMainApp().loadNewMemberForm();
     }
 
     @FXML
-    private void LoadMemberlistView() {
+    private void loadMemberlistView() {
     }
 
     @FXML
-    private void LoadSearchMemberView() {
+    private void loadSearchMemberView() {
         SportifyGUI.getSharedMainApp().loadSearchMemberForm();
     }
 }

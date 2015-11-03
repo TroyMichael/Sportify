@@ -3,11 +3,10 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.rmi.RemoteException;
 
@@ -49,6 +48,9 @@ public class MemberDataController {
 
     @FXML
     private Button _editButton;
+
+    @FXML
+    private Label _memberViewTitle;
 
     private PersonDTO _person;
 
@@ -103,6 +105,7 @@ public class MemberDataController {
         _streetNoTextField.setEditable(true);
         _streetTextField.setEditable(true);
 
+        _memberViewTitle.setText("Edit Member Details");
     }
 
     @FXML

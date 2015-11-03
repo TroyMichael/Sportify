@@ -41,7 +41,7 @@ public class NewMemberFormController {
     private TextField _birthdayTextField;
 
     @FXML
-    private void SaveNewMember() {
+    private void saveNewMember() {
 
         if (validateInput()) {
             PersonDTOImpl newMember = new PersonDTOImpl(
@@ -60,6 +60,7 @@ public class NewMemberFormController {
                 e.printStackTrace();
             }
         }
+
     }
 
     private Boolean validateInput() {
@@ -84,7 +85,7 @@ public class NewMemberFormController {
     }
 
     @FXML
-    private void CancelNewMember() {
+    private void cancelNewMember() {
         System.out.println("Cancelled");
     }
 }

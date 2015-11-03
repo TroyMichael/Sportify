@@ -7,10 +7,8 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -65,7 +63,7 @@ public class SearchMemberFormController {
 
             results = ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
           if(results != null) {
-              LoadSearchResultView(results, input);
+              loadSearchResultView(results, input);
           }
           else{
               Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -81,7 +79,7 @@ public class SearchMemberFormController {
     }
 
 
-    private void LoadSearchResultView(List<PersonDTO> results, String searchInput) {
+    private void loadSearchResultView(List<PersonDTO> results, String searchInput) {
         SportifyGUI.getSharedMainApp().loadSearchResultView(results, searchInput);
     }
 

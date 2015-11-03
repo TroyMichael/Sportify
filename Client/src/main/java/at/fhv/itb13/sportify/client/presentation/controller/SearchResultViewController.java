@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.util.LinkedList;
@@ -19,10 +20,10 @@ import java.util.List;
 
 /**
  * Created by Caroline on 30.10.2015.
+ *
  */
 public class SearchResultViewController {
     private List<PersonDTO> _result;
-
 
     @FXML
     private TableView<PersonDTO> _personTable;
@@ -56,7 +57,6 @@ public class SearchResultViewController {
             alert.setContentText("Please make sure you have entered the right data.");
             alert.showAndWait();
         }
-
     }
 
     public void setSearchInput(String searchInput) {
@@ -65,18 +65,16 @@ public class SearchResultViewController {
 
     @FXML
     private void initialize() {
-
-
         // Initialize the person table with the three columns.
-        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
-        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
+        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
+        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
 
         // Listen for selection changes and show the person details when changed.
         _personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> LoadMemberDataView(newValue, _borderPane));
-
     }
 
-    private void LoadMemberDataView(PersonDTO person, BorderPane pane) { SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane); }
-
+    private void LoadMemberDataView(PersonDTO person, BorderPane pane) {
+        SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane);
+    }
 }

@@ -62,9 +62,10 @@ public class SportifyGUI extends Application {
 
     /**
      * Loads the specified view, makes it visibile in the primary stage through the
-     * center pane of the rootlayout.
+     * center pane of the given borderpane.
      *
      * @param viewURL the URL to the FXML File that contains the view
+     * @param pane is the pane where the FXML file is loaded into
      * @return the view's controller
      */
     private Object loadView(String viewURL, BorderPane pane) {

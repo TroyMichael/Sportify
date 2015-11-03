@@ -35,9 +35,6 @@ public class NewMemberFormController {
     private TextField _cityTextField;
 
     @FXML
-    private TextField _telephoneNoTextField;
-
-    @FXML
     private TextField _eMailTextField;
 
     @FXML
@@ -63,7 +60,6 @@ public class NewMemberFormController {
                 e.printStackTrace();
             }
         }
-
     }
 
     private Boolean validateInput() {

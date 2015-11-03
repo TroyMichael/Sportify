@@ -7,6 +7,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -40,16 +41,13 @@ public class SearchMemberFormController {
     private TextField _cityTextField;
 
     @FXML
-    private TextField _telephoneNoTextField;
-
-    @FXML
     private TextField _eMailTextField;
 
     @FXML
     private TextField _birthdayTextField;
 
     @FXML
-    private void SearchMember() {
+    private void searchMember() {
 
         String input = getInput();
         PersonDTO member = new PersonDTOImpl(
@@ -62,7 +60,7 @@ public class SearchMemberFormController {
                 _eMailTextField.getText(),
                 _birthdayTextField.getText()
         );
-        List<PersonDTO> results = new LinkedList<>();
+        List<PersonDTO> results;
         try {
 
             results = ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
@@ -71,8 +69,8 @@ public class SearchMemberFormController {
           }
           else{
               Alert alert = new Alert(Alert.AlertType.WARNING);
-              alert.setTitle("No Member found");
-              alert.setHeaderText("Sorry, the Member could not be found.");
+              alert.setTitle("No matching member found");
+              alert.setHeaderText("Sorry, no matching member could not be found.");
               alert.setContentText("Please make sure you have entered the right data.");
               alert.showAndWait();
           }
@@ -89,7 +87,7 @@ public class SearchMemberFormController {
 
 
     private String getInput() {
-        String str = new String();
+        String str = "";
 
 
         if(_fNameTextField.getText().length() > 0){
@@ -120,5 +118,3 @@ public class SearchMemberFormController {
         return str;
     }
 }
-
-

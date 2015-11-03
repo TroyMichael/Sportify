@@ -7,6 +7,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.rmi.RemoteException;
 
@@ -36,9 +37,6 @@ public class MemberDataController {
 
     @FXML
     private TextField _cityTextField;
-
-    @FXML
-    private TextField _telephoneNoTextField;
 
     @FXML
     private TextField _eMailTextField;
@@ -83,7 +81,6 @@ public class MemberDataController {
             if(_person.getStreet() != null) {
                  _streetTextField.setText(_person.getStreet());
             }
-
         }
      }
 

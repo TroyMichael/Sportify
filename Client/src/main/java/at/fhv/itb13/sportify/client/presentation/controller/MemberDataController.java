@@ -4,6 +4,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -122,8 +123,19 @@ public class MemberDataController {
 
             try {
                 ServiceLocator.getInstance().getPersonRemote().editPerson(_person);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Saving successful!");
+                alert.setTitle("Saving successful");
+                alert.setContentText("The Member '" +_fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
+                alert.showAndWait();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Save Member failed");
+                alert.setTitle("Save Member failed");
+                alert.setContentText("We are sorry, a problem occurred. Saving the new member has failed. Please try again later or ask the administrator");
+                alert.showAndWait();
+              //  e.printStackTrace();
             }
         }
 

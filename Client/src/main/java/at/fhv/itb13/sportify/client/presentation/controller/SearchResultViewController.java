@@ -47,12 +47,6 @@ public class SearchResultViewController {
 
             _personTable.setItems(obsRestults);
 
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Member found");
-            alert.setHeaderText("Sorry, the Member could not be found.");
-            alert.setContentText("Please make sure you have entered the right data.");
-            alert.showAndWait();
         }
     }
 
@@ -73,5 +67,14 @@ public class SearchResultViewController {
 
     private void loadMemberDataView(PersonDTO person, BorderPane pane) {
         SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane);
+    }
+
+    private void loadSearchMemberForm(){
+        SportifyGUI.getSharedMainApp().loadSearchMemberForm();
+    }
+
+    @FXML
+    private void clickBackToSearch(){
+        loadSearchMemberForm();
     }
 }

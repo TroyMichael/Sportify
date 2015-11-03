@@ -62,20 +62,27 @@ public class SearchMemberFormController {
         try {
 
             results = ServiceLocator.getInstance().getPersonRemote().searchPerson(member);
-          if(results != null) {
-              loadSearchResultView(results, input);
+          if((results.size() > 0)&&(input.length() > 0)) {
+
+             loadSearchResultView(results, input);
           }
           else{
               Alert alert = new Alert(Alert.AlertType.WARNING);
               alert.setTitle("No matching member found");
-              alert.setHeaderText("Sorry, no matching member could not be found.");
-              alert.setContentText("Please make sure you have entered the right data.");
+              alert.setHeaderText("Sorry, no matching member could be found.");
+              alert.setContentText("Please make sure you have entered the right data and try again.");
               alert.showAndWait();
           }
 
-             } catch (RemoteException e) {
-                 e.printStackTrace();
-           }
+        } catch (RemoteException e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search Member failed");
+            alert.setHeaderText("Search Member failed");
+            alert.setContentText("We are sorry, a Problem occurred. Searching the member has failed. Please try again later or ask the administrator");
+            alert.showAndWait();
+            // e.printStackTrace();
+        }
     }
 
 

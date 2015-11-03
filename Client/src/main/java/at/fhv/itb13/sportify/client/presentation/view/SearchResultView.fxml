@@ -12,6 +12,7 @@
                <children>
                   <Label layoutX="14.0" layoutY="6.0" text="Result for:" />
                   <Label fx:id="_searchInput" layoutX="14.0" layoutY="31.0" text="''" />
+                  <Button layoutX="6.0" layoutY="56.0" mnemonicParsing="false" onAction="#clickBackToSearch" text="Back to Search" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

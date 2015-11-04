@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -56,7 +57,7 @@ public class NewMemberFormController {
                     _birthdayTextField.getText()
             );
 
-            ServiceLocator.getInstance().getRemote(PersonRemote.class).create(newMember);
+            ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().create(newMember);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Saving successful!");
             alert.setTitle("Saving successful");

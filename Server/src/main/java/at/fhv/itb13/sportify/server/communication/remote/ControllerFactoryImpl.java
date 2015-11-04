@@ -1,8 +1,6 @@
-package at.fhv.itb13.sportify.server.communication.atm;
+package at.fhv.itb13.sportify.server.communication.remote;
 
-import at.fhv.itb13.sportify.server.application.controller.PersonController;
-import at.fhv.itb13.sportify.server.communication.remote.PersonServant;
-import at.fhv.itb13.sportify.shared.communication.atm.ControllerFactory;
+import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 
 import java.rmi.RemoteException;

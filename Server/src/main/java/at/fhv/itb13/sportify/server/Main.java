@@ -1,6 +1,8 @@
 package at.fhv.itb13.sportify.server;
 
+import at.fhv.itb13.sportify.server.communication.remote.ControllerFactoryImpl;
 import at.fhv.itb13.sportify.server.communication.remote.PersonServant;
+import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -14,7 +16,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             PersonServant personServant = new PersonServant();
-            Naming.rebind("rmi://localhost:12345/PersonServant", personServant);
+            ControllerFactory controllerFactory = ControllerFactoryImpl.getInstance();
+            Naming.rebind("rmi://localhost:12345/ControllerFactory", controllerFactory);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,7 +60,7 @@ public class SearchMemberFormController {
                 _birthdayTextField.getText()
         );
 
-        List<PersonDTO> results = ServiceLocator.getInstance().getRemote(PersonRemote.class).searchPerson(member);
+        List<PersonDTO> results = ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().searchPerson(member);
         if ((results.size() > 0) && (input.length() > 0)) {
             loadSearchResultView(results, input);
         } else {

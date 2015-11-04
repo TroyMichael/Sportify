@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.client.communication;
 
+import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 
 import java.net.MalformedURLException;
@@ -30,6 +31,7 @@ public class ServiceLocator {
         _remoteUrls = new HashMap<Class, String>();
         // add remote urls to map
         _remoteUrls.put(PersonRemote.class, "PersonServant");
+        _remoteUrls.put(ControllerFactory.class,"ControllerFactory");
     }
 
     public static ServiceLocator getInstance() {

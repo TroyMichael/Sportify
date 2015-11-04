@@ -1,7 +1,9 @@
 package at.fhv.itb13.sportify.server.communication.atm;
 
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
+import at.fhv.itb13.sportify.server.communication.remote.PersonServant;
 import at.fhv.itb13.sportify.shared.communication.atm.ControllerFactory;
+import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -24,7 +26,7 @@ public class ControllerFactoryImpl extends UnicastRemoteObject implements Contro
     }
 
     @Override
-    public PersonController getLazyLoadLogic() throws RemoteException {
-        return PersonController.getInstance();
+    public PersonRemote getPersonRemote() throws RemoteException {
+        return new PersonServant();
     }
 }

@@ -230,4 +230,11 @@
             <classpath refid="classpath.client"/>
         </java>
     </target>
+
+    <target name="run_server_linux">
+        <java classname="at.fhv.itb13.sportify.server.Main">
+            <classpath refid="classpath.server"/>
+            <arg value="-Djava.rmi.server.codebase=file:////build/server/build/"/>
+        </java>
+    </target>
 </project>

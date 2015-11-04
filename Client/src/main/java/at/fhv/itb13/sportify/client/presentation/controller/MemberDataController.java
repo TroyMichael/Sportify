@@ -1,8 +1,8 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,7 +17,6 @@ import java.rmi.RemoteException;
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
-
 public class MemberDataController {
 
     @FXML
@@ -55,45 +54,43 @@ public class MemberDataController {
 
     private PersonDTO _person;
 
-
-    public void setPerson(PersonDTO person){
+    public void setPerson(PersonDTO person) {
         _person = person;
 
-        if(_person != null) {
+        if (_person != null) {
             if (_person.getFName() != null) {
                 _fNameTextField.setText(_person.getFName());
             }
             if (_person.getLName() != null) {
                 _lNameTextField.setText(_person.getLName());
             }
-            if(_person.getBirthdate() != null){
+            if (_person.getBirthdate() != null) {
                 _birthdayTextField.setText(_person.getBirthdate());
             }
-            if(_person.getCity() != null){
+            if (_person.getCity() != null) {
                 _cityTextField.setText(_person.getCity());
             }
-            if(_person.getEmail() != null) {
-                 _eMailTextField.setText(_person.getEmail());
+            if (_person.getEmail() != null) {
+                _eMailTextField.setText(_person.getEmail());
             }
-            if(_person.getPostalCode() != null) {
-                 _postalCodeTextField.setText(_person.getPostalCode());
+            if (_person.getPostalCode() != null) {
+                _postalCodeTextField.setText(_person.getPostalCode());
             }
-            if(_person.getHouseNumber() != null) {
-                 _streetNoTextField.setText(_person.getHouseNumber());
+            if (_person.getHouseNumber() != null) {
+                _streetNoTextField.setText(_person.getHouseNumber());
             }
-            if(_person.getStreet() != null) {
-                 _streetTextField.setText(_person.getStreet());
+            if (_person.getStreet() != null) {
+                _streetTextField.setText(_person.getStreet());
             }
         }
-     }
-
-    @FXML
-    private void initialize() {
-
     }
 
     @FXML
-    private void clickEditButton(){
+    private void initialize() {
+    }
+
+    @FXML
+    private void clickEditButton() {
         _editButton.setVisible(false);
         _saveButton.setVisible(true);
 
@@ -110,7 +107,7 @@ public class MemberDataController {
     }
 
     @FXML
-    private void clickSaveButton(){
+    private void clickSaveButton() throws RemoteException {
         if (validateInput()) {
             _person.setFName(_fNameTextField.getText());
             _person.setLName(_lNameTextField.getText());
@@ -121,24 +118,13 @@ public class MemberDataController {
             _person.setEmail(_eMailTextField.getText());
             _person.setBirthdate(_birthdayTextField.getText());
 
-            try {
-                ServiceLocator.getInstance().getPersonRemote().editPerson(_person);
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Saving successful!");
-                alert.setTitle("Saving successful");
-                alert.setContentText("The Member '" +_fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
-                alert.showAndWait();
-            } catch (RemoteException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Save Member failed");
-                alert.setTitle("Save Member failed");
-                alert.setContentText("We are sorry, a problem occurred. Saving the new member has failed. Please try again later or ask the administrator");
-                alert.showAndWait();
-              //  e.printStackTrace();
-            }
+            ServiceLocator.getInstance().getRemote(PersonRemote.class).editPerson(_person);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Saving successful!");
+            alert.setTitle("Saving successful");
+            alert.setContentText("The Member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
+            alert.showAndWait();
         }
-
     }
 
     private Boolean validateInput() {

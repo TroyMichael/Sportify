@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -14,7 +15,6 @@ import java.rmi.RemoteException;
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
-
 public class NewMemberFormController {
 
     @FXML
@@ -56,15 +56,13 @@ public class NewMemberFormController {
                     _birthdayTextField.getText()
             );
 
-            ServiceLocator.getInstance().getPersonRemote().create(newMember);
-
+            ServiceLocator.getInstance().getRemote(PersonRemote.class).create(newMember);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Saving successful!");
             alert.setTitle("Saving successful");
             alert.setContentText("The member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
             alert.showAndWait();
         }
-
     }
 
     private Boolean validateInput() {

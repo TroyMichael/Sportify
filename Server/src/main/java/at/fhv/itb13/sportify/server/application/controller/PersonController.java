@@ -30,12 +30,11 @@ public class PersonController {
     }
 
     /**
-     * Create a new Entry in the table person
+     * Create a new entry in the table person
      *
      * @param person save this object
      */
     public void create(PersonDTO person) {
-
         try {
             Person personDomain = _personMapper.toDomainObject(person);
             _facade.beginTransaction();
@@ -52,7 +51,7 @@ public class PersonController {
      *
      * @param person person object with changed values
      */
-    public void saveOrupdate(PersonDTO person) {
+    public void saveOrUpdate(PersonDTO person) {
         try {
             Person personDomain = _personMapper.toDomainObject(person);
             _facade.beginTransaction();
@@ -65,7 +64,7 @@ public class PersonController {
     }
 
     /**
-     * search for a person by a given set of various Strings
+     * search for a person by a given set of various strings
      *
      * @param personDTO the person you are searching for with the given attributes from the search view
      */
@@ -76,12 +75,12 @@ public class PersonController {
             _facade.beginTransaction();
             personList = _facade.getAll(Person.class);
             _facade.commitTransaction();
-        } catch (Exception e){
+        } catch (Exception e) {
             _facade.rollbackTransaction();
         }
 
         /*
-        create the lists necessary for keeping the results for each search query and the resultset which contains
+        create the lists necessary for keeping the results for each search query and the result set which contains
         all the other lists with results
         */
         List<List<Person>> resultsSet = new ArrayList<List<Person>>();

@@ -1,12 +1,10 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,14 +16,15 @@ import java.util.List;
 
 /**
  * Created by Caroline on 30.10.2015.
- *
  */
 public class SearchResultViewController {
 
     @FXML
     private TableView<PersonDTO> _personTable;
+
     @FXML
     private TableColumn<PersonDTO, String> _firstNameColumn;
+
     @FXML
     private TableColumn<PersonDTO, String> _lastNameColumn;
 
@@ -39,14 +38,11 @@ public class SearchResultViewController {
         List<PersonDTO> result = new LinkedList<>(argResult);
 
         if (result.size() > 0) {
-
-            ObservableList<PersonDTO> obsRestults = FXCollections.observableArrayList();
+            ObservableList<PersonDTO> obsResults = FXCollections.observableArrayList();
             for (PersonDTO p : result) {
-                obsRestults.add(p);
+                obsResults.add(p);
             }
-
-            _personTable.setItems(obsRestults);
-
+            _personTable.setItems(obsResults);
         }
     }
 
@@ -56,11 +52,11 @@ public class SearchResultViewController {
 
     @FXML
     private void initialize() {
-        // Initialize the person table with the three columns.
+        // Initialize the person table with the two columns
         _firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
         _lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
 
-        // Listen for selection changes and show the person details when changed.
+        // Listen for selection changes and show the person details when changed
         _personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> loadMemberDataView(newValue, _borderPane));
     }
@@ -69,12 +65,12 @@ public class SearchResultViewController {
         SportifyGUI.getSharedMainApp().loadMemberDataView(person, pane);
     }
 
-    private void loadSearchMemberForm(){
+    private void loadSearchMemberForm() {
         SportifyGUI.getSharedMainApp().loadSearchMemberForm();
     }
 
     @FXML
-    private void clickBackToSearch(){
+    private void clickBackToSearch() {
         loadSearchMemberForm();
     }
 }

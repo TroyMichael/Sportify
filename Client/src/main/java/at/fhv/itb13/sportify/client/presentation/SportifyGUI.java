@@ -56,7 +56,7 @@ public class SportifyGUI extends Application {
         _sharedMainApp = this;
 
         _primaryStage = primaryStage;
-        primaryStage.setTitle("Sportify");
+        _primaryStage.setTitle("Sportify");
         _primaryStage.setMinHeight(680);
         _primaryStage.setMinWidth(980);
         _primaryStage.setMaximized(true);
@@ -95,9 +95,7 @@ public class SportifyGUI extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SportifyGUI.class.getResource(viewURL));
             Node view = loader.load();
-
             pane.setCenter(view);
-
             return loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,7 +115,6 @@ public class SportifyGUI extends Application {
         SearchResultViewController cont = (SearchResultViewController) loadView("view/SearchResultView.fxml", _rootLayout);
         cont.setResult(results);
         cont.setSearchInput(searchInput);
-
     }
 
     public void loadMemberDataView(PersonDTO person, BorderPane pane) {

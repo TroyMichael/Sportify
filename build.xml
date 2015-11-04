@@ -1,4 +1,4 @@
-<project name="Sportify" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+<project name="Sportify">
     <!-- General -->
     <!--Build Dir-->
     <property name="build.dir" location="build"/>
@@ -29,7 +29,7 @@
     </target>
 
     <!-- Build All -->
-    <target name="build" depends="build_shared_src,build_client,build_server,copy_shared"/>
+    <target name="build" depends="clean,build_shared_src,copy_shared,build_client,build_server"/>
 
     <!-- Run All Tests -->
     <target name="test" depends="test_client,test_server"/>
@@ -54,6 +54,8 @@
     </target>
 
     <target name="copy_shared" depends="build_shared_src">
+        <mkdir dir="${clientbuildsrc.dir}"/>
+        <mkdir dir="${sharedbuildsrc.dir}"/>
         <copy todir="${clientbuildsrc.dir}">
             <fileset dir="${sharedbuildsrc.dir}" includes="**"/>
         </copy>
@@ -85,7 +87,7 @@
     </target>
 
     <!-- Build Src files -->
-    <target name="build_client_src" depends="clean_client">
+    <target name="build_client_src">
         <mkdir dir="${clientbuildsrc.dir}"/>
         <javac srcdir="${clientsrc.dir}" destdir="${clientbuildsrc.dir}">
             <classpath refid="classpath.client"/>
@@ -152,7 +154,7 @@
     </target>
 
     <!-- Build Src files -->
-    <target name="build_server_src" depends="clean_server">
+    <target name="build_server_src">
         <mkdir dir="${serverbuildsrc.dir}"/>
         <copy todir="${serverbuildsrc.dir}">
             <fileset dir="${serversrc.dir}/resources" includes="**"/>

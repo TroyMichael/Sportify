@@ -4,23 +4,21 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import javafx.fxml.FXML;
 
 /**
- * Created by Patrick on 22.10.2015.
- * <p>
  * This controller controls the MainFrame.fxml. It implements the respective functions for each item in the menu bar.
  */
 public class ControllerMainFrame {
 
     @FXML
-    private void LoadAddNewMemberView() {
+    private void loadAddNewMemberView() {
         SportifyGUI.getSharedMainApp().loadNewMemberForm();
     }
 
     @FXML
-    private void LoadMemberlistView() {
+    private void loadMemberlistView() {
     }
 
     @FXML
-    private void LoadSearchMemberView() {
+    private void loadSearchMemberView() {
         SportifyGUI.getSharedMainApp().loadSearchMemberForm();
     }
 }

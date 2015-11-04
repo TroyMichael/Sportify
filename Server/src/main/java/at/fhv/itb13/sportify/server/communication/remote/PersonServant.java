@@ -33,6 +33,6 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
 
     @Override
     public void editPerson(PersonDTO personDTO) throws RemoteException {
-        _personController.saveOrupdate(personDTO);
+        _personController.saveOrUpdate(personDTO);
     }
 }

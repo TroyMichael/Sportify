@@ -17,10 +17,10 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Member">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#LoadAddNewMemberView"
+                                <MenuItem mnemonicParsing="false" onAction="#loadAddNewMemberView"
                                           text="Add new Member"/>
-                                <MenuItem mnemonicParsing="false" onAction="#LoadMemberlistView" text="Memberlist"/>
-                                <MenuItem mnemonicParsing="false" onAction="#LoadSearchMemberView"
+                                <MenuItem mnemonicParsing="false" onAction="#loadMemberlistView" text="Memberlist"/>
+                                <MenuItem mnemonicParsing="false" onAction="#loadSearchMemberView"
                                           text="Search Member"/>
                             </items>
                         </Menu>

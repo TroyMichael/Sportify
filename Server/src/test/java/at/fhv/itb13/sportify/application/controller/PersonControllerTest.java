@@ -27,10 +27,10 @@ public class PersonControllerTest extends TestCase {
     public void testSearchPerson() throws Exception {
         PersonController personController = PersonController.getInstance();
         PersonDTO personDTO = new PersonDTOImpl();
-        //personDTO.setFName("Karl");
+        personDTO.setFName("caro");
         //personDTO.setLName("Harrison");
         //personDTO.setStreet("Kennedy");
-        personDTO.setCity("Dornbirn");
+        //personDTO.setCity("Dornbirn");
 
         List<PersonDTO> persons = personController.searchPerson(personDTO);
         for (PersonDTO personDTO1 : persons){

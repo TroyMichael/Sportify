@@ -2,7 +2,9 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
@@ -13,7 +15,6 @@ import java.rmi.RemoteException;
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
-
 public class NewMemberFormController {
 
     @FXML
@@ -35,16 +36,13 @@ public class NewMemberFormController {
     private TextField _cityTextField;
 
     @FXML
-    private TextField _telephoneNoTextField;
-
-    @FXML
     private TextField _eMailTextField;
 
     @FXML
     private TextField _birthdayTextField;
 
     @FXML
-    private void SaveNewMember() {
+    private void saveNewMember() throws RemoteException {
 
         if (validateInput()) {
             PersonDTOImpl newMember = new PersonDTOImpl(
@@ -57,13 +55,14 @@ public class NewMemberFormController {
                     _eMailTextField.getText(),
                     _birthdayTextField.getText()
             );
-            try {
-                ServiceLocator.getInstance().getPersonRemote().create(newMember);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
 
+            ServiceLocator.getInstance().getRemote(PersonRemote.class).create(newMember);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Saving successful!");
+            alert.setTitle("Saving successful");
+            alert.setContentText("The member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
+            alert.showAndWait();
+        }
     }
 
     private Boolean validateInput() {
@@ -88,7 +87,7 @@ public class NewMemberFormController {
     }
 
     @FXML
-    private void CancelNewMember() {
+    private void cancelNewMember() {
         System.out.println("Cancelled");
     }
 }

@@ -35,6 +35,10 @@ public class ServiceLocator {
                 _personRemote = (PersonRemote) Naming.lookup(url);
             } catch (MalformedURLException | NotBoundException e) {
                 throw new InternalError();
+            } catch (RemoteException e) {
+                // set proxy to null to allow another lookup
+                _personRemote = null;
+                throw e;
             }
         }
         return _personRemote;

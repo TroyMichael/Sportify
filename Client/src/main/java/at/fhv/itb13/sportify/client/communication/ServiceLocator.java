@@ -39,6 +39,11 @@ public class ServiceLocator {
         return _instance;
     }
 
+    public void reload() {
+        // clear remote object map to allow another lookup
+        _remoteObjects.clear();
+    }
+
     public <T extends Remote> T getRemote(Class<T> cls) throws RemoteException {
         if (_remoteObjects.get(cls) == null) {
             try {
@@ -46,8 +51,7 @@ public class ServiceLocator {
             } catch (MalformedURLException | NotBoundException e) {
                 throw new InternalError();
             } catch (RemoteException e) {
-                // clear remote object map to allow another lookup
-                _remoteObjects.clear();
+                reload();
                 throw e;
             }
         }

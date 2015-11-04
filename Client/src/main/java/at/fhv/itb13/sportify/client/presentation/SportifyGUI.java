@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation;
 
 
+import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.MemberDataController;
 import at.fhv.itb13.sportify.client.presentation.controller.SearchResultViewController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
@@ -39,6 +40,7 @@ public class SportifyGUI extends Application {
             // unwrap exception
             Throwable e = throwable.getCause().getCause();
             if (e instanceof RemoteException) {
+                ServiceLocator.getInstance().reload();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Server not reachable");
                 alert.setTitle("Server not reachable");

@@ -44,7 +44,10 @@ public class SearchMemberFormController {
 
     @FXML
     private TextField _birthdayTextField;
-
+    /**
+     * TODO: get PAYMENTSTATUS
+     * @throws RemoteException
+     */
     @FXML
     private void searchMember() throws RemoteException {
 
@@ -57,7 +60,8 @@ public class SearchMemberFormController {
                 _postalCodeTextField.getText(),
                 _cityTextField.getText(),
                 _eMailTextField.getText(),
-                _birthdayTextField.getText()
+                _birthdayTextField.getText(),
+                true
         );
 
         List<PersonDTO> results = ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().searchPerson(member);

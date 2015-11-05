@@ -26,7 +26,7 @@ public class PersonController {
 
     private PersonController(PersonMapper personMapper) {
         _personMapper = personMapper;
-        _facade = new DBFacadeImpl(new PersonDAO());
+        _facade = new DBFacadeImpl();
     }
 
     /**

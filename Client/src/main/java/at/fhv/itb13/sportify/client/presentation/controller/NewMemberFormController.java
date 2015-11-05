@@ -42,6 +42,10 @@ public class NewMemberFormController {
     @FXML
     private TextField _birthdayTextField;
 
+    /**
+     * TODO: get PAYMENTSTATUS
+     * @throws RemoteException
+     */
     @FXML
     private void saveNewMember() throws RemoteException {
 
@@ -54,7 +58,8 @@ public class NewMemberFormController {
                     _postalCodeTextField.getText(),
                     _cityTextField.getText(),
                     _eMailTextField.getText(),
-                    _birthdayTextField.getText()
+                    _birthdayTextField.getText(),
+                    true
             );
 
             ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().create(newMember);

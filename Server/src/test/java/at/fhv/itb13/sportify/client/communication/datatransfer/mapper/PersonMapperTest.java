@@ -22,11 +22,13 @@ public class PersonMapperTest extends TestCase {
                 "Beutelsend",
                 "1234",
                 "frodo.beutlin@hobbit.com",
-                "11.12.1991"
+                "11.12.1991",
+                false
         );
         Person person = _mapper.toDomainObject(personDTO);
         assertTrue(person.getBirthdate().equals(personDTO.getBirthdate()));
         assertTrue(person.getCity().equals(personDTO.getCity()));
+        assertTrue(person.isPayed());
     }
 
     public void testToDTOObject() throws Exception {

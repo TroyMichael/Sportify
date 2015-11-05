@@ -12,9 +12,10 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private String _city = "";
     private String _email = "";
     private String _birthdate = "";
+    private boolean _payed = false;
 
     public PersonDTOImpl(){}
-    public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate){
+    public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate, boolean payed){
         _fname = fname;
         _lname = lname;
         _street = street;
@@ -23,6 +24,7 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
         _city = city;
         _email = email;
         _birthdate = birthdate;
+        _payed = payed;
     }
 
     @Override
@@ -103,5 +105,13 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     @Override
     public void setBirthdate(String birthdate) {
         _birthdate = birthdate;
+    }
+
+    @Override
+    public boolean getPayed(){return _payed;}
+
+    @Override
+    public void setPayed(boolean payed) {
+        _payed = payed;
     }
 }

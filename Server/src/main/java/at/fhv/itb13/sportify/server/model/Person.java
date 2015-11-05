@@ -21,11 +21,12 @@ public class Person extends PersistentObjectImpl {
     private String _city = "";
     private String _email = "";
     private String _birthdate = "";
+    private boolean _payed = false;
 
     public Person() {
     }
 
-    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate) {
+    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate,boolean payed) {
         _fname = fname;
         _lname = lname;
         _street = street;
@@ -34,6 +35,7 @@ public class Person extends PersistentObjectImpl {
         _city = city;
         _email = email;
         _birthdate = birthdate;
+        _payed = payed;
     }
 
     @Column(name = "firstname")
@@ -106,5 +108,14 @@ public class Person extends PersistentObjectImpl {
 
     public void setBirthdate(String birthdate) {
         _birthdate = birthdate;
+    }
+
+    @Column(name = "payed")
+    public boolean isPayed() {
+        return _payed;
+    }
+
+    public void setPayed(boolean _payed) {
+        this._payed = _payed;
     }
 }

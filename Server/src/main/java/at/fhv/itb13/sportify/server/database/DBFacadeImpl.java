@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.server.database;
 
-import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.util.HibernateUtil;
 
 import java.util.HashMap;
@@ -12,14 +11,14 @@ public class DBFacadeImpl implements DBFacade {
 
     private Map<Class<?>, GenericDAO> _daoMap;
 
-    private GenericDAO<Person, String> _personDAO;
+    private GenericDAOGenerator _gdaofactory;
 
-    public DBFacadeImpl(PersonDAO personDAO) {
-        _personDAO = personDAO;
-
-        // add DAO objects to hash map
-        _daoMap = new HashMap();
-        _daoMap.put(Person.class, _personDAO);
+    /**
+     * TODO: Factory für das erstellen von DAO´s
+     */
+    public DBFacadeImpl() {
+       _daoMap = new HashMap<>();
+        _gdaofactory = GenericDAOGenerator.getInstance();
     }
 
     @Override
@@ -44,26 +43,51 @@ public class DBFacadeImpl implements DBFacade {
 
     @Override
     public <T extends PersistentObject> List<T> getAll(Class<T> type) {
+        GenericDAO genericDAO = _daoMap.get(type);
+        if(genericDAO == null){
+            genericDAO = _gdaofactory.getDAO(type);
+            _daoMap.put(type,genericDAO);
+        }
         return (List<T>) _daoMap.get(type).getAll();
     }
 
     @Override
     public <T extends PersistentObject> String create(T object) {
+        GenericDAO genericDAO = _daoMap.get(object.getClass());
+        if(genericDAO == null){
+            genericDAO = _gdaofactory.getDAO(object.getClass());
+            _daoMap.put(object.getClass(),genericDAO);
+        }
         return (String) _daoMap.get(object.getClass()).create(object);
     }
 
     @Override
     public <T extends PersistentObject> void createOrUpdate(T object) {
+        GenericDAO genericDAO = _daoMap.get(object.getClass());
+        if(genericDAO == null){
+            genericDAO = _gdaofactory.getDAO(object.getClass());
+            _daoMap.put(object.getClass(),genericDAO);
+        }
         _daoMap.get(object.getClass()).createOrUpdate(object);
     }
 
     @Override
     public <T extends PersistentObject> void update(T object) {
+        GenericDAO genericDAO = _daoMap.get(object.getClass());
+        if(genericDAO == null){
+            genericDAO = _gdaofactory.getDAO(object.getClass());
+            _daoMap.put(object.getClass(),genericDAO);
+        }
         _daoMap.get(object.getClass()).update(object);
     }
 
     @Override
     public <T extends PersistentObject> void delete(T object) {
+        GenericDAO genericDAO = _daoMap.get(object.getClass());
+        if(genericDAO == null){
+            genericDAO = _gdaofactory.getDAO(object.getClass());
+            _daoMap.put(object.getClass(),genericDAO);
+        }
         _daoMap.get(object.getClass()).delete(object);
     }
 

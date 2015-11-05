@@ -25,7 +25,8 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
                     personDTO.getPostalCode(),
                     personDTO.getCity(),
                     personDTO.getEmail(),
-                    personDTO.getBirthdate()
+                    personDTO.getBirthdate(),
+                    personDTO.getPayed()
             );
             person.setId(personDTO.getId());
             person.setVersion(personDTO.getVersion());
@@ -60,6 +61,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
 //            );
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
+            personDTO.setPayed(person.isPayed());
             return personDTO;
         } else {
             throw new DomainObjectIsNullException();

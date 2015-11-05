@@ -52,11 +52,6 @@ public class Main {
 //        DBFacade dbFacade = (DBFacade) context.getBean("dbFacade");
 //        System.out.println(dbFacade);
 
-        User caro = new User("cme8625", "birofroo");
-        if(caro.login()){
-            System.out.println("login successful");
-        };
-
 
     }
 }

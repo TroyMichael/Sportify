@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.server.communication.remote.PersonServant;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.database.PersonDAO;
+import at.fhv.itb13.sportify.server.model.User;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
@@ -50,5 +51,12 @@ public class Main {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 //        DBFacade dbFacade = (DBFacade) context.getBean("dbFacade");
 //        System.out.println(dbFacade);
+
+        User caro = new User("cme8625", "birofroo");
+        if(caro.login()){
+            System.out.println("login successful");
+        };
+
+
     }
 }

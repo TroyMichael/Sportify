@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.UserRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,5 +27,10 @@ public class ControllerFactoryImpl extends UnicastRemoteObject implements Contro
     @Override
     public PersonRemote getPersonRemote() throws RemoteException {
         return new PersonServant();
+    }
+
+    @Override
+    public UserRemote getUserRemote() throws RemoteException {
+        return new UserServant();
     }
 }

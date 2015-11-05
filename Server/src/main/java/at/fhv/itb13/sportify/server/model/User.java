@@ -46,7 +46,7 @@ public class User extends PersistentObjectImpl {
         Properties env = new Properties();
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
        // env.put(Context.SECURITY_PRINCIPAL,"dc="+ _username +",dc=uclv,dc=net");
-        env.put(Context.SECURITY_PRINCIPAL,"uid="+ _username +",ou=People,dc=uclv,dc=net");
+        env.put(Context.SECURITY_PRINCIPAL,"uid="+ _username +",ou=fhv,ou=people,dc=uclv,dc=net");
         env.put(Context.SECURITY_CREDENTIALS, _password);
 
         try {

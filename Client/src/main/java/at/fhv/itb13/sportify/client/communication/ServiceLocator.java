@@ -30,7 +30,7 @@ public class ServiceLocator {
         // init map for remote urls
         _remoteUrls = new HashMap<Class, String>();
         // add remote urls to map
-        _remoteUrls.put(PersonRemote.class, "PersonServant");
+        //_remoteUrls.put(PersonRemote.class, "PersonServant");
         _remoteUrls.put(ControllerFactory.class,"ControllerFactory");
     }
 

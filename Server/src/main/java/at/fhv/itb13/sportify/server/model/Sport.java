@@ -11,6 +11,9 @@ public class Sport extends PersistentObjectImpl {
     private String _name;
     private Department _department;
 
+    public Sport() {
+    }
+
     @Column(name = "name")
     public String getName() {
         return _name;

@@ -14,6 +14,9 @@ public class Department extends PersistentObjectImpl {
     private Collection<Sport> _sports;
     private Collection<Team> _teams;
 
+    public Department() {
+    }
+
     @Column(name = "name")
     public String getName() {
         return _name;

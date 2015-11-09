@@ -13,6 +13,9 @@ public class Roster extends PersistentObjectImpl {
     private Team _team;
     private Collection<Person> _persons;
 
+    public Roster() {
+    }
+
     @Column(name = "name")
     public String getName() {
         return _name;

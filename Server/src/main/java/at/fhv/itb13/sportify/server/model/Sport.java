@@ -2,31 +2,31 @@ package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * Created by mod on 11/4/15.
- */
 @Entity
 @Table(name = "sport")
 public class Sport extends PersistentObjectImpl {
-    private String _sportname;
 
-    public Sport(String sportname) {
-        _sportname = sportname;
+    private String _name;
+    private Department _department;
+
+    @Column(name = "name")
+    public String getName() {
+        return _name;
     }
 
-    public Sport() {
+    public void setName(String name) {
+        _name = name;
     }
 
-    @Column(name = "sportname")
-    public String getSportname() {
-        return _sportname;
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    public Department getDepartment() {
+        return _department;
     }
 
-    public void setSportname(String sportname) {
-        _sportname = sportname;
+    public void setDepartment(Department department) {
+        _department = department;
     }
 }

@@ -7,24 +7,71 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="sportify"/>
-    <table name="person" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="firstname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="lastname" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="street" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="housenumber" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="postalcode" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="birthdate" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="payed" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+    <table name="department" schema="" catalog="sportify" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="sport_ibfk_1" table="sport" schema="" catalog="sportify" columns="department_id"/>
+      <exported-key name="team_ibfk_1" table="team" schema="" catalog="sportify" columns="department_id"/>
+    </table>
+    <table name="person" schema="" catalog="sportify" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="firstname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="housenumber" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="postalcode" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="birthdate" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="payed" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="roster_person_ibfk_1" table="roster_person" schema="" catalog="sportify" columns="person_id"/>
+      <exported-key name="team_person_ibfk_1" table="team_person" schema="" catalog="sportify" columns="person_id"/>
+    </table>
+    <table name="roster" schema="" catalog="sportify" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="roster_ibfk_1" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="roster_person_ibfk_2" table="roster_person" schema="" catalog="sportify" columns="roster_id"/>
+    </table>
+    <table name="roster_person" schema="" catalog="sportify" type="TABLE">
+      <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="roster_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="person_id,roster_id"/>
+      <foreign-key name="roster_person_ibfk_1" columns="person_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="roster_person_ibfk_2" columns="roster_id" ref-table="roster" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="sport" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
-      <column name="sportname" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="department_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="sport_ibfk_1" columns="department_id" ref-table="department" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="team" schema="" catalog="sportify" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="department_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="team_ibfk_1" columns="department_id" ref-table="department" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="roster_ibfk_1" table="roster" schema="" catalog="sportify" columns="team_id"/>
+      <exported-key name="team_person_ibfk_2" table="team_person" schema="" catalog="sportify" columns="team_id"/>
+    </table>
+    <table name="team_person" schema="" catalog="sportify" type="TABLE">
+      <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="person_id,team_id"/>
+      <foreign-key name="team_person_ibfk_1" columns="person_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="team_person_ibfk_2" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
   </data-source>
 </component>

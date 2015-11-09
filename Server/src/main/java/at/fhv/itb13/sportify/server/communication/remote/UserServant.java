@@ -19,7 +19,7 @@ public class UserServant extends UnicastRemoteObject implements UserRemote {
     }
     @Override
     public void login() {
-        //TODO: IMplement
+        //TODO: Implement
         //_logincontroller.login();
     }
 }

@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.client.presentation;
 
 
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.client.presentation.controller.HelloUserViewController;
 import at.fhv.itb13.sportify.client.presentation.controller.MemberDataController;
 import at.fhv.itb13.sportify.client.presentation.controller.SearchResultViewController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
@@ -129,7 +130,10 @@ public class SportifyGUI extends Application {
 
     public void loadLoginWindow(){loadView("view/LoginWindow.fxml", _rootLayout);}
 
-    public void loadMainFrame(){ loadView(null, _rootLayout); }
+    public void loadHelloView(String username){
+       HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
+        cont.setUsername(username);
+    }
 
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;

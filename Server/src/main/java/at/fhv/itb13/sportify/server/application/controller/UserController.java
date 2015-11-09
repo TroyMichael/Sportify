@@ -12,7 +12,7 @@ public class UserController {
 
     private UserMapper _userMapper;
 
-    private UserController(UserMapper userMapper){
+    public UserController(UserMapper userMapper){
         _userMapper = userMapper;
     }
 

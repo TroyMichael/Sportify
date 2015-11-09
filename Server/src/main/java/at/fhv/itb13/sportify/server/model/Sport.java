@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created by mod on 11/4/15.
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "sport")
 public class Sport extends PersistentObjectImpl {
     private String _sportname;
+    private List<Team> _teams;
 
     public Sport(String sportname) {
         _sportname = sportname;

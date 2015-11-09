@@ -23,29 +23,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-       /* try {
-            PersonServant personServant = new PersonServant();
+       try {
             ControllerFactory controllerFactory = ControllerFactoryImpl.getInstance();
             Naming.rebind("rmi://localhost:12345/ControllerFactory", controllerFactory);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }*/
-        PersonDTO personDTO = new PersonDTOImpl(
-                "Andrea",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                true
-        );
-        PersonController personController = PersonController.getInstance();
-        List<PersonDTO> list = personController.searchPerson(personDTO);
-        System.out.println(list.toString());
+        }
 
 //        SportifyGUI.run(args);
 //        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");

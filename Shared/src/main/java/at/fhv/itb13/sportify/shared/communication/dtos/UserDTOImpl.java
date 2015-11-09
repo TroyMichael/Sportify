@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-public class UserDTOImpl implements UserDTO {
+public class UserDTOImpl extends DTOImpl implements UserDTO {
 
     private String _name;
     private String _password;

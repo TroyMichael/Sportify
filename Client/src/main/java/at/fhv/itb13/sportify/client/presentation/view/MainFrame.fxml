@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="at.fhv.itb13.sportify.client.presentation.controller.ControllerMainFrame">
+
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.MainFrameController">
     <top>
         <AnchorPane minHeight="-Infinity" prefHeight="30.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <MenuBar prefHeight="30.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar prefHeight="30.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close"/>
+                                <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Member">
+                        <Menu fx:id="_memberMenu" disable="true" mnemonicParsing="false" text="Member">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#loadAddNewMemberView"
-                                          text="Add new Member"/>
-                                <MenuItem mnemonicParsing="false" onAction="#loadMemberlistView" text="Memberlist"/>
-                                <MenuItem mnemonicParsing="false" onAction="#loadSearchMemberView"
-                                          text="Search Member"/>
+                                <MenuItem mnemonicParsing="false" onAction="#loadAddNewMemberView" text="Add new Member" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadMemberlistView" text="Memberlist" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadSearchMemberView" text="Search Member" />
                             </items>
                         </Menu>
                     </menus>

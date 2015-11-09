@@ -2,11 +2,15 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 
 /**
  * This controller controls the MainFrame.fxml. It implements the respective functions for each item in the menu bar.
  */
-public class ControllerMainFrame {
+public class MainFrameController {
+
+    @FXML
+    private Menu _memberMenu;
 
     @FXML
     private void loadAddNewMemberView() {

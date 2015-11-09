@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.MemberDataController;
 import at.fhv.itb13.sportify.client.presentation.controller.SearchResultViewController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -64,6 +65,8 @@ public class SportifyGUI extends Application {
         _primaryStage.setMaximized(true);
 
         loadRootLayout();
+        loadLoginWindow();
+
     }
 
     /**
@@ -123,6 +126,10 @@ public class SportifyGUI extends Application {
         MemberDataController cont = (MemberDataController) loadView("view/MemberData.fxml", pane);
         cont.setPerson(person);
     }
+
+    public void loadLoginWindow(){loadView("view/LoginWindow.fxml", _rootLayout);}
+
+    public void loadMainFrame(){ loadView(null, _rootLayout); }
 
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;

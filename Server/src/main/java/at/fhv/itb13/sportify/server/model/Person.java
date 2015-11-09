@@ -2,13 +2,8 @@ package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-/**
- * Created by Niklas Fessler on 10/22/15.
- */
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "person")
@@ -21,12 +16,14 @@ public class Person extends PersistentObjectImpl {
     private String _city = "";
     private String _email = "";
     private String _birthdate = "";
-    private boolean _payed = false;
+    private Boolean _payed = false;
+    private Collection<Roster> _rosters;
+    private Collection<Team> _teams;
 
     public Person() {
     }
 
-    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate,boolean payed) {
+    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate, Boolean payed) {
         _fname = fname;
         _lname = lname;
         _street = street;
@@ -111,11 +108,31 @@ public class Person extends PersistentObjectImpl {
     }
 
     @Column(name = "payed")
-    public boolean isPayed() {
+    public Boolean isPayed() {
         return _payed;
     }
 
-    public void setPayed(boolean _payed) {
-        this._payed = _payed;
+    public void setPayed(Boolean payed) {
+        _payed = payed;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "roster_person", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "roster_id", nullable = false, updatable = false)})
+    public Collection<Roster> getRosters() {
+        return _rosters;
+    }
+
+    public void setRosters(Collection<Roster> rosters) {
+        _rosters = rosters;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "team_person", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)})
+    public Collection<Team> getTeams() {
+        return _teams;
+    }
+
+    public void setTeams(Collection<Team> teams) {
+        _teams = teams;
     }
 }

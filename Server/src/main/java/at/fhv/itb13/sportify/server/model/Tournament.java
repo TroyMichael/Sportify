@@ -1,7 +1,8 @@
 package at.fhv.itb13.sportify.server.model;
 
-/**
- * Created by mod on 11/4/15.
- */
-public class Tournament {
+import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
+
+public class Tournament extends PersistentObjectImpl {
+    public Tournament() {
+    }
 }

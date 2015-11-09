@@ -7,46 +7,40 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Properties;
 
-/**
- * Created by Caroline on 05.11.2015.
- */
 public class User extends PersistentObjectImpl {
 
     private String _username;
     private String _password;
 
-
-    public User(){
-
+    public User() {
     }
 
-    public User(String username, String password){
+    public User(String username, String password) {
         _username = username;
         _password = password;
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         _username = username;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         _password = password;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return _username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return _password;
     }
 
-    public boolean login(){
+    public boolean login() {
 
         Properties env = new Properties();
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
-       // env.put(Context.SECURITY_PRINCIPAL,"dc="+ _username +",dc=uclv,dc=net");
-        env.put(Context.SECURITY_PRINCIPAL,"uid="+ _username +",ou=fhv,ou=people,dc=uclv,dc=net");
+        env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
         env.put(Context.SECURITY_CREDENTIALS, _password);
 
         try {
@@ -57,7 +51,5 @@ public class User extends PersistentObjectImpl {
             e.printStackTrace();
             return false;
         }
-
     }
-
 }

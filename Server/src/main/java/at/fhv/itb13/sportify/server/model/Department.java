@@ -2,47 +2,54 @@ package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Collection;
 
-/**
- * Created by mod on 11/4/15.
- */
 @Entity
 @Table(name = "department")
 public class Department extends PersistentObjectImpl {
 
     private String _name;
     private String _description;
-    private List<Sport> _sports;
+    private Collection<Sport> _sports;
+    private Collection<Team> _teams;
 
-    public Department(String deptName){
-        _name = deptName;
+    public Department() {
     }
 
-    public Department(){}
-
     @Column(name = "name")
-    public String getName(){
+    public String getName() {
         return _name;
     }
 
+    public void setName(String name) {
+        _name = name;
+    }
+
     @Column(name = "description")
-    public String getDescription(){
+    public String getDescription() {
         return _description;
     }
 
-    public List<Sport> getSports(){
+    public void setDescription(String description) {
+        _description = description;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    public Collection<Sport> getSports() {
         return _sports;
     }
 
-    public void setDeptName(String deptName){
-        _name = deptName;
+    public void setSports(Collection<Sport> sports) {
+        _sports = sports;
     }
 
-    public void addSport(Sport sport){
-        _sports.add(sport);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    public Collection<Team> getTeams() {
+        return _teams;
+    }
+
+    public void setTeams(Collection<Team> teams) {
+        _teams = teams;
     }
 }

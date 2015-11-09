@@ -34,8 +34,10 @@ public class LoginWindowController {
         userDTO.setPassword(_passwordField.getText());
 
         try {
-            if(ServiceLocator.getInstance().getRemote(ControllerFactory.class).getUserRemote().login(userDTO)){
-                loadHelloView(_usernameTextfield.getText());
+            if(ServiceLocator.getInstance().getRemote(ControllerFactory.class).getUserRemote().login(userDTO) == true){
+               // loadHelloView(_usernameTextfield.getText());
+                loadHelloView("Hallo");
+
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("WRONG PASSWORD");

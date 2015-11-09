@@ -133,6 +133,8 @@ public class SportifyGUI extends Application {
     public void loadHelloView(String username){
        HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
         cont.setUsername(username);
+
+
     }
 
     public static SportifyGUI getSharedMainApp() {

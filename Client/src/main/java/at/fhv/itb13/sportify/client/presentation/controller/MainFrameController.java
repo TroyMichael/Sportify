@@ -12,6 +12,10 @@ public class MainFrameController {
     @FXML
     private Menu _memberMenu;
 
+    public void setMemberMenuDisable(boolean bool){
+        _memberMenu.setDisable(bool);
+    }
+
     @FXML
     private void loadAddNewMemberView() {
         SportifyGUI.getSharedMainApp().loadNewMemberForm();

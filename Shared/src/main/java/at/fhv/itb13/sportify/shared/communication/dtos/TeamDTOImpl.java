@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.server.model.Department;
 import at.fhv.itb13.sportify.server.model.Person;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by mod on 11/10/15.
@@ -11,12 +12,14 @@ import java.util.LinkedList;
 public class TeamDTOImpl implements TeamDTO {
     private String _name;
     private Department _department;
-    private LinkedList<Person> _persons;
+    private List<PersonDTO> _persons;
+    private SportDTO _sport;
 
-    public TeamDTOImpl(String name, Department department, LinkedList<Person> persons) {
+    public TeamDTOImpl(String name, Department department, List<PersonDTO> persons, SportDTO sportDTO) {
         _name = name;
         _department = department;
         _persons = persons;
+        _sport = sportDTO;
     }
 
 
@@ -41,12 +44,23 @@ public class TeamDTOImpl implements TeamDTO {
     }
 
     @Override
-    public LinkedList<Person> getPersons() {
+    public List<PersonDTO> getPersons() {
         return _persons;
     }
 
     @Override
-    public void setPersons(LinkedList<Person> persons) {
+    public void setPersons(List<PersonDTO> persons) {
         _persons = persons;
     }
+
+    @Override
+    public void setSport(SportDTO sportDTO) {
+
+    }
+
+    @Override
+    public SportDTO getSport() {
+        return null;
+    }
+
 }

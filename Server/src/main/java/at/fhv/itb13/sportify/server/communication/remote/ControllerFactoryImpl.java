@@ -1,9 +1,6 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
-import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
-import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.TeamRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.UserRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -37,6 +34,10 @@ public class ControllerFactoryImpl extends UnicastRemoteObject implements Contro
     @Override
     public TeamRemote getTeamRemote() throws RemoteException{
         return new TeamServant();
+    }
+    @Override
+    public SportRemote getSportRemote() throws RemoteException{
+        return new SportServant();
     }
 
 }

@@ -13,6 +13,6 @@ public interface TeamDTO {
     void setName(String name);
     Department getDepartment();
     void setDepartment(Department department);
-    LinkedList<Person> getPersons();
-    void setPersons(LinkedList<Person> persons);
+    LinkedList<PersonDTO> getPersons();
+    void setPersons(LinkedList<PersonDTO> persons);
 }

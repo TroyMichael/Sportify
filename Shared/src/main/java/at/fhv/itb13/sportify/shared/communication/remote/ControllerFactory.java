@@ -12,4 +12,6 @@ public interface ControllerFactory extends Remote {
     UserRemote getUserRemote() throws RemoteException;
 
     TeamRemote getTeamRemote() throws RemoteException;
+
+    SportRemote getSportRemote() throws RemoteException;
 }

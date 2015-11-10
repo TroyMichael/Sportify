@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.TeamController;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.TeamRemote;
 
@@ -21,11 +22,21 @@ public class TeamServant extends UnicastRemoteObject implements TeamRemote {
     }
 
     /**
-     * TODO: teamcontroller.create();
+     * TODO: teamcontroller.create(); teamcontroller.update(); teamcontroller.addPerson();
      * @param teamDTO
      */
     @Override
     public void createTeam(TeamDTO teamDTO) {
+
+    }
+
+    @Override
+    public void editTeam(TeamDTO TeamDTO) {
+
+    }
+
+    @Override
+    public void addPersonToTeam(PersonDTO personDTO) {
 
     }
 }

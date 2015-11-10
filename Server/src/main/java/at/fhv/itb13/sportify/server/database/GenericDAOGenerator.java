@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.server.database;
 
+import at.fhv.itb13.sportify.server.database.dao.PersonDAO;
+import at.fhv.itb13.sportify.server.database.dao.SportDAO;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
 

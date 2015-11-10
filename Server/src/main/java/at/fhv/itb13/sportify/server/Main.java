@@ -1,21 +1,11 @@
 package at.fhv.itb13.sportify.server;
 
-import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.remote.ControllerFactoryImpl;
-import at.fhv.itb13.sportify.server.communication.remote.PersonServant;
-import at.fhv.itb13.sportify.server.database.DBFacade;
-import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
-import at.fhv.itb13.sportify.server.database.PersonDAO;
-import at.fhv.itb13.sportify.server.model.User;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Michael on 27.10.2015.

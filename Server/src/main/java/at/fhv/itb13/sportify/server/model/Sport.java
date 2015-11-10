@@ -3,7 +3,8 @@ package at.fhv.itb13.sportify.server.model;
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sport")
@@ -11,9 +12,14 @@ public class Sport extends PersistentObjectImpl {
 
     private String _name;
     private Department _department;
-    private Collection<Team> _teams;
+    private Set<Team> _teams = new HashSet<Team>();
 
     public Sport() {
+    }
+
+    public Sport(String name, Department department) {
+        _name = name;
+        _department = department;
     }
 
     @Column(name = "name")
@@ -35,20 +41,20 @@ public class Sport extends PersistentObjectImpl {
         _department = department;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    public Collection<Team> getTeams() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
+    public Set<Team> getTeams() {
         return _teams;
     }
 
-    public void setTeams(Collection<Team> teams) {
+    public void setTeams(Set<Team> teams) {
         _teams = teams;
     }
 
-    public void addTeam(Team team){
+    public void addTeam(Team team) {
         _teams.add(team);
     }
 
-    public void removeTeam(Team team){
+    public void removeTeam(Team team) {
         _teams.remove(team);
     }
 }

@@ -3,11 +3,13 @@ package at.fhv.itb13.sportify.server.model;
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
 public class Person extends PersistentObjectImpl {
+
     private String _fname = "";
     private String _lname = "";
     private String _street = "";
@@ -17,8 +19,8 @@ public class Person extends PersistentObjectImpl {
     private String _email = "";
     private String _birthdate = "";
     private Boolean _payed = false;
-    private Collection<Roster> _rosters;
-    private Collection<Team> _teams;
+    private Set<Roster> _rosters = new HashSet<Roster>();
+    private Set<Team> _teams = new HashSet<Team>();
 
     public Person() {
     }
@@ -118,21 +120,37 @@ public class Person extends PersistentObjectImpl {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "roster_person", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "roster_id", nullable = false, updatable = false)})
-    public Collection<Roster> getRosters() {
+    public Set<Roster> getRosters() {
         return _rosters;
     }
 
-    public void setRosters(Collection<Roster> rosters) {
+    public void setRosters(Set<Roster> rosters) {
         _rosters = rosters;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "team_person", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)})
-    public Collection<Team> getTeams() {
+    public Set<Team> getTeams() {
         return _teams;
     }
 
-    public void setTeams(Collection<Team> teams) {
+    public void setTeams(Set<Team> teams) {
         _teams = teams;
+    }
+
+    public void addRoster(Roster roster) {
+        _rosters.add(roster);
+    }
+
+    public void removeRoster(Roster roster) {
+        _rosters.remove(roster);
+    }
+
+    public void addTeam(Team team) {
+        _teams.add(team);
+    }
+
+    public void removeTeam(Team team) {
+        _teams.remove(team);
     }
 }

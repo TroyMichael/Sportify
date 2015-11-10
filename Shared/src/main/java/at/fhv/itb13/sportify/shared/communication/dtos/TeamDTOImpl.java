@@ -1,9 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import at.fhv.itb13.sportify.server.model.Department;
-import at.fhv.itb13.sportify.server.model.Person;
-
-import java.util.LinkedList;
 import java.util.List;
 
 /**

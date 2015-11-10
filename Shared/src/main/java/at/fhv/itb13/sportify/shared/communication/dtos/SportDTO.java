@@ -1,8 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import at.fhv.itb13.sportify.server.model.Department;
-import at.fhv.itb13.sportify.server.model.Team;
-
 import java.util.Collection;
 
 /**

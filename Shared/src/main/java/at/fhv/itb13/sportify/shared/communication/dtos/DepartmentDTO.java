@@ -1,7 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import at.fhv.itb13.sportify.server.model.Sport;
-
 import java.io.Serializable;
 import java.util.Collection;
 

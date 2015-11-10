@@ -27,26 +27,22 @@ public class LoginWindowController {
     }
 
     @FXML
-    private void loginButtonClicked(){
+    private void loginButtonClicked() throws RemoteException {
 
         UserDTO userDTO = new UserDTOImpl();
         userDTO.setName(_usernameTextfield.getText());
         userDTO.setPassword(_passwordField.getText());
 
-        try {
-            if(ServiceLocator.getInstance().getRemote(ControllerFactory.class).getUserRemote().login(userDTO) == true){
-               // loadHelloView(_usernameTextfield.getText());
-                loadHelloView(_usernameTextfield.getText());
 
-            }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("WRONG PASSWORD");
-            }
-        } catch (RemoteException e) {
+        if (ServiceLocator.getInstance().getRemote(ControllerFactory.class).getUserRemote().login(userDTO) == true) {
+            loadHelloView(_usernameTextfield.getText());
+
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("SERVER CONNECTION FAILED");
-
-            e.printStackTrace();
+            alert.setTitle("Wrong Password or Username");
+            alert.setHeaderText("Wrong Password or Username");
+            alert.setContentText("The Password or the Username is wrong. Please try again.");
+            alert.showAndWait();
         }
 
 

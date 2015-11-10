@@ -20,6 +20,8 @@ public class TeamDTOImpl implements TeamDTO {
         _sport = sportDTO;
     }
 
+    public TeamDTOImpl(){}
+
 
     @Override
     public String getName() {

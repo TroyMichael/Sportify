@@ -10,4 +10,6 @@ public interface ControllerFactory extends Remote {
     public PersonRemote getPersonRemote() throws RemoteException;
 
     public UserRemote getUserRemote() throws RemoteException;
+
+    TeamRemote getTeamRemote() throws RemoteException;
 }

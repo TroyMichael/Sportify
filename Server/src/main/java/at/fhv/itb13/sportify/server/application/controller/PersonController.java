@@ -10,22 +10,14 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by mod on 10/27/15.
- */
 public class PersonController {
-    private static PersonController ourInstance = new PersonController(new PersonMapper());
+
     private DBFacade _facade;
-
-    public static PersonController getInstance() {
-        return ourInstance;
-    }
-
     private PersonMapper _personMapper;
 
-    private PersonController(PersonMapper personMapper) {
-        _personMapper = personMapper;
+    public PersonController() {
         _facade = new DBFacadeImpl();
+        _personMapper = new PersonMapper();
     }
 
     /**
@@ -171,5 +163,4 @@ public class PersonController {
         }
         return common;
     }
-
 }

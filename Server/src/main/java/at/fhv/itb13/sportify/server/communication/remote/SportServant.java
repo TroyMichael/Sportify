@@ -8,15 +8,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-/**
- * Created by mod on 11/10/15.
- */
-public class SportServant extends UnicastRemoteObject implements SportRemote{
+public class SportServant extends UnicastRemoteObject implements SportRemote {
+
     private SportController _spoSportController;
+
     public SportServant() throws RemoteException {
         super();
         _spoSportController = new SportController();
-
     }
 
     @Override

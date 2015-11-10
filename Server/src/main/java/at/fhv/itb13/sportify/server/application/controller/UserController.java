@@ -5,15 +5,12 @@ import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.UserMapper
 import at.fhv.itb13.sportify.server.model.User;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 
-/**
- * Created by Caroline on 05.11.2015.
- */
 public class UserController {
 
     private UserMapper _userMapper;
 
-    public UserController(UserMapper userMapper){
-        _userMapper = userMapper;
+    public UserController() {
+        _userMapper = new UserMapper();
     }
 
     public boolean login(UserDTO userDTO) throws DTOIsNullException {

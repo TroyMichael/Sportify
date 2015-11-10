@@ -12,7 +12,7 @@ public class Department extends PersistentObjectImpl {
     private String _name;
     private String _description;
     private Collection<Sport> _sports;
-    private Collection<Team> _teams;
+
 
     public Department() {
     }
@@ -44,12 +44,13 @@ public class Department extends PersistentObjectImpl {
         _sports = sports;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    public Collection<Team> getTeams() {
-        return _teams;
+
+
+    public void addSport(Sport sport) {
+        _sports.add(sport);
     }
 
-    public void setTeams(Collection<Team> teams) {
-        _teams = teams;
+    public void removeSport(Sport sport) {
+        _sports.remove(sport);
     }
 }

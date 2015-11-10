@@ -16,7 +16,7 @@ import java.util.List;
  * @param <PK> type of primary key
  */
 @SuppressWarnings("unchecked")
-abstract class GenericDAOImpl<T extends PersistentObject, PK extends Serializable> implements GenericDAO<T, PK> {
+public abstract class GenericDAOImpl<T extends PersistentObject, PK extends Serializable> implements GenericDAO<T, PK> {
 
     private Class<T> _type;
 

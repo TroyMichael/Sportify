@@ -4,7 +4,6 @@ import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.Domain
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
-import at.fhv.itb13.sportify.server.database.PersonDAO;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 

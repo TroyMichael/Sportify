@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.database;
 
-import at.fhv.itb13.sportify.server.model.*;
+import at.fhv.itb13.sportify.server.model.Person;
+import at.fhv.itb13.sportify.server.model.Sport;
 
 /**
  * Created by mod on 11/4/15.

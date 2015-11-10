@@ -8,5 +8,5 @@
         <constructor-arg ref="personDAO"/>
     </bean>
 
-    <bean id="personDAO" class="at.fhv.itb13.sportify.server.database.PersonDAO" scope="singleton"/>
+    <bean id="personDAO" class="at.fhv.itb13.sportify.server.database.dao.PersonDAO" scope="singleton"/>
 </beans>

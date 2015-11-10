@@ -36,7 +36,7 @@ public class LoginWindowController {
         try {
             if(ServiceLocator.getInstance().getRemote(ControllerFactory.class).getUserRemote().login(userDTO) == true){
                // loadHelloView(_usernameTextfield.getText());
-                loadHelloView("Hallo");
+                loadHelloView(_usernameTextfield.getText());
 
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);

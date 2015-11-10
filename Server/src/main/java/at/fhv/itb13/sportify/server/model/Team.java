@@ -9,8 +9,8 @@ import java.util.Collection;
 @Table(name = "team")
 public class Team extends PersistentObjectImpl {
 
-    private String name;
-    private Department _department;
+    private String _name;
+    private Sport _sport;
     private Collection<Person> _persons;
     private Collection<Roster> _rosters;
 
@@ -19,21 +19,20 @@ public class Team extends PersistentObjectImpl {
 
     @Column(name = "name")
     public String getName() {
-        return name;
+        return _name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        _name = name;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
-    public Department getDepartment() {
-        return _department;
-    }
 
-    public void setDepartment(Department department) {
-        _department = department;
+   public Sport getSport(){
+       return _sport;
+   }
+
+    public void setSport(Sport sport){
+        _sport = sport;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

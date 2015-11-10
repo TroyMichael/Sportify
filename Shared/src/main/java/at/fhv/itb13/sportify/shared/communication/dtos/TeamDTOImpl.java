@@ -11,14 +11,12 @@ import java.util.List;
  */
 public class TeamDTOImpl implements TeamDTO {
     private String _name;
-    private Department _department;
-    private List<PersonDTO> _persons;
+     private List<PersonDTO> _persons;
     private SportDTO _sport;
 
-    public TeamDTOImpl(String name, Department department, List<PersonDTO> persons, SportDTO sportDTO) {
+    public TeamDTOImpl(String name, List<PersonDTO> persons, SportDTO sportDTO) {
         _name = name;
-        _department = department;
-        _persons = persons;
+       _persons = persons;
         _sport = sportDTO;
     }
 
@@ -33,15 +31,6 @@ public class TeamDTOImpl implements TeamDTO {
         _name = name;
     }
 
-    @Override
-    public Department getDepartment() {
-        return _department;
-    }
-
-    @Override
-    public void setDepartment(Department department) {
-        _department = department;
-    }
 
     @Override
     public List<PersonDTO> getPersons() {
@@ -55,12 +44,12 @@ public class TeamDTOImpl implements TeamDTO {
 
     @Override
     public void setSport(SportDTO sportDTO) {
-
+        _sport = sportDTO;
     }
 
     @Override
     public SportDTO getSport() {
-        return null;
+        return _sport;
     }
 
 }

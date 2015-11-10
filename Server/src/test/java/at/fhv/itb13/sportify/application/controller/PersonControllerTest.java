@@ -1,7 +1,7 @@
 package at.fhv.itb13.sportify.application.controller;
 
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
-import at.fhv.itb13.sportify.server.database.SportDAO;
+import at.fhv.itb13.sportify.server.database.dao.SportDAO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import junit.framework.TestCase;

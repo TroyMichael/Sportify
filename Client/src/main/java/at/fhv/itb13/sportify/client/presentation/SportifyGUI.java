@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -66,6 +67,7 @@ public class SportifyGUI extends Application {
         _primaryStage.setMinHeight(680);
         _primaryStage.setMinWidth(980);
         _primaryStage.setMaximized(true);
+        _primaryStage.getIcons().add(new Image("iconSportify.png"));
 
         loadRootLayout();
         loadLoginWindow();
@@ -85,7 +87,7 @@ public class SportifyGUI extends Application {
             _primaryStage.setScene(root);
             _primaryStage.show();
 
-           _mainFrameController = loader.getController();
+            _mainFrameController = loader.getController();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,10 +134,12 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadLoginWindow(){loadView("view/LoginWindow.fxml", _rootLayout);}
+    public void loadLoginWindow() {
+        loadView("view/LoginWindow.fxml", _rootLayout);
+    }
 
-    public void loadHelloView(String username){
-       HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
+    public void loadHelloView(String username) {
+        HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
         cont.setUsername(username);
         _mainFrameController.setMemberMenuDisable(false);
 

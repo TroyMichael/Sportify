@@ -18,4 +18,9 @@ public interface TeamDTO {
 
     String getSportId();
     void setSportId(String sportId);
+
+    HashSet<String> getRosterIds();
+
+    void addRosterId(String rosterId);
+    void removeRosterId(String rosterId);
 }

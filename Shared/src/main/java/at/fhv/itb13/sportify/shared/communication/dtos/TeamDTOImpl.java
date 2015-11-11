@@ -8,9 +8,10 @@ import java.util.List;
  */
 public class TeamDTOImpl implements TeamDTO {
     private String _name;
-    private HashSet<String> _personIds;
+    private HashSet<String> _personIds = new HashSet<>();
+    private HashSet<String> _rosterIds = new HashSet<>();
     private String _sportId;
-
+    public TeamDTOImpl(){}
     public TeamDTOImpl(String name,  HashSet<String> personIds, String sportId) {
         _name = name;
         _personIds = personIds;
@@ -52,5 +53,20 @@ public class TeamDTOImpl implements TeamDTO {
     @Override
     public void setSportId(String sportId) {
         _sportId = sportId;
+    }
+
+    @Override
+    public HashSet<String> getRosterIds() {
+        return _rosterIds;
+    }
+
+    @Override
+    public void addRosterId(String rosterId) {
+        _rosterIds.add(rosterId);
+    }
+
+    @Override
+    public void removeRosterId(String rosterId) {
+        _rosterIds.remove(rosterId);
     }
 }

@@ -16,19 +16,17 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
 
     public PersonServant() throws RemoteException {
         super();
-        _personController = PersonController.getInstance();
+        _personController = new PersonController();
     }
 
     @Override
     public void create(PersonDTO personDto) throws RemoteException {
-        _personController = PersonController.getInstance();
         _personController.create(personDto);
     }
 
     @Override
     public List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException {
         return _personController.searchPerson(personDto);
-
     }
 
     @Override

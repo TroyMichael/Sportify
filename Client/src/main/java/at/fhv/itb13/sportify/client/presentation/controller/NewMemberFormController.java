@@ -1,9 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
-import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -44,6 +42,7 @@ public class NewMemberFormController {
 
     /**
      * TODO: get PAYMENTSTATUS
+     *
      * @throws RemoteException
      */
     @FXML
@@ -62,7 +61,7 @@ public class NewMemberFormController {
                     true
             );
 
-            ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().create(newMember);
+            SessionController.getInstance().getSession().getPersonRemote().create(newMember);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Saving successful!");
             alert.setTitle("Saving successful");

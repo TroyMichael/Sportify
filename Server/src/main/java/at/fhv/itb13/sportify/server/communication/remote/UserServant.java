@@ -2,7 +2,6 @@ package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.UserController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DTOIsNullException;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.UserMapper;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.UserRemote;
 
@@ -19,19 +18,16 @@ public class UserServant extends UnicastRemoteObject implements UserRemote {
 
     public UserServant() throws RemoteException {
         super();
-        _userController = new UserController(new UserMapper());
+        _userController = new UserController();
     }
-
-
+    
     @Override
     public boolean login(UserDTO userDTO) throws RemoteException {
-
         try {
             return _userController.login(userDTO);
         } catch (DTOIsNullException e) {
             e.printStackTrace();
             return false;
         }
-
     }
 }

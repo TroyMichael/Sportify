@@ -8,24 +8,15 @@ import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-/**
- * Created by mod on 10/27/15.
- */
 public class PersonController {
-    private static PersonController ourInstance = new PersonController(new PersonMapper());
+
     private DBFacade _facade;
-
-    public static PersonController getInstance() {
-        return ourInstance;
-    }
-
     private PersonMapper _personMapper;
 
-    private PersonController(PersonMapper personMapper) {
-        _personMapper = personMapper;
+    public PersonController() {
         _facade = new DBFacadeImpl();
+        _personMapper = new PersonMapper();
     }
 
     /**
@@ -94,49 +85,89 @@ public class PersonController {
 
         //search for all persons whose last names fits the search query
         if (personDTO.getLName().length() > 0) {
-            lastNameResults = personList.stream().filter(person -> person.getLName().toLowerCase().contains(personDTO.getLName().toLowerCase())).collect(Collectors.toList());
+            lastNameResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getLName() != null) && (person.getLName().toLowerCase().contains(personDTO.getLName().toLowerCase()))){
+                    lastNameResults.add(person);
+                }
+            }
             resultsSet.add(lastNameResults);
         }
 
         //search for all persons whose first names fits the search query
         if (personDTO.getFName().length() > 0) {
-            firstNameResults = personList.stream().filter(person -> person.getFName().toLowerCase().contains(personDTO.getFName().toLowerCase())).collect(Collectors.toList());
+            firstNameResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getFName() != null) && (person.getFName().toLowerCase().contains(personDTO.getFName().toLowerCase()))){
+                    firstNameResults.add(person);
+                }
+            }
             resultsSet.add(firstNameResults);
         }
 
         //search for all persons whose street names fits the search query
         if (personDTO.getStreet().length() > 0) {
-            streetResults = personList.stream().filter(person -> person.getStreet().toLowerCase().contains(personDTO.getStreet().toLowerCase())).collect(Collectors.toList());
+            streetResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getStreet() != null) && (person.getStreet().toLowerCase().contains(personDTO.getStreet().toLowerCase()))){
+                    streetResults.add(person);
+                }
+            }
             resultsSet.add(streetResults);
         }
 
         //search for all persons whose house number fits the search query
         if (personDTO.getHouseNumber().length() > 0) {
-            houseNumberResults = personList.stream().filter(person -> person.getHouseNumber().toLowerCase().contains(personDTO.getHouseNumber().toLowerCase())).collect(Collectors.toList());
+            houseNumberResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getHouseNumber() != null) && (person.getHouseNumber().toLowerCase().contains(personDTO.getHouseNumber().toLowerCase()))){
+                    houseNumberResults.add(person);
+                }
+            }
             resultsSet.add(houseNumberResults);
         }
 
         //search for all persons whose psotal code fits the search query
         if (personDTO.getPostalCode().length() > 0) {
-            postalCodeResults = personList.stream().filter(person -> person.getPostalCode().toLowerCase().contains(personDTO.getPostalCode().toLowerCase())).collect(Collectors.toList());
+            postalCodeResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getPostalCode() != null) && (person.getPostalCode().toLowerCase().contains(personDTO.getPostalCode().toLowerCase()))){
+                    postalCodeResults.add(person);
+                }
+            }
             resultsSet.add(postalCodeResults);
         }
 
         //search for all persons whose city fits the search query
         if (personDTO.getCity().length() > 0) {
-            cityResults = personList.stream().filter(person -> person.getCity().toLowerCase().contains(personDTO.getCity().toLowerCase())).collect(Collectors.toList());
+            cityResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getCity() != null) && (person.getCity().toLowerCase().contains(personDTO.getCity().toLowerCase()))){
+                    cityResults.add(person);
+                }
+            }
             resultsSet.add(cityResults);
         }
 
         //search for all persons whose email address fits the search query
         if (personDTO.getEmail().length() > 0) {
-            emailResults = personList.stream().filter(person -> person.getEmail().toLowerCase().contains(personDTO.getEmail().toLowerCase())).collect(Collectors.toList());
+            emailResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getEmail() != null) && (person.getEmail().toLowerCase().contains(personDTO.getEmail().toLowerCase()))){
+                    emailResults.add(person);
+                }
+            }
             resultsSet.add(emailResults);
         }
 
         //search for all persons whose birthdate fits the search query
         if (personDTO.getBirthdate().length() > 0) {
-            birthdateResults = personList.stream().filter(person -> person.getBirthdate().toLowerCase().contains(personDTO.getBirthdate().toLowerCase())).collect(Collectors.toList());
+            birthdateResults = new ArrayList<>();
+            for (Person person : personList){
+                if ((person.getBirthdate() != null) && (person.getBirthdate().toLowerCase().contains(personDTO.getBirthdate().toLowerCase()))){
+                    birthdateResults.add(person);
+                }
+            }
             resultsSet.add(birthdateResults);
         }
 
@@ -176,7 +207,7 @@ public class PersonController {
      * returns all available members from the database
      *
      */
-    public List getAllPersons (){
+    public List<PersonDTO> getAllPersons (){
         List<Person> personList = new LinkedList<>();
         try {
             _facade.beginTransaction();

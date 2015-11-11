@@ -1,11 +1,9 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
-import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -44,8 +42,10 @@ public class SearchMemberFormController {
 
     @FXML
     private TextField _birthdayTextField;
+
     /**
      * TODO: get PAYMENTSTATUS
+     *
      * @throws RemoteException
      */
     @FXML
@@ -64,7 +64,7 @@ public class SearchMemberFormController {
                 true
         );
 
-        List<PersonDTO> results = ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().searchPerson(member);
+        List<PersonDTO> results = SessionController.getInstance().getSession().getPersonRemote().searchPerson(member);
         if ((results.size() > 0) && (input.length() > 0)) {
             loadSearchResultView(results, input);
         } else {
@@ -96,7 +96,7 @@ public class SearchMemberFormController {
             str = str + _streetNoTextField.getText() + ", ";
         }
         if (_postalCodeTextField.getText().length() > 0) {
-            str = str + _fNameTextField.getText() + ", ";
+            str = str + _postalCodeTextField.getText() + ", ";
         }
         if (_cityTextField.getText().length() > 0) {
             str = str + _cityTextField.getText() + ", ";

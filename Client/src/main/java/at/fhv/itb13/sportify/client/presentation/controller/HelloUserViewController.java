@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -9,17 +8,14 @@ import javafx.scene.control.Label;
  */
 public class HelloUserViewController {
 
-
     @FXML
     private Label _usernameLabel;
 
-
     @FXML
     private void initialize() {
-
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         _usernameLabel.setText(username);
     }
 }

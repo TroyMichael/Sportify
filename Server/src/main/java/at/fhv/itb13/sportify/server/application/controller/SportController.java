@@ -10,22 +10,14 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by mod on 11/10/15.
- *
- */
 public class SportController {
     private SportMapper _sportMapper = new SportMapper();
     private DBFacade _facade;
 
-
     public SportController() {
         _facade = new DBFacadeImpl();
     }
-
-    /**
-     *
-     */
+    
     public List<SportDTO> getSports(){
 
         List<Sport> allSports = new LinkedList<>();

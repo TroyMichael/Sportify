@@ -26,7 +26,7 @@ public class PersonControllerTest extends TestCase {
     }
 
     public void testSearchPerson() throws Exception {
-        PersonController personController = PersonController.getInstance();
+        PersonController personController = new PersonController();
         PersonDTO personDTO = new PersonDTOImpl();
         personDTO.setFName("Diane");
         //personDTO.setLName("Harrison");
@@ -34,7 +34,7 @@ public class PersonControllerTest extends TestCase {
         //personDTO.setCity("Dornbirn");
         SportDAO sportDAO = new SportDAO();
         List<PersonDTO> persons = personController.searchPerson(personDTO);
-        for (PersonDTO personDTO1 : persons){
+        for (PersonDTO personDTO1 : persons) {
             System.out.println(personDTO1.getFName() + personDTO1.getLName());
         }
     }

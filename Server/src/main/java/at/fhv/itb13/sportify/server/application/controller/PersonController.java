@@ -168,7 +168,7 @@ public class PersonController {
      * returns all available members from the database
      *
      */
-    public List getAllPersons (){
+    public List<PersonDTO> getAllPersons (){
         List<Person> personList = new LinkedList<>();
         try {
             _facade.beginTransaction();

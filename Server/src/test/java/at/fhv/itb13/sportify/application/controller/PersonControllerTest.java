@@ -44,9 +44,9 @@ public class PersonControllerTest extends TestCase {
     }
 
     public void testGetAllPersons() throws Exception {
-        PersonController personController = PersonController.getInstance();
-        List <PersonDTO> personDTOList = personController.getAllPersons();
-        for (PersonDTO personDTO : personDTOList){
+        PersonController personController = new PersonController();
+        List<PersonDTO> personDTOList = personController.getAllPersons();
+        for (PersonDTO personDTO : personDTOList) {
             System.out.println(personDTO.getFName() + " " + personDTO.getLName());
         }
     }

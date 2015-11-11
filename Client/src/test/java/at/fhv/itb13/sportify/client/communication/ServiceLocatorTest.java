@@ -21,10 +21,10 @@ public class ServiceLocatorTest extends TestCase {
 
     public void testSearchPerson() throws RemoteException {
         PersonDTO personDTO = new PersonDTOImpl();
-        personDTO.setFName("Patrick");
+        //personDTO.setFName("caro");
         //personDTO.setLName("Harrison");
         //personDTO.setStreet("Kennedy");
-        //personDTO.setCity("Dornbirn");
+        personDTO.setCity("dorn");
 
         List<PersonDTO> persons = ServiceLocator.getInstance().getRemote(PersonRemote.class).searchPerson(personDTO);
         for (PersonDTO personDTO1 : persons) {

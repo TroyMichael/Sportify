@@ -96,7 +96,7 @@ public class SearchMemberFormController {
             str = str + _streetNoTextField.getText() + ", ";
         }
         if (_postalCodeTextField.getText().length() > 0) {
-            str = str + _fNameTextField.getText() + ", ";
+            str = str + _postalCodeTextField.getText() + ", ";
         }
         if (_cityTextField.getText().length() > 0) {
             str = str + _cityTextField.getText() + ", ";

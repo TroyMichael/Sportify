@@ -9,6 +9,12 @@
    <children>
       <TextField fx:id="_usernameTextfield" layoutX="177.0" layoutY="138.0" onAction="#loginButtonClicked" promptText="Username" />
       <PasswordField fx:id="_passwordField" layoutX="177.0" layoutY="188.0" onAction="#loginButtonClicked" promptText="Password" />
-      <Button layoutX="280.0" layoutY="219.0" mnemonicParsing="false" onAction="#loginButtonClicked" text="Login" />
+      <Button layoutX="273.0" layoutY="223.0" mnemonicParsing="false" onAction="#loginButtonClicked" text="Submit" />
+      <Label layoutX="115.0" layoutY="142.0" text="Username" />
+      <Label layoutX="115.0" layoutY="192.0" text="Password" />
+      <Label layoutX="177.0" layoutY="99.0" prefHeight="17.0" prefWidth="50.0" text="Login">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
    </children>
 </AnchorPane>

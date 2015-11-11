@@ -36,8 +36,11 @@ public class User extends PersistentObjectImpl {
         return _password;
     }
 
+    /**
+     * lets the user login if he enters the correct login data
+     *
+     */
     public boolean login() {
-
         Properties env = new Properties();
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
         env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");

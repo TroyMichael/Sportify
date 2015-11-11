@@ -31,13 +31,7 @@ public class SportController {
         }
 
         List<SportDTO> sportDTOList = new LinkedList<>();
-        allSports.forEach(sport -> {
-            try {
-                sportDTOList.add(_sportMapper.toDTOObject(sport));
-            } catch (DomainObjectIsNullException e) {
-                e.printStackTrace();
-            }
-        });
+        allSports.forEach(sport -> sportDTOList.add(_sportMapper.toDTOObject(sport)));
 
         return sportDTOList;
     }

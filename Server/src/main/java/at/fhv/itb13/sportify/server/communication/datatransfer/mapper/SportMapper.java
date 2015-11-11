@@ -19,7 +19,7 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
     private DBFacade _dbFacade = new DBFacadeImpl();
 
     @Override
-    public Sport toDomainObject(SportDTO sportDTO) throws DTOIsNullException, FacadeFailedException {
+    public Sport toDomainObject(SportDTO sportDTO) {
 
         if (sportDTO != null) {
             Sport newSport = new Sport();
@@ -37,17 +37,15 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
                 _dbFacade.commitTransaction();
             } catch (Exception e) {
                 _dbFacade.rollbackTransaction();
-                throw new FacadeFailedException();
             }
 
             return newSport;
-        } else {
-            throw new DTOIsNullException();
         }
+        return null;
     }
 
     @Override
-    public SportDTO toDTOObject(Sport domainObject) throws DomainObjectIsNullException {
+    public SportDTO toDTOObject(Sport domainObject){
 
         if (domainObject != null) {
             SportDTO newSportDTO = new SportDTOImpl(domainObject.getName());
@@ -55,8 +53,7 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
             domainObject.getTeams().forEach(team -> newSportDTO.addTeam(team.getId()));
 
             return newSportDTO;
-        } else {
-            throw new DomainObjectIsNullException();
         }
+        return null;
     }
 }

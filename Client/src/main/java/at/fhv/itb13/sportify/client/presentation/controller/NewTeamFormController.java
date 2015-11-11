@@ -1,8 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -65,7 +64,7 @@ public class NewTeamFormController {
     private void setAllMembersTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
         try {
-            List<PersonDTO> allMembers = ServiceLocator.getInstance().getRemote(ControllerFactory.class).getPersonRemote().getAllPersons();
+            List<PersonDTO> allMembers = SessionController.getInstance().getSession().getPersonRemote().getAllPersons();
 
             if (allMembers != null) {
                 //create a observableArrayList and fill it with all members
@@ -82,7 +81,7 @@ public class NewTeamFormController {
     private void setSportComboBoxData() {
         try {
             List<SportDTO> sportList;
-            sportList = ServiceLocator.getInstance().getRemote(ControllerFactory.class).getSportRemote().getSports();
+            sportList = SessionController.getInstance().getSession().getSportRemote().getSports();
 
             if (sportList != null) {
                 ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
@@ -142,7 +141,7 @@ public class NewTeamFormController {
 
         //call createFunction
         try {
-            ServiceLocator.getInstance().getRemote(ControllerFactory.class).getTeamRemote().createTeam(newTeam);
+            SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

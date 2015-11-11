@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -9,10 +10,12 @@ import java.util.List;
 public interface TeamDTO {
     String getName();
     void setName(String name);
-    DepartmentDTO getDepartment();
-    void setDepartment(DepartmentDTO department);
-    List<PersonDTO> getPersons();
-    void setPersons(List<PersonDTO> persons);
-    void setSport(SportDTO sportDTO);
-    SportDTO getSport();
+
+    HashSet<String> getPersonIds();
+
+    void addPersonId(String personId);
+    void removePersonId(String personId);
+
+    String getSportId();
+    void setSportId(String sportId);
 }

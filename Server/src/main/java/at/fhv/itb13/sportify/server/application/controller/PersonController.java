@@ -6,10 +6,8 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import com.sun.istack.internal.NotNull;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PersonController {
 

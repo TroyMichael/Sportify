@@ -1,4 +1,4 @@
-package at.fhv.itb13.sportify.client.communication.datatransfer.mapper;
+package at.fhv.itb13.sportify.mapper;
 
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.model.Person;

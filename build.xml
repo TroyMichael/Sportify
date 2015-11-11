@@ -18,9 +18,40 @@
 
     <!-- import libraries-->
     <path id="classpath.base">
+
         <fileset dir="./lib">
             <include name="**/*.jar"/>
         </fileset>
+    </path>
+    <!--Source Dir-->
+    <property name="sharedsrc.dir" location="${shared.dir}/src/main"/>
+    <property name="sharedbuildsrc.dir" location="${sharedbuild.dir}/build"/>
+
+    <!--Client-->
+    <!--Source Dir-->
+    <property name="clientsrc.dir" location="${client.dir}/src/main"/>
+    <!--Source Dir Test-->
+    <property name="clienttest.dir" location="${client.dir}/src/test"/>
+    <!--Build Dir for src of Client -->
+    <property name="clientbuildsrc.dir" location="${clientbuild.dir}/build"/>
+    <!--Build Dir for Tests of Client-->
+    <property name="clientbuildtest.dir" location="${clientbuild.dir}/test"/>
+    <!--Server-->
+    <!--Source Dir-->
+    <property name="serversrc.dir" location="${server.dir}/src/main"/>
+    <!--Source Dir Test-->
+    <property name="servertest.dir" location="${server.dir}/src/test"/>
+    <!--Build Dir for src of Server -->
+    <property name="serverbuildsrc.dir" location="${serverbuild.dir}/build"/>
+    <!--Build Dir for Tests of Server-->
+    <property name="serverbuildtest.dir" location="${serverbuild.dir}/test"/>
+    <!-- define classpath for Client -->
+
+    <path id="classpath.client">
+        <path refid="classpath.base"/>
+        <pathelement location="${sharedbuildsrc.dir}"/>
+        <pathelement location="${clientbuildsrc.dir}"/>
+        <pathelement location="${clientbuildtest.dir}"/>
     </path>
 
     <!-- Clean Build -->
@@ -38,9 +69,6 @@
     <target name="report" depends="report_client,report_server"/>
 
     <!-- Shared -->
-    <!--Source Dir-->
-    <property name="sharedsrc.dir" location="${shared.dir}/src/main"/>
-    <property name="sharedbuildsrc.dir" location="${sharedbuild.dir}/build"/>
 
     <target name="clean_shared">
         <delete dir="${sharedbuild.dir}"/>
@@ -64,22 +92,6 @@
         </copy>
     </target>
 
-    <!--Client-->
-    <!--Source Dir-->
-    <property name="clientsrc.dir" location="${client.dir}/src/main"/>
-    <!--Source Dir Test-->
-    <property name="clienttest.dir" location="${client.dir}/src/test"/>
-    <!--Build Dir for src of Client -->
-    <property name="clientbuildsrc.dir" location="${clientbuild.dir}/build"/>
-    <!--Build Dir for Tests of Client-->
-    <property name="clientbuildtest.dir" location="${clientbuild.dir}/test"/>
-    <!-- define classpath for Client -->
-    <path id="classpath.client">
-        <path refid="classpath.base"/>
-        <pathelement location="${sharedbuildsrc.dir}"/>
-        <pathelement location="${clientbuildsrc.dir}"/>
-        <pathelement location="${clientbuildtest.dir}"/>
-    </path>
 
     <!-- Clean Client build folder -->
     <target name="clean_client">
@@ -131,15 +143,7 @@
 
     <target name="build_client" depends="build_client_test"/>
 
-    <!--Server-->
-    <!--Source Dir-->
-    <property name="serversrc.dir" location="${server.dir}/src/main"/>
-    <!--Source Dir Test-->
-    <property name="servertest.dir" location="${server.dir}/src/test"/>
-    <!--Build Dir for src of Server -->
-    <property name="serverbuildsrc.dir" location="${serverbuild.dir}/build"/>
-    <!--Build Dir for Tests of Server-->
-    <property name="serverbuildtest.dir" location="${serverbuild.dir}/test"/>
+
     <!-- define classpath for Server-->
     <path id="classpath.server">
         <path refid="classpath.base"/>

@@ -163,4 +163,26 @@ public class PersonController {
         }
         return common;
     }
+
+    /**
+     * returns all available members from the database
+     *
+     */
+    public List getAllPersons (){
+        List<Person> personList = new LinkedList<>();
+        try {
+            _facade.beginTransaction();
+            personList = _facade.getAll(Person.class);
+            _facade.commitTransaction();
+        } catch (Exception e) {
+            _facade.rollbackTransaction();
+        }
+        List <PersonDTO> personDTOList = null;
+        try {
+            personDTOList = _personMapper.listToDTO(personList);
+        } catch (DomainObjectIsNullException e) {
+            e.printStackTrace();
+        }
+        return personDTOList;
+    }
 }

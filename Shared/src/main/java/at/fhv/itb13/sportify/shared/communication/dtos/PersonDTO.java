@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 /**
  * Created by KYUSS on 28.10.2015.
@@ -41,4 +42,16 @@ public interface PersonDTO extends Serializable, DTO {
     boolean getPayed();
 
     void setPayed(boolean payed);
+
+    HashSet<String> getTeamIds();
+
+    void addTeam(String teamId);
+
+    void removeTeam(String teamId);
+
+    HashSet<String> getRosters();
+
+    void addRoster(String rosterId);
+
+    void removeRoster(String rosterId);
 }

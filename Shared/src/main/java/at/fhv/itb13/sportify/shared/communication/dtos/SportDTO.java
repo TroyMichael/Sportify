@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by mod on 11/10/15.
@@ -10,13 +11,13 @@ public interface SportDTO {
 
     void setName(String name);
 
-    DepartmentDTO getDepartment();
+    String getDepartmentId();
 
-    void setDepartment(DepartmentDTO department);
+    void setDepartment(String departmentId);
 
-    Collection<TeamDTO> getTeams();
+    HashSet<String> getTeamIds();
 
-    void addTeam(TeamDTO team);
+    void addTeam(String teamId);
 
-    void removeTeam(TeamDTO team);
+    void removeTeam(String teamId);
 }

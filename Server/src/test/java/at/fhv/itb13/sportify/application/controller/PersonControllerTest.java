@@ -42,4 +42,12 @@ public class PersonControllerTest extends TestCase {
     public void testGetCommonElements() throws Exception {
 
     }
+
+    public void testGetAllPersons() throws Exception {
+        PersonController personController = PersonController.getInstance();
+        List <PersonDTO> personDTOList = personController.getAllPersons();
+        for (PersonDTO personDTO : personDTOList){
+            System.out.println(personDTO.getFName() + " " + personDTO.getLName());
+        }
+    }
 }

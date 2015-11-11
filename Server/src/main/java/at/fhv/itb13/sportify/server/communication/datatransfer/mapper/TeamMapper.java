@@ -18,8 +18,6 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
             team.setName(teamDTO.getName());
             return team;
         }
-
-
         return null;
     }
 
@@ -31,7 +29,6 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
            teamDTO.setName(domainObject.getName());
            return teamDTO;
        }
-
         return null;
     }
 }

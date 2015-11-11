@@ -86,10 +86,6 @@ public class NewTeamFormController {
             if (sportList != null) {
                 ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
                 sportList.forEach(sport -> sportObservable.add(sport));
-
-                for(SportDTO sport : sportObservable) {
-                    System.out.println(sport.toString());
-                }
                 _sportComboBox.getItems().addAll((sportObservable));
             }
         } catch (RemoteException e) {

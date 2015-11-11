@@ -71,7 +71,6 @@ public class SportifyGUI extends Application {
 
         loadRootLayout();
         loadLoginWindow();
-
     }
 
     /**
@@ -145,7 +144,13 @@ public class SportifyGUI extends Application {
 
     }
 
+    public void loadNewTeamForm() {
+        loadView("view/NewTeamForm.fxml", _rootLayout);
+    }
+
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
+
+
 }

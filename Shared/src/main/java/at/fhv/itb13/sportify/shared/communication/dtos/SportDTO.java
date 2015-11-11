@@ -1,12 +1,13 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  * Created by mod on 11/10/15.
+ *
  */
-public interface SportDTO {
+public interface SportDTO extends Serializable, DTO {
     String getName();
 
     void setName(String name);

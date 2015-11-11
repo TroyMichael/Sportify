@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.remote;
 
-import at.fhv.itb13.sportify.server.communication.remote.SessionImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 
 import java.rmi.Remote;
@@ -10,5 +9,5 @@ import java.rmi.Remote;
  */
 public interface SessionFactory extends Remote {
 
-    SessionImpl create(UserDTO userDTO);
+    Session create(UserDTO userDTO);
 }

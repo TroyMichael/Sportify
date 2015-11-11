@@ -7,8 +7,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.LoginWindowController">
    <children>
-      <TextField fx:id="_usernameTextfield" layoutX="177.0" layoutY="138.0" promptText="Username" />
-      <PasswordField fx:id="_passwordField" layoutX="177.0" layoutY="188.0" promptText="Password" />
+      <TextField fx:id="_usernameTextfield" layoutX="177.0" layoutY="138.0" onAction="#loginButtonClicked" promptText="Username" />
+      <PasswordField fx:id="_passwordField" layoutX="177.0" layoutY="188.0" onAction="#loginButtonClicked" promptText="Password" />
       <Button layoutX="280.0" layoutY="219.0" mnemonicParsing="false" onAction="#loginButtonClicked" text="Login" />
    </children>
 </AnchorPane>

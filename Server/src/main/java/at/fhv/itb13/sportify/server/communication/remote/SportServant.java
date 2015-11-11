@@ -10,9 +10,12 @@ import java.util.List;
 
 /**
  * Created by mod on 11/10/15.
+ *
  */
 public class SportServant extends UnicastRemoteObject implements SportRemote{
+
     private SportController _spoSportController;
+
     public SportServant() throws RemoteException {
         super();
         _spoSportController = new SportController();
@@ -20,7 +23,7 @@ public class SportServant extends UnicastRemoteObject implements SportRemote{
     }
 
     @Override
-    public List<SportDTO> getName() {
+    public List<SportDTO> getSports() throws RemoteException{
         return _spoSportController.getSports();
     }
 }

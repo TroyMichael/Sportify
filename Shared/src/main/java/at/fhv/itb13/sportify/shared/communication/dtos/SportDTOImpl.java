@@ -1,12 +1,12 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 /**
  * Created by mod on 11/10/15.
+ *
  */
-public class SportDTOImpl implements SportDTO {
+public class SportDTOImpl extends DTOImpl implements SportDTO {
     private String _name;
     private String _departmentId;
     private HashSet<String> _teamIds = new HashSet<>();
@@ -50,5 +50,9 @@ public class SportDTOImpl implements SportDTO {
         _teamIds.remove(teamId);
     }
 
+    @Override
+    public String toString(){
+        return _name;
+    }
 
 }

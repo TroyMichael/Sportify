@@ -22,6 +22,11 @@
                                 <MenuItem mnemonicParsing="false" onAction="#loadSearchMemberView" text="Search Member" />
                             </items>
                         </Menu>
+                  <Menu mnemonicParsing="false" text="Team">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#loadNewTeamView" text="Add new Team" />
+                    </items>
+                  </Menu>
                     </menus>
                 </MenuBar>
             </children>

@@ -16,4 +16,6 @@ public interface PersonRemote extends Remote {
     List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException;
 
     void editPerson(PersonDTO personDTO) throws RemoteException;
+
+    List<PersonDTO> getAllPersons() throws RemoteException;
 }

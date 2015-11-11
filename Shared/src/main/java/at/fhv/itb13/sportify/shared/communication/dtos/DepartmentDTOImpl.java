@@ -11,12 +11,12 @@ public class DepartmentDTOImpl extends DTOImpl implements DepartmentDTO {
 
     private String _name;
     private String _description;
-    private Collection<SportDTO> _sports;
+    private HashSet<String> _sportsId;
 
 
     public DepartmentDTOImpl(String name){
         _name = name;
-        _sports = new HashSet<>();
+        _sportsId = new HashSet<>();
     }
 
     @Override
@@ -40,17 +40,17 @@ public class DepartmentDTOImpl extends DTOImpl implements DepartmentDTO {
     }
 
     @Override
-    public Collection<SportDTO> getSports() {
-        return _sports;
+    public HashSet<String> getSportIds() {
+        return _sportsId;
     }
 
     @Override
-    public void addSport(SportDTO sport) {
-        _sports.add(sport);
+    public void addSport(String sportId) {
+        _sportsId.add(sportId);
     }
 
     @Override
-    public void removeSport(SportDTO sport) {
-        _sports.remove(sport);
+    public void removeSport(String sportId) {
+        _sportsId.remove(sportId);
     }
 }

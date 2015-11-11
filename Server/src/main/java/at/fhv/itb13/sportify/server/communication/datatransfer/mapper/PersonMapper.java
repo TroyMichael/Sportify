@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DTOIsNullException;
 import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
@@ -15,7 +14,7 @@ import java.util.List;
 public class PersonMapper extends Mapper<PersonDTO, Person> {
 
     @Override
-    public Person toDomainObject(PersonDTO personDTO) throws DTOIsNullException {
+    public Person toDomainObject(PersonDTO personDTO) {
         if (personDTO != null) {
             Person person = new Person(
                     personDTO.getFName(),
@@ -31,13 +30,12 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             person.setId(personDTO.getId());
             person.setVersion(personDTO.getVersion());
             return person;
-        } else {
-            throw new DTOIsNullException();
         }
+        return null;
     }
 
     @Override
-    public PersonDTO toDTOObject(Person person) throws DomainObjectIsNullException {
+    public PersonDTO toDTOObject(Person person) {
         if (person != null) {
             PersonDTO personDTO = new PersonDTOImpl();
             personDTO.setFName(person.getFName());
@@ -48,29 +46,17 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setCity(person.getCity());
             personDTO.setEmail(person.getEmail());
             personDTO.setBirthdate(person.getBirthdate());
-//        if (person != null){
-//            PersonDTO personDTO = new PersonDTOImpl(
-//                    person.getFName(),
-//                    person.getLName(),
-//                    person.getStreet(),
-//                    person.getHouseNumber(),
-//                    person.getPostalCode(),
-//                    person.getCity(),
-//                    person.getEmail(),
-//                    person.getBirthdate()
-//            );
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             personDTO.setPayed(person.isPayed());
             return personDTO;
-        } else {
-            throw new DomainObjectIsNullException();
         }
+        return null;
     }
 
-    public List<PersonDTO> listToDTO (List <Person> persons) throws DomainObjectIsNullException {
-        List <PersonDTO> personDTOs= new ArrayList<>();
-        for (Person person : persons){
+    public List<PersonDTO> listToDTO(List<Person> persons) throws DomainObjectIsNullException {
+        List<PersonDTO> personDTOs = new ArrayList<>();
+        for (Person person : persons) {
             personDTOs.add(toDTOObject(person));
         }
         return personDTOs;

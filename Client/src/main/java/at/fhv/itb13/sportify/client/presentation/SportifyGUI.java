@@ -7,7 +7,6 @@ import at.fhv.itb13.sportify.client.presentation.controller.MainFrameController;
 import at.fhv.itb13.sportify.client.presentation.controller.MemberDataController;
 import at.fhv.itb13.sportify.client.presentation.controller.SearchResultViewController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

@@ -1,32 +1,22 @@
 package at.fhv.itb13.sportify.server;
 
-import at.fhv.itb13.sportify.server.communication.remote.ControllerFactoryImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.ControllerFactory;
+import at.fhv.itb13.sportify.server.communication.remote.SessionFactoryImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.SessionFactory;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-/**
- * Created by Michael on 27.10.2015.
- */
 public class Main {
 
     public static void main(String[] args) {
-       try {
-            ControllerFactory controllerFactory = ControllerFactoryImpl.getInstance();
-            Naming.rebind("rmi://localhost:12345/ControllerFactory", controllerFactory);
+        try {
+            SessionFactory sessionFactory = new SessionFactoryImpl();
+            Naming.rebind("rmi://localhost:12345/SessionFactory", sessionFactory);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-//        SportifyGUI.run(args);
-//        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
-//        DBFacade dbFacade = (DBFacade) context.getBean("dbFacade");
-//        System.out.println(dbFacade);
-
-
     }
 }

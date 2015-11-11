@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
+import java.util.HashSet;
+
 /**
  * Created by KYUSS on 27.10.2015.
  */
@@ -13,6 +15,8 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private String _email = "";
     private String _birthdate = "";
     private boolean _payed = false;
+    private HashSet<String> _teamIds = new HashSet<>();
+    private HashSet<String> _rosterIds = new HashSet<>();
 
     public PersonDTOImpl(){}
     public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate, boolean payed){
@@ -113,5 +117,35 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     @Override
     public void setPayed(boolean payed) {
         _payed = payed;
+    }
+
+    @Override
+    public HashSet<String> getTeamIds() {
+        return _teamIds;
+    }
+
+    @Override
+    public void addTeam(String teamId) {
+        _teamIds.add(teamId);
+    }
+
+    @Override
+    public void removeTeam(String teamId) {
+        _teamIds.remove(teamId);
+    }
+
+    @Override
+    public HashSet<String> getRosters() {
+        return _rosterIds;
+    }
+
+    @Override
+    public void addRoster(String rosterId) {
+        _rosterIds.add(rosterId);
+    }
+
+    @Override
+    public void removeRoster(String rosterId) {
+        _rosterIds.remove(rosterId);
     }
 }

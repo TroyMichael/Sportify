@@ -1,40 +1,39 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DTOIsNullException;
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.server.model.User;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTOImpl;
 
-/**
- * Created by Caroline on 05.11.2015.
- */
 public class UserMapper extends Mapper<UserDTO, User> {
 
+    private static UserMapper _instance;
+
+    private UserMapper() {
+    }
+
+    public static UserMapper getInstance() {
+        if (_instance == null) {
+            _instance = new UserMapper();
+        }
+        return _instance;
+    }
+
     @Override
-    public User toDomainObject(UserDTO userDTO) throws DTOIsNullException {
-    if(userDTO != null){
-        return new User(userDTO.getName(), userDTO.getPassword());
-
-    } else {
-        throw new DTOIsNullException();
-    }
+    public User toDomainObject(UserDTO userDTO) {
+        if (userDTO != null) {
+            return new User(userDTO.getName(), userDTO.getPassword());
+        }
+        return null;
     }
 
     @Override
-    public UserDTO toDTOObject(User domainObject) throws DomainObjectIsNullException {
-    if(domainObject != null){
-        UserDTO userDTO = new UserDTOImpl();
-        userDTO.setName(domainObject.getUsername());
-        userDTO.setPassword(domainObject.getPassword());
-
-        return userDTO;
-    }else{
-        throw new DomainObjectIsNullException();
-    }
-
-
-
-
+    public UserDTO toDTOObject(User userDomain) {
+        if (userDomain != null) {
+            UserDTO userDTO = new UserDTOImpl();
+            userDTO.setName(userDomain.getUsername());
+            userDTO.setPassword(userDomain.getPassword());
+            return userDTO;
+        }
+        return null;
     }
 }

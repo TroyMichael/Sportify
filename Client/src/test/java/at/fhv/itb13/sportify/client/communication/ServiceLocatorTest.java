@@ -1,8 +1,8 @@
 package at.fhv.itb13.sportify.client.communication;
 
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import junit.framework.TestCase;
 
 import java.rmi.RemoteException;
@@ -21,12 +21,12 @@ public class ServiceLocatorTest extends TestCase {
 
     public void testSearchPerson() throws RemoteException {
         PersonDTO personDTO = new PersonDTOImpl();
-        personDTO.setFName("Patrick");
+        //personDTO.setFName("caro");
         //personDTO.setLName("Harrison");
         //personDTO.setStreet("Kennedy");
-        //personDTO.setCity("Dornbirn");
+        personDTO.setCity("dorn");
 
-        List<PersonDTO> persons = ServiceLocator.getInstance().getRemote(PersonRemote.class).searchPerson(personDTO);
+        List<PersonDTO> persons = SessionController.getInstance().getSession().getPersonRemote().searchPerson(personDTO);
         for (PersonDTO personDTO1 : persons) {
             System.out.println(personDTO1.getFName() + personDTO1.getLName());
         }

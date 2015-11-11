@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -7,16 +8,15 @@ import java.util.List;
  */
 public class TeamDTOImpl implements TeamDTO {
     private String _name;
-     private List<PersonDTO> _persons;
-    private SportDTO _sport;
-
-    public TeamDTOImpl(String name, List<PersonDTO> persons, SportDTO sportDTO) {
-        _name = name;
-       _persons = persons;
-        _sport = sportDTO;
-    }
-
+    private HashSet<String> _personIds = new HashSet<>();
+    private HashSet<String> _rosterIds = new HashSet<>();
+    private String _sportId;
     public TeamDTOImpl(){}
+    public TeamDTOImpl(String name,  HashSet<String> personIds, String sportId) {
+        _name = name;
+        _personIds = personIds;
+        _sportId = sportId;
+    }
 
 
     @Override
@@ -31,23 +31,42 @@ public class TeamDTOImpl implements TeamDTO {
 
 
     @Override
-    public List<PersonDTO> getPersons() {
-        return _persons;
+    public HashSet<String> getPersonIds() {
+        return _personIds;
     }
 
     @Override
-    public void setPersons(List<PersonDTO> persons) {
-        _persons = persons;
+    public void addPersonId(String personId) {
+        _personIds.add(personId);
     }
 
     @Override
-    public void setSport(SportDTO sportDTO) {
-        _sport = sportDTO;
+    public void removePersonId(String personId) {
+        _personIds.remove(personId);
     }
 
     @Override
-    public SportDTO getSport() {
-        return _sport;
+    public String getSportId() {
+        return _sportId;
     }
 
+    @Override
+    public void setSportId(String sportId) {
+        _sportId = sportId;
+    }
+
+    @Override
+    public HashSet<String> getRosterIds() {
+        return _rosterIds;
+    }
+
+    @Override
+    public void addRosterId(String rosterId) {
+        _rosterIds.add(rosterId);
+    }
+
+    @Override
+    public void removeRosterId(String rosterId) {
+        _rosterIds.remove(rosterId);
+    }
 }

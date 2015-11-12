@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 /**

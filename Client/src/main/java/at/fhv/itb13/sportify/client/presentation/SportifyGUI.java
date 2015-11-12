@@ -51,6 +51,7 @@ public class SportifyGUI extends Application {
                 alert.setContentText("The server or your network connection may be down.");
                 alert.showAndWait();
             } else {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("An error occurred");
                 alert.setTitle("An error occurred");

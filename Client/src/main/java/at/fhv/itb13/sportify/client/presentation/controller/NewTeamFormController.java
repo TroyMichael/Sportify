@@ -105,11 +105,10 @@ public class NewTeamFormController {
 
     @FXML
     private void removeAllMembers() {
-        if (_addedMembersTableView.getItems().size() > 0) {
-            for (PersonDTO p : _addedMembersTableView.getItems()) {
-                _addedMembersTableView.getItems().remove(p);
-                _allMembersTableView.getItems().add(p);
-            }
+        while (_addedMembersTableView.getItems().size() > 0) {
+            PersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
+                _addedMembersTableView.getItems().remove(personToSwitch);
+                _allMembersTableView.getItems().add(personToSwitch);
         }
     }
 
@@ -126,6 +125,8 @@ public class NewTeamFormController {
         //gather all information of the new team
         String teamName = _nameTextField.getText();
         SportDTO selectedSport = _sportComboBox.getValue();
+        System.out.println(selectedSport.getName());
+        System.out.println(selectedSport.getId());
 
         //read all person IDs and save them into a hashset
         HashSet<String> addedMembersIDs = new HashSet<>();

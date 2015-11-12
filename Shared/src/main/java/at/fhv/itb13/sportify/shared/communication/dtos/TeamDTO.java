@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Created by mod on 11/10/15.

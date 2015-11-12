@@ -7,6 +7,7 @@ import at.fhv.itb13.sportify.shared.communication.remote.TeamRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class TeamServant extends UnicastRemoteObject implements TeamRemote {
     /**
@@ -25,17 +26,22 @@ public class TeamServant extends UnicastRemoteObject implements TeamRemote {
      * @param teamDTO
      */
     @Override
-    public void createTeam(TeamDTO teamDTO) {
+    public void createTeam(TeamDTO teamDTO) throws RemoteException {
         _teamController.create(teamDTO);
     }
 
     @Override
-    public void editTeam(TeamDTO teamDTO) {
+    public void editTeam(TeamDTO teamDTO) throws RemoteException {
         _teamController.editTeam(teamDTO);
     }
 
     @Override
-    public void addPersonToTeam(PersonDTO personDTO) {
+    public void addPersonToTeam(PersonDTO personDTO) throws RemoteException {
         _teamController.addPersonToTeam(personDTO);
+    }
+
+    @Override
+    public List<TeamDTO> getAllTeams() throws RemoteException {
+        return _teamController.getAllTeams();
     }
 }

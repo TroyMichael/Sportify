@@ -225,10 +225,17 @@ public class PersonController {
      *
      */
     public List <PersonDTO> getPayedPersons (){
-        List <PersonDTO> personDTOList;
-        Criterion criterion = Restrictions.like("payed", true);
-        _facade.beginTransaction();
-        List <Person> personList = _facade.findByCriteria(Person.class, criterion);
-        return personDTOList = _personMapper.listToDTO(personList);
+        try {
+            List <PersonDTO> personDTOList;
+            Criterion criterion = Restrictions.like("payed", true);
+            _facade.beginTransaction();
+            List <Person> personList = _facade.findByCriteria(Person.class, criterion);
+            personDTOList = _personMapper.listToDTO(personList);
+            _facade.commitTransaction();
+            return personDTOList;
+        } catch (Exception e){
+            _facade.rollbackTransaction();
+        }
+        return null;
     }
 }

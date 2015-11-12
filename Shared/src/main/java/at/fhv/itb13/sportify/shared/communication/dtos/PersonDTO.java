@@ -48,6 +48,11 @@ public interface PersonDTO extends Serializable, DTO {
     void addTeam(String teamId);
 
     void removeTeam(String teamId);
+    HashSet<String> getTrainedTeamIds();
+
+    void addTrainedTeam(String trainedTeamId);
+
+    void removeTrainedTeam(String trainedTeamId);
 
     HashSet<String> getRosters();
 

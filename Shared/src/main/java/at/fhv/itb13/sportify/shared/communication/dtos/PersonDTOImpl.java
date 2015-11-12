@@ -17,6 +17,7 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private boolean _payed = false;
     private HashSet<String> _teamIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
+    private HashSet<String> _trainedTeamIds = new HashSet<>();
 
     public PersonDTOImpl(){}
     public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate, boolean payed){
@@ -132,6 +133,21 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     @Override
     public void removeTeam(String teamId) {
         _teamIds.remove(teamId);
+    }
+
+    @Override
+    public HashSet<String> getTrainedTeamIds() {
+        return _trainedTeamIds;
+    }
+
+    @Override
+    public void addTrainedTeam(String trainedTeamId) {
+        _trainedTeamIds.add(trainedTeamId);
+    }
+
+    @Override
+    public void removeTrainedTeam(String trainedTeamId) {
+        _trainedTeamIds.remove(trainedTeamId);
     }
 
     @Override

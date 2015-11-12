@@ -6,6 +6,9 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
 
@@ -177,11 +180,7 @@ public class PersonController {
 
         //remap the persons to the personDTO
         List<PersonDTO> personDTOResults = null;
-        try {
-            personDTOResults = _personMapper.listToDTO(personResults);
-        } catch (DomainObjectIsNullException e) {
-            e.printStackTrace();
-        }
+        personDTOResults = _personMapper.listToDTO(personResults);
 
         return personDTOResults;
     }
@@ -217,11 +216,19 @@ public class PersonController {
             _facade.rollbackTransaction();
         }
         List <PersonDTO> personDTOList = null;
-        try {
-            personDTOList = _personMapper.listToDTO(personList);
-        } catch (DomainObjectIsNullException e) {
-            e.printStackTrace();
-        }
+        personDTOList = _personMapper.listToDTO(personList);
         return personDTOList;
+    }
+
+    /**
+     * returns all persons from database with payed == true
+     *
+     */
+    public List <PersonDTO> getPayedPersons (){
+        List <PersonDTO> personDTOList;
+        Criterion criterion = Restrictions.like("payed", true);
+        _facade.beginTransaction();
+        List <Person> personList = _facade.findByCriteria(Person.class, criterion);
+        return personDTOList = _personMapper.listToDTO(personList);
     }
 }

@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.database;
 
 import at.fhv.itb13.sportify.server.util.HibernateUtil;
+import org.hibernate.criterion.Criterion;
 
 import java.util.HashMap;
 import java.util.List;
@@ -94,5 +95,15 @@ public class DBFacadeImpl implements DBFacade {
             _daoMap.put(object.getClass(), genericDAO);
         }
         _daoMap.get(object.getClass()).delete(object);
+    }
+
+    @Override
+    public <T extends PersistentObject> List<T> findByCriteria(Class <T> type, Criterion criterion) {
+        GenericDAO genericDAO = _daoMap.get(type);
+        if (genericDAO == null) {
+            genericDAO = _gdaofactory.getDAO(type);
+            _daoMap.put(type.getClass(), genericDAO);
+        }
+        return (List<T>) _daoMap.get(type.getClass()).getByCriterion(criterion);
     }
 }

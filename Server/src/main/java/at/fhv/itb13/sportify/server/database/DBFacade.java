@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.server.database;
 
+import org.hibernate.criterion.Criterion;
+
 import java.util.List;
 
 public interface DBFacade {
@@ -64,4 +66,6 @@ public interface DBFacade {
      * @param object to delete
      */
     <T extends PersistentObject> void delete(T object);
+
+    <T extends PersistentObject> List <T> findByCriteria (Class <T> type, Criterion criterion);
 }

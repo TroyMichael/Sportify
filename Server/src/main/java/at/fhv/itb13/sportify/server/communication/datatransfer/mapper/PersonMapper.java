@@ -54,7 +54,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
         return null;
     }
 
-    public List<PersonDTO> listToDTO(List<Person> persons) throws DomainObjectIsNullException {
+    public List<PersonDTO> listToDTO(List<Person> persons) {
         List<PersonDTO> personDTOs = new ArrayList<>();
         for (Person person : persons) {
             personDTOs.add(toDTOObject(person));

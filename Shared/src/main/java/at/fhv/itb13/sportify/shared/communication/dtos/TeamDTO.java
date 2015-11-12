@@ -11,6 +11,9 @@ public interface TeamDTO extends Serializable, DTO {
     String getName();
     void setName(String name);
 
+    String getTrainerId();
+    void setTrainerId(String trainerId);
+
     HashSet<String> getPersonIds();
 
     void addPersonId(String personId);

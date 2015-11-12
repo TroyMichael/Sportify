@@ -26,10 +26,13 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
                 for (String personId : teamDTO.getPersonIds()) {
                     team.addPerson(dbFacade.get(Person.class, personId));
                 }
-                team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
+
                 for (String rosterId : teamDTO.getRosterIds()) {
                     team.addRoster(dbFacade.get(Roster.class, rosterId));
                 }
+                team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
+                team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
+
                 dbFacade.commitTransaction();
             } catch (HibernateException e) {
                 dbFacade.rollbackTransaction();
@@ -51,6 +54,7 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
                 teamDTO.addRosterId(r.getId());
             }
             teamDTO.setSportId(domainObject.getSport().getId());
+            teamDTO.setTrainerId(domainObject.getTrainer().getId());
             return teamDTO;
         }
         return null;

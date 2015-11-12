@@ -10,11 +10,13 @@ public class TeamDTOImpl extends DTOImpl implements TeamDTO {
     private HashSet<String> _personIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
     private String _sportId;
+    private String _trainerId;
     public TeamDTOImpl(){}
-    public TeamDTOImpl(String name,  HashSet<String> personIds, String sportId) {
+    public TeamDTOImpl(String name, String trainerId, HashSet<String> personIds, String sportId) {
         _name = name;
         _personIds = personIds;
         _sportId = sportId;
+        _trainerId = trainerId;
     }
 
 
@@ -26,6 +28,16 @@ public class TeamDTOImpl extends DTOImpl implements TeamDTO {
     @Override
     public void setName(String name) {
         _name = name;
+    }
+
+    @Override
+    public String getTrainerId() {
+        return _trainerId;
+    }
+
+    @Override
+    public void setTrainerId(String trainerId) {
+        _trainerId = trainerId;
     }
 
 

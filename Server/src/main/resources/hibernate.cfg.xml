@@ -5,8 +5,6 @@
     <session-factory>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">$p0rtifY</property>
         <property name="connection.url">jdbc:mysql://52.89.2.255:3306/sportify</property>
 
         <!-- transaction management -->
@@ -27,6 +25,8 @@
         <mapping class="at.fhv.itb13.sportify.server.model.Department"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Roster"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Team"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.PersonEntity"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.TeamEntity"/>
 
     </session-factory>
 </hibernate-configuration>

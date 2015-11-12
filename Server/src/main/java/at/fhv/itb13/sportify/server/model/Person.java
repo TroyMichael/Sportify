@@ -19,6 +19,7 @@ public class Person extends PersistentObjectImpl {
     private String _email = "";
     private String _birthdate = "";
     private Boolean _payed = false;
+    private Set<Team> _trainedTeams = new HashSet<>();
     private Set<Roster> _rosters = new HashSet<Roster>();
     private Set<Team> _teams = new HashSet<Team>();
 
@@ -153,4 +154,22 @@ public class Person extends PersistentObjectImpl {
     public void removeTeam(Team team) {
         _teams.remove(team);
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trainer")
+    public Set<Team> getTrainedTeams() {
+        return _trainedTeams;
+    }
+
+    public void setTrainedTeams(Set<Team> teams) {
+        _teams = teams;
+    }
+
+    public void addTrainedTeam(Team trainedTeam) {
+        _teams.add(trainedTeam);
+    }
+
+    public void removeTrainedTeam(Team trainedTeam) {
+        _teams.remove(trainedTeam);
+    }
+
 }

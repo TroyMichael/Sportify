@@ -25,6 +25,9 @@ public class NewTeamFormController {
     private ComboBox<SportDTO> _sportComboBox;
 
     @FXML
+    private Label _trainerNameLabel;
+
+    @FXML
     private TableView<PersonDTO> _allMembersTableView;
 
     @FXML
@@ -43,6 +46,8 @@ public class NewTeamFormController {
     private TableColumn<PersonDTO, String> _addedMembersLastNameColumn;
 
     private ObservableList<PersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
+
+    private PersonDTO _trainer;
 
     @FXML
     private void initialize(){
@@ -117,6 +122,21 @@ public class NewTeamFormController {
             PersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
             viewToAddTo.getItems().add(personToSwitch);
+        }
+    }
+
+    @FXML
+    private void setTrainer() {
+        //add old trainer back to the allMemberList
+        if (_trainer != null) {
+            _allMembersTableView.getItems().add(_trainer);
+        }
+
+        //set new Trainer and remove respective personDTO from the tableView
+        if (_allMembersTableView.getSelectionModel().getSelectedItem() != null) {
+            _trainer = _allMembersTableView.getSelectionModel().getSelectedItem();
+            _allMembersTableView.getItems().remove(_trainer);
+            _trainerNameLabel.setText(_trainer.getFName() + " " + _trainer.getLName());
         }
     }
 

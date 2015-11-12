@@ -26,13 +26,16 @@ public class TeamServant extends UnicastRemoteObject implements TeamRemote {
      */
     @Override
     public void createTeam(TeamDTO teamDTO) {
+        _teamController.create(teamDTO);
     }
 
     @Override
-    public void editTeam(TeamDTO TeamDTO) {
+    public void editTeam(TeamDTO teamDTO) {
+        _teamController.editTeam(teamDTO);
     }
 
     @Override
     public void addPersonToTeam(PersonDTO personDTO) {
+        _teamController.addPersonToTeam(personDTO);
     }
 }

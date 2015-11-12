@@ -37,6 +37,7 @@ public class PersonControllerTest extends TestCase {
         for (PersonDTO personDTO1 : persons) {
             System.out.println(personDTO1.getFName() + " " + personDTO1.getLName());
         }
+        assertTrue(persons.size() > 0);
     }
 
     public void testGetCommonElements() throws Exception {
@@ -46,8 +47,9 @@ public class PersonControllerTest extends TestCase {
     public void testGetAllPersons() throws Exception {
         PersonController personController = new PersonController();
         List<PersonDTO> personDTOList = personController.getAllPersons();
-        /*for (PersonDTO personDTO : personDTOList) {
+        for (PersonDTO personDTO : personDTOList) {
             System.out.println(personDTO.getFName() + " " + personDTO.getLName());
-        }*/
+        }
+        assertTrue(personDTOList.size() > 0);
     }
 }

@@ -24,7 +24,9 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
         if (sportDTO != null) {
             Sport newSport = new Sport();
             newSport.setName(sportDTO.getName());
-
+            if (sportDTO.getId() != null){
+                newSport.setId(sportDTO.getId());
+            }
             try {
                 _dbFacade.beginTransaction();
                 //set department
@@ -51,7 +53,7 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
             SportDTO newSportDTO = new SportDTOImpl(domainObject.getName());
             newSportDTO.setDepartment(domainObject.getDepartment().getId());
             domainObject.getTeams().forEach(team -> newSportDTO.addTeam(team.getId()));
-
+            newSportDTO.setId(domainObject.getId());
             return newSportDTO;
         }
         return null;

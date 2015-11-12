@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TeamMapper
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 
 public class TeamController {
@@ -31,5 +32,13 @@ public class TeamController {
             _facade.rollbackTransaction();
             e.printStackTrace();
         }
+    }
+
+    public void addPersonToTeam (PersonDTO personDTO){
+
+    }
+
+    public void editTeam (TeamDTO teamDTO){
+
     }
 }

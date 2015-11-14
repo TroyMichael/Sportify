@@ -12,6 +12,7 @@ public class Roster extends PersistentObjectImpl {
 
     private String _name;
     private Team _team;
+    private Match _match;
     private Set<Person> _persons = new HashSet<Person>();
 
     public Roster() {
@@ -39,6 +40,16 @@ public class Roster extends PersistentObjectImpl {
 
     public void setTeam(Team team) {
         _team = team;
+    }
+
+//    @ManyToOne
+//    @JoinColumn(name = "match_id", referencedColumnName = "id")
+//    public Match getMatch(){
+//        return _match;
+//    }
+
+    public void setMatch(Match match){
+        _match = match;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

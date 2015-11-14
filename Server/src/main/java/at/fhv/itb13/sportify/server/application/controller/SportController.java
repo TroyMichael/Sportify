@@ -17,8 +17,8 @@ public class SportController {
     public SportController() {
         _facade = new DBFacadeImpl();
     }
-    
-    public List<SportDTO> getSports(){
+
+    public List<SportDTO> getSports() {
 
         List<Sport> allSports = new LinkedList<>();
 

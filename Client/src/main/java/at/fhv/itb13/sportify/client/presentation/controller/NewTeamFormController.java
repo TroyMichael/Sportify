@@ -154,7 +154,7 @@ public class NewTeamFormController {
 
 
         //create new TeamDTO
-        TeamDTO newTeam = new TeamDTOImpl(teamName, addedMembersIDs, selectedSport.getId());
+        TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
 
         //call createFunction
         try {

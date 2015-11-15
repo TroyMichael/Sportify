@@ -26,6 +26,7 @@ public class SportifyGUI extends Application {
     private BorderPane _rootLayout;
     private static SportifyGUI _sharedMainApp;
     private MainFrameController _mainFrameController;
+    private String _userName;
 
     /**
      * Starts the GUI
@@ -144,9 +145,15 @@ public class SportifyGUI extends Application {
     }
 
     public void loadHelloView(String username) {
+        _userName = username;
         HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
-        cont.setUsername(username);
+        cont.setUsername(_userName);
         _mainFrameController.setMemberMenuDisable(false);
+    }
+
+    public void loadHelloView() {
+        HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
+        cont.setUsername(_userName);
     }
 
     public void loadNewTeamForm() {

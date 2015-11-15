@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -159,6 +160,8 @@ public class NewTeamFormController {
             //call createFunction
             try {
                 SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
+                initSuccessAlert();
+                //TODO switch to team detail view
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -185,4 +188,16 @@ public class NewTeamFormController {
         return validation;
     }
 
+    private void initSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Saving successful!");
+        alert.setTitle("Saving successful");
+        alert.setContentText("A new Team with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void cancelNewTeam() {
+        SportifyGUI.getSharedMainApp().loadHelloView();
+    }
 }

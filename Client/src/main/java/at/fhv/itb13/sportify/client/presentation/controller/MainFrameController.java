@@ -23,6 +23,7 @@ public class MainFrameController {
 
     @FXML
     private void loadMemberlistView() {
+        SportifyGUI.getSharedMainApp().loadMemberList();
     }
 
     @FXML

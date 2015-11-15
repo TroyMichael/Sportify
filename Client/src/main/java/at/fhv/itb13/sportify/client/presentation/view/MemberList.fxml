@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.MemberListController">
+   <children>
+      <TableView fx:id="_memberTableView" layoutX="12.0" layoutY="101.0" prefHeight="411.0" prefWidth="726.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <columns>
+          <TableColumn fx:id="_firstNameColumn" prefWidth="115.0" text="First Name" />
+          <TableColumn fx:id="_lastNameColumn" prefWidth="115.0" text="Last Name" />
+            <TableColumn fx:id="_birthdateColumn" prefWidth="115.0" text="Birthdate" />
+            <TableColumn fx:id="_emailColumn" prefWidth="115.0" text="E-Mail" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="14.0" text="Member List" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="_filterTextField" layoutX="13.0" layoutY="76.0" prefHeight="25.0" prefWidth="732.0" promptText="Enter words to filter list" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button layoutX="696.0" layoutY="533.0" mnemonicParsing="false" onAction="#newMember" text="Add new Member" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+   </children>
+</AnchorPane>

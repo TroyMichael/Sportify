@@ -71,6 +71,7 @@ public class SportifyGUI extends Application {
 
         loadRootLayout();
         loadLoginWindow();
+        //_mainFrameController.setMemberMenuDisable(false);
     }
 
     /**
@@ -133,6 +134,11 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
+    public void loadMemberDataView(PersonDTO person) {
+        MemberDataController cont = (MemberDataController) loadView("view/MemberData.fxml", _rootLayout);
+        cont.setPerson(person);
+    }
+
     public void loadLoginWindow() {
         loadView("view/LoginWindow.fxml", _rootLayout);
     }
@@ -141,16 +147,18 @@ public class SportifyGUI extends Application {
         HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
         cont.setUsername(username);
         _mainFrameController.setMemberMenuDisable(false);
-
     }
 
     public void loadNewTeamForm() {
         loadView("view/NewTeamForm.fxml", _rootLayout);
     }
 
+
+    public void loadMemberList() {
+        loadView("view/MemberList.fxml", _rootLayout);
+    }
+
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
-
-
 }

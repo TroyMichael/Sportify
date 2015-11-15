@@ -20,25 +20,24 @@ public class User extends PersistentObjectImpl {
         _password = password;
     }
 
-    public void setUsername(String username) {
-        _username = username;
-    }
-
-    public void setPassword(String password) {
-        _password = password;
-    }
-
     public String getUsername() {
         return _username;
+    }
+
+    public void setUsername(String username) {
+        _username = username;
     }
 
     public String getPassword() {
         return _password;
     }
 
+    public void setPassword(String password) {
+        _password = password;
+    }
+
     /**
      * lets the user login if he enters the correct login data
-     *
      */
     public boolean login() {
         Properties env = new Properties();

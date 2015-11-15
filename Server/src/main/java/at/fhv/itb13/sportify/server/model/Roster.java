@@ -18,9 +18,10 @@ public class Roster extends PersistentObjectImpl {
     public Roster() {
     }
 
-    public Roster(String name, Team team) {
+    public Roster(String name, Team team, Match match) {
         _name = name;
         _team = team;
+        _match = match;
     }
 
     @Column(name = "name")
@@ -42,13 +43,13 @@ public class Roster extends PersistentObjectImpl {
         _team = team;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "match_id", referencedColumnName = "id")
-//    public Match getMatch(){
-//        return _match;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "match_id", referencedColumnName = "id")
+    public Match getMatch() {
+        return _match;
+    }
 
-    public void setMatch(Match match){
+    public void setMatch(Match match) {
         _match = match;
     }
 

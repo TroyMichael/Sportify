@@ -10,18 +10,18 @@ import java.util.Set;
 @Table(name = "person")
 public class Person extends PersistentObjectImpl {
 
-    private String _fname = "";
-    private String _lname = "";
-    private String _street = "";
-    private String _houseNumber = "";
-    private String _postalCode = "";
-    private String _city = "";
-    private String _email = "";
-    private String _birthdate = "";
-    private Boolean _payed = false;
-    private Set<Team> _trainedTeams = new HashSet<>();
+    private String _fname;
+    private String _lname;
+    private String _street;
+    private String _houseNumber;
+    private String _postalCode;
+    private String _city;
+    private String _email;
+    private String _birthdate;
+    private Boolean _payed;
     private Set<Roster> _rosters = new HashSet<Roster>();
     private Set<Team> _teams = new HashSet<Team>();
+    private Set<Team> _trainedTeams = new HashSet<>();
 
     public Person() {
     }
@@ -139,6 +139,15 @@ public class Person extends PersistentObjectImpl {
         _teams = teams;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trainer")
+    public Set<Team> getTrainedTeams() {
+        return _trainedTeams;
+    }
+
+    public void setTrainedTeams(Set<Team> trainedTeams) {
+        _trainedTeams = trainedTeams;
+    }
+
     public void addRoster(Roster roster) {
         _rosters.add(roster);
     }
@@ -155,21 +164,12 @@ public class Person extends PersistentObjectImpl {
         _teams.remove(team);
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trainer")
-    public Set<Team> getTrainedTeams() {
-        return _trainedTeams;
-    }
-
-    public void setTrainedTeams(Set<Team> teams) {
-        _teams = teams;
-    }
-
     public void addTrainedTeam(Team trainedTeam) {
-        _teams.add(trainedTeam);
+        _trainedTeams.add(trainedTeam);
     }
 
     public void removeTrainedTeam(Team trainedTeam) {
-        _teams.remove(trainedTeam);
+        _trainedTeams.remove(trainedTeam);
     }
 
 }

@@ -14,7 +14,6 @@ public class Tournament extends PersistentObjectImpl {
     private Sport _sport;
     private Set<Match> _matches = new HashSet<>();
 
-
     public Tournament() {
     }
 

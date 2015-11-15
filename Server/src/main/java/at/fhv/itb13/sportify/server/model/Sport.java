@@ -51,21 +51,21 @@ public class Sport extends PersistentObjectImpl {
         _teams = teams;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
+    public Set<Tournament> getTournaments() {
+        return _tournaments;
+    }
+
+    public void setTournaments(Set<Tournament> tournaments) {
+        _tournaments = tournaments;
+    }
+
     public void addTeam(Team team) {
         _teams.add(team);
     }
 
     public void removeTeam(Team team) {
         _teams.remove(team);
-    }
-
-   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
-   // public Set<Tournament> getTournaments() {
-     //   return _tournaments;
-    //}
-
-    public void setTournaments(Set<Tournament> tournaments) {
-        _tournaments = tournaments;
     }
 
     public void addTournament(Tournament tournament) {

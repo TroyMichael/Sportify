@@ -11,28 +11,28 @@ import java.util.Set;
 @Table(name = "match")
 public class Match extends PersistentObjectImpl {
 
-    private int _duration;
+    private Integer _duration;
     private Date _start;
     private Roster _winner;
     private Tournament _tournament;
     private Set<Roster> _rosters = new HashSet<>();
 
-
     public Match() {
     }
 
-    public Match(int duration, Date start, Tournament tournament) {
+    public Match(Integer duration, Date start, Roster winner, Tournament tournament) {
         _duration = duration;
         _start = start;
+        _winner = winner;
         _tournament = tournament;
     }
 
     @Column(name = "duration")
-    public int getDuration() {
+    public Integer getDuration() {
         return _duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         _duration = duration;
     }
 

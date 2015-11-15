@@ -11,8 +11,8 @@ import java.util.Set;
 public class Team extends PersistentObjectImpl {
 
     private String _name;
-    private Sport _sport;
     private Person _trainer;
+    private Sport _sport;
     private Set<Person> _persons = new HashSet<Person>();
     private Set<Roster> _rosters = new HashSet<Roster>();
 
@@ -34,17 +34,15 @@ public class Team extends PersistentObjectImpl {
         _name = name;
     }
 
-
     @ManyToOne
     @JoinColumn(name = "trainer_id", referencedColumnName = "id")
-    public Person getTrainer(){
+    public Person getTrainer() {
         return _trainer;
     }
 
-    public void setTrainer(Person trainer){
+    public void setTrainer(Person trainer) {
         _trainer = trainer;
     }
-
 
     @ManyToOne
     @JoinColumn(name = "sport_id", referencedColumnName = "id")

@@ -145,8 +145,6 @@ public class NewTeamFormController {
         //gather all information of the new team
         String teamName = _nameTextField.getText();
         SportDTO selectedSport = _sportComboBox.getValue();
-        System.out.println(selectedSport.getName());
-        System.out.println(selectedSport.getId());
 
         //read all person IDs and save them into a hashset
         HashSet<String> addedMembersIDs = new HashSet<>();

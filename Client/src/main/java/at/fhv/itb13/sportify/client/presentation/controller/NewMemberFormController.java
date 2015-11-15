@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -67,6 +68,7 @@ public class NewMemberFormController {
             alert.setTitle("Saving successful");
             alert.setContentText("The member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
             alert.showAndWait();
+            SportifyGUI.getSharedMainApp().loadMemberDataView(newMember);
         }
     }
 
@@ -76,16 +78,22 @@ public class NewMemberFormController {
         if (_fNameTextField.getText().length() == 0) {
             _fNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _fNameTextField.setStyle("-fx-text-box-border: black;");
         }
 
         if (_lNameTextField.getText().length() == 0) {
             _lNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _lNameTextField.setStyle("-fx-text-box-border: black;");
         }
 
         if (_birthdayTextField.getText().length() == 0) {
             _birthdayTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _birthdayTextField.setStyle("-fx-text-box-border: black;");
         }
 
         return validation;
@@ -93,6 +101,6 @@ public class NewMemberFormController {
 
     @FXML
     private void cancelNewMember() {
-        System.out.println("Cancelled");
+        SportifyGUI.getSharedMainApp().loadMemberList();
     }
 }

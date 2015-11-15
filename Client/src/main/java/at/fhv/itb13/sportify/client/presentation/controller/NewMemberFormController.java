@@ -63,13 +63,17 @@ public class NewMemberFormController {
             );
 
             SessionController.getInstance().getSession().getPersonRemote().create(newMember);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Saving successful!");
-            alert.setTitle("Saving successful");
-            alert.setContentText("The member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
-            alert.showAndWait();
+            initSuccessAlert();
             SportifyGUI.getSharedMainApp().loadMemberDataView(newMember);
         }
+    }
+
+    private void initSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Saving successful!");
+        alert.setTitle("Saving successful");
+        alert.setContentText("The member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
+        alert.showAndWait();
     }
 
     private Boolean validateInput() {

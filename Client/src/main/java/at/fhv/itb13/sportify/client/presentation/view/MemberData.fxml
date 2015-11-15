@@ -46,11 +46,16 @@
             </rowConstraints>
         </GridPane>
       <Button fx:id="_editButton" layoutX="377.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickEditButton" text="Edit" />
-      <Button fx:id="_saveButton" layoutX="377.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickSaveButton" text="Save" visible="false" />
       <Label fx:id="_memberViewTitle" layoutX="14.0" layoutY="14.0" text="Member Details" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
+      <HBox fx:id="_editButtonsHBox" layoutX="314.0" layoutY="317.0" prefHeight="25.0" prefWidth="100.0" spacing="7.0" visible="false">
+         <children>
+            <Button fx:id="_saveButton" mnemonicParsing="false" onAction="#clickSaveButton" text="Save" />
+            <Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

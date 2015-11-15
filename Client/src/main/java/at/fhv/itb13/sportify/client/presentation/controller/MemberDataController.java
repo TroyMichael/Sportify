@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 import java.rmi.RemoteException;
 
@@ -43,7 +44,7 @@ public class MemberDataController {
     private TextField _birthdayTextField;
 
     @FXML
-    private Button _saveButton;
+    private HBox _editButtonsHBox;
 
     @FXML
     private Button _editButton;
@@ -91,7 +92,7 @@ public class MemberDataController {
     @FXML
     private void clickEditButton() {
         _editButton.setVisible(false);
-        _saveButton.setVisible(true);
+        _editButtonsHBox.setVisible(true);
 
         _fNameTextField.setEditable(true);
         _lNameTextField.setEditable(true);
@@ -121,9 +122,27 @@ public class MemberDataController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Saving successful!");
             alert.setTitle("Saving successful");
-            alert.setContentText("The Member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was saved successfully!");
+            alert.setContentText("The Member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was successfuly edited!");
             alert.showAndWait();
+            cancelEdit();
         }
+    }
+
+    @FXML
+    private void cancelEdit(){
+        _editButton.setVisible(true);
+        _editButtonsHBox.setVisible(false);
+
+        _fNameTextField.setEditable(false);
+        _lNameTextField.setEditable(false);
+        _cityTextField.setEditable(false);
+        _birthdayTextField.setEditable(false);
+        _eMailTextField.setEditable(false);
+        _postalCodeTextField.setEditable(false);
+        _streetNoTextField.setEditable(false);
+        _streetTextField.setEditable(false);
+
+        _memberViewTitle.setText("Member Details");
     }
 
     private Boolean validateInput() {
@@ -132,16 +151,22 @@ public class MemberDataController {
         if (_fNameTextField.getText().length() == 0) {
             _fNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _fNameTextField.setStyle("-fx-text-box-border: black;");
         }
 
         if (_lNameTextField.getText().length() == 0) {
             _lNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _lNameTextField.setStyle("-fx-text-box-border: black;");
         }
 
         if (_birthdayTextField.getText().length() == 0) {
             _birthdayTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
+        } else {
+            _birthdayTextField.setStyle("-fx-text-box-border: black;");
         }
 
         return validation;

@@ -64,7 +64,7 @@ public class NewMemberFormController {
 
             SessionController.getInstance().getSession().getPersonRemote().create(newMember);
             initSuccessAlert();
-            SportifyGUI.getSharedMainApp().loadMemberDataView(newMember);
+            SportifyGUI.getSharedMainApp().loadMemberDataView(newMember); //TODO check if this conflicts with database if this member is edited and changes are saved
         }
     }
 

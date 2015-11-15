@@ -142,23 +142,47 @@ public class NewTeamFormController {
 
     @FXML
     private void saveTeam() {
-        //gather all information of the new team
-        String teamName = _nameTextField.getText();
-        SportDTO selectedSport = _sportComboBox.getValue();
 
-        //read all person IDs and save them into a hashset
-        HashSet<String> addedMembersIDs = new HashSet<>();
-        _addedMembersObservable.forEach(person -> addedMembersIDs.add(person.getId()));
+        if (validate()) {
+            //gather all information of the new team
+            String teamName = _nameTextField.getText();
+            SportDTO selectedSport = _sportComboBox.getValue();
+
+            //read all person IDs and save them into a hashset
+            HashSet<String> addedMembersIDs = new HashSet<>();
+            _addedMembersObservable.forEach(person -> addedMembersIDs.add(person.getId()));
 
 
-        //create new TeamDTO
-        TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
+            //create new TeamDTO
+            TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
 
-        //call createFunction
-        try {
-            SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+            //call createFunction
+            try {
+                SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private boolean validate() {
+        boolean validation = true;
+
+        if (_nameTextField.getText().length() == 0) {
+            _nameTextField.setStyle("-fx-text-box-border: red;");
+            validation = false;
+        } else {
+            _nameTextField.setStyle("-fx-text-box-border: black;");
+        }
+
+        if (_sportComboBox.getValue() == null) {
+            _sportComboBox.setStyle("-fx-text-box-border:red;");
+            validation = false;
+        } else {
+            _sportComboBox.setStyle("-fx-text-box-border:black;");
+        }
+
+        return validation;
+    }
+
 }

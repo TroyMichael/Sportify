@@ -18,7 +18,7 @@ public class Person extends PersistentObjectImpl {
     private String _city;
     private String _email;
     private String _birthdate;
-    private Boolean _payed;
+    private Boolean _paid;
     private Set<Roster> _rosters = new HashSet<Roster>();
     private Set<Team> _teams = new HashSet<Team>();
     private Set<Team> _trainedTeams = new HashSet<>();
@@ -26,7 +26,7 @@ public class Person extends PersistentObjectImpl {
     public Person() {
     }
 
-    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate, Boolean payed) {
+    public Person(String fname, String lname, String street, String houseNumber, String postalCode, String city, String email, String birthdate, Boolean paid) {
         _fname = fname;
         _lname = lname;
         _street = street;
@@ -35,7 +35,7 @@ public class Person extends PersistentObjectImpl {
         _city = city;
         _email = email;
         _birthdate = birthdate;
-        _payed = payed;
+        _paid = paid;
     }
 
     @Column(name = "firstname")
@@ -110,13 +110,13 @@ public class Person extends PersistentObjectImpl {
         _birthdate = birthdate;
     }
 
-    @Column(name = "payed")
-    public Boolean isPayed() {
-        return _payed;
+    @Column(name = "paid")
+    public Boolean isPaid() {
+        return _paid;
     }
 
-    public void setPayed(Boolean payed) {
-        _payed = payed;
+    public void setPaid(Boolean paid) {
+        _paid = paid;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

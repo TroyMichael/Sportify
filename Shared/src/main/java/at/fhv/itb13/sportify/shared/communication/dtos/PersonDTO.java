@@ -39,15 +39,16 @@ public interface PersonDTO extends Serializable, DTO {
 
     void setBirthdate(String birthdate);
 
-    boolean getPayed();
+    boolean isPaid();
 
-    void setPayed(boolean payed);
+    void setPaid(boolean paid);
 
     HashSet<String> getTeamIds();
 
     void addTeam(String teamId);
 
     void removeTeam(String teamId);
+
     HashSet<String> getTrainedTeamIds();
 
     void addTrainedTeam(String trainedTeamId);

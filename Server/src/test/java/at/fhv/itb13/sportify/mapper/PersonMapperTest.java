@@ -28,7 +28,7 @@ public class PersonMapperTest extends TestCase {
         Person person = _mapper.toDomainObject(personDTO);
         assertTrue(person.getBirthdate().equals(personDTO.getBirthdate()));
         assertTrue(person.getCity().equals(personDTO.getCity()));
-        assertTrue(person.isPayed());
+        assertTrue(person.isPaid());
     }
 
     public void testToDTOObject() throws Exception {

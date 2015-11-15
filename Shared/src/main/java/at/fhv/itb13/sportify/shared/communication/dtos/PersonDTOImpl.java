@@ -6,21 +6,24 @@ import java.util.HashSet;
  * Created by KYUSS on 27.10.2015.
  */
 public class PersonDTOImpl extends DTOImpl implements PersonDTO {
-    private String _fname = "";
-    private String _lname = "";
-    private String _street = "";
-    private String _houseNumber = "";
-    private String _postalCode = "";
-    private String _city = "";
-    private String _email = "";
-    private String _birthdate = "";
-    private boolean _payed = false;
+
+    private String _fname;
+    private String _lname;
+    private String _street;
+    private String _houseNumber;
+    private String _postalCode;
+    private String _city;
+    private String _email;
+    private String _birthdate;
+    private boolean _paid;
     private HashSet<String> _teamIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
     private HashSet<String> _trainedTeamIds = new HashSet<>();
 
-    public PersonDTOImpl(){}
-    public PersonDTOImpl (String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate, boolean payed){
+    public PersonDTOImpl() {
+    }
+
+    public PersonDTOImpl(String fname, String lname, String street, String housenumber, String postalcode, String city, String email, String birthdate, boolean paid) {
         _fname = fname;
         _lname = lname;
         _street = street;
@@ -29,7 +32,7 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
         _city = city;
         _email = email;
         _birthdate = birthdate;
-        _payed = payed;
+        _paid = paid;
     }
 
     @Override
@@ -113,11 +116,13 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     }
 
     @Override
-    public boolean getPayed(){return _payed;}
+    public boolean isPaid() {
+        return _paid;
+    }
 
     @Override
-    public void setPayed(boolean payed) {
-        _payed = payed;
+    public void setPaid(boolean paid) {
+        _paid = paid;
     }
 
     @Override

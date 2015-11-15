@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
@@ -25,7 +24,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
                     personDTO.getCity(),
                     personDTO.getEmail(),
                     personDTO.getBirthdate(),
-                    personDTO.getPayed()
+                    personDTO.isPaid()
             );
             person.setId(personDTO.getId());
             person.setVersion(personDTO.getVersion());
@@ -48,7 +47,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setBirthdate(person.getBirthdate());
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
-            personDTO.setPayed(person.isPayed());
+            personDTO.setPaid(person.isPaid());
             return personDTO;
         }
         return null;

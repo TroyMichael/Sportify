@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 /**
  * Created by KYUSS on 27.10.2015.
+ *
  */
 public class PersonDTOImpl extends DTOImpl implements PersonDTO {
 

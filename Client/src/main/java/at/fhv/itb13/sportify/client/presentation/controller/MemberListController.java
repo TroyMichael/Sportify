@@ -105,6 +105,8 @@ public class MemberListController {
                     return true;
                 } else if (person.getBirthdate().toLowerCase().contains(filterString)) {
                     return true;
+                } else if (person.getEmail().toLowerCase().contains(filterString)) {
+                    return true;
                 }
                 //filter more attributes if wanted
 

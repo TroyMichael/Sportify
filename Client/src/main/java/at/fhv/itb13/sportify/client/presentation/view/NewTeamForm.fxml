@@ -67,7 +67,7 @@
       <HBox layoutX="483.0" layoutY="436.0" prefHeight="25.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <children>
             <Button mnemonicParsing="false" onAction="#saveTeam" text="Save" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#cancelNewTeam" text="Cancel" />
          </children>
       </HBox>
    </children>

@@ -35,4 +35,9 @@ public class MainFrameController {
     private void loadNewTeamView() {
         SportifyGUI.getSharedMainApp().loadNewTeamForm();
     }
+
+    @FXML
+    private void loadTeamList() {
+        SportifyGUI.getSharedMainApp().loadTeamList();
+    }
 }

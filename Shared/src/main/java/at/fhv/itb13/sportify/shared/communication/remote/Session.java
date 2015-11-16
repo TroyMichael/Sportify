@@ -13,5 +13,7 @@ public interface Session extends Remote {
 
     TeamRemote getTeamRemote() throws RemoteException;
 
+    TeamDetailRemote getTeamDetailRemote() throws RemoteException;
+
     SportRemote getSportRemote() throws RemoteException;
 }

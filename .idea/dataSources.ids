@@ -19,12 +19,12 @@
       <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="duration" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="winner_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
       <column name="tournament_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
       <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="match_ibfk_1" columns="tournament_id" ref-table="tournament" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="match_ibfk_2" columns="winner_id" ref-table="roster" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="match_ibfk_2" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="roster_ibfk_2" table="roster" schema="" catalog="sportify" columns="match_id"/>
     </table>
     <table name="person" schema="" catalog="sportify" type="TABLE">
@@ -37,8 +37,8 @@
       <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="birthdate" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="paid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="roster_person_ibfk_1" table="roster_person" schema="" catalog="sportify" columns="person_id"/>
       <exported-key name="team_ibfk_2" table="team" schema="" catalog="sportify" columns="trainer_id"/>
@@ -48,12 +48,11 @@
       <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="match_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="roster_ibfk_1" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="roster_ibfk_2" columns="match_id" ref-table="match" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="match_ibfk_2" table="match" schema="" catalog="sportify" columns="winner_id"/>
       <exported-key name="roster_person_ibfk_2" table="roster_person" schema="" catalog="sportify" columns="roster_id"/>
     </table>
     <table name="roster_person" schema="" catalog="sportify" type="TABLE">
@@ -76,12 +75,13 @@
     <table name="team" schema="" catalog="sportify" type="TABLE">
       <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
       <column name="trainer_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="team_ibfk_1" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="team_ibfk_2" columns="trainer_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="match_ibfk_2" table="match" schema="" catalog="sportify" columns="team_id"/>
       <exported-key name="roster_ibfk_1" table="roster" schema="" catalog="sportify" columns="team_id"/>
       <exported-key name="team_person_ibfk_2" table="team_person" schema="" catalog="sportify" columns="team_id"/>
     </table>
@@ -93,9 +93,9 @@
       <foreign-key name="team_person_ibfk_2" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="tournament" schema="" catalog="sportify" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="description" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="version" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="tournament_ibfk_1" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>

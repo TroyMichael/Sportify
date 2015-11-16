@@ -160,6 +160,9 @@ public class SportifyGUI extends Application {
         loadView("view/NewTeamForm.fxml", _rootLayout);
     }
 
+    public void loadTeamList() {
+        loadView("view/TeamList.fxml", _rootLayout);
+    }
 
     public void loadMemberList() {
         loadView("view/MemberList.fxml", _rootLayout);
@@ -168,4 +171,5 @@ public class SportifyGUI extends Application {
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
+
 }

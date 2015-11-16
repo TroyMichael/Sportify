@@ -25,6 +25,7 @@
                   <Menu mnemonicParsing="false" text="Team">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#loadNewTeamView" text="Add new Team" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadTeamList" text="Teamlist" />
                     </items>
                   </Menu>
                     </menus>

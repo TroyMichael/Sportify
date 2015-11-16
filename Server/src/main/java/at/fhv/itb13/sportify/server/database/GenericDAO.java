@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.server.database;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 
 import java.io.Serializable;
@@ -12,6 +13,8 @@ import java.util.List;
  * @param <PK> type of primary key
  */
 interface GenericDAO<T extends PersistentObject, PK extends Serializable> {
+
+    void setSession(Session session);
 
     PK create(T object);
 

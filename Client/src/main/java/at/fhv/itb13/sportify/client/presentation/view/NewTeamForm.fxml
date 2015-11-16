@@ -24,7 +24,7 @@
             <Label text="Sport:" GridPane.rowIndex="1" />
             <ComboBox fx:id="_sportComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Trainer" GridPane.rowIndex="2" />
-            <Label fx:id="_trainerNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="_trainerTextField" promptText="Select Trainer" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label layoutX="21.0" layoutY="14.0" text="Create new Team" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
@@ -67,7 +67,7 @@
       <HBox layoutX="483.0" layoutY="436.0" prefHeight="25.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <children>
             <Button mnemonicParsing="false" onAction="#saveTeam" text="Save" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#cancelNewTeam" text="Cancel" />
          </children>
       </HBox>
    </children>

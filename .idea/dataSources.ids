@@ -96,7 +96,7 @@
       <column name="description" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
       <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="tournament_ibfk_1" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="match_ibfk_1" table="match" schema="" catalog="sportify" columns="tournament_id"/>

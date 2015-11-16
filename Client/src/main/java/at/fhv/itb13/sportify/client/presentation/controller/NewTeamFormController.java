@@ -26,7 +26,7 @@ public class NewTeamFormController {
     private ComboBox<SportDTO> _sportComboBox;
 
     @FXML
-    private Label _trainerNameLabel;
+    private TextField _trainerTextField;
 
     @FXML
     private TableView<PersonDTO> _allMembersTableView;
@@ -73,7 +73,7 @@ public class NewTeamFormController {
             List<PersonDTO> allMembers = SessionController.getInstance().getSession().getPersonRemote().getAllPersons();
 
             if (allMembers != null) {
-                //create a observableArrayList and fill it with all members
+                //create an observableArrayList and fill it with all members
                 ObservableList<PersonDTO> allMembersObservable = FXCollections.observableArrayList();
                 allMembers.forEach(person -> allMembersObservable.add(person));
                 _allMembersTableView.setItems(allMembersObservable);
@@ -137,7 +137,7 @@ public class NewTeamFormController {
         if (_allMembersTableView.getSelectionModel().getSelectedItem() != null) {
             _trainer = _allMembersTableView.getSelectionModel().getSelectedItem();
             _allMembersTableView.getItems().remove(_trainer);
-            _trainerNameLabel.setText(_trainer.getFName() + " " + _trainer.getLName());
+            _trainerTextField.setText(_trainer.getFName() + " " + _trainer.getLName());
         }
     }
 
@@ -165,6 +165,12 @@ public class NewTeamFormController {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Components missing!");
+            alert.setTitle("Components missing!");
+            alert.setContentText("A new Team could not be created due to missing fields!");
+            alert.showAndWait();
         }
     }
 
@@ -183,6 +189,14 @@ public class NewTeamFormController {
             validation = false;
         } else {
             _sportComboBox.setStyle("-fx-text-box-border:black;");
+        }
+
+        //TODO fix error message with style
+        if (_trainerTextField.getText().length() == 0){
+            _trainerTextField.setStyle("-fx-text-box-border:red;");
+            validation = false;
+        } else {
+            _trainerTextField.setStyle("-fx-text-box-border:black;");
         }
 
         return validation;

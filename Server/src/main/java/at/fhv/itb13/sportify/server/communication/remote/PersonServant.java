@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 
 import java.rmi.RemoteException;
@@ -10,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Patrick on 28.10.2015.
+ *
  */
 public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     private PersonController _personController;
@@ -37,5 +39,10 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     @Override
     public List<PersonDTO> getAllPersons() throws RemoteException{
         return _personController.getAllPersons();
+    }
+
+    @Override
+    public List<SimplePersonDTO> getAllSimplePersons() throws RemoteException {
+        return _personController.getAllSimplePersons();
     }
 }

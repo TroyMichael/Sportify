@@ -43,6 +43,6 @@
             <TableColumn fx:id="_feeColumn" prefWidth="85.0" text="Payed Fee" />
          </columns>
       </TableView>
-      <Button layoutX="549.0" layoutY="472.0" mnemonicParsing="false" text="Edit" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button layoutX="549.0" layoutY="472.0" mnemonicParsing="false" onAction="#editTeam" text="Edit" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>

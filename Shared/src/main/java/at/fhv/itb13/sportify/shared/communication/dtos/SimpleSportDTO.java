@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by Michael on 16.11.2015.
+ *
  */
 public interface SimpleSportDTO extends Serializable, DTO {
 

@@ -10,9 +10,11 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
     private String _lName;
 
 
+
     public SimplePersonDTOImpl(String fName, String lName) {
         _fName = fName;
         _lName = lName;
+
     }
 
     @Override
@@ -39,4 +41,6 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
     public String toString() {
         return _fName + " " + _lName;
     }
+
+
 }

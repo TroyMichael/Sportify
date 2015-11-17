@@ -30,6 +30,8 @@ public class TeamDetailMapper extends Mapper<TeamDetailDTO, Team> {
             if (domainObject.getSport() != null) {
                 newTeamDetailDTO.setSport(new SimpleSportDTOImpl(domainObject.getSport().getName()));
             }
+
+            newTeamDetailDTO.setId(domainObject.getId());
         }
         return newTeamDetailDTO;
     }

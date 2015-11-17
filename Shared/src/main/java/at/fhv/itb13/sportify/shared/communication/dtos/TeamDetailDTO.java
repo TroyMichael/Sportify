@@ -21,4 +21,5 @@ public interface TeamDetailDTO extends Serializable, DTO {
     void setSport(SimpleSportDTO sport);
 
 
+
 }

@@ -21,4 +21,6 @@ public class SimpleSportDTOImpl extends DTOImpl implements SimpleSportDTO {
     public String toString() {
         return _name;
     }
+
+
 }

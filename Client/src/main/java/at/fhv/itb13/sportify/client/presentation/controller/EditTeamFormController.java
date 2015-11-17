@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Michael on 10.11.2015.
  *
  */
-public class NewTeamFormController {
+public class EditTeamFormController {
 
     @FXML
     private TextField _nameTextField;
@@ -29,26 +29,28 @@ public class NewTeamFormController {
     private TextField _trainerTextField;
 
     @FXML
-    private TableView<PersonDTO> _allMembersTableView;
+    private TableView<SimplePersonDTO> _allMembersTableView;
 
     @FXML
-    private TableColumn<PersonDTO, String> _allMembersFirstNameColumn;
+    private TableColumn<SimplePersonDTO, String> _allMembersFirstNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _allMembersLastNameColumn;
+    private TableColumn<SimplePersonDTO, String> _allMembersLastNameColumn;
 
     @FXML
-    private TableView<PersonDTO> _addedMembersTableView;
+    private TableView<SimplePersonDTO> _addedMembersTableView;
 
     @FXML
-    private TableColumn<PersonDTO, String> _addedMembersFirstNameColumn;
+    private TableColumn<SimplePersonDTO, String> _addedMembersFirstNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _addedMembersLastNameColumn;
+    private TableColumn<SimplePersonDTO, String> _addedMembersLastNameColumn;
 
-    private ObservableList<PersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
+    private TeamDetailDTO _team;
 
-    private PersonDTO _trainer;
+    private ObservableList<SimplePersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
+
+    private SimplePersonDTO _trainer;
 
     @FXML
     private void initialize(){
@@ -70,11 +72,11 @@ public class NewTeamFormController {
     private void setAllMembersTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
         try {
-            List<PersonDTO> allMembers = SessionController.getInstance().getSession().getPersonRemote().getAllPersons();
+            List<SimplePersonDTO> allMembers = SessionController.getInstance().getSession().getPersonRemote().getAllSimplePersons();
 
             if (allMembers != null) {
                 //create an observableArrayList and fill it with all members
-                ObservableList<PersonDTO> allMembersObservable = FXCollections.observableArrayList();
+                ObservableList<SimplePersonDTO> allMembersObservable = FXCollections.observableArrayList();
                 allMembers.forEach(person -> allMembersObservable.add(person));
                 _allMembersTableView.setItems(allMembersObservable);
             }
@@ -112,15 +114,15 @@ public class NewTeamFormController {
     @FXML
     private void removeAllMembers() {
         while (_addedMembersTableView.getItems().size() > 0) {
-            PersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
+            SimplePersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
                 _addedMembersTableView.getItems().remove(personToSwitch);
                 _allMembersTableView.getItems().add(personToSwitch);
         }
     }
 
-    private void switchMember (TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
+    private void switchMember (TableView<SimplePersonDTO> viewToRemoveFrom, TableView<SimplePersonDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
-            PersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
+            SimplePersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
             viewToAddTo.getItems().add(personToSwitch);
         }
@@ -156,21 +158,18 @@ public class NewTeamFormController {
 
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
+            newTeam.setId(_team.getId());
 
             //call createFunction
             try {
-                SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
+                SessionController.getInstance().getSession().getTeamRemote().editTeam(newTeam);
                 initSuccessAlert();
                 //TODO switch to team detail view
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Components missing!");
-            alert.setTitle("Components missing!");
-            alert.setContentText("A new Team could not be created due to missing fields!");
-            alert.showAndWait();
+            initErrorAlert();
         }
     }
 
@@ -210,8 +209,22 @@ public class NewTeamFormController {
         alert.showAndWait();
     }
 
+    private void initErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("Components missing!");
+        alert.setTitle("Components missing!");
+        alert.setContentText("A new Team could not be created due to missing fields!");
+        alert.showAndWait();
+    }
+
     @FXML
     private void cancelNewTeam() {
         SportifyGUI.getSharedMainApp().loadHelloView();
+    }
+
+    public void setTeam(TeamDetailDTO team) {
+        _team = team;
+        _nameTextField.setText(_team.getName());
+        _team.getMembers().forEach(p -> _addedMembersObservable.add(p));
     }
 }

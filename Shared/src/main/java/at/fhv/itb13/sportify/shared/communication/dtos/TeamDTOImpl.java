@@ -11,7 +11,9 @@ public class TeamDTOImpl extends DTOImpl implements TeamDTO {
     private HashSet<String> _rosterIds = new HashSet<>();
     private String _sportId;
     private String _trainerId;
+
     public TeamDTOImpl(){}
+
     public TeamDTOImpl(String name, String trainerId, HashSet<String> personIds, String sportId) {
         _name = name;
         _personIds = personIds;

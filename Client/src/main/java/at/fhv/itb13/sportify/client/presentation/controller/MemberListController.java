@@ -67,7 +67,6 @@ public class MemberListController {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    System.out.println(_memberTableView.getSelectionModel().getSelectedItem().getFName());
                     SportifyGUI.getSharedMainApp().loadMemberDataView(_memberTableView.getSelectionModel().getSelectedItem());
                 }
             }
@@ -104,6 +103,8 @@ public class MemberListController {
                 } else if (person.getLName().toLowerCase().contains(filterString)) {
                     return true;
                 } else if (person.getBirthdate().toLowerCase().contains(filterString)) {
+                    return true;
+                } else if (person.getEmail().toLowerCase().contains(filterString)) {
                     return true;
                 }
                 //filter more attributes if wanted

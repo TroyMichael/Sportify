@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 /**
  * Created by mod on 11/10/15.
+ *
  */
 public interface TeamDTO extends Serializable, DTO {
     String getName();

@@ -8,14 +8,14 @@
     <top>
         <AnchorPane minHeight="-Infinity" prefHeight="30.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <MenuBar prefHeight="30.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar fx:id="_menuBar" disable="true" prefHeight="30.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
-                        <Menu fx:id="_memberMenu" disable="true" mnemonicParsing="false" text="Member">
+                        <Menu mnemonicParsing="false" text="Member">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#loadAddNewMemberView" text="Add new Member" />
                                 <MenuItem mnemonicParsing="false" onAction="#loadMemberlistView" text="Memberlist" />

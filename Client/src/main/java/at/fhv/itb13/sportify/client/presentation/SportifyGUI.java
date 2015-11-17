@@ -72,7 +72,7 @@ public class SportifyGUI extends Application {
 
         loadRootLayout();
         loadLoginWindow();
-        //_mainFrameController.setMemberMenuDisable(false);
+        _mainFrameController.setMenuBarDisable(true);
     }
 
     /**
@@ -148,7 +148,7 @@ public class SportifyGUI extends Application {
         _userName = username;
         HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
         cont.setUsername(_userName);
-        _mainFrameController.setMemberMenuDisable(false);
+        _mainFrameController.setMenuBarDisable(false);
     }
 
     public void loadHelloView() {

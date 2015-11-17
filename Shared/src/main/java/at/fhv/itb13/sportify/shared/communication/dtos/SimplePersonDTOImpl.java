@@ -9,6 +9,7 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
     private String _fName;
     private String _lName;
 
+
     public SimplePersonDTOImpl(String fName, String lName) {
         _fName = fName;
         _lName = lName;

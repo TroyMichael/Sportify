@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PersonObjectMother extends PersistentObjectMother<Person> {
+public class PersonMother extends PersistentObjectMother<Person> {
 
     private String _fname = "fname";
     private String _lname = "lname";
@@ -23,7 +23,7 @@ public class PersonObjectMother extends PersistentObjectMother<Person> {
     private Set<Team> _teams = new HashSet<Team>();
     private Set<Team> _trainedTeams = new HashSet<>();
 
-    public PersonObjectMother(Session session, String defaultId) {
+    public PersonMother(Session session, String defaultId) {
         super(session, Person.class, defaultId);
     }
 
@@ -50,62 +50,62 @@ public class PersonObjectMother extends PersistentObjectMother<Person> {
         return person;
     }
 
-    public PersonObjectMother fname(String fname) {
+    public PersonMother fname(String fname) {
         _fname = fname;
         return this;
     }
 
-    public PersonObjectMother lname(String lname) {
+    public PersonMother lname(String lname) {
         _lname = lname;
         return this;
     }
 
-    public PersonObjectMother street(String street) {
+    public PersonMother street(String street) {
         _street = street;
         return this;
     }
 
-    public PersonObjectMother houseNumber(String houseNumber) {
+    public PersonMother houseNumber(String houseNumber) {
         _houseNumber = houseNumber;
         return this;
     }
 
-    public PersonObjectMother postalCode(String postalCode) {
+    public PersonMother postalCode(String postalCode) {
         _postalCode = postalCode;
         return this;
     }
 
-    public PersonObjectMother city(String city) {
+    public PersonMother city(String city) {
         _city = city;
         return this;
     }
 
-    public PersonObjectMother email(String email) {
+    public PersonMother email(String email) {
         _email = email;
         return this;
     }
 
-    public PersonObjectMother birthdate(String birthdate) {
+    public PersonMother birthdate(String birthdate) {
         _birthdate = birthdate;
         return this;
     }
 
-    public PersonObjectMother paid(Boolean paid) {
+    public PersonMother paid(Boolean paid) {
         _paid = paid;
         return this;
     }
 
-    public PersonObjectMother roster(Roster roster) {
+    public PersonMother roster(Roster roster) {
         _rosters.add(roster);
         return this;
     }
 
-    public PersonObjectMother team(Team team) {
+    public PersonMother team(Team team) {
         _teams.add(team);
         return this;
     }
 
-    public PersonObjectMother trainedTeam(Team trainedTeam) {
+    public PersonMother trainedTeam(Team trainedTeam) {
         _trainedTeams.add(trainedTeam);
         return this;
     }

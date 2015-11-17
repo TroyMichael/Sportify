@@ -1,11 +1,12 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimplePersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -16,10 +17,12 @@ public class PersonController {
 
     private DBFacade _facade;
     private PersonMapper _personMapper;
+    private SimplePersonMapper _simplePersonMapper;
 
     public PersonController() {
         _facade = new DBFacadeImpl();
         _personMapper = new PersonMapper();
+        _simplePersonMapper = new SimplePersonMapper();
     }
 
     /**
@@ -236,6 +239,22 @@ public class PersonController {
             return personDTOList;
         } catch (Exception e){
             _facade.rollbackTransaction();
+        }
+        return null;
+    }
+
+    public List<SimplePersonDTO> getAllSimplePersons() {
+        try {
+            _facade.beginTransaction();
+            List<Person> personList = _facade.getAll(Person.class);
+            _facade.commitTransaction();
+
+            if (personList != null) {
+                return _simplePersonMapper.toDTOList(personList);
+            }
+        } catch (Exception e) {
+            _facade.rollbackTransaction();
+            e.printStackTrace();
         }
         return null;
     }

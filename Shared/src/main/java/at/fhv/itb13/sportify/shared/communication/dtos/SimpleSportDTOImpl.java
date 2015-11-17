@@ -8,8 +8,9 @@ public class SimpleSportDTOImpl extends DTOImpl implements SimpleSportDTO {
 
     private String _name;
 
-    public SimpleSportDTOImpl(String name) {
+    public SimpleSportDTOImpl(String name, String id) {
         _name = name;
+        setId(id);
     }
 
     @Override

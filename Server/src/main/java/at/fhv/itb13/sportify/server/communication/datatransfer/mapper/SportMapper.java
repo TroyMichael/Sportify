@@ -1,8 +1,5 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DTOIsNullException;
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.FacadeFailedException;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Department;

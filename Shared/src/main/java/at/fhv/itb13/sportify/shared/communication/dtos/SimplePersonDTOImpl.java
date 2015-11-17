@@ -10,11 +10,14 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
     private String _lName;
 
 
+    public SimplePersonDTOImpl() {
 
-    public SimplePersonDTOImpl(String fName, String lName) {
+    }
+
+    public SimplePersonDTOImpl(String fName, String lName, String id) {
         _fName = fName;
         _lName = lName;
-
+        setId(id);
     }
 
     @Override

@@ -67,7 +67,6 @@ public class MemberListController {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    System.out.println(_memberTableView.getSelectionModel().getSelectedItem().getFName());
                     SportifyGUI.getSharedMainApp().loadMemberDataView(_memberTableView.getSelectionModel().getSelectedItem());
                 }
             }

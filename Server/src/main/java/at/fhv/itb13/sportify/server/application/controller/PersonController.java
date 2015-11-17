@@ -30,6 +30,7 @@ public class PersonController {
     public void create(PersonDTO person) {
         try {
             Person personDomain = _personMapper.toDomainObject(person);
+
             _facade.beginTransaction();
             _facade.create(personDomain);
             _facade.commitTransaction();

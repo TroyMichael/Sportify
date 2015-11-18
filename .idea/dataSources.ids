@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - sportify@52.89.2.255" uuid="21f06c9b-e54f-47c0-8991-10963a3607e9">
+  <data-source name="MySQL - sportify@52.28.97.28" uuid="21f06c9b-e54f-47c0-8991-10963a3607e9">
     <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>

@@ -16,9 +16,17 @@ import java.util.HashSet;
  * Created by Caroline on 10.11.2015.
  *
  */
+
+
 public class TeamMapper extends Mapper <TeamDTO, Team> {
     DBFacade dbFacade = new DBFacadeImpl();
 
+    /**
+     * use this method if the team to be saved is already in the database
+     *
+     * @param teamDTO team DTO from the editing of the team
+     * @return team loaded from database and mapped from teamDTO or null
+     */
     public Team toExistingDomainObject (TeamDTO teamDTO){
         if (teamDTO.getId() != null){
             try {

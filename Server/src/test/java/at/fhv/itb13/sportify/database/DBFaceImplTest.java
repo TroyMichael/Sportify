@@ -59,4 +59,9 @@ public class DBFaceImplTest implements DBFacade {
     public <T extends PersistentObject> List<T> findByCriteria(Class<T> type, Criterion criterion) {
         return null;
     }
+
+    @Override
+    public <T extends PersistentObject> T merge(T object) {
+        return null;
+    }
 }

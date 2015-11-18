@@ -120,7 +120,7 @@
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${clientreport.dir}">
             <formatter type="xml"/>
             <classpath refid="classpath.client"/>
-            <batchtest fork="yes" todir="${clientreport.dir}">
+            <batchtest todir="${clientreport.dir}">
                 <fileset dir="${clientbuildtest.dir}">
                     <include name="**/*Test*"/>
                 </fileset>
@@ -181,8 +181,12 @@
         <mkdir dir="${serverreport.dir}"/>
         <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="true" dir="${serverreport.dir}">
             <formatter type="xml"/>
-            <classpath refid="classpath.server"/>
-            <batchtest fork="yes" todir="${serverreport.dir}">
+            <classpath>
+                <path refid="classpath.server"/>
+                <pathelement location="./lib/junit-4.12.jar"/>
+            </classpath>
+
+            <batchtest todir="${serverreport.dir}">
                 <fileset dir="${serverbuildtest.dir}">
                     <include name="**/*Test*"/>
                 </fileset>

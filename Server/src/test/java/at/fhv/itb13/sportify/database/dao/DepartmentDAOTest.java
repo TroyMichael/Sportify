@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.database.dao;
 
 import at.fhv.itb13.sportify.database.DepartmentMother;
 import at.fhv.itb13.sportify.database.SessionFactoryRule;
+import at.fhv.itb13.sportify.database.SportMother;
 import at.fhv.itb13.sportify.server.database.dao.DepartmentDAO;
 import at.fhv.itb13.sportify.server.model.Department;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
@@ -22,8 +23,9 @@ public class DepartmentDAOTest {
         _sf.beginTransaction();
         String departmentId = IdGenerator.createId();
         DepartmentMother departmentMother = new DepartmentMother(_sf.getSession(), departmentId);
+        //SportMother sportMother = new SportMother(_sf.getSession(), IdGenerator.createId());
+        //departmentMother.sport(sportMother.instance());
         Department department1 = departmentMother.instance();
-        // TODO: add objects to collections
         _sf.commitTransaction();
 
         // act

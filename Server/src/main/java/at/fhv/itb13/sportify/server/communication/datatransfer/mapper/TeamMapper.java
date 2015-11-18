@@ -19,8 +19,7 @@ import java.util.HashSet;
 public class TeamMapper extends Mapper <TeamDTO, Team> {
     DBFacade dbFacade = new DBFacadeImpl();
 
-    @Override
-    public Team toDomainObject(TeamDTO teamDTO) {
+    public Team toExistingDomainObject (TeamDTO teamDTO){
         if (teamDTO.getId() != null){
             try {
                 dbFacade.beginTransaction();
@@ -48,7 +47,10 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             }
         }
         return null;
-        /*
+    }
+
+    @Override
+    public Team toDomainObject(TeamDTO teamDTO) {
         if (teamDTO != null) {
             Team team = new Team();
             team.setName(teamDTO.getName());
@@ -83,7 +85,6 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             return team;
         }
         return null;
-        */
     }
 
     @Override

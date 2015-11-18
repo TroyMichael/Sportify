@@ -7,7 +7,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">$p0rtifY</property>
-        <property name="connection.url">jdbc:mysql://52.89.2.255:3306/sportify</property>
+        <property name="connection.url">jdbc:mysql://52.34.24.160:3306/sportify</property>
 
         <!-- transaction management -->
         <property name="hibernate.transaction.factory_class">

@@ -1,17 +1,26 @@
 package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.model.Department;
+import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
 import org.hibernate.Session;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class DepartmentMother extends PersistentObjectMother<Department> {
+public class DepartmentMother extends PersistentObjectMother<Department, DepartmentMother> {
 
     private String _name = "name";
     private String _description = "description";
     private Set<Sport> _sports = new HashSet<Sport>();
+
+    public DepartmentMother() {
+        super(Department.class);
+    }
+
+    public DepartmentMother(Session session) {
+        super(session, Department.class);
+    }
 
     public DepartmentMother(Session session, String defaultId) {
         super(session, Department.class, defaultId);

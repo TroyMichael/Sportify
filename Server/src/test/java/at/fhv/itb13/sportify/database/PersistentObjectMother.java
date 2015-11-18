@@ -1,12 +1,25 @@
 package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.database.PersistentObject;
+import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.hibernate.Session;
 
-public abstract class PersistentObjectMother<T extends PersistentObject> extends ObjectMother<T> {
+public abstract class PersistentObjectMother<T extends PersistentObject, S extends PersistentObjectMother> extends ObjectMother<T> {
 
     private Class<T> _cls;
     private String _id;
+
+    public PersistentObjectMother(Class<T> cls) {
+        super();
+        _cls = cls;
+        _id = IdGenerator.createId();
+    }
+
+    public PersistentObjectMother(Session session, Class<T> cls) {
+        super(session);
+        _cls = cls;
+        _id = IdGenerator.createId();
+    }
 
     public PersistentObjectMother(Session session, Class<T> cls, String defaultId) {
         super(session);
@@ -19,8 +32,9 @@ public abstract class PersistentObjectMother<T extends PersistentObject> extends
         return (T) session.get(_cls, _id);
     }
 
-    public void setId(String id) {
+    public S setId(String id) {
         _id = id;
+        return (S) this;
     }
 
     public String getId() {

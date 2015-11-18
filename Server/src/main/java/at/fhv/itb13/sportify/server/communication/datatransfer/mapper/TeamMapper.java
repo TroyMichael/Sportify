@@ -10,6 +10,8 @@ import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
 import org.hibernate.HibernateException;
 
+import java.util.HashSet;
+
 /**
  * Created by Caroline on 10.11.2015.
  *
@@ -19,11 +21,42 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
 
     @Override
     public Team toDomainObject(TeamDTO teamDTO) {
+        if (teamDTO.getId() != null){
+            try {
+                dbFacade.beginTransaction();
+                Team team = dbFacade.get(Team.class, teamDTO.getId());
+                team.setName(teamDTO.getName());
+                //todo check if version is older? odr so
+                team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
+                team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
+                if (teamDTO.getPersonIds().size() > 0){
+                    team.setPersons(new HashSet<Person>());
+                    for (String personID : teamDTO.getPersonIds()){
+                        team.addPerson(dbFacade.get(Person.class, personID));
+                    }
+                }
+                if (teamDTO.getRosterIds().size() > 0){
+                    team.setRosters(new HashSet<Roster>());
+                    for (String rosterID : teamDTO.getRosterIds()){
+                        team.addRoster(dbFacade.get(Roster.class, rosterID));
+                    }
+                }
+                dbFacade.commitTransaction();
+                return team;
+            } catch (HibernateException e){
+                dbFacade.rollbackTransaction();
+            }
+        }
+        return null;
+        /*
         if (teamDTO != null) {
             Team team = new Team();
             team.setName(teamDTO.getName());
             if (teamDTO.getId() != null){
                 team.setId(teamDTO.getId());
+            }
+            if (teamDTO.getVersion() != null){
+                team.setVersion(teamDTO.getVersion());
             }
             try {
                 dbFacade.beginTransaction();
@@ -50,6 +83,7 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             return team;
         }
         return null;
+        */
     }
 
     @Override
@@ -66,6 +100,7 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             teamDTO.setSportId(domainObject.getSport().getId());
             teamDTO.setTrainerId(domainObject.getTrainer().getId());
             teamDTO.setId(domainObject.getId());
+            teamDTO.setVersion(domainObject.getVersion());
             return teamDTO;
         }
         return null;

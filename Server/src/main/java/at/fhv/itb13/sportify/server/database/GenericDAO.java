@@ -33,4 +33,6 @@ interface GenericDAO<T extends PersistentObject, PK extends Serializable> {
     void update(T object);
 
     void delete(T object);
+
+    T merge (T object);
 }

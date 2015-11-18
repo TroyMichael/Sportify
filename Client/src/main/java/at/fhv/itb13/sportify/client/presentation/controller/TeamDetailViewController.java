@@ -67,6 +67,11 @@ public class TeamDetailViewController {
         SportifyGUI.getSharedMainApp().loadEditTeamForm(_team);
     }
 
+    @FXML
+    private void back() {
+        SportifyGUI.getSharedMainApp().loadTeamList();
+    }
+
     public void setTeam(TeamDetailDTO teamToShow) {
         _team = teamToShow;
         _teamNameLabel.setText(_team.getName());

@@ -74,6 +74,11 @@ public class DBFacadeImpl implements DBFacade {
         return (List<T>) getDAO(type).getByCriterion(criterion);
     }
 
+    @Override
+    public <T extends PersistentObject> T merge(T object) {
+        return (T) getDAO(object.getClass()).merge(object);
+    }
+
     private <T extends PersistentObject> GenericDAO getDAO(Class<T> type) {
         GenericDAO dao = _daoMap.get(type);
         dao.setSession(HibernateUtil.getCurrentSession());

@@ -68,4 +68,6 @@ public interface DBFacade {
     <T extends PersistentObject> void delete(T object);
 
     <T extends PersistentObject> List <T> findByCriteria (Class <T> type, Criterion criterion);
+
+    <T extends PersistentObject> T merge (T object);
 }

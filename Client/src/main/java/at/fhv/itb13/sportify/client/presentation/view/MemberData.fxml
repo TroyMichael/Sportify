@@ -51,12 +51,6 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <HBox fx:id="_editButtonsHBox" layoutX="314.0" layoutY="562.0" prefHeight="25.0" prefWidth="100.0" spacing="7.0" visible="false">
-         <children>
-            <Button fx:id="_saveButton" mnemonicParsing="false" onAction="#clickSaveButton" text="Save" />
-            <Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
-         </children>
-      </HBox>
       <TableView fx:id="_teamTableView" layoutX="153.0" layoutY="351.0" prefHeight="200.0" prefWidth="261.0">
         <columns>
           <TableColumn fx:id="_teamNameColumn" prefWidth="260.0" text="Teams" />

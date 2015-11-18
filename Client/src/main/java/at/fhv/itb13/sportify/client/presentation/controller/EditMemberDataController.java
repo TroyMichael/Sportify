@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 
 import java.rmi.RemoteException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -68,9 +69,7 @@ public class EditMemberDataController {
     private ObservableList<TeamDetailDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
 
-
     private PersonDTO _person;
-
 
 
     public void setPerson(PersonDTO person) {
@@ -107,8 +106,6 @@ public class EditMemberDataController {
     }
 
 
-
-
     @FXML
     private void initialize() {
 
@@ -141,24 +138,27 @@ public class EditMemberDataController {
         }
     }
 
-    private void setSelectedTeamsTableViewData(){
+    private void setSelectedTeamsTableViewData() {
 
-        for(TeamDetailDTO team : _allTeamsTableView.getItems()){
-
-            if(_person.getTeamIds().contains(team.getId())){
+        Iterator<TeamDetailDTO> iter = _allTeamsTableView.getItems().iterator();
+        while (iter.hasNext()) {
+            TeamDetailDTO team = iter.next();
+            if (_person.getTeamIds().contains(team.getId())) {
                 _addedTeamsTableView.getItems().add(team);
+                iter.remove();
             }
-
         }
+
     }
 
+
     @FXML
-    private void addTeam () {
+    private void addTeam() {
         switchTeam(_allTeamsTableView, _addedTeamsTableView);
     }
 
     @FXML
-    private void removeTeam () {
+    private void removeTeam() {
         switchTeam(_addedTeamsTableView, _allTeamsTableView);
     }
 
@@ -171,7 +171,7 @@ public class EditMemberDataController {
         }
     }
 
-    private void switchTeam (TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
+    private void switchTeam(TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
             TeamDetailDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(teamToSwitch);
@@ -192,6 +192,13 @@ public class EditMemberDataController {
             _person.setEmail(_eMailTextField.getText());
             _person.setBirthdate(_birthdayTextField.getText());
 
+            _person.getTeamIds().clear();
+
+            for (TeamDetailDTO team : _addedTeamsTableView.getItems()) {
+                _person.addTeam(team.getId());
+            }
+
+
             SessionController.getInstance().getSession().getPersonRemote().editPerson(_person);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Saving successful!");
@@ -203,7 +210,7 @@ public class EditMemberDataController {
     }
 
     @FXML
-    private void cancelEdit(){
+    private void cancelEdit() {
         SportifyGUI.getSharedMainApp().loadMemberDataView(_person);
     }
 

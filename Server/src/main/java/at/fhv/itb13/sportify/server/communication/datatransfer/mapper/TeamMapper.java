@@ -16,11 +16,18 @@ import java.util.HashSet;
  * Created by Caroline on 10.11.2015.
  *
  */
+
+
 public class TeamMapper extends Mapper <TeamDTO, Team> {
     DBFacade dbFacade = new DBFacadeImpl();
 
-    @Override
-    public Team toDomainObject(TeamDTO teamDTO) {
+    /**
+     * use this method if the team to be saved is already in the database
+     *
+     * @param teamDTO team DTO from the editing of the team
+     * @return team loaded from database and mapped from teamDTO or null
+     */
+    public Team toExistingDomainObject (TeamDTO teamDTO){
         if (teamDTO.getId() != null){
             try {
                 dbFacade.beginTransaction();
@@ -30,7 +37,7 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
                 team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
                 if (teamDTO.getPersonIds().size() > 0){
-                    team.setPersons(new HashSet<Person>());
+                    team.setPersons(new HashSet<>());
                     for (String personID : teamDTO.getPersonIds()){
                         team.addPerson(dbFacade.get(Person.class, personID));
                     }
@@ -48,7 +55,10 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             }
         }
         return null;
-        /*
+    }
+
+    @Override
+    public Team toDomainObject(TeamDTO teamDTO) {
         if (teamDTO != null) {
             Team team = new Team();
             team.setName(teamDTO.getName());
@@ -83,7 +93,6 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             return team;
         }
         return null;
-        */
     }
 
     @Override

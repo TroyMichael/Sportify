@@ -44,10 +44,9 @@ public class TeamController {
 
     public void editTeam(TeamDTO team) {
         try {
-            Team teamDomain = _teamMapper.toDomainObject(team);
+            Team teamDomain = _teamMapper.toExistingDomainObject(team);
             _facade.beginTransaction();
-            _facade.merge(teamDomain);
-            //_facade.createOrUpdate(teamDomain);
+            _facade.createOrUpdate(teamDomain);
             _facade.commitTransaction();
         } catch (HibernateException e) {
             _facade.rollbackTransaction();

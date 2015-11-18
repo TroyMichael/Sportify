@@ -12,8 +12,9 @@ import org.hibernate.HibernateException;
 
 /**
  * Created by Caroline on 10.11.2015.
+ *
  */
-public class TeamMapper extends Mapper<TeamDTO, Team> {
+public class TeamMapper extends Mapper <TeamDTO, Team> {
     DBFacade dbFacade = new DBFacadeImpl();
 
     @Override
@@ -21,18 +22,27 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
         if (teamDTO != null) {
             Team team = new Team();
             team.setName(teamDTO.getName());
+            if (teamDTO.getId() != null){
+                team.setId(teamDTO.getId());
+            }
             try {
                 dbFacade.beginTransaction();
-                for (String personId : teamDTO.getPersonIds()) {
-                    team.addPerson(dbFacade.get(Person.class, personId));
+                if (teamDTO.getPersonIds().size() >  0){
+                    for (String personId : teamDTO.getPersonIds()) {
+                        team.addPerson(dbFacade.get(Person.class, personId));
+                    }
                 }
-
-                for (String rosterId : teamDTO.getRosterIds()) {
-                    team.addRoster(dbFacade.get(Roster.class, rosterId));
+                if (teamDTO.getRosterIds().size() > 0){
+                    for (String rosterId : teamDTO.getRosterIds()) {
+                        team.addRoster(dbFacade.get(Roster.class, rosterId));
+                    }
                 }
-                team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
-                team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
-
+                if (teamDTO.getSportId().length() > 0){
+                    team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
+                }
+                if (teamDTO.getTrainerId().length() > 0){
+                    team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
+                }
                 dbFacade.commitTransaction();
             } catch (HibernateException e) {
                 dbFacade.rollbackTransaction();
@@ -47,14 +57,15 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
         if (domainObject != null) {
             TeamDTO teamDTO = new TeamDTOImpl();
             teamDTO.setName(domainObject.getName());
-            for (Person p : domainObject.getPersons()) {
-                teamDTO.addPersonId(p.getId());
+            for (Person person : domainObject.getPersons()) {
+                teamDTO.addPersonId(person.getId());
             }
-            for (Roster r : domainObject.getRosters()) {
-                teamDTO.addRosterId(r.getId());
+            for (Roster roster : domainObject.getRosters()) {
+                teamDTO.addRosterId(roster.getId());
             }
             teamDTO.setSportId(domainObject.getSport().getId());
             teamDTO.setTrainerId(domainObject.getTrainer().getId());
+            teamDTO.setId(domainObject.getId());
             return teamDTO;
         }
         return null;

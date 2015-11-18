@@ -1,20 +1,25 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Roster;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.*;
 import org.hibernate.Session;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class RosterMother extends PersistentObjectMother<Roster> {
+public class RosterMother extends PersistentObjectMother<Roster, RosterMother> {
 
     private String _name = "name";
     private Team _team;
     private Match _match;
     private Set<Person> _persons = new HashSet<Person>();
+
+    public RosterMother() {
+        super(Roster.class);
+    }
+
+    public RosterMother(Session session) {
+        super(session, Roster.class);
+    }
 
     public RosterMother(Session session, String defaultId) {
         super(session, Roster.class, defaultId);

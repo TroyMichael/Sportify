@@ -101,4 +101,8 @@ public abstract class GenericDAOImpl<T extends PersistentObject, PK extends Seri
     public void delete(T object) {
         _session.delete(object);
     }
+
+    public T merge (T object){
+        return (T) _session.merge(object);
+    }
 }

@@ -1,6 +1,8 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 
@@ -39,5 +41,10 @@ public class MainFrameController {
     @FXML
     private void loadTeamList() {
         SportifyGUI.getSharedMainApp().loadTeamList();
+    }
+
+    @FXML
+    public void close(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

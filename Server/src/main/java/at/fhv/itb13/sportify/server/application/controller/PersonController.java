@@ -8,7 +8,6 @@ import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.*;
@@ -23,6 +22,12 @@ public class PersonController {
         _facade = new DBFacadeImpl();
         _personMapper = new PersonMapper();
         _simplePersonMapper = new SimplePersonMapper();
+    }
+
+    public PersonController(DBFacade facade, PersonMapper personMapper, SimplePersonMapper simplePersonMapper) {
+        _facade = facade;
+        _personMapper = personMapper;
+        _simplePersonMapper = simplePersonMapper;
     }
 
     /**
@@ -93,8 +98,8 @@ public class PersonController {
         //search for all persons whose last names fits the search query
         if (personDTO.getLName().length() > 0) {
             lastNameResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getLName() != null) && (person.getLName().toLowerCase().contains(personDTO.getLName().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getLName() != null) && (person.getLName().toLowerCase().contains(personDTO.getLName().toLowerCase()))) {
                     lastNameResults.add(person);
                 }
             }
@@ -104,8 +109,8 @@ public class PersonController {
         //search for all persons whose first names fits the search query
         if (personDTO.getFName().length() > 0) {
             firstNameResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getFName() != null) && (person.getFName().toLowerCase().contains(personDTO.getFName().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getFName() != null) && (person.getFName().toLowerCase().contains(personDTO.getFName().toLowerCase()))) {
                     firstNameResults.add(person);
                 }
             }
@@ -115,8 +120,8 @@ public class PersonController {
         //search for all persons whose street names fits the search query
         if (personDTO.getStreet().length() > 0) {
             streetResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getStreet() != null) && (person.getStreet().toLowerCase().contains(personDTO.getStreet().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getStreet() != null) && (person.getStreet().toLowerCase().contains(personDTO.getStreet().toLowerCase()))) {
                     streetResults.add(person);
                 }
             }
@@ -126,8 +131,8 @@ public class PersonController {
         //search for all persons whose house number fits the search query
         if (personDTO.getHouseNumber().length() > 0) {
             houseNumberResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getHouseNumber() != null) && (person.getHouseNumber().toLowerCase().contains(personDTO.getHouseNumber().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getHouseNumber() != null) && (person.getHouseNumber().toLowerCase().contains(personDTO.getHouseNumber().toLowerCase()))) {
                     houseNumberResults.add(person);
                 }
             }
@@ -137,8 +142,8 @@ public class PersonController {
         //search for all persons whose psotal code fits the search query
         if (personDTO.getPostalCode().length() > 0) {
             postalCodeResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getPostalCode() != null) && (person.getPostalCode().toLowerCase().contains(personDTO.getPostalCode().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getPostalCode() != null) && (person.getPostalCode().toLowerCase().contains(personDTO.getPostalCode().toLowerCase()))) {
                     postalCodeResults.add(person);
                 }
             }
@@ -148,8 +153,8 @@ public class PersonController {
         //search for all persons whose city fits the search query
         if (personDTO.getCity().length() > 0) {
             cityResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getCity() != null) && (person.getCity().toLowerCase().contains(personDTO.getCity().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getCity() != null) && (person.getCity().toLowerCase().contains(personDTO.getCity().toLowerCase()))) {
                     cityResults.add(person);
                 }
             }
@@ -159,8 +164,8 @@ public class PersonController {
         //search for all persons whose email address fits the search query
         if (personDTO.getEmail().length() > 0) {
             emailResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getEmail() != null) && (person.getEmail().toLowerCase().contains(personDTO.getEmail().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getEmail() != null) && (person.getEmail().toLowerCase().contains(personDTO.getEmail().toLowerCase()))) {
                     emailResults.add(person);
                 }
             }
@@ -170,8 +175,8 @@ public class PersonController {
         //search for all persons whose birthdate fits the search query
         if (personDTO.getBirthdate().length() > 0) {
             birthdateResults = new ArrayList<>();
-            for (Person person : personList){
-                if ((person.getBirthdate() != null) && (person.getBirthdate().toLowerCase().contains(personDTO.getBirthdate().toLowerCase()))){
+            for (Person person : personList) {
+                if ((person.getBirthdate() != null) && (person.getBirthdate().toLowerCase().contains(personDTO.getBirthdate().toLowerCase()))) {
                     birthdateResults.add(person);
                 }
             }
@@ -208,9 +213,8 @@ public class PersonController {
 
     /**
      * returns all available members from the database
-     *
      */
-    public List<PersonDTO> getAllPersons (){
+    public List<PersonDTO> getAllPersons() {
         List<Person> personList = new LinkedList<>();
         try {
             _facade.beginTransaction();
@@ -219,25 +223,24 @@ public class PersonController {
         } catch (Exception e) {
             _facade.rollbackTransaction();
         }
-        List <PersonDTO> personDTOList = null;
+        List<PersonDTO> personDTOList = null;
         personDTOList = _personMapper.listToDTO(personList);
         return personDTOList;
     }
 
     /**
-     * returns all persons from database with payed == true
-     *
+     * returns all persons from database with paid == true
      */
-    public List <PersonDTO> getPayedPersons (){
+    public List<PersonDTO> getPayedPersons() {
         try {
-            List <PersonDTO> personDTOList;
-            Criterion criterion = Restrictions.like("payed", true);
+            List<PersonDTO> personDTOList;
+            Criterion criterion = Restrictions.like("paid", true);
             _facade.beginTransaction();
-            List <Person> personList = _facade.findByCriteria(Person.class, criterion);
+            List<Person> personList = _facade.findByCriteria(Person.class, criterion);
             personDTOList = _personMapper.listToDTO(personList);
             _facade.commitTransaction();
             return personDTOList;
-        } catch (Exception e){
+        } catch (Exception e) {
             _facade.rollbackTransaction();
         }
         return null;

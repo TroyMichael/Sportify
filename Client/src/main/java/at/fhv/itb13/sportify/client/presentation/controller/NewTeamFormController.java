@@ -178,17 +178,17 @@ public class NewTeamFormController {
         boolean validation = true;
 
         if (_nameTextField.getText().length() == 0) {
-            _nameTextField.setStyle("-fx-text-box-border: red;");
+            _nameTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
-            _nameTextField.setStyle("-fx-text-box-border: black;");
+            _nameTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         if (_sportComboBox.getValue() == null) {
             _sportComboBox.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
-            _sportComboBox.setStyle("-fx-text-box-border:black;");
+            _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         //TODO fix error message with style
@@ -196,7 +196,7 @@ public class NewTeamFormController {
             _trainerTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
-            _trainerTextField.setStyle("-fx-text-box-border:black;");
+            _trainerTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         return validation;

@@ -6,6 +6,9 @@ public abstract class ObjectMother<T> {
 
     private Session _session;
 
+    public ObjectMother() {
+    }
+
     public ObjectMother(Session s) {
         _session = s;
     }
@@ -14,11 +17,17 @@ public abstract class ObjectMother<T> {
      * returns an instance based on the configuration of this object mother
      */
     public T instance() {
-        T instance = loadInstance(_session);
-        if (instance == null)
+        T instance = null;
+        if ((_session != null) && (_session.isConnected())) {
+            instance = loadInstance(_session);
+        }
+        if (instance == null) {
             instance = createInstance();
+        }
         configureInstance(instance);
-        _session.save(instance);
+        if ((_session != null) && (_session.isConnected())) {
+            _session.save(instance);
+        }
         return instance;
     }
 

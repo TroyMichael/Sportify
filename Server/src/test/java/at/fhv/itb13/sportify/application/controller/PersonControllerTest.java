@@ -1,10 +1,13 @@
 package at.fhv.itb13.sportify.application.controller;
 
+import at.fhv.itb13.sportify.database.SessionFactoryRule;
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.database.dao.SportDAO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import junit.framework.TestCase;
+import org.junit.Rule;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -12,16 +15,23 @@ import java.util.List;
  * Created by KYUSS on 02.11.2015.
  */
 public class PersonControllerTest extends TestCase {
+    /*
+    *public void create(PersonDTO person)
+     *public void saveOrUpdate(PersonDTO person)
+      *  public List<PersonDTO> searchPerson(PersonDTO personDTO)
+       *  public List<PersonDTO> getAllPersons ()
+       *   public List<SimplePersonDTO> getAllSimplePersons()
+       *  public List <PersonDTO> getPayedPersons ()
+     */
 
-    public void testGetInstance() throws Exception {
+    @Test
+    public void testCreatePerson(){
+        PersonController controller = new PersonController();
+        controller.create(new PersonDTOImpl());
 
     }
-
-    public void testCreate() throws Exception {
-
-    }
-
-    public void testSaveOrupdate() throws Exception {
+    @Test
+    public void testSaveOrupdatePerson() throws Exception {
 
     }
 

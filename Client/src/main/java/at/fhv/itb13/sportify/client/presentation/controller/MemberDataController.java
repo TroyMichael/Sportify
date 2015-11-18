@@ -1,15 +1,20 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
+import javax.swing.text.TableView;
 import java.rmi.RemoteException;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
@@ -52,7 +57,17 @@ public class MemberDataController {
     @FXML
     private Label _memberViewTitle;
 
+    @FXML
+    private javafx.scene.control.TableView<TeamDetailDTO> _teamTableView;
+
+    @FXML
+    private TableColumn<TeamDetailDTO, String> _teamNameColumn;
+
+    private ObservableList<TeamDetailDTO> _teamsObservable = FXCollections.observableArrayList();
+
+
     private PersonDTO _person;
+
 
     public void setPerson(PersonDTO person) {
         _person = person;
@@ -83,92 +98,50 @@ public class MemberDataController {
                 _streetTextField.setText(_person.getStreet());
             }
         }
+        setTeamsTableViewData();
     }
 
     @FXML
     private void initialize() {
+
+        //set values for allTeamsTableView's columns
+        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+
+        _teamTableView.setItems(_teamsObservable);
+
+
+    }
+
+    private void setTeamsTableViewData() {
+        try {
+
+            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            HashSet<String> teams = new HashSet<>();
+            teams = _person.getTeamIds();
+
+            if (teams != null) {
+
+                for (TeamDetailDTO teamDto : allTeams) {
+                    if (teams.contains(teamDto.getId())) {
+                        _teamsObservable.add(teamDto);
+
+                    }
+                }
+
+                _teamTableView.setItems(_teamsObservable);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void clickEditButton() {
-        _editButton.setVisible(false);
-        _editButtonsHBox.setVisible(true);
 
-        _fNameTextField.setEditable(true);
-        _lNameTextField.setEditable(true);
-        _cityTextField.setEditable(true);
-        _birthdayTextField.setEditable(true);
-        _eMailTextField.setEditable(true);
-        _postalCodeTextField.setEditable(true);
-        _streetNoTextField.setEditable(true);
-        _streetTextField.setEditable(true);
+        SportifyGUI.getSharedMainApp().loadEditMemberData(_person);
 
-        _memberViewTitle.setText("Edit Member Details");
     }
 
-    @FXML
-    private void clickSaveButton() throws RemoteException {
-        if (validateInput()) {
-            _person.setFName(_fNameTextField.getText());
-            _person.setLName(_lNameTextField.getText());
-            _person.setStreet(_streetTextField.getText());
-            _person.setHouseNumber(_streetNoTextField.getText());
-            _person.setPostalCode(_postalCodeTextField.getText());
-            _person.setCity(_cityTextField.getText());
-            _person.setEmail(_eMailTextField.getText());
-            _person.setBirthdate(_birthdayTextField.getText());
 
-            SessionController.getInstance().getSession().getPersonRemote().editPerson(_person);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Saving successful!");
-            alert.setTitle("Saving successful");
-            alert.setContentText("The Member '" + _fNameTextField.getText() + " " + _lNameTextField.getText() + "' was successfuly edited!");
-            alert.showAndWait();
-            cancelEdit();
-        }
-    }
-
-    @FXML
-    private void cancelEdit(){
-        _editButton.setVisible(true);
-        _editButtonsHBox.setVisible(false);
-
-        _fNameTextField.setEditable(false);
-        _lNameTextField.setEditable(false);
-        _cityTextField.setEditable(false);
-        _birthdayTextField.setEditable(false);
-        _eMailTextField.setEditable(false);
-        _postalCodeTextField.setEditable(false);
-        _streetNoTextField.setEditable(false);
-        _streetTextField.setEditable(false);
-
-        _memberViewTitle.setText("Member Details");
-    }
-
-    private Boolean validateInput() {
-        Boolean validation = true;
-
-        if (_fNameTextField.getText().length() == 0) {
-            _fNameTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        } else {
-            _fNameTextField.setStyle("-fx-text-box-border: black;");
-        }
-
-        if (_lNameTextField.getText().length() == 0) {
-            _lNameTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        } else {
-            _lNameTextField.setStyle("-fx-text-box-border: black;");
-        }
-
-        if (_birthdayTextField.getText().length() == 0) {
-            _birthdayTextField.setStyle("-fx-text-box-border: red;");
-            validation = false;
-        } else {
-            _birthdayTextField.setStyle("-fx-text-box-border: black;");
-        }
-
-        return validation;
-    }
 }

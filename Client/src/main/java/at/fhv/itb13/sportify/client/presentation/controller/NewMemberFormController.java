@@ -169,21 +169,21 @@ public class NewMemberFormController {
             _fNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
         } else {
-            _fNameTextField.setStyle("-fx-text-box-border: black;");
+            _fNameTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         if (_lNameTextField.getText().length() == 0) {
             _lNameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
         } else {
-            _lNameTextField.setStyle("-fx-text-box-border: black;");
+            _lNameTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         if (_birthdayTextField.getText().length() == 0) {
             _birthdayTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
         } else {
-            _birthdayTextField.setStyle("-fx-text-box-border: black;");
+            _birthdayTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         return validation;

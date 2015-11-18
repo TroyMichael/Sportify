@@ -179,4 +179,9 @@ public class SportifyGUI extends Application {
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
+
+    public void loadEditMemberData(PersonDTO person) {
+        EditMemberDataController cont = (EditMemberDataController) loadView("view/EditMemberData.fxml", _rootLayout);
+        cont.setPerson(person);
+    }
 }

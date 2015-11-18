@@ -5,12 +5,11 @@ import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimplePersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
-import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTOImpl;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,11 +19,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PersonController.class, DBFacadeImpl.class, PersonMapper.class, SimplePersonMapper.class})
-public class PersonControllerTest extends TestCase {
+@PrepareForTest(PersonController.class)
+public class PersonControllerTest {
 
     @Mock
     private DBFacade _facade;
@@ -35,6 +35,7 @@ public class PersonControllerTest extends TestCase {
 
     private PersonController _personController;
 
+    @Before
     public void setUp() {
         _personController = new PersonController(_facade, _personMapper, _simplePersonMapper);
     }
@@ -56,6 +57,7 @@ public class PersonControllerTest extends TestCase {
         simplePersons1.add(sp1);
         simplePersons1.add(sp2);
         when(_simplePersonMapper.toDTOList(anyListOf(Person.class))).thenReturn(simplePersons1);
+        //when(_simplePersonMapper.toDTOList(anyListOf(Person.class))).thenThrow(new Exception());
 
         // act
         List<SimplePersonDTO> persons2 = _personController.getAllSimplePersons();

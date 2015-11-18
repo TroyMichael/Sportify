@@ -5,8 +5,11 @@
     <session-factory>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="connection.driver_class">org.h2.Driver</property>
-        <property name="connection.url">jdbc:h2:~/test</property>
+        <property name="connection.url">jdbc:h2:mem:test</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!-- transaction management -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
         <!-- mapped classes -->
         <mapping class="at.fhv.itb13.sportify.server.model.Sport"/>

@@ -1,8 +1,13 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
+import at.fhv.itb13.sportify.server.database.DBFacade;
+import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import org.hibernate.HibernateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +16,9 @@ import java.util.List;
  * Created by KYUSS on 28.10.2015.
  */
 public class PersonMapper extends Mapper<PersonDTO, Person> {
+
+    DBFacade dbFacade = new DBFacadeImpl();
+
 
     @Override
     public Person toDomainObject(PersonDTO personDTO) {
@@ -28,6 +36,17 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             );
             person.setId(personDTO.getId());
             person.setVersion(personDTO.getVersion());
+
+            try {
+                dbFacade.beginTransaction();
+                for (String teamId : personDTO.getTeamIds()) {
+                    person.addTeam(dbFacade.get(Team.class, teamId));
+                }
+                dbFacade.commitTransaction();
+            } catch (HibernateException e) {
+                dbFacade.rollbackTransaction();
+            }
+
             return person;
         }
         return null;
@@ -48,6 +67,10 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             personDTO.setPaid(person.isPaid());
+
+            for (Team team : person.getTeams()) {
+                personDTO.addTeam(team.getId());
+            }
             return personDTO;
         }
         return null;

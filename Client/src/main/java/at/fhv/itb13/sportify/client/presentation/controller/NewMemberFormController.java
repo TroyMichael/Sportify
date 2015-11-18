@@ -2,12 +2,20 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
@@ -41,6 +49,78 @@ public class NewMemberFormController {
     @FXML
     private TextField _birthdayTextField;
 
+    @FXML
+    private TableView<TeamDetailDTO> _allTeamsTableView;
+
+    @FXML
+    private TableColumn<TeamDetailDTO, String> _allTeamsNameColumn;
+
+    @FXML
+    private TableView<TeamDetailDTO> _addedTeamsTableView;
+
+    @FXML
+    private TableColumn<TeamDetailDTO, String> _addedTeamsNameColumn;
+
+    private ObservableList<TeamDetailDTO> _addedTeamsObservable = FXCollections.observableArrayList();
+
+
+    @FXML
+    private void initialize(){
+        //set values for allTeamsTableView's columns
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        //set values for addedTeamsTableViews' columns
+        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+
+        _addedTeamsTableView.setItems(_addedTeamsObservable);
+
+        setAllTeamsTableViewData();
+    }
+
+    private void setAllTeamsTableViewData() {
+        //retrieve list of all members and set the list to the _allMembersTableView
+        try {
+            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+
+            if (allTeams != null) {
+                //create an observableArrayList and fill it with all members
+                ObservableList<TeamDetailDTO> allTeamsObservable = FXCollections.observableArrayList();
+                allTeams.forEach(team -> allTeamsObservable.add(team));
+                _allTeamsTableView.setItems(allTeamsObservable);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void addTeam () {
+        switchTeam(_allTeamsTableView, _addedTeamsTableView);
+    }
+
+    @FXML
+    private void removeTeam () {
+        switchTeam(_addedTeamsTableView, _allTeamsTableView);
+    }
+
+    @FXML
+    private void removeAllTeams() {
+        while (_addedTeamsTableView.getItems().size() > 0) {
+            TeamDetailDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
+            _addedTeamsTableView.getItems().remove(teamToSwitch);
+            _allTeamsTableView.getItems().add(teamToSwitch);
+        }
+    }
+
+    private void switchTeam (TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
+        if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
+            TeamDetailDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
+            viewToRemoveFrom.getItems().remove(teamToSwitch);
+            viewToAddTo.getItems().add(teamToSwitch);
+        }
+    }
+
     /**
      * TODO: get PAYMENTSTATUS
      *
@@ -61,6 +141,12 @@ public class NewMemberFormController {
                     _birthdayTextField.getText(),
                     true
             );
+
+            if(_addedTeamsTableView.getItems() != null) {
+                for (TeamDetailDTO team : _addedTeamsTableView.getItems()) {
+                    newMember.addTeam(team.getId());
+                }
+            }
 
             SessionController.getInstance().getSession().getPersonRemote().create(newMember);
             initSuccessAlert();

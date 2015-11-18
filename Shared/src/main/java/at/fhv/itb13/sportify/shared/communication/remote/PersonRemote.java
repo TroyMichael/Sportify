@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.remote;
 
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -18,4 +19,6 @@ public interface PersonRemote extends Remote {
     void editPerson(PersonDTO personDTO) throws RemoteException;
 
     List<PersonDTO> getAllPersons() throws RemoteException;
+
+    List<SimplePersonDTO> getAllSimplePersons() throws RemoteException;
 }

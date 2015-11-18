@@ -2,7 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 
 /**
  * This controller controls the MainFrame.fxml. It implements the respective functions for each item in the menu bar.
@@ -10,10 +10,10 @@ import javafx.scene.control.Menu;
 public class MainFrameController {
 
     @FXML
-    private Menu _memberMenu;
+    private MenuBar _menuBar;
 
-    public void setMemberMenuDisable(boolean bool) {
-        _memberMenu.setDisable(bool);
+    public void setMenuBarDisable(boolean bool) {
+        _menuBar.setDisable(bool);
     }
 
     @FXML
@@ -34,5 +34,10 @@ public class MainFrameController {
     @FXML
     private void loadNewTeamView() {
         SportifyGUI.getSharedMainApp().loadNewTeamForm();
+    }
+
+    @FXML
+    private void loadTeamList() {
+        SportifyGUI.getSharedMainApp().loadTeamList();
     }
 }

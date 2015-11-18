@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.NewMemberFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.NewMemberFormController">
     <children>
         <GridPane layoutX="15.0" layoutY="54.0" prefHeight="263.0" prefWidth="399.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="54.0">
             <children>
@@ -45,7 +46,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <HBox layoutX="311.0" layoutY="317.0" prefHeight="25.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="311.0" AnchorPane.rightAnchor="186.0" AnchorPane.topAnchor="317.0">
+        <HBox layoutX="476.0" layoutY="613.0" prefHeight="27.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="613.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#saveNewMember" text="Save" />
                 <Button mnemonicParsing="false" onAction="#cancelNewMember" text="Cancel" />
@@ -54,6 +55,35 @@
       <Label layoutX="14.0" layoutY="14.0" text="Add New Member" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font size="27.0" />
+         </font>
+      </Label>
+      <HBox layoutX="15.0" layoutY="378.0" prefHeight="218.0" prefWidth="570.0" spacing="30.0">
+         <children>
+            <TableView fx:id="_allTeamsTableView" prefHeight="207.0" prefWidth="199.0">
+               <columns>
+                  <TableColumn fx:id="_allTeamsNameColumn" prefWidth="197.0" text="Name" />
+               </columns>
+            </TableView>
+            <VBox prefHeight="196.0" prefWidth="115.0" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addTeam" prefHeight="25.0" prefWidth="115.0" text="add --&gt;" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeTeam" prefHeight="25.0" prefWidth="140.0" text="&lt;-- remove" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeAllTeams" prefHeight="25.0" prefWidth="129.0" text="&lt;&lt;-- remove all" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <TableView fx:id="_addedTeamsTableView" prefHeight="207.0" prefWidth="199.0">
+               <columns>
+                  <TableColumn fx:id="_addedTeamsNameColumn" prefWidth="197.0" text="Name" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <Label layoutX="15.0" layoutY="337.0" text="Add Teams">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
     </children>

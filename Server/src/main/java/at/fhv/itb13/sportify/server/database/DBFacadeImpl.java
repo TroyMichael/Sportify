@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.server.database;
 
+import at.fhv.itb13.sportify.server.database.dao.*;
+import at.fhv.itb13.sportify.server.model.*;
 import at.fhv.itb13.sportify.server.util.HibernateUtil;
 import org.hibernate.criterion.Criterion;
 
@@ -10,16 +12,16 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class DBFacadeImpl implements DBFacade {
 
-    private Map<Class<?>, GenericDAO> _daoMap;
+    private Map<Class<? extends PersistentObject>, GenericDAO> _daoMap;
 
-    private GenericDAOGenerator _gdaofactory;
-
-    /**
-     * TODO: Factory für das erstellen von DAO´s
-     */
     public DBFacadeImpl() {
         _daoMap = new HashMap<>();
-        _gdaofactory = GenericDAOGenerator.getInstance();
+
+        _daoMap.put(Department.class, new DepartmentDAO());
+        _daoMap.put(Person.class, new PersonDAO());
+        _daoMap.put(Roster.class, new RosterDAO());
+        _daoMap.put(Sport.class, new SportDAO());
+        _daoMap.put(Team.class, new TeamDAO());
     }
 
     @Override
@@ -39,71 +41,42 @@ public class DBFacadeImpl implements DBFacade {
 
     @Override
     public <T extends PersistentObject> T get(Class<T> type, String id) {
-        GenericDAO genericDAO = _daoMap.get(type);
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(type);
-            _daoMap.put(type, genericDAO);
-        }
-        return (T) _daoMap.get(type).get(id);
+        return (T) getDAO(type).get(id);
     }
 
     @Override
     public <T extends PersistentObject> List<T> getAll(Class<T> type) {
-        GenericDAO genericDAO = _daoMap.get(type);
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(type);
-            _daoMap.put(type, genericDAO);
-        }
-        return (List<T>) _daoMap.get(type).getAll();
+        return (List<T>) getDAO(type).getAll();
     }
 
     @Override
     public <T extends PersistentObject> String create(T object) {
-        GenericDAO genericDAO = _daoMap.get(object.getClass());
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(object.getClass());
-            _daoMap.put(object.getClass(), genericDAO);
-        }
-        return (String) _daoMap.get(object.getClass()).create(object);
+        return (String) getDAO(object.getClass()).create(object);
     }
 
     @Override
     public <T extends PersistentObject> void createOrUpdate(T object) {
-        GenericDAO genericDAO = _daoMap.get(object.getClass());
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(object.getClass());
-            _daoMap.put(object.getClass(), genericDAO);
-        }
-        _daoMap.get(object.getClass()).createOrUpdate(object);
+        getDAO(object.getClass()).createOrUpdate(object);
     }
 
     @Override
     public <T extends PersistentObject> void update(T object) {
-        GenericDAO genericDAO = _daoMap.get(object.getClass());
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(object.getClass());
-            _daoMap.put(object.getClass(), genericDAO);
-        }
-        _daoMap.get(object.getClass()).update(object);
+        getDAO(object.getClass()).update(object);
     }
 
     @Override
     public <T extends PersistentObject> void delete(T object) {
-        GenericDAO genericDAO = _daoMap.get(object.getClass());
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(object.getClass());
-            _daoMap.put(object.getClass(), genericDAO);
-        }
-        _daoMap.get(object.getClass()).delete(object);
+        getDAO(object.getClass()).delete(object);
     }
 
     @Override
-    public <T extends PersistentObject> List<T> findByCriteria(Class <T> type, Criterion criterion) {
-        GenericDAO genericDAO = _daoMap.get(type);
-        if (genericDAO == null) {
-            genericDAO = _gdaofactory.getDAO(type);
-            _daoMap.put(type.getClass(), genericDAO);
-        }
-        return (List<T>) _daoMap.get(type.getClass()).getByCriterion(criterion);
+    public <T extends PersistentObject> List<T> findByCriteria(Class<T> type, Criterion criterion) {
+        return (List<T>) getDAO(type).getByCriterion(criterion);
+    }
+
+    private <T extends PersistentObject> GenericDAO getDAO(Class<T> type) {
+        GenericDAO dao = _daoMap.get(type);
+        dao.setSession(HibernateUtil.getCurrentSession());
+        return dao;
     }
 }

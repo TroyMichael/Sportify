@@ -1,11 +1,17 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.HashSet;
 
 /**
  * Created by Michael on 15.11.2015.
@@ -23,23 +29,26 @@ public class TeamDetailViewController {
     private Label _trainerNameLabel;
 
     @FXML
-    private TableView<PersonDTO> _membersTableView;
+    private TableView<SimplePersonDTO> _membersTableView;
 
     @FXML
-    private TableColumn<PersonDTO, String> _firstNameColumn;
+    private TableColumn<SimplePersonDTO, String> _firstNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _lastNameColumn;
+    private TableColumn<SimplePersonDTO, String> _lastNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _birthdateColumn;
+    private TableColumn<SimplePersonDTO, String> _birthdateColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _emailColumn;
+    private TableColumn<SimplePersonDTO, String> _emailColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _feeColumn;
+    private TableColumn<SimplePersonDTO, String> _feeColumn;
 
+    private TeamDetailDTO _team;
+
+    private ObservableList<SimplePersonDTO> _memberList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -55,6 +64,17 @@ public class TeamDetailViewController {
 
     @FXML
     private void editTeam() {
-        //open editTeamView
+        SportifyGUI.getSharedMainApp().loadEditTeamForm(_team);
+    }
+
+    public void setTeam(TeamDetailDTO teamToShow) {
+        _team = teamToShow;
+        _teamNameLabel.setText(_team.getName());
+        _trainerNameLabel.setText(_team.getTrainer().getFName() + " " + _team.getTrainer().getLName());
+        _sportLabel.setText(_team.getSport().getName());
+
+        HashSet<SimplePersonDTO> _tempList = _team.getMembers();
+        _tempList.forEach(person -> _memberList.add(person));
+        _membersTableView.setItems(_memberList);
     }
 }

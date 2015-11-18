@@ -9,12 +9,20 @@ import org.hibernate.Session;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SportMother extends PersistentObjectMother<Sport> {
+public class SportMother extends PersistentObjectMother<Sport, SportMother> {
 
     private String _name = "name";
     private Department _department;
     private Set<Tournament> _tournaments = new HashSet<Tournament>();
     private Set<Team> _teams = new HashSet<Team>();
+
+    public SportMother() {
+        super(Sport.class);
+    }
+
+    public SportMother(Session session) {
+        super(session, Sport.class);
+    }
 
     public SportMother(Session session, String defaultId) {
         super(session, Sport.class, defaultId);

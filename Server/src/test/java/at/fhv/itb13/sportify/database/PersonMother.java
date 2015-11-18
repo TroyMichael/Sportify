@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PersonMother extends PersistentObjectMother<Person> {
+public class PersonMother extends PersistentObjectMother<Person, PersonMother> {
 
     private String _fname = "fname";
     private String _lname = "lname";
@@ -22,6 +22,14 @@ public class PersonMother extends PersistentObjectMother<Person> {
     private Set<Roster> _rosters = new HashSet<Roster>();
     private Set<Team> _teams = new HashSet<Team>();
     private Set<Team> _trainedTeams = new HashSet<>();
+
+    public PersonMother() {
+        super(Person.class);
+    }
+
+    public PersonMother(Session session) {
+        super(session, Person.class);
+    }
 
     public PersonMother(Session session, String defaultId) {
         super(session, Person.class, defaultId);

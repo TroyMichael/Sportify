@@ -43,6 +43,7 @@ public class LoginWindowController {
             alert.setHeaderText("Wrong Password or Username");
             alert.setContentText("The Password or the Username is wrong. Please try again.");
             alert.showAndWait();
+            _passwordField.clear();
         }
     }
 }

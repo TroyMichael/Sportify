@@ -180,14 +180,14 @@ public class EditTeamFormController {
             _nameTextField.setStyle("-fx-text-box-border: red;");
             validation = false;
         } else {
-            _nameTextField.setStyle("-fx-text-box-border: black;");
+            _nameTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         if (_sportComboBox.getValue() == null) {
             _sportComboBox.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
-            _sportComboBox.setStyle("-fx-text-box-border:black;");
+            _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         //TODO fix error message with style
@@ -195,7 +195,7 @@ public class EditTeamFormController {
             _trainerTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
-            _trainerTextField.setStyle("-fx-text-box-border:black;");
+            _trainerTextField.setStyle("-fx-text-box-border:lightgrey;");
         }
 
         return validation;

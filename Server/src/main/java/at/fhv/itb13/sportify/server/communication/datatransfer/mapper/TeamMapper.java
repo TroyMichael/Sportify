@@ -30,7 +30,7 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
                 team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
                 if (teamDTO.getPersonIds().size() > 0){
-                    team.setPersons(new HashSet<Person>());
+                    team.setPersons(new HashSet<>());
                     for (String personID : teamDTO.getPersonIds()){
                         team.addPerson(dbFacade.get(Person.class, personID));
                     }

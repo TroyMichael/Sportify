@@ -19,7 +19,10 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
 
     DBFacade dbFacade = new DBFacadeImpl();
 
-
+    public PersonMapper(){}
+    public PersonMapper(DBFacade facade){
+        dbFacade = facade;
+    }
     @Override
     public Person toDomainObject(PersonDTO personDTO) {
         if (personDTO != null) {

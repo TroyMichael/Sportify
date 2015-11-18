@@ -184,6 +184,7 @@
             <classpath>
                 <path refid="classpath.server"/>
                 <pathelement location="./lib/junit-4.12.jar"/>
+                <pathelement location="./lib/mockito-all-1.10.19.jar"/>
             </classpath>
 
             <batchtest todir="${serverreport.dir}">

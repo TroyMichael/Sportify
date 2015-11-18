@@ -225,6 +225,31 @@ public class EditTeamFormController {
     public void setTeam(TeamDetailDTO team) {
         _team = team;
         _nameTextField.setText(_team.getName());
-        _team.getMembers().forEach(p -> _addedMembersObservable.add(p));
+        _team.getMembers().forEach(p -> {
+            _addedMembersObservable.add(p);
+            removePersonIfAlreadyInTeam(p);
+        });
+        _trainer = _team.getTrainer();
+        removePersonIfAlreadyInTeam(_trainer);
+        _trainerTextField.setText(_trainer.getFName() + " " + _trainer.getLName());
+
+        setTeamSport(_team.getSport());
+    }
+
+    private void removePersonIfAlreadyInTeam (SimplePersonDTO personToRemove) {
+        for (int i = 0; i < _allMembersTableView.getItems().size(); ++i) {
+            SimplePersonDTO sp = _allMembersTableView.getItems().get(i);
+            if (sp.getId().equals(personToRemove.getId())){
+                _allMembersTableView.getItems().remove(sp);
+            }
+        }
+    }
+
+    private void setTeamSport(SimpleSportDTO sport) {
+        for (SportDTO sp : _sportComboBox.getItems()) {
+            if (sp.getId().equals(sport.getId())) {
+                _sportComboBox.setValue(sp);
+            }
+        }
     }
 }

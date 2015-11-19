@@ -171,6 +171,9 @@
     <!-- Build Test Files -->
     <target name="build_server_test" depends="build_server_src">
         <mkdir dir="${serverbuildtest.dir}"/>
+        <copy todir="${serverbuildtest.dir}">
+            <fileset dir="${servertest.dir}/resources" includes="**"/>
+        </copy>
         <javac srcdir="${servertest.dir}" destdir="${serverbuildtest.dir}">
             <classpath refid="classpath.server"/>
         </javac>

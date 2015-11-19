@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Roster;
 import at.fhv.itb13.sportify.server.model.Sport;
 import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
@@ -42,12 +41,12 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
                         team.addPerson(dbFacade.get(Person.class, personID));
                     }
                 }
-                if (teamDTO.getRosterIds().size() > 0){
-                    team.setRosters(new HashSet<Roster>());
-                    for (String rosterID : teamDTO.getRosterIds()){
-                        team.addRoster(dbFacade.get(Roster.class, rosterID));
-                    }
-                }
+//                if (teamDTO.getRosterIds().size() > 0){
+//                    team.setRosters(new HashSet<Roster>());
+//                    for (String rosterID : teamDTO.getRosterIds()){
+//                        team.addRoster(dbFacade.get(Roster.class, rosterID));
+//                    }
+//                }
                 dbFacade.commitTransaction();
                 return team;
             } catch (HibernateException e){
@@ -75,11 +74,11 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
                         team.addPerson(dbFacade.get(Person.class, personId));
                     }
                 }
-                if (teamDTO.getRosterIds().size() > 0){
-                    for (String rosterId : teamDTO.getRosterIds()) {
-                        team.addRoster(dbFacade.get(Roster.class, rosterId));
-                    }
-                }
+//                if (teamDTO.getRosterIds().size() > 0){
+//                    for (String rosterId : teamDTO.getRosterIds()) {
+//                        team.addRoster(dbFacade.get(Roster.class, rosterId));
+//                    }
+//                }
                 if (teamDTO.getSportId().length() > 0){
                     team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 }
@@ -103,9 +102,9 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
             for (Person person : domainObject.getPersons()) {
                 teamDTO.addPersonId(person.getId());
             }
-            for (Roster roster : domainObject.getRosters()) {
-                teamDTO.addRosterId(roster.getId());
-            }
+//            for (Roster roster : domainObject.getRosters()) {
+//                teamDTO.addRosterId(roster.getId());
+//            }
             teamDTO.setSportId(domainObject.getSport().getId());
             teamDTO.setTrainerId(domainObject.getTrainer().getId());
             teamDTO.setId(domainObject.getId());

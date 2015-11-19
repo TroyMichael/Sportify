@@ -1,7 +1,8 @@
 package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.Roster;
+import at.fhv.itb13.sportify.server.model.MatchStatus;
+import at.fhv.itb13.sportify.server.model.MatchTeam;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import org.hibernate.Session;
 
@@ -15,9 +16,9 @@ public class MatchMother extends PersistentObjectMother<Match, MatchMother> {
 
     private Integer _duration = 60;
     private Date _start;
-    private Roster _winner;
     private Tournament _tournament;
-    private Set<Roster> _rosters = new HashSet<>();
+    private MatchStatus _matchStatus = MatchStatus.PLANNED;
+    private Set<MatchTeam> _matchTeams = new HashSet<>();
 
     public MatchMother() {
         super(Match.class);
@@ -50,9 +51,9 @@ public class MatchMother extends PersistentObjectMother<Match, MatchMother> {
     protected void configureInstance(Match match) {
         match.setDuration(_duration);
         match.setStart(_start);
-        match.setWinner(_winner);
         match.setTournament(_tournament);
-        match.setRosters(_rosters);
+        match.setMatchStatus(_matchStatus);
+        match.setMatchTeams(_matchTeams);
     }
 
     @Override
@@ -72,18 +73,18 @@ public class MatchMother extends PersistentObjectMother<Match, MatchMother> {
         return this;
     }
 
-    public MatchMother winner(Roster winner) {
-        _winner = winner;
-        return this;
-    }
-
     public MatchMother tournament(Tournament tournament) {
         _tournament = tournament;
         return this;
     }
 
-    public MatchMother roster(Roster roster) {
-        _rosters.add(roster);
+    public MatchMother matchStatus(MatchStatus matchStatus) {
+        _matchStatus = matchStatus;
+        return this;
+    }
+
+    public MatchMother matchTeam(MatchTeam matchTeam) {
+        _matchTeams.add(matchTeam);
         return this;
     }
 }

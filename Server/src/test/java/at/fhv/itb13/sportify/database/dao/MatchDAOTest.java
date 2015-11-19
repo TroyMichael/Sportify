@@ -40,8 +40,8 @@ public class MatchDAOTest {
         assertEquals(match1.getVersion(), match2.getVersion());
         assertEquals(match1.getDuration(), match2.getDuration());
         assertEquals(match1.getStart(), match2.getStart());
-        assertEquals(match1.getWinner(), match2.getWinner());
         assertEquals(match1.getTournament(), match2.getTournament());
-        assertEquals(match1.getRosters(), match2.getRosters());
+        assertEquals(match1.getMatchStatus(), match2.getMatchStatus());
+        assertEquals(match1.getMatchTeams(), match2.getMatchTeams());
     }
 }

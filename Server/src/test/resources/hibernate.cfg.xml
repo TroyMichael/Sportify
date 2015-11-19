@@ -4,8 +4,8 @@
 <hibernate-configuration>
     <session-factory>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://52.28.97.28:3306/sportify</property>
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="connection.url">jdbc:h2:mem:test</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- transaction management -->

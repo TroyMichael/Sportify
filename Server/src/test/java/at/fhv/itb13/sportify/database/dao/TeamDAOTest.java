@@ -42,6 +42,6 @@ public class TeamDAOTest {
         assertEquals(team1.getTrainer(), team2.getTrainer());
         assertEquals(team1.getSport(), team2.getSport());
         assertEquals(team1.getPersons(), team2.getPersons());
-        assertEquals(team1.getRosters(), team2.getRosters());
+        assertEquals(team1.getMatchTeams(), team2.getMatchTeams());
     }
 }

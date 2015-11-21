@@ -148,8 +148,9 @@
     <path id="classpath.server">
         <path refid="classpath.base"/>
         <pathelement location="${sharedbuildsrc.dir}"/>
-        <pathelement location="${serverbuildsrc.dir}"/>
         <pathelement location="${serverbuildtest.dir}"/>
+        <!-- TODO: only include classes (no resources!) -->
+        <pathelement location="${serverbuildsrc.dir}"/>
     </path>
 
     <!-- Clean Server build folder -->
@@ -171,6 +172,9 @@
     <!-- Build Test Files -->
     <target name="build_server_test" depends="build_server_src">
         <mkdir dir="${serverbuildtest.dir}"/>
+        <copy todir="${serverbuildtest.dir}">
+            <fileset dir="${servertest.dir}/resources" includes="**"/>
+        </copy>
         <javac srcdir="${servertest.dir}" destdir="${serverbuildtest.dir}">
             <classpath refid="classpath.server"/>
         </javac>

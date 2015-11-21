@@ -11,17 +11,14 @@ import java.util.Set;
 public class Roster extends PersistentObjectImpl {
 
     private String _name;
-    private Team _team;
-    private Match _match;
+    private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
     private Set<Person> _persons = new HashSet<Person>();
 
     public Roster() {
     }
 
-    public Roster(String name, Team team, Match match) {
+    public Roster(String name) {
         _name = name;
-        _team = team;
-        _match = match;
     }
 
     @Column(name = "name")
@@ -33,24 +30,13 @@ public class Roster extends PersistentObjectImpl {
         _name = name;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "team_id", referencedColumnName = "id")
-    public Team getTeam() {
-        return _team;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
+    public Set<MatchTeam> getMatchTeams() {
+        return _matchTeams;
     }
-
-    public void setTeam(Team team) {
-        _team = team;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "match_id", referencedColumnName = "id")
-    public Match getMatch() {
-        return _match;
-    }
-
-    public void setMatch(Match match) {
-        _match = match;
+    
+    public void setMatchTeams(Set<MatchTeam> matchTeams) {
+        _matchTeams = matchTeams;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

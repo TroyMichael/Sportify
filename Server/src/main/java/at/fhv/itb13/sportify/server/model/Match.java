@@ -13,18 +13,18 @@ public class Match extends PersistentObjectImpl {
 
     private Integer _duration;
     private Date _start;
-    private Roster _winner;
     private Tournament _tournament;
-    private Set<Roster> _rosters = new HashSet<>();
+    private MatchStatus _matchStatus;
+    private Set<MatchTeam> _matchTeams = new HashSet<>();
 
     public Match() {
     }
 
-    public Match(Integer duration, Date start, Roster winner, Tournament tournament) {
+    public Match(Integer duration, Date start, Tournament tournament, MatchStatus matchStatus) {
         _duration = duration;
         _start = start;
-        _winner = winner;
         _tournament = tournament;
+        _matchStatus = matchStatus;
     }
 
     @Column(name = "duration")
@@ -46,16 +46,6 @@ public class Match extends PersistentObjectImpl {
     }
 
     @ManyToOne
-    @JoinColumn(name = "winner_id", referencedColumnName = "id")
-    public Roster getWinner() {
-        return _winner;
-    }
-
-    public void setWinner(Roster winner) {
-        _winner = winner;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "tournament_id", referencedColumnName = "id")
     public Tournament getTournament() {
         return _tournament;
@@ -65,20 +55,30 @@ public class Match extends PersistentObjectImpl {
         _tournament = tournament;
     }
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    public MatchStatus getMatchStatus() {
+        return _matchStatus;
+    }
+
+    public void setMatchStatus(MatchStatus matchStatus) {
+        _matchStatus = matchStatus;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "match")
-    public Set<Roster> getRosters() {
-        return _rosters;
+    public Set<MatchTeam> getMatchTeams() {
+        return _matchTeams;
     }
 
-    public void setRosters(Set<Roster> rosters) {
-        _rosters = rosters;
+    public void setMatchTeams(Set<MatchTeam> matchTeams) {
+        _matchTeams = matchTeams;
     }
 
-    public void addRoster(Roster roster) {
-        _rosters.add(roster);
+    public void addMatchTeam(MatchTeam matchTeam) {
+        _matchTeams.add(matchTeam);
     }
 
-    public void removeRoster(Roster roster) {
-        _rosters.remove(roster);
+    public void removeMatchTeam(MatchTeam matchTeam) {
+        _matchTeams.remove(matchTeam);
     }
 }

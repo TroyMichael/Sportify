@@ -39,8 +39,7 @@ public class RosterDAOTest {
         assertEquals(roster1.getId(), roster2.getId());
         assertEquals(roster1.getVersion(), roster2.getVersion());
         assertEquals(roster1.getName(), roster2.getName());
-        assertEquals(roster1.getTeam(), roster2.getTeam());
-        assertEquals(roster1.getMatch(), roster2.getMatch());
+        assertEquals(roster1.getMatchTeams(), roster2.getMatchTeams());
         assertEquals(roster1.getPersons(), roster2.getPersons());
     }
 }

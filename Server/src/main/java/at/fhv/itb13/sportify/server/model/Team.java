@@ -14,7 +14,7 @@ public class Team extends PersistentObjectImpl {
     private Person _trainer;
     private Sport _sport;
     private Set<Person> _persons = new HashSet<Person>();
-    private Set<Roster> _rosters = new HashSet<Roster>();
+    private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
 
     public Team() {
     }
@@ -65,12 +65,12 @@ public class Team extends PersistentObjectImpl {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "team")
-    public Set<Roster> getRosters() {
-        return _rosters;
+    public Set<MatchTeam> getMatchTeams() {
+        return _matchTeams;
     }
 
-    public void setRosters(Set<Roster> rosters) {
-        _rosters = rosters;
+    public void setMatchTeams(Set<MatchTeam> matchTeams) {
+        _matchTeams = matchTeams;
     }
 
     public void addPerson(Person person) {
@@ -81,11 +81,11 @@ public class Team extends PersistentObjectImpl {
         _persons.remove(person);
     }
 
-    public void addRoster(Roster roster) {
-        _rosters.add(roster);
+    public void addMatchTeam(MatchTeam matchTeam) {
+        _matchTeams.add(matchTeam);
     }
 
-    public void removeRoster(Roster roster) {
-        _rosters.remove(roster);
+    public void removeMatchTeam(MatchTeam matchTeam) {
+        _matchTeams.remove(matchTeam);
     }
 }

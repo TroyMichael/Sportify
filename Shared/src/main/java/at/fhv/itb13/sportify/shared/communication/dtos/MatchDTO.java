@@ -9,27 +9,27 @@ import java.util.Set;
  */
 public interface MatchDTO extends Serializable, DTO {
 
-    int getDuration();
+    Integer getDuration();
 
-    void setDuration(int duration);
+    void setDuration(Integer duration);
 
     Date getStart();
 
     void setStart(Date start);
 
-    String getWinnerId();
-
-    void setWinnerId(String id);
-
     String getTournamentId();
 
     void setTorunamentId(String id);
 
-    Set<String> getRostersIds();
+    String getMatchStatus();
 
-    void setRosterIds(Set<String> ids);
+    void setMatchStatus(String matchStatus);
 
-    void addRosterId(String id);
+    Set<String> getMatchTeamIds();
 
-    void removeRosterId(String id);
+    void setMatchTeams(Set<String> ids);
+
+    void addMatchTeamId(String id);
+
+    void removeMatchTeamId(String id);
 }

@@ -1,7 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import at.fhv.itb13.sportify.server.model.Roster;
-import at.fhv.itb13.sportify.server.model.Tournament;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,17 +12,25 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
     private Integer _duration;
     private Date _start;
-    private String _winnerId;
     private String _tournamentId;
-    private Set<String> _rosterIds = new HashSet<>();
+    private String _matchStatus;
+    private Set<String> _matchTeamIds = new HashSet<>();
+
+    public MatchDTOImpl(){}
+    public MatchDTOImpl(Integer duration, Date start,String matchStatus){
+        _duration = duration;
+        _start = start;
+        _matchStatus = matchStatus;
+    }
+
 
     @Override
-    public int getDuration() {
+    public Integer getDuration() {
         return _duration;
     }
 
     @Override
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         _duration = duration;
     }
 
@@ -39,16 +45,6 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     }
 
     @Override
-    public String getWinnerId() {
-        return _winnerId;
-    }
-
-    @Override
-    public void setWinnerId(String id) {
-        _winnerId = id;
-    }
-
-    @Override
     public String getTournamentId() {
         return _tournamentId;
     }
@@ -59,22 +55,34 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     }
 
     @Override
-    public Set<String> getRostersIds() {
-        return _rosterIds;
+    public String getMatchStatus() {
+        return _matchStatus;
     }
 
     @Override
-    public void setRosterIds(Set<String> ids) {
-        _rosterIds = ids;
+    public void setMatchStatus(String matchStatus) {
+        _matchStatus = matchStatus;
     }
 
     @Override
-    public void addRosterId(String id) {
-        _rosterIds.add(id);
+    public Set<String> getMatchTeamIds() {
+        return _matchTeamIds;
     }
 
     @Override
-    public void removeRosterId(String id) {
-        _rosterIds.remove(id);
+    public void setMatchTeams(Set<String> ids) {
+        _matchTeamIds = ids;
     }
+
+    @Override
+    public void addMatchTeamId(String id) {
+        _matchTeamIds.add(id);
+    }
+
+    @Override
+    public void removeMatchTeamId(String id) {
+        _matchTeamIds.remove(id);
+    }
+
+
 }

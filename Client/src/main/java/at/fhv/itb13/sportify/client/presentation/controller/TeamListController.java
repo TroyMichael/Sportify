@@ -112,7 +112,9 @@ public class TeamListController {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    SportifyGUI.getSharedMainApp().loadTeamDetailView(_teamTableView.getSelectionModel().getSelectedItem());
+                    if (_teamTableView.getSelectionModel().getSelectedItem() != null) {
+                        SportifyGUI.getSharedMainApp().loadTeamDetailView(_teamTableView.getSelectionModel().getSelectedItem());
+                    }
                 }
             }
         });

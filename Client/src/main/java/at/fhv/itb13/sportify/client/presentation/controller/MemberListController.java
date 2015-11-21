@@ -67,7 +67,9 @@ public class MemberListController {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    SportifyGUI.getSharedMainApp().loadMemberDataView(_memberTableView.getSelectionModel().getSelectedItem());
+                    if (_memberTableView.getSelectionModel().getSelectedItem() != null) {
+                        SportifyGUI.getSharedMainApp().loadMemberDataView(_memberTableView.getSelectionModel().getSelectedItem());
+                    }
                 }
             }
         });

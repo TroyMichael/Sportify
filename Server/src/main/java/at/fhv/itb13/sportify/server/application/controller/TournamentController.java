@@ -14,8 +14,14 @@ public class TournamentController {
     private TournamentMapper _tournamentMapper;
     public TournamentController(){
         _facade = new DBFacadeImpl();
-        _tournamentMapper = TournamentMapper.getInstance();
+        _tournamentMapper = new TournamentMapper();
     }
+
+    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper) {
+        _facade = facade;
+        _tournamentMapper = tournamentMapper;
+    }
+
     public void create(TournamentDTO tournamentDTO){
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
         try{
@@ -29,4 +35,6 @@ public class TournamentController {
 
 
     }
+
+
 }

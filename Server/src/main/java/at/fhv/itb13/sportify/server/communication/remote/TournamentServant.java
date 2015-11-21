@@ -19,6 +19,6 @@ public class TournamentServant extends UnicastRemoteObject implements Tournament
 
     @Override
     public void createTournament(TournamentDTO tournamentDTO) throws RemoteException {
-        _controller.createTournament(tournamentDTO);
+        _controller.create(tournamentDTO);
     }
 }

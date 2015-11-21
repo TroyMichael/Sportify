@@ -1,14 +1,17 @@
 package at.fhv.itb13.sportify.application.controller;
 
 import at.fhv.itb13.sportify.database.PersonMother;
+import at.fhv.itb13.sportify.database.TournamentMother;
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimplePersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTOImpl;
+import at.fhv.itb13.sportify.server.model.Tournament;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +20,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -85,7 +90,92 @@ public class PersonControllerTest {
         verify(_simplePersonMapper, never()).toDTOList(anyListOf(Person.class));
         assertEquals(persons, null);
     }
+    @Test
+    public void createPerson(){
+        PersonMother personMother = new PersonMother();
+        String id = IdGenerator.createId();
+        Person person = personMother.setId(id).instance();
+        PersonDTO dto = new PersonDTOImpl();
+        dto.setId(id);
 
+        when( _personMapper.toDomainObject(dto)).thenReturn(person);
+        _personController.create(dto);
+        verify(_facade, times(1)).beginTransaction();
+        verify(_facade, times(1)).create(person);
+        verify(_facade, times(1)).commitTransaction();
+    }
+
+    @Test
+    public  void getAllPersons(){
+        PersonMother personMother = new PersonMother();
+        Person p1 = personMother.setId(IdGenerator.createId()).instance();
+        Person p2 = personMother.setId(IdGenerator.createId()).instance();
+        List<Person> persons1 = new ArrayList<>();
+        persons1.add(p1);
+        persons1.add(p2);
+        List<PersonDTO> persons2 = new ArrayList<>();
+        PersonDTO dto = new PersonDTOImpl();
+        PersonDTO dto1 = new PersonDTOImpl();
+        persons2.add(dto);
+        persons2.add(dto1);
+
+        when(_facade.getAll(Person.class)).thenReturn(persons1);
+        when(_personMapper.listToDTO(persons1)).thenReturn(persons2);
+        List<PersonDTO> persons3 = _personController.getAllPersons();
+        verify(_facade, times(1)).beginTransaction();
+        verify(_facade, times(1)).getAll(Person.class);
+        verify(_facade, times(1)).commitTransaction();
+        assertEquals(persons3.size(), persons1.size());
+    }
+
+
+/*    @Test
+    public  void getPayedPersons(){
+        //arrange
+        PersonMother personMother = new PersonMother();
+        Person p1 = personMother.setId(IdGenerator.createId()).instance();
+        Person p2 = personMother.setId(IdGenerator.createId()).instance();
+        Criterion criterion = Restrictions.like("paid", true);
+
+        List<Person> persons1 = new ArrayList<>();
+        persons1.add(p1);
+        persons1.add(p2);
+        List<PersonDTO> persons2 = new ArrayList<>();
+        PersonDTO dto = new PersonDTOImpl();
+        PersonDTO dto1 = new PersonDTOImpl();
+        persons2.add(dto);
+        persons2.add(dto1);
+
+        when( _facade.findByCriteria(Person.class, criterion)).thenReturn(persons1);
+        when(_personMapper.listToDTO(persons1)).thenReturn(persons2);
+        //act
+        List<PersonDTO> persons3 = _personController.getPayedPersons();
+        //assert
+        verify(_facade, times(1)).beginTransaction();
+//        verify(_facade, times(1)).findByCriteria(Person.class,criterion);
+        verify(_facade, times(1)).commitTransaction();
+        assertEquals(persons3.size(), persons1.size());
+    }*/
+
+    @Test
+    public void searchPerson(){
+        //arrange
+        String id = IdGenerator.createId();
+        PersonMother mother = new PersonMother();
+        Person person = mother.setId(id).instance();
+        PersonDTO personDTO = new PersonDTOImpl();
+        personDTO.setId(id);
+        personDTO.setFName("fname");
+        personDTO.setLName("lname");
+        List<Person> persons = new LinkedList<>();
+        persons.add(person);
+        when(_facade.getAll(Person.class)).thenReturn(persons);
+        when( _personMapper.listToDTO(persons)).thenReturn(anyList());
+        //act
+        List<PersonDTO> result = _personController.searchPerson(personDTO);
+        //assert
+        assertNotEquals(result, null);
+    }
 
 //    public void testCreate() throws Exception {
 //

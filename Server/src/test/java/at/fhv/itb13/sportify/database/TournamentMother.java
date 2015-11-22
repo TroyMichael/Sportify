@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import org.hibernate.Session;
 
@@ -12,6 +13,7 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
 
     private String _description = "description";
     private Sport _sport;
+    private Set<Team> _teams = new HashSet<>();
     private Set<Match> _matches = new HashSet<>();
 
     public TournamentMother() {
@@ -30,6 +32,7 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
     protected void configureInstance(Tournament tournament) {
         tournament.setDescription(_description);
         tournament.setSport(_sport);
+        tournament.setTeams(_teams);
         tournament.setMatches(_matches);
     }
 
@@ -47,6 +50,11 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
 
     public TournamentMother sport(Sport sport) {
         _sport = sport;
+        return this;
+    }
+
+    public TournamentMother team(Team team) {
+        _teams.add(team);
         return this;
     }
 

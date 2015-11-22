@@ -12,6 +12,7 @@ public class Tournament extends PersistentObjectImpl {
 
     private String _description;
     private Sport _sport;
+    private Set<Team> _teams = new HashSet<>();
     private Set<Match> _matches = new HashSet<>();
 
     public Tournament() {
@@ -41,6 +42,16 @@ public class Tournament extends PersistentObjectImpl {
         _sport = sport;
     }
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tournament_team", joinColumns = {@JoinColumn(name = "tournament_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)})
+    public Set<Team> getTeams() {
+        return _teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        _teams = teams;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tournament")
     public Set<Match> getMatches() {
         return _matches;
@@ -48,6 +59,14 @@ public class Tournament extends PersistentObjectImpl {
 
     public void setMatches(Set<Match> matches) {
         _matches = matches;
+    }
+
+    public void addTeam(Team team) {
+        _teams.add(team);
+    }
+
+    public void removeTeam(Team team) {
+        _teams.remove(team);
     }
 
     public void addMatch(Match match) {

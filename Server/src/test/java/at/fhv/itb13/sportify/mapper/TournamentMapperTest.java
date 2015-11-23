@@ -78,7 +78,7 @@ public class TournamentMapperTest {
         matchIDs.add(matchForDTO2.getId());
         matchIDs.add(matchForDTO3.getId());
 
-        TournamentDTO tournamentDTO = new TournamentDTOImpl("new object description", sportForDTO.getId(), matchIDs);
+        TournamentDTO tournamentDTO = new TournamentDTOImpl("new object description", sportForDTO.getId(), matchIDs, new Date(), "location");
 
         when(_facade.get(Tournament.class, tournamentDTO.getId())).thenReturn(tournament);
         when(_facade.get(Sport.class, sport.getId())).thenReturn(sport);

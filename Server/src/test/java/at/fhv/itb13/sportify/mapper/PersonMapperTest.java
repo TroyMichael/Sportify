@@ -2,7 +2,6 @@ package at.fhv.itb13.sportify.mapper;
 
 import at.fhv.itb13.sportify.database.PersonMother;
 import at.fhv.itb13.sportify.database.TeamMother;
-import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Person;
@@ -10,7 +9,6 @@ import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +17,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.*;
 
 /**

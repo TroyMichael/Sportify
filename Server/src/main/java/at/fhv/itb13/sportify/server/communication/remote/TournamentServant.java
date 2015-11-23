@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.remote.TournamentRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 /**
  * Created by mod on 11/19/15.
@@ -20,5 +21,10 @@ public class TournamentServant extends UnicastRemoteObject implements Tournament
     @Override
     public void createTournament(TournamentDTO tournamentDTO) throws RemoteException {
         _controller.create(tournamentDTO);
+    }
+
+    @Override
+    public List<TournamentDTO> getAllTournaments() throws RemoteException {
+        return _controller.getAllTournaments();
     }
 }

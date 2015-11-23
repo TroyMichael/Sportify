@@ -12,7 +12,8 @@ import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 public class TournamentController {
     private DBFacade _facade;
     private TournamentMapper _tournamentMapper;
-    public TournamentController(){
+
+    public TournamentController() {
         _facade = new DBFacadeImpl();
         _tournamentMapper = new TournamentMapper();
     }
@@ -22,13 +23,14 @@ public class TournamentController {
         _tournamentMapper = tournamentMapper;
     }
 
-    public void create(TournamentDTO tournamentDTO){
+
+    public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
-        try{
+        try {
             _facade.beginTransaction();
             _facade.create(tournament);
             _facade.commitTransaction();
-        }catch (Exception e){
+        } catch (Exception e) {
             _facade.rollbackTransaction();
             e.printStackTrace();
         }
@@ -37,4 +39,18 @@ public class TournamentController {
     }
 
 
+    public void saveOrUpdate(TournamentDTO tournamentDTO) {
+        try {
+            Tournament tournamentDomain = _tournamentMapper.toDomainObject(tournamentDTO);
+            _facade.beginTransaction();
+            _facade.createOrUpdate(tournamentDomain);
+            _facade.commitTransaction();
+        } catch (Exception e) {
+            _facade.rollbackTransaction();
+            e.printStackTrace();
+        }
+
+    }
+
 }
+

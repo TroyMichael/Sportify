@@ -45,4 +45,8 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     public SportRemote getSportRemote() throws RemoteException {
         return new SportServant();
     }
+
+    public TournamentRemote getTournamentRemote() throws RemoteException{
+        return new TournamentServant();
+    }
 }

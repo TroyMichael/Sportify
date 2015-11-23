@@ -6,6 +6,9 @@ import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by mod on 11/19/15.
  */
@@ -37,4 +40,18 @@ public class TournamentController {
     }
 
 
+    public List<TournamentDTO> getAllTournaments() {
+        List <Tournament> _tournamentDTOs = new LinkedList<>();
+        try {
+            _facade.beginTransaction();
+            _tournamentDTOs = _facade.getAll(Tournament.class);
+            _facade.commitTransaction();
+        } catch (Exception e){
+            e.printStackTrace();
+            _facade.rollbackTransaction();
+        }
+        List <TournamentDTO> tournamentDTOs = null;
+        tournamentDTOs = _tournamentMapper.toDTOList(_tournamentDTOs);
+        return tournamentDTOs;
+    }
 }

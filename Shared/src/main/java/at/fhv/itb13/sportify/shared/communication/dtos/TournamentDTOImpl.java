@@ -9,7 +9,6 @@ import java.util.Set;
  */
 public class TournamentDTOImpl extends DTOImpl implements TournamentDTO {
 
-
     private String _description;
     private String _sportID;
     private Set<String> _matchIDs = new HashSet<>();
@@ -17,10 +16,12 @@ public class TournamentDTOImpl extends DTOImpl implements TournamentDTO {
     private Date _date;
     private String _location;
 
-    public TournamentDTOImpl (String description, String sportID, HashSet<String> matchIDs){
+    public TournamentDTOImpl (String description, String sportID, HashSet<String> matchIDs, Date date, String location){
         _description = description;
         _sportID = sportID;
         _matchIDs = matchIDs;
+        _date = date;
+        _location = location;
     }
 
     public TournamentDTOImpl (){

@@ -15,6 +15,14 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
 public class SportMapper extends Mapper<SportDTO, Sport>{
     private DBFacade _dbFacade = new DBFacadeImpl();
 
+    public SportMapper(){
+
+    }
+
+    public SportMapper(DBFacade facade){
+        _dbFacade = facade;
+    }
+
     @Override
     public Sport toDomainObject(SportDTO sportDTO) {
 

@@ -82,11 +82,11 @@ public class Tournament extends PersistentObjectImpl {
         _matches = matches;
     }
 
-    public void addTeam(Team team) {
+    public void addTeam(InternalTeam team) {
         _teams.add(team);
     }
 
-    public void removeTeam(Team team) {
+    public void removeTeam(InternalTeam team) {
         _teams.remove(team);
     }
 

@@ -34,7 +34,7 @@ public class Roster extends PersistentObjectImpl {
     public Set<MatchTeam> getMatchTeams() {
         return _matchTeams;
     }
-    
+
     public void setMatchTeams(Set<MatchTeam> matchTeams) {
         _matchTeams = matchTeams;
     }

@@ -4,7 +4,7 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
 import org.hibernate.HibernateException;
@@ -17,7 +17,7 @@ import java.util.HashSet;
  */
 
 
-public class TeamMapper extends Mapper <TeamDTO, Team> {
+public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
     DBFacade dbFacade = new DBFacadeImpl();
 
     /**
@@ -26,11 +26,11 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
      * @param teamDTO team DTO from the editing of the team
      * @return team loaded from database and mapped from teamDTO or null
      */
-    public Team toExistingDomainObject (TeamDTO teamDTO){
+    public InternalTeam toExistingDomainObject (TeamDTO teamDTO){
         if (teamDTO.getId() != null){
             try {
                 dbFacade.beginTransaction();
-                Team team = dbFacade.get(Team.class, teamDTO.getId());
+                InternalTeam team = dbFacade.get(InternalTeam.class, teamDTO.getId());
                 team.setName(teamDTO.getName());
                 //todo check if version is older? odr so
                 team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
@@ -57,9 +57,9 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
     }
 
     @Override
-    public Team toDomainObject(TeamDTO teamDTO) {
+    public InternalTeam toDomainObject(TeamDTO teamDTO) {
         if (teamDTO != null) {
-            Team team = new Team();
+            InternalTeam team = new InternalTeam();
             team.setName(teamDTO.getName());
             if (teamDTO.getId() != null){
                 team.setId(teamDTO.getId());
@@ -95,7 +95,7 @@ public class TeamMapper extends Mapper <TeamDTO, Team> {
     }
 
     @Override
-    public TeamDTO toDTOObject(Team domainObject) {
+    public TeamDTO toDTOObject(InternalTeam domainObject) {
         if (domainObject != null) {
             TeamDTO teamDTO = new TeamDTOImpl();
             teamDTO.setName(domainObject.getName());

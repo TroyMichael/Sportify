@@ -8,7 +8,6 @@ import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapp
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.MatchTeam;
-import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;

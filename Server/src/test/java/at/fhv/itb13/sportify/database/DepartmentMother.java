@@ -1,7 +1,6 @@
 package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.model.Department;
-import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
 import org.hibernate.Session;
 

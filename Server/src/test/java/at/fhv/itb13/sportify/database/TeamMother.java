@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
+public class TeamMother extends PersistentObjectMother<InternalTeam, TeamMother> {
 
     private String _name = "name";
     private Person _trainer;
@@ -16,19 +16,19 @@ public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
     private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
 
     public TeamMother() {
-        super(Team.class);
+        super(InternalTeam.class);
     }
 
     public TeamMother(Session session) {
-        super(session, Team.class);
+        super(session, InternalTeam.class);
     }
 
     public TeamMother(Session session, String defaultId) {
-        super(session, Team.class, defaultId);
+        super(session, InternalTeam.class, defaultId);
     }
 
     @Override
-    protected void configureInstance(Team team) {
+    protected void configureInstance(InternalTeam team) {
         team.setName(_name);
         team.setTrainer(_trainer);
         team.setSport(_sport);
@@ -38,8 +38,8 @@ public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
     }
 
     @Override
-    protected Team createInstance() {
-        Team team = new Team();
+    protected InternalTeam createInstance() {
+        InternalTeam team = new InternalTeam();
         team.setId(getId());
         return team;
     }

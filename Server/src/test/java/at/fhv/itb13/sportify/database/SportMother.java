@@ -14,7 +14,7 @@ public class SportMother extends PersistentObjectMother<Sport, SportMother> {
     private String _name = "name";
     private Department _department;
     private Set<Tournament> _tournaments = new HashSet<Tournament>();
-    private Set<Team> _teams = new HashSet<Team>();
+    private Set<Team> _teams = new HashSet<>();
 
     public SportMother() {
         super(Sport.class);

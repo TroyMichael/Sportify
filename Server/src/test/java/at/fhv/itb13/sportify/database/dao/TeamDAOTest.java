@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.database.dao;
 import at.fhv.itb13.sportify.database.SessionFactoryRule;
 import at.fhv.itb13.sportify.database.TeamMother;
 import at.fhv.itb13.sportify.server.database.dao.TeamDAO;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class TeamDAOTest {
         _sf.beginTransaction();
         String teamId = IdGenerator.createId();
         TeamMother teamMother = new TeamMother(_sf.getSession(), teamId);
-        Team team1 = teamMother.instance();
+        InternalTeam team1 = teamMother.instance();
         // TODO: add objects to collections
         _sf.commitTransaction();
 
@@ -30,7 +30,7 @@ public class TeamDAOTest {
         _sf.beginTransaction();
         TeamDAO teamDAO = new TeamDAO();
         teamDAO.setSession(_sf.getSession());
-        Team team2 = teamDAO.get(teamId);
+        InternalTeam team2 = teamDAO.get(teamId);
         _sf.commitTransaction();
 
         // assert

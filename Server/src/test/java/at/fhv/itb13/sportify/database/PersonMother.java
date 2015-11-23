@@ -2,7 +2,7 @@ package at.fhv.itb13.sportify.database;
 
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Roster;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import org.hibernate.Session;
 
 import java.util.HashSet;
@@ -20,8 +20,8 @@ public class PersonMother extends PersistentObjectMother<Person, PersonMother> {
     private String _birthdate = "01.01.1900";
     private Boolean _paid = true;
     private Set<Roster> _rosters = new HashSet<Roster>();
-    private Set<Team> _teams = new HashSet<Team>();
-    private Set<Team> _trainedTeams = new HashSet<>();
+    private Set<InternalTeam> _teams = new HashSet<InternalTeam>();
+    private Set<InternalTeam> _trainedTeams = new HashSet<>();
 
     public PersonMother() {
         super(Person.class);
@@ -108,12 +108,12 @@ public class PersonMother extends PersistentObjectMother<Person, PersonMother> {
         return this;
     }
 
-    public PersonMother team(Team team) {
+    public PersonMother team(InternalTeam team) {
         _teams.add(team);
         return this;
     }
 
-    public PersonMother trainedTeam(Team trainedTeam) {
+    public PersonMother trainedTeam(InternalTeam trainedTeam) {
         _trainedTeams.add(trainedTeam);
         return this;
     }

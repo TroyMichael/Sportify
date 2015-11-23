@@ -19,238 +19,231 @@
       <table id="10" parent="1" name="team_person"/>
       <table id="11" parent="1" name="tournament"/>
       <table id="12" parent="1" name="tournament_team"/>
-      <column id="13" parent="2" name="id">
+      <table id="13" parent="1" name="internalteam"/>
+      <table id="14" parent="1" name="externalteam"/>
+      <column id="15" parent="2" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="14" parent="2" name="name">
+      <column id="16" parent="2" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="15" parent="2" name="description">
+      <column id="17" parent="2" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="16" parent="2" name="version">
+      <column id="18" parent="2" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="17" parent="2" name="PRIMARY">
+      <key id="19" parent="2" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="18" parent="3" name="id">
+      <column id="20" parent="3" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="19" parent="3" name="duration">
+      <column id="21" parent="3" name="duration">
         <data-type>int(11)</data-type>
       </column>
-      <column id="20" parent="3" name="start">
+      <column id="22" parent="3" name="start">
         <data-type>datetime</data-type>
       </column>
-      <column id="21" parent="3" name="tournament_id">
+      <column id="23" parent="3" name="tournament_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="22" parent="3" name="version">
+      <column id="24" parent="3" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="23" parent="3" name="status">
+      <column id="25" parent="3" name="status">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="24" parent="3" name="PRIMARY">
+      <key id="26" parent="3" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="25" parent="3" name="match_ibfk_1">
+      <foreign-key id="27" parent="3" name="match_tournament__fk">
         <columns>tournament_id</columns>
         <ref-key>tournament.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="26" parent="4" name="id">
+      <column id="28" parent="4" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="27" parent="4" name="match_id">
+      <column id="29" parent="4" name="match_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="28" parent="4" name="team_id">
+      <column id="30" parent="4" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="29" parent="4" name="roster_id">
+      <column id="31" parent="4" name="roster_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="30" parent="4" name="points">
+      <column id="32" parent="4" name="points">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="31" parent="4" name="version">
+      <column id="33" parent="4" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="32" parent="4" name="PRIMARY">
+      <key id="34" parent="4" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="33" parent="4" name="match_team_ibfk_1">
+      <foreign-key id="35" parent="4" name="match_team_match__fk">
         <columns>match_id</columns>
         <ref-key>match.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="34" parent="4" name="match_team_ibfk_2">
+      <foreign-key id="36" parent="4" name="match_team_roster__fk">
+        <columns>roster_id</columns>
+        <ref-key>roster.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="37" parent="4" name="match_team_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="35" parent="4" name="match_team_ibfk_3">
-        <columns>roster_id</columns>
-        <ref-key>roster.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="36" parent="5" name="id">
+      <column id="38" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="37" parent="5" name="firstname">
+      <column id="39" parent="5" name="firstname">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="38" parent="5" name="lastname">
+      <column id="40" parent="5" name="lastname">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="39" parent="5" name="street">
+      <column id="41" parent="5" name="street">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="40" parent="5" name="housenumber">
+      <column id="42" parent="5" name="housenumber">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="41" parent="5" name="postalcode">
+      <column id="43" parent="5" name="postalcode">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="42" parent="5" name="city">
+      <column id="44" parent="5" name="city">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="43" parent="5" name="email">
+      <column id="45" parent="5" name="email">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="44" parent="5" name="birthdate">
+      <column id="46" parent="5" name="birthdate">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="45" parent="5" name="paid">
+      <column id="47" parent="5" name="paid">
         <data-type>int(11)</data-type>
       </column>
-      <column id="46" parent="5" name="version">
+      <column id="48" parent="5" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="47" parent="5" name="PRIMARY">
+      <key id="49" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="48" parent="6" name="id">
+      <column id="50" parent="6" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="49" parent="6" name="name">
+      <column id="51" parent="6" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="50" parent="6" name="version">
+      <column id="52" parent="6" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="51" parent="6" name="PRIMARY">
+      <key id="53" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="52" parent="7" name="person_id">
+      <column id="54" parent="7" name="person_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="53" parent="7" name="roster_id">
+      <column id="55" parent="7" name="roster_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="54" parent="7" name="PRIMARY">
+      <key id="56" parent="7" name="PRIMARY">
         <columns>person_id
 roster_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="55" parent="7" name="roster_person_ibfk_1">
+      <foreign-key id="57" parent="7" name="roster_person_person__fk">
         <columns>person_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="56" parent="7" name="roster_person_ibfk_2">
+      <foreign-key id="58" parent="7" name="roster_person_roster__fk">
         <columns>roster_id</columns>
         <ref-key>roster.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="57" parent="8" name="id">
+      <column id="59" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="58" parent="8" name="name">
+      <column id="60" parent="8" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="59" parent="8" name="department_id">
+      <column id="61" parent="8" name="department_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="60" parent="8" name="version">
+      <column id="62" parent="8" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="61" parent="8" name="PRIMARY">
+      <key id="63" parent="8" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="62" parent="8" name="sport_ibfk_1">
+      <foreign-key id="64" parent="8" name="sport_department__fk">
         <columns>department_id</columns>
         <ref-key>department.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="63" parent="9" name="id">
+      <column id="65" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="64" parent="9" name="name">
+      <column id="66" parent="9" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="65" parent="9" name="sport_id">
+      <column id="67" parent="9" name="sport_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="66" parent="9" name="trainer_id">
-        <data-type>varchar(36)</data-type>
-      </column>
-      <column id="67" parent="9" name="version">
+      <column id="68" parent="9" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="68" parent="9" name="PRIMARY">
+      <key id="69" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="69" parent="9" name="team_ibfk_1">
+      <foreign-key id="70" parent="9" name="team_sport__fk">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="70" parent="9" name="team_ibfk_2">
-        <columns>trainer_id</columns>
-        <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
@@ -267,13 +260,13 @@ roster_id</columns>
 team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="74" parent="10" name="team_person_ibfk_1">
+      <foreign-key id="74" parent="10" name="team_person_person__fk">
         <columns>person_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="75" parent="10" name="team_person_ibfk_2">
+      <foreign-key id="75" parent="10" name="team_person_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
@@ -284,12 +277,13 @@ team_id</columns>
         <data-type>varchar(36)</data-type>
       </column>
       <column id="77" parent="11" name="description">
-        <data-type>varchar(100)</data-type>
+        <data-type>varchar(255)</data-type>
       </column>
       <column id="78" parent="11" name="sport_id">
         <data-type>varchar(36)</data-type>
       </column>
       <column id="79" parent="11" name="version">
+        <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
@@ -303,7 +297,7 @@ team_id</columns>
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="83" parent="11" name="tournament_ibfk_1">
+      <foreign-key id="83" parent="11" name="tournament_sport__fk">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
@@ -322,18 +316,53 @@ team_id</columns>
 team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="87" parent="12" name="tournament_team_ibfk_1">
-        <columns>tournament_id</columns>
-        <ref-key>tournament.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="88" parent="12" name="tournament_team_ibfk_2">
+      <foreign-key id="87" parent="12" name="tournament_team_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
+      <foreign-key id="88" parent="12" name="tournament_team_tournament__fk">
+        <columns>tournament_id</columns>
+        <ref-key>tournament.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="89" parent="13" name="team_id">
+        <mandatory>1</mandatory>
+        <data-type>varchar(36)</data-type>
+      </column>
+      <column id="90" parent="13" name="trainer_id">
+        <data-type>varchar(36)</data-type>
+      </column>
+      <column id="91" parent="13" name="version">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="92" parent="13" name="PRIMARY">
+        <columns>team_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="93" parent="13" name="internalteam_person__fk">
+        <columns>trainer_id</columns>
+        <ref-key>person.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="94" parent="14" name="team_id">
+        <mandatory>1</mandatory>
+        <data-type>varchar(36)</data-type>
+      </column>
+      <column id="95" parent="14" name="version">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="96" parent="14" name="PRIMARY">
+        <columns>team_id</columns>
+        <primary>1</primary>
+      </key>
     </database-model>
   </data-source>
 </component>

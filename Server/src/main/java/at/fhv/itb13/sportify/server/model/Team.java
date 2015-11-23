@@ -8,22 +8,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "team")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Team extends PersistentObjectImpl {
 
     private String _name;
-    private Person _trainer;
     private Sport _sport;
-    private Set<Person> _persons = new HashSet<Person>();
     private Set<Tournament> _tournaments = new HashSet<>();
-    private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
+    private Set<MatchTeam> _matchTeams = new HashSet<>();
 
     public Team() {
     }
 
-    public Team(String name, Person trainer, Sport sport) {
+    public Team(String name, Sport sport) {
         _name = name;
         _sport = sport;
-        _trainer = trainer;
     }
 
     @Column(name = "name")
@@ -36,16 +34,6 @@ public class Team extends PersistentObjectImpl {
     }
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id", referencedColumnName = "id")
-    public Person getTrainer() {
-        return _trainer;
-    }
-
-    public void setTrainer(Person trainer) {
-        _trainer = trainer;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "sport_id", referencedColumnName = "id")
     public Sport getSport() {
         return _sport;
@@ -53,16 +41,6 @@ public class Team extends PersistentObjectImpl {
 
     public void setSport(Sport sport) {
         _sport = sport;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "team_person", joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)})
-    public Set<Person> getPersons() {
-        return _persons;
-    }
-
-    public void setPersons(Set<Person> persons) {
-        _persons = persons;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -82,14 +60,6 @@ public class Team extends PersistentObjectImpl {
 
     public void setMatchTeams(Set<MatchTeam> matchTeams) {
         _matchTeams = matchTeams;
-    }
-
-    public void addPerson(Person person) {
-        _persons.add(person);
-    }
-
-    public void removePerson(Person person) {
-        _persons.remove(person);
     }
 
     public void addTournament(Tournament tournament) {

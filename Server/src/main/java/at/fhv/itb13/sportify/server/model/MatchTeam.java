@@ -16,7 +16,7 @@ public class MatchTeam extends PersistentObjectImpl {
     public MatchTeam() {
     }
 
-    public MatchTeam(Match match, Team team, Roster roster, String points) {
+    public MatchTeam(Match match, InternalTeam team, Roster roster, String points) {
         _match = match;
         _team = team;
         _roster = roster;

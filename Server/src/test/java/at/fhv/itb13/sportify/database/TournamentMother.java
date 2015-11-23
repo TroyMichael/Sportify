@@ -1,9 +1,6 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.Team;
-import at.fhv.itb13.sportify.server.model.Tournament;
+import at.fhv.itb13.sportify.server.model.*;
 import org.hibernate.Session;
 
 import java.util.Date;

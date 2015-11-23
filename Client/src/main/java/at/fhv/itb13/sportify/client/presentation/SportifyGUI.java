@@ -176,6 +176,10 @@ public class SportifyGUI extends Application {
         cont.setTeam(team);
     }
 
+    public void loadNewTournamentView() {
+        loadView("view/newTournamentForm.fxml", _rootLayout);
+    }
+
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }

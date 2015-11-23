@@ -28,6 +28,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#loadTeamList" text="Teamlist" />
                     </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Tournament">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#loadNewTournamentView" text="New Tournament" />
+                    </items>
+                  </Menu>
                     </menus>
                 </MenuBar>
             </children>

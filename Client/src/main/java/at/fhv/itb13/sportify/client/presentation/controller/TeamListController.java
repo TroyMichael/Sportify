@@ -64,7 +64,7 @@ public class TeamListController {
         //filtering-process taken from: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
 
         //wrap observableList into filter list
-        //p -> true shows all persons
+        //p -> true shows all teams
         FilteredList<TeamDetailDTO> _filteredTeamList = new FilteredList<>(_teams, p -> true);
 
         //set changeListener to textfield
@@ -73,7 +73,7 @@ public class TeamListController {
 
                 //define here all rules of filtering and what should be searched and filtered
 
-                //if textfield is empty/null show all persons
+                //if textfield is empty/null show all teams
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
@@ -102,7 +102,7 @@ public class TeamListController {
         // 4. Bind the SortedList comparator to the TableView comparator.
         sortedTeamList.comparatorProperty().bind(_teamTableView.comparatorProperty());
 
-        //set sortedList as items to memberTableView
+        //set sortedList as items to teamTableView
         _teamTableView.setItems(sortedTeamList);
     }
 

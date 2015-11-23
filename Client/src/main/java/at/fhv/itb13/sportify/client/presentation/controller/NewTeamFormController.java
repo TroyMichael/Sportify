@@ -191,7 +191,6 @@ public class NewTeamFormController {
             _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
-        //TODO fix error message with style
         if (_trainerTextField.getText().length() == 0){
             _trainerTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
@@ -214,4 +213,5 @@ public class NewTeamFormController {
     private void cancelNewTeam() {
         SportifyGUI.getSharedMainApp().loadHelloView();
     }
+
 }

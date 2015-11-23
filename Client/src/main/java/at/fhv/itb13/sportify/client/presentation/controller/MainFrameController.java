@@ -44,6 +44,11 @@ public class MainFrameController {
     }
 
     @FXML
+    private void loadNewTournamentView() {
+        SportifyGUI.getSharedMainApp().loadNewTournamentView();
+    }
+
+    @FXML
     public void close(ActionEvent actionEvent) {
         Platform.exit();
     }

@@ -18,6 +18,13 @@ public class TournamentController {
         _tournamentMapper = new TournamentMapper();
     }
 
+    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper) {
+        _facade = facade;
+        _tournamentMapper = tournamentMapper;
+    }
+
+    public void create(TournamentDTO tournamentDTO){
+
     public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
         try {

@@ -91,6 +91,7 @@
       <foreign-key name="team_ibfk_2" columns="trainer_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="match_team_ibfk_2" table="match_team" schema="" catalog="sportify" columns="team_id"/>
       <exported-key name="team_person_ibfk_2" table="team_person" schema="" catalog="sportify" columns="team_id"/>
+      <exported-key name="tournament_team_ibfk_2" table="tournament_team" schema="" catalog="sportify" columns="team_id"/>
     </table>
     <table name="team_person" schema="" catalog="sportify" type="TABLE">
       <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
@@ -104,9 +105,19 @@
       <column name="description" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
       <column name="version" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="location" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="tournament_ibfk_1" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="match_ibfk_1" table="match" schema="" catalog="sportify" columns="tournament_id"/>
+      <exported-key name="tournament_team_ibfk_1" table="tournament_team" schema="" catalog="sportify" columns="tournament_id"/>
+    </table>
+    <table name="tournament_team" schema="" catalog="sportify" type="TABLE">
+      <column name="tournament_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="tournament_id,team_id"/>
+      <foreign-key name="tournament_team_ibfk_1" columns="tournament_id" ref-table="tournament" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="tournament_team_ibfk_2" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
   </data-source>
 </component>

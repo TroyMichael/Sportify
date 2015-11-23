@@ -1,13 +1,10 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.server.model.*;
+import at.fhv.itb13.sportify.server.model.Match;
+import at.fhv.itb13.sportify.server.model.MatchTeam;
+import at.fhv.itb13.sportify.server.model.Roster;
+import at.fhv.itb13.sportify.server.model.Team;
 import org.hibernate.Session;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MatchTeamMother extends PersistentObjectMother<MatchTeam, MatchTeamMother> {
 
@@ -18,27 +15,22 @@ public class MatchTeamMother extends PersistentObjectMother<MatchTeam, MatchTeam
 
     public MatchTeamMother() {
         super(MatchTeam.class);
-
     }
 
     public MatchTeamMother(Session session) {
         super(session, MatchTeam.class);
-
     }
-
 
     public MatchTeamMother(Session session, String defaultId) {
         super(session, MatchTeam.class, defaultId);
-
     }
 
     @Override
     protected void configureInstance(MatchTeam matchTeam) {
         matchTeam.setMatch(_match);
+        matchTeam.setTeam(_team);
         matchTeam.setRoster(_roster);
         matchTeam.setPoints(_points);
-        matchTeam.setTeam(_team);
-
     }
 
     @Override
@@ -67,5 +59,4 @@ public class MatchTeamMother extends PersistentObjectMother<MatchTeam, MatchTeam
         _points = points;
         return this;
     }
-
 }

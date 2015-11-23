@@ -1,9 +1,6 @@
 package at.fhv.itb13.sportify.database;
 
-import at.fhv.itb13.sportify.server.model.MatchTeam;
-import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.*;
 import org.hibernate.Session;
 
 import java.util.HashSet;
@@ -15,6 +12,7 @@ public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
     private Person _trainer;
     private Sport _sport;
     private Set<Person> _persons = new HashSet<Person>();
+    private Set<Tournament> _tournaments = new HashSet<>();
     private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
 
     public TeamMother() {
@@ -35,6 +33,7 @@ public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
         team.setTrainer(_trainer);
         team.setSport(_sport);
         team.setPersons(_persons);
+        team.setTournaments(_tournaments);
         team.setMatchTeams(_matchTeams);
     }
 
@@ -62,6 +61,11 @@ public class TeamMother extends PersistentObjectMother<Team, TeamMother> {
 
     public TeamMother person(Person person) {
         _persons.add(person);
+        return this;
+    }
+
+    public TeamMother tournament(Tournament tournament) {
+        _tournaments.add(tournament);
         return this;
     }
 

@@ -8,15 +8,15 @@ import java.util.HashSet;
  */
 public class PersonDTOImpl extends DTOImpl implements PersonDTO {
 
-    private String _fname;
-    private String _lname;
-    private String _street;
-    private String _houseNumber;
-    private String _postalCode;
-    private String _city;
-    private String _email;
-    private String _birthdate;
-    private boolean _paid;
+    private String _fname = "";
+    private String _lname = "";
+    private String _street = "";
+    private String _houseNumber = "";
+    private String _postalCode = "";
+    private String _city = "";
+    private String _email = "";
+    private String _birthdate = "";
+    private boolean _paid = false;
     private HashSet<String> _teamIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
     private HashSet<String> _trainedTeamIds = new HashSet<>();

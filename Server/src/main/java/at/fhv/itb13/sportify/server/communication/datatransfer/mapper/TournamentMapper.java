@@ -28,12 +28,12 @@ public class TournamentMapper extends Mapper <TournamentDTO, Tournament> {
         dbFacade = facade;
     }
 
-    public TournamentDTO toExistingDomainObject (TournamentDTO tournamentDTO){
+    public Tournament toExistingDomainObject (TournamentDTO tournamentDTO){
         if (tournamentDTO.getId() != null){
             try {
                 dbFacade.beginTransaction();
                 Tournament tournament = dbFacade.get(Tournament.class, tournamentDTO.getId());
-                tournament.setDescription(tournament.getDescription());
+                tournament.setDescription(tournamentDTO.getDescription());
                 tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 tournament.setLocation(tournamentDTO.getLocation());
                 tournament.setStart(tournamentDTO.getStartDate());
@@ -50,7 +50,7 @@ public class TournamentMapper extends Mapper <TournamentDTO, Tournament> {
                     }
                 }
                 dbFacade.commitTransaction();
-                return tournamentDTO;
+                return tournament;
             } catch (HibernateException e){
                 dbFacade.rollbackTransaction();
             }
@@ -102,7 +102,9 @@ public class TournamentMapper extends Mapper <TournamentDTO, Tournament> {
             tournamentDTO.setId(domainObject.getId());
             tournamentDTO.setVersion(domainObject.getVersion());
             tournamentDTO.setDescription(domainObject.getDescription());
-            tournamentDTO.setSportID(domainObject.getSport().getId());
+            if (domainObject.getSport() != null){
+                tournamentDTO.setSportID(domainObject.getSport().getId());
+            }
             for (Match match : domainObject.getMatches()){
                 tournamentDTO.addMatchID(match.getId());
             }

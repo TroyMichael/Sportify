@@ -136,7 +136,6 @@ public class PersonMapperTest {
         assertEquals(personDTO.getStreet(), person.getStreet());
         assertEquals(personDTO.isPaid(), person.isPaid());
         assertEquals(personDTO.getTeamIds().size(),person.getTeams().size());
-
     }
 
     @Test

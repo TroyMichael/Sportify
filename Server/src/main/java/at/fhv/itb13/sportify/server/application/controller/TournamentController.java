@@ -23,7 +23,6 @@ public class TournamentController {
         _tournamentMapper = tournamentMapper;
     }
 
-    public void create(TournamentDTO tournamentDTO){
 
     public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
@@ -39,6 +38,7 @@ public class TournamentController {
 
     }
 
+
     public void saveOrUpdate(TournamentDTO tournamentDTO) {
         try {
             Tournament tournamentDomain = _tournamentMapper.toDomainObject(tournamentDTO);
@@ -52,5 +52,5 @@ public class TournamentController {
 
     }
 
-
 }
+

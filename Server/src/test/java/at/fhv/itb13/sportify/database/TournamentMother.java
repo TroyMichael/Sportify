@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import org.hibernate.Session;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
 
     private String _description = "description";
     private Sport _sport;
+    private Date _start;
+    private String _location;
     private Set<Team> _teams = new HashSet<>();
     private Set<Match> _matches = new HashSet<>();
 
@@ -32,6 +35,8 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
     protected void configureInstance(Tournament tournament) {
         tournament.setDescription(_description);
         tournament.setSport(_sport);
+        tournament.setStart(_start);
+        tournament.setLocation(_location);
         tournament.setTeams(_teams);
         tournament.setMatches(_matches);
     }
@@ -50,6 +55,16 @@ public class TournamentMother extends PersistentObjectMother<Tournament, Tournam
 
     public TournamentMother sport(Sport sport) {
         _sport = sport;
+        return this;
+    }
+
+    public TournamentMother start(Date start) {
+        _start = start;
+        return this;
+    }
+
+    public TournamentMother location(String location) {
+        _location = location;
         return this;
     }
 

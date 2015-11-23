@@ -293,36 +293,42 @@ team_id</columns>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="80" parent="11" name="PRIMARY">
+      <column id="80" parent="11" name="location">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="81" parent="11" name="start">
+        <data-type>datetime</data-type>
+      </column>
+      <key id="82" parent="11" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="81" parent="11" name="tournament_ibfk_1">
+      <foreign-key id="83" parent="11" name="tournament_ibfk_1">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="82" parent="12" name="tournament_id">
+      <column id="84" parent="12" name="tournament_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="83" parent="12" name="team_id">
+      <column id="85" parent="12" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="84" parent="12" name="PRIMARY">
+      <key id="86" parent="12" name="PRIMARY">
         <columns>tournament_id
 team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="85" parent="12" name="tournament_team_ibfk_1">
+      <foreign-key id="87" parent="12" name="tournament_team_ibfk_1">
         <columns>tournament_id</columns>
         <ref-key>tournament.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="86" parent="12" name="tournament_team_ibfk_2">
+      <foreign-key id="88" parent="12" name="tournament_team_ibfk_2">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>

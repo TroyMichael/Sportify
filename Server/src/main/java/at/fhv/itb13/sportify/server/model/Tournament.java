@@ -3,6 +3,7 @@ package at.fhv.itb13.sportify.server.model;
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,8 @@ public class Tournament extends PersistentObjectImpl {
 
     private String _description;
     private Sport _sport;
+    private Date _start;
+    private String _location;
     private Set<Team> _teams = new HashSet<>();
     private Set<Match> _matches = new HashSet<>();
 
@@ -40,6 +43,24 @@ public class Tournament extends PersistentObjectImpl {
 
     public void setSport(Sport sport) {
         _sport = sport;
+    }
+
+    @Column(name = "location")
+    public String getLocation() {
+        return _location;
+    }
+
+    public void setLocation(String location) {
+        _location = location;
+    }
+
+    @Column(name = "start")
+    public Date getStart() {
+        return _start;
+    }
+
+    public void setStart(Date start) {
+        _start = start;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

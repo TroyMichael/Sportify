@@ -53,5 +53,25 @@ public class TournamentControllerTest {
         verify(_facade, times(1)).commitTransaction();
     }
 
+    @Test
+    public void saveOrUpdate(){
+        //arrange
+        TournamentMother tournamentMother = new TournamentMother();
+        Tournament tournament = tournamentMother.setId(IdGenerator.createId()).instance();
+        TournamentDTO dto = new TournamentDTOImpl();
+        dto.setId(tournament.getId());
+
+        when(_mapper.toDomainObject(dto)).thenReturn(tournament);
+
+        //act
+        _tournamentController.saveOrUpdate(dto);
+
+        //assert
+        verify(_facade, times(1)).beginTransaction();
+        verify(_facade, times(1)).createOrUpdate(tournament);
+        verify(_facade, times(1)).commitTransaction();
+
+    }
+
 
 }

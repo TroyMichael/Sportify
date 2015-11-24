@@ -3,23 +3,22 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Department;
-import at.fhv.itb13.sportify.server.model.Sport;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Sport;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
 
 /**
  * Created by Michael on 11.11.2015.
- *
  */
-public class SportMapper extends Mapper<SportDTO, Sport>{
+public class SportMapper extends Mapper<SportDTO, Sport> {
     private DBFacade _dbFacade = new DBFacadeImpl();
 
-    public SportMapper(){
+    public SportMapper() {
 
     }
 
-    public SportMapper(DBFacade facade){
+    public SportMapper(DBFacade facade) {
         _dbFacade = facade;
     }
 
@@ -29,7 +28,7 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
         if (sportDTO != null) {
             Sport newSport = new Sport();
             newSport.setName(sportDTO.getName());
-            if (sportDTO.getId() != null){
+            if (sportDTO.getId() != null) {
                 newSport.setId(sportDTO.getId());
             }
             try {
@@ -52,11 +51,14 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
     }
 
     @Override
-    public SportDTO toDTOObject(Sport domainObject){
+    public SportDTO toDTOObject(Sport domainObject) {
 
         if (domainObject != null) {
             SportDTO newSportDTO = new SportDTOImpl(domainObject.getName());
-            newSportDTO.setDepartment(domainObject.getDepartment().getId());
+            Department sportDepartment = domainObject.getDepartment();
+            if (sportDepartment != null) {
+                newSportDTO.setDepartment(sportDepartment.getId());
+            }
             domainObject.getTeams().forEach(team -> newSportDTO.addTeam(team.getId()));
             newSportDTO.setId(domainObject.getId());
             return newSportDTO;

@@ -39,20 +39,20 @@ public class Sport extends PersistentObjectImpl {
     }
 
     public void setDepartment(Department department) {
-//        if (_department != null) {
-//            Set<Sport> departmentSports = _department.getSports();
-//            if ((departmentSports != null) && (departmentSports.contains(this))) {
-//                _department.removeSport(this);
-//            }
-//        }
-//        _department = department;
-//        if (_department != null) {
-//            Set<Sport> departmentSports = _department.getSports();
-//            if ((departmentSports != null) && (!departmentSports.contains(this))) {
-//                _department.addSport(this);
-//            }
-//        }
+        Department oldDepartment = _department;
         _department = department;
+        if ((oldDepartment != null) && (!oldDepartment.equals(_department))) {
+            Set<Sport> oldDepartmentSports = oldDepartment.getSports();
+            if ((oldDepartmentSports != null) && (oldDepartmentSports.contains(this))) {
+                oldDepartment.removeSport(this);
+            }
+        }
+        if ((_department != null) && (!_department.equals(oldDepartment))) {
+            Set<Sport> newDepartmentSports = _department.getSports();
+            if ((newDepartmentSports != null) && (!newDepartmentSports.contains(this))) {
+                _department.addSport(this);
+            }
+        }
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")

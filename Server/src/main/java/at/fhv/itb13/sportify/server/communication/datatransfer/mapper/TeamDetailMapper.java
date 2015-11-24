@@ -41,6 +41,7 @@ public class TeamDetailMapper extends Mapper<TeamDetailDTO, Team> {
             }
 
             newTeamDetailDTO.setId(domainObject.getId());
+            newTeamDetailDTO.setVersion(domainObject.getVersion());
         }
         return newTeamDetailDTO;
     }

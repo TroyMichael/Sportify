@@ -16,21 +16,23 @@ import static at.fhv.itb13.sportify.server.model.MatchStatus.PLANNED;
  * Created by Caroline on 21.11.2015.
  */
 public class MatchMapper extends Mapper<MatchDTO, Match> {
-    DBFacade dbFacade = new DBFacadeImpl();
+    private DBFacade _dbFacade = new DBFacadeImpl();
 
-    public MatchMapper(){}
-    public MatchMapper(DBFacade facade){
-        dbFacade = facade;
+    public MatchMapper() {
+    }
+
+    public MatchMapper(DBFacade facade) {
+        _dbFacade = facade;
     }
 
     @Override
     public Match toDomainObject(MatchDTO matchDTO) {
-
         if (matchDTO != null) {
             Match match = new Match();
             match.setId(matchDTO.getId());
             match.setStart(matchDTO.getStart());
             match.setDuration(matchDTO.getDuration());
+            match.setVersion(matchDTO.getVersion());
             switch (matchDTO.getMatchStatus()) {
                 case "PLANNED":
                     match.setMatchStatus(PLANNED);
@@ -42,14 +44,14 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                     match.setMatchStatus(PLANNED);
             }
             try {
-                dbFacade.beginTransaction();
+                _dbFacade.beginTransaction();
                 for (String matchTeamId : matchDTO.getMatchTeamIds()) {
-                    match.addMatchTeam(dbFacade.get(MatchTeam.class, matchTeamId));
+                    match.addMatchTeam(_dbFacade.get(MatchTeam.class, matchTeamId));
                 }
-                match.setTournament(dbFacade.get(Tournament.class, matchDTO.getTournamentId()));
-                dbFacade.commitTransaction();
+                match.setTournament(_dbFacade.get(Tournament.class, matchDTO.getTournamentId()));
+                _dbFacade.commitTransaction();
             } catch (HibernateException e) {
-                dbFacade.rollbackTransaction();
+                _dbFacade.rollbackTransaction();
             }
             return match;
         }
@@ -63,7 +65,8 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             matchDTO.setId(domainObject.getId());
             matchDTO.setStart(domainObject.getStart());
             matchDTO.setDuration(domainObject.getDuration());
-            if(domainObject.getTournament() != null){
+            matchDTO.setVersion(domainObject.getVersion());
+            if (domainObject.getTournament() != null) {
                 matchDTO.setTorunamentId(domainObject.getTournament().getId());
             }
             matchDTO.setMatchStatus(domainObject.getMatchStatus().name());

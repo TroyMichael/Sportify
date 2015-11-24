@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by mod on 11/19/15.
+
  */
 public class TournamentController {
     private DBFacade _facade;
@@ -37,8 +38,6 @@ public class TournamentController {
             _facade.rollbackTransaction();
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -65,7 +64,7 @@ public class TournamentController {
             e.printStackTrace();
             _facade.rollbackTransaction();
         }
-        List <TournamentDTO> tournamentDTOs = null;
+        List <TournamentDTO> tournamentDTOs;
         tournamentDTOs = _tournamentMapper.toDTOList(_tournamentDTOs);
         return tournamentDTOs;
     }

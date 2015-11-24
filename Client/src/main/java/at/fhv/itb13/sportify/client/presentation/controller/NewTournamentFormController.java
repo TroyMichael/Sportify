@@ -29,7 +29,7 @@ public class NewTournamentFormController {
     private ComboBox<SportDTO> _sportComboBox;
 
     @FXML
-    private TextField _dateTextField;
+    private DatePicker _datePicker;
 
     @FXML
     private TextField _locationTextField;
@@ -70,7 +70,7 @@ public class NewTournamentFormController {
 //    @FXML
 //    private TableColumn<MatchDetailDTO, String> _scoreNumberColumn;
 
-
+    ObservableList<TeamDetailDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<TeamDetailDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
     @FXML
@@ -95,9 +95,9 @@ public class NewTournamentFormController {
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all teams
-                ObservableList<TeamDetailDTO> allMembersObservable = FXCollections.observableArrayList();
-                allTeams.forEach(team -> allMembersObservable.add(team));
-                setFilterAndDataToAllTeams(allMembersObservable);
+
+                allTeams.forEach(team -> _allTeamsObservable.add(team));
+                setFilterAndDataToAllTeams(_allTeamsObservable);
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -156,6 +156,7 @@ public class NewTournamentFormController {
                 ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
                 sportList.forEach(sport -> sportObservable.add(sport));
                 _sportComboBox.getItems().addAll((sportObservable));
+                _sportComboBox.setValue(_sportComboBox.getItems().get(0));
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -164,12 +165,22 @@ public class NewTournamentFormController {
 
     @FXML
     private void addTeam () {
-        switchMember(_allTeamsTableView, _addedTeamsTableView);
+        if (_allTeamsTableView.getSelectionModel().getSelectedItem() != null) {
+            TeamDetailDTO teamToAdd = _allTeamsTableView.getSelectionModel().getSelectedItem();
+            _addedTeamsTableView.getItems().add(teamToAdd);
+            _allTeamsObservable.remove(teamToAdd);
+            setFilterAndDataToAllTeams(_allTeamsObservable);
+        }
     }
 
     @FXML
     private void removeTeam () {
-        switchMember(_addedTeamsTableView, _allTeamsTableView);
+        if (_addedTeamsTableView.getSelectionModel().getSelectedItem() != null) {
+            TeamDetailDTO teamToRemove = _addedTeamsTableView.getSelectionModel().getSelectedItem();
+            _addedTeamsTableView.getItems().remove(teamToRemove);
+            _allTeamsObservable.add(teamToRemove);
+            setFilterAndDataToAllTeams(_allTeamsObservable);
+        }
     }
 
     @FXML
@@ -177,8 +188,9 @@ public class NewTournamentFormController {
         while (_addedTeamsTableView.getItems().size() > 0) {
             TeamDetailDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
                 _addedTeamsTableView.getItems().remove(teamToSwitch);
-                _allTeamsTableView.getItems().add(teamToSwitch);
+                _allTeamsObservable.add(teamToSwitch);
         }
+        setFilterAndDataToAllTeams(_allTeamsObservable);
     }
 
     private void switchMember (TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
@@ -235,11 +247,11 @@ public class NewTournamentFormController {
             _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
-        if (_dateTextField.getText().length() == 0){
-            _dateTextField.setStyle("-fx-text-box-border:red;");
+        if (_datePicker.getValue() == null){
+            _datePicker.setStyle("-fx-date-picker-border:red;");
             validation = false;
         } else {
-            _dateTextField.setStyle("-fx-text-box-border:lightgrey;");
+            _datePicker.setStyle("-fx-date-picker-border:lightgrey;");
         }
 
         if (_locationTextField.getText().length() == 0){
@@ -264,7 +276,7 @@ public class NewTournamentFormController {
 
     @FXML
     private void addNewMatch() {
-        //TODO
+        SportifyGUI.getSharedMainApp().loadNewMatchForm();
     }
 
     private void initSuccessAlert() {

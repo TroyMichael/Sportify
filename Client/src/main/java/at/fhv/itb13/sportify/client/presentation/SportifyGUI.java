@@ -193,4 +193,8 @@ public class SportifyGUI extends Application {
     public void loadTournamentDataView(TournamentDTO tournamentDTO) {
         //TODO when implementing tournamentDetailController & View
     }
+
+    public void loadNewMatchForm() {
+        loadView("view/NewMatchForm.fxml", _rootLayout);
+    }
 }

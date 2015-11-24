@@ -10,9 +10,12 @@ import java.util.List;
 
 /**
  * Created by mod on 11/19/15.
+ *
  */
 public class TournamentServant extends UnicastRemoteObject implements TournamentRemote {
+
     TournamentController _controller = null;
+
     public TournamentServant() throws RemoteException {
         super();
         _controller = new TournamentController();

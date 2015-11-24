@@ -7,19 +7,20 @@ import java.util.HashSet;
  * Created by mod on 11/23/15.
  */
 public class SimpleTournamenDTOImpl extends DTOImpl implements SimpleTournamentDTO {
-    private String _name;
+    private String _description;
     private SimpleSportDTO _simpleSportDTO;
     private Date _date;
     private String _location;
-    private HashSet<SimpleTeamDTO> _teams  = new HashSet<>();
+    private HashSet<SimpleTeamDTO> _teams = new HashSet<>();
+
     @Override
-    public String getName() {
-        return _name;
+    public String getDescription() {
+        return _description;
     }
 
     @Override
-    public void setName(String name) {
-        _name = name;
+    public void setDescription(String description) {
+        _description = description;
     }
 
     @Override
@@ -33,23 +34,24 @@ public class SimpleTournamenDTOImpl extends DTOImpl implements SimpleTournamentD
     }
 
     @Override
-    public Date getDate() {
+    public Date getStartDate() {
         return _date;
     }
 
     @Override
-    public void setDate(Date date) {
+    public void setStartDate(Date date) {
         _date = date;
     }
 
+
     @Override
     public String getLocation() {
-        return null;
+        return _location;
     }
 
     @Override
     public void setLocation(String location) {
-
+        _location = location;
     }
 
     @Override

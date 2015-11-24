@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Created by mod on 11/23/15.
  */
 public interface SimpleTournamentDTO {
-    String getName();
+    String getDescription();
     void setDescription(String description);
     SimpleSportDTO getSport();
     void setSport(SimpleSportDTO sportID);

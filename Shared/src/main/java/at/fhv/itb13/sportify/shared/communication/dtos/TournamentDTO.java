@@ -2,7 +2,7 @@ package at.fhv.itb13.sportify.shared.communication.dtos;
 
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 /**

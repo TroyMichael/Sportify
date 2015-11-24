@@ -2,7 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +46,7 @@ public class TeamDetailViewController {
     @FXML
     private TableColumn<SimplePersonDTO, String> _feeColumn;
 
-    private TeamDetailDTO _team;
+    private DisplayTeamDTO _team;
 
     private ObservableList<SimplePersonDTO> _memberList = FXCollections.observableArrayList();
 
@@ -72,7 +72,7 @@ public class TeamDetailViewController {
         SportifyGUI.getSharedMainApp().loadTeamList();
     }
 
-    public void setTeam(TeamDetailDTO teamToShow) {
+    public void setTeam(DisplayTeamDTO teamToShow) {
         _team = teamToShow;
         _teamNameLabel.setText(_team.getName());
         _trainerNameLabel.setText(_team.getTrainer().getFName() + " " + _team.getTrainer().getLName());

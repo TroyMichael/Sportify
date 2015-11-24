@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
 import java.rmi.RemoteException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,18 +54,18 @@ public class EditMemberDataController {
     private Label _memberViewTitle;
 
     @FXML
-    private TableView<TeamDetailDTO> _allTeamsTableView;
+    private TableView<DisplayTeamDTO> _allTeamsTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _allTeamsNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _allTeamsNameColumn;
 
     @FXML
-    private TableView<TeamDetailDTO> _addedTeamsTableView;
+    private TableView<DisplayTeamDTO> _addedTeamsTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _addedTeamsNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _addedTeamsNameColumn;
 
-    private ObservableList<TeamDetailDTO> _addedTeamsObservable = FXCollections.observableArrayList();
+    private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
 
     private PersonDTO _person;
@@ -125,11 +124,11 @@ public class EditMemberDataController {
     private void setAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
         try {
-            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all members
-                ObservableList<TeamDetailDTO> allTeamsObservable = FXCollections.observableArrayList();
+                ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
                 allTeams.forEach(team -> allTeamsObservable.add(team));
                 _allTeamsTableView.setItems(allTeamsObservable);
             }
@@ -140,9 +139,9 @@ public class EditMemberDataController {
 
     private void setSelectedTeamsTableViewData() {
 
-        Iterator<TeamDetailDTO> iter = _allTeamsTableView.getItems().iterator();
+        Iterator<DisplayTeamDTO> iter = _allTeamsTableView.getItems().iterator();
         while (iter.hasNext()) {
-            TeamDetailDTO team = iter.next();
+            DisplayTeamDTO team = iter.next();
             if (_person.getTeamIds().contains(team.getId())) {
                 _addedTeamsTableView.getItems().add(team);
                 iter.remove();
@@ -165,15 +164,15 @@ public class EditMemberDataController {
     @FXML
     private void removeAllTeams() {
         while (_addedTeamsTableView.getItems().size() > 0) {
-            TeamDetailDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
+            DisplayTeamDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
             _addedTeamsTableView.getItems().remove(teamToSwitch);
             _allTeamsTableView.getItems().add(teamToSwitch);
         }
     }
 
-    private void switchTeam(TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
+    private void switchTeam(TableView<DisplayTeamDTO> viewToRemoveFrom, TableView<DisplayTeamDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
-            TeamDetailDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
+            DisplayTeamDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(teamToSwitch);
             viewToAddTo.getItems().add(teamToSwitch);
         }
@@ -194,7 +193,7 @@ public class EditMemberDataController {
 
             _person.getTeamIds().clear();
 
-            for (TeamDetailDTO team : _addedTeamsTableView.getItems()) {
+            for (DisplayTeamDTO team : _addedTeamsTableView.getItems()) {
                 _person.addTeam(team.getId());
             }
 

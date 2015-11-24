@@ -6,7 +6,7 @@ import java.util.HashSet;
 /**
  * Created by Michael on 16.11.2015.
  */
-public interface TeamDetailDTO extends Serializable, DTO {
+public interface DisplayTeamDTO extends Serializable, DTO {
 
     String getName();
     void setName(String name);

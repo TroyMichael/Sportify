@@ -38,8 +38,8 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     }
 
     @Override
-    public TeamDetailRemote getTeamDetailRemote() throws RemoteException {
-        return new TeamDetailServant();
+    public DisplayTeamRemote getTeamDetailRemote() throws RemoteException {
+        return new DisplayTeamServant();
     }
 
     public SportRemote getSportRemote() throws RemoteException {
@@ -48,5 +48,9 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
 
     public TournamentRemote getTournamentRemote() throws RemoteException{
         return new TournamentServant();
+    }
+
+    public MatchRemote getMatchRemote () throws RemoteException{
+        return new MatchServant();
     }
 }

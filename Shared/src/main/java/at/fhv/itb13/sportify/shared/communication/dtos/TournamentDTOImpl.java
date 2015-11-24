@@ -6,6 +6,7 @@ import java.util.Set;
 
 /**
  * Created by KYUSS on 19.11.2015.
+ *
  */
 public class TournamentDTOImpl extends DTOImpl implements TournamentDTO {
 

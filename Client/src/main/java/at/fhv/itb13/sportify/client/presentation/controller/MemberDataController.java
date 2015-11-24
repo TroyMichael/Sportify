@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
-import javax.swing.text.TableView;
 import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.List;
@@ -58,12 +57,12 @@ public class MemberDataController {
     private Label _memberViewTitle;
 
     @FXML
-    private javafx.scene.control.TableView<TeamDetailDTO> _teamTableView;
+    private javafx.scene.control.TableView<DisplayTeamDTO> _teamTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _teamNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _teamNameColumn;
 
-    private ObservableList<TeamDetailDTO> _teamsObservable = FXCollections.observableArrayList();
+    private ObservableList<DisplayTeamDTO> _teamsObservable = FXCollections.observableArrayList();
 
 
     private PersonDTO _person;
@@ -116,13 +115,13 @@ public class MemberDataController {
     private void setTeamsTableViewData() {
         try {
 
-            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
             HashSet<String> teams = new HashSet<>();
             teams = _person.getTeamIds();
 
             if (teams != null) {
 
-                for (TeamDetailDTO teamDto : allTeams) {
+                for (DisplayTeamDTO teamDto : allTeams) {
                     if (teams.contains(teamDto.getId())) {
                         _teamsObservable.add(teamDto);
 

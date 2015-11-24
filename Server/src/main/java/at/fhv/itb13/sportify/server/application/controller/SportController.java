@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.exceptions.DomainObjectIsNullException;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SportMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;

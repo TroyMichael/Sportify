@@ -29,18 +29,18 @@ public class TeamListController {
     private TextField _filterTextField;
 
     @FXML
-    private TableView<TeamDetailDTO> _teamTableView;
+    private TableView<DisplayTeamDTO> _teamTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _nameColumn;
+    private TableColumn<DisplayTeamDTO, String> _nameColumn;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _sportColumn;
+    private TableColumn<DisplayTeamDTO, String> _sportColumn;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _trainerColumn;
+    private TableColumn<DisplayTeamDTO, String> _trainerColumn;
 
-    private ObservableList<TeamDetailDTO> _teams = FXCollections.observableArrayList();
+    private ObservableList<DisplayTeamDTO> _teams = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -50,7 +50,7 @@ public class TeamListController {
         _trainerColumn.setCellValueFactory(new PropertyValueFactory<>("Trainer"));
 
         try {
-            List<TeamDetailDTO> tempTeamList = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> tempTeamList = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
             tempTeamList.forEach(team -> _teams.add(team));
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class TeamListController {
 
         //wrap observableList into filter list
         //p -> true shows all teams
-        FilteredList<TeamDetailDTO> _filteredTeamList = new FilteredList<>(_teams, p -> true);
+        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, p -> true);
 
         //set changeListener to textfield
         _filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -97,7 +97,7 @@ public class TeamListController {
 
         //FilteredList cannot be modified -> not sortable
         //wrap filteredList in sortedList
-        SortedList<TeamDetailDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
+        SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
         sortedTeamList.comparatorProperty().bind(_teamTableView.comparatorProperty());

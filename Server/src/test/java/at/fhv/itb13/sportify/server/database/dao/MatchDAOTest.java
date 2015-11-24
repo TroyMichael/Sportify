@@ -1,8 +1,7 @@
-package at.fhv.itb13.sportify.database.dao;
+package at.fhv.itb13.sportify.server.database.dao;
 
-import at.fhv.itb13.sportify.database.MatchMother;
-import at.fhv.itb13.sportify.database.SessionFactoryRule;
-import at.fhv.itb13.sportify.server.database.dao.MatchDAO;
+import at.fhv.itb13.sportify.server.database.MatchMother;
+import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;

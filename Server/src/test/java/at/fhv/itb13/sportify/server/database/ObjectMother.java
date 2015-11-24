@@ -1,4 +1,4 @@
-package at.fhv.itb13.sportify.database;
+package at.fhv.itb13.sportify.server.database;
 
 import org.hibernate.Session;
 

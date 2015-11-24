@@ -12,7 +12,7 @@ public class Department extends PersistentObjectImpl {
 
     private String _name;
     private String _description;
-    private Set<Sport> _sports = new HashSet<Sport>();
+    private Set<Sport> _sports = new HashSet<>();
 
     public Department() {
     }
@@ -46,14 +46,26 @@ public class Department extends PersistentObjectImpl {
     }
 
     public void setSports(Set<Sport> sports) {
+        for (Sport sport : _sports) {
+            sport.setDepartment(null);
+        }
         _sports = sports;
+        for (Sport sport : _sports) {
+            sport.setDepartment(this);
+        }
     }
 
     public void addSport(Sport sport) {
         _sports.add(sport);
+        if (sport != null) {
+            sport.setDepartment(this);
+        }
     }
 
     public void removeSport(Sport sport) {
         _sports.remove(sport);
+        if (sport != null) {
+            sport.setDepartment(null);
+        }
     }
 }

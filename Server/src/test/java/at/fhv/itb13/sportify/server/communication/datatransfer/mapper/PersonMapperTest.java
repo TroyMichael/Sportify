@@ -1,8 +1,7 @@
-package at.fhv.itb13.sportify.mapper;
+package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.database.PersonMother;
-import at.fhv.itb13.sportify.database.TeamMother;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
+import at.fhv.itb13.sportify.server.database.PersonMother;
+import at.fhv.itb13.sportify.server.database.TeamMother;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.InternalTeam;

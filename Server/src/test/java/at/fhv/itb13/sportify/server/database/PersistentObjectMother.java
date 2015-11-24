@@ -1,6 +1,5 @@
-package at.fhv.itb13.sportify.database;
+package at.fhv.itb13.sportify.server.database;
 
-import at.fhv.itb13.sportify.server.database.PersistentObject;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.hibernate.Session;
 

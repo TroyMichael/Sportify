@@ -1,4 +1,4 @@
-package at.fhv.itb13.sportify.database;
+package at.fhv.itb13.sportify.server.database;
 
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.MatchStatus;

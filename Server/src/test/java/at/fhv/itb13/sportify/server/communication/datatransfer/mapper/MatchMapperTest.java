@@ -1,10 +1,8 @@
-package at.fhv.itb13.sportify.mapper;
+package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.database.MatchMother;
-import at.fhv.itb13.sportify.database.MatchTeamMother;
-import at.fhv.itb13.sportify.database.TournamentMother;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.MatchMapper;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
+import at.fhv.itb13.sportify.server.database.MatchMother;
+import at.fhv.itb13.sportify.server.database.MatchTeamMother;
+import at.fhv.itb13.sportify.server.database.TournamentMother;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.MatchTeam;

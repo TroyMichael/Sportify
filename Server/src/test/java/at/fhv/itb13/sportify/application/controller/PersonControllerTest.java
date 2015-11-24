@@ -1,17 +1,13 @@
 package at.fhv.itb13.sportify.application.controller;
 
-import at.fhv.itb13.sportify.database.PersonMother;
-import at.fhv.itb13.sportify.database.TournamentMother;
+import at.fhv.itb13.sportify.server.database.PersonMother;
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimplePersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

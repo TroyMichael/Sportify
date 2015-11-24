@@ -46,26 +46,27 @@ public class Department extends PersistentObjectImpl {
     }
 
     public void setSports(Set<Sport> sports) {
-        for (Sport sport : _sports) {
-            sport.setDepartment(null);
-        }
+//        for (Sport sport : _sports) {
+//            sport.setDepartment(null);
+//        }
+//        _sports = sports;
+//        for (Sport sport : _sports) {
+//            sport.setDepartment(this);
+//        }
         _sports = sports;
-        for (Sport sport : _sports) {
-            sport.setDepartment(this);
-        }
     }
 
     public void addSport(Sport sport) {
         _sports.add(sport);
-        if ((sport != null) && (!this.equals(sport.getDepartment()))) {
-            sport.setDepartment(this);
-        }
+//        if ((sport != null) && (!this.equals(sport.getDepartment()))) {
+//            sport.setDepartment(this);
+//        }
     }
 
     public void removeSport(Sport sport) {
         _sports.remove(sport);
-        if (sport != null && (sport.getDepartment() != null)) {
-            sport.setDepartment(null);
-        }
+//        if (sport != null && (sport.getDepartment() != null)) {
+//            sport.setDepartment(null);
+//        }
     }
 }

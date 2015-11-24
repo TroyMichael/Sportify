@@ -27,6 +27,7 @@ public class SimplePersonMapper extends Mapper<SimplePersonDTO, Person> {
             newDTO.setFName(domainObject.getFName());
             newDTO.setLName(domainObject.getLName());
             newDTO.setId(domainObject.getId());
+            newDTO.setVersion(domainObject.getVersion());
             return newDTO;
         }
         return null;

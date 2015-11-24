@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
@@ -44,7 +44,7 @@ public class TournamentMapperTest {
         Tournament tournament = new Tournament("tournament from database", sport);
         tournament.setId("id_from_database");
         tournament.setLocation("database location");
-        tournament.setStart(new Date());
+        tournament.setStart(new Date(2015,04,10));
 
         MatchMother matchMother = new MatchMother();
         Match match1 = matchMother.setId(IdGenerator.createId()).instance();
@@ -66,7 +66,7 @@ public class TournamentMapperTest {
         matchIDs.add(matchForDTO2.getId());
         matchIDs.add(matchForDTO3.getId());
 
-        TournamentDTO tournamentDTO = new TournamentDTOImpl("new object description", sportForDTO.getId(), matchIDs, new Date(), "location");
+        TournamentDTO tournamentDTO = new TournamentDTOImpl("new object description", sportForDTO.getId(), matchIDs, new Date(2015,04,10), "location");
 
         when(_facade.get(Tournament.class, tournamentDTO.getId())).thenReturn(tournament);
         when(_facade.get(Sport.class, sport.getId())).thenReturn(sport);
@@ -99,7 +99,7 @@ public class TournamentMapperTest {
         Sport sport = sportMother.setId(IdGenerator.createId()).instance();
 
         tournamentDTO.setSportID(sport.getId());
-        tournamentDTO.setStartDate(new Date());
+        tournamentDTO.setStartDate(new Date(2015,04,10));
         tournamentDTO.setLocation("Muntlix!");
         tournamentDTO.setDescription("description of a new tournament");
 

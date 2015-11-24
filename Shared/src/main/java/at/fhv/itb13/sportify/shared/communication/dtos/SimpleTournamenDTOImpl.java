@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.util.HashSet;
 
 /**
- * Created by KYUSS on 23.11.2015.
+ * Created by mod on 11/23/15.
  */
-public class SimpleTournamentDTOImpl implements SimpleTournamentDTO {
+public class SimpleTournamenDTOImpl extends DTOImpl implements SimpleTournamentDTO {
     private String _description;
     private SimpleSportDTO _simpleSportDTO;
     private Date _date;

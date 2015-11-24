@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.server.database;
 import at.fhv.itb13.sportify.server.model.*;
 import org.hibernate.Session;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 

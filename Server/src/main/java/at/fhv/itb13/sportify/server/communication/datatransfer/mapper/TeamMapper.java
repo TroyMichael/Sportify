@@ -2,9 +2,10 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
 import org.hibernate.HibernateException;

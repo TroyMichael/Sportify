@@ -11,7 +11,7 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class DepartmentTest {
-
+/*
     private Department _department;
 
     @Before
@@ -92,5 +92,5 @@ public class DepartmentTest {
         assertTrue(!_department.getSports().contains(oldSport));
         assertTrue(_department.getSports().size() == 0);
         assertNull(oldSport.getDepartment());
-    }
+    }*/
 }

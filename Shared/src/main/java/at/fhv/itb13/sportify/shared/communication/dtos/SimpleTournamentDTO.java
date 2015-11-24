@@ -1,13 +1,13 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 
 /**
  * Created by mod on 11/23/15.
  */
 public interface SimpleTournamentDTO {
-    String getName();
+    String getDescription();
     void setDescription(String description);
     SimpleSportDTO getSport();
     void setSport(SimpleSportDTO sportID);

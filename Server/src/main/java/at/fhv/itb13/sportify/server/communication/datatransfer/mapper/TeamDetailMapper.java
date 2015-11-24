@@ -36,6 +36,7 @@ public class TeamDetailMapper extends Mapper<TeamDetailDTO, InternalTeam> {
             }
 
             newTeamDetailDTO.setId(domainObject.getId());
+            newTeamDetailDTO.setVersion(domainObject.getVersion());
         }
         return newTeamDetailDTO;
     }

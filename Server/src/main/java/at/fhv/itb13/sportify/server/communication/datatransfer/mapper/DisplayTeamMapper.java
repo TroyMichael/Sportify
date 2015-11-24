@@ -13,6 +13,11 @@ public class DisplayTeamMapper extends Mapper<DisplayTeamDTO, InternalTeam> {
 
     private SimplePersonMapper _simplePersonMapper = new SimplePersonMapper();
 
+    public DisplayTeamMapper(){}
+    public DisplayTeamMapper(SimplePersonMapper simplePersonMapper){
+        _simplePersonMapper = simplePersonMapper;
+    }
+
     @Override
     public InternalTeam toDomainObject(DisplayTeamDTO displayTeamDTO) {
         return null;
@@ -20,9 +25,9 @@ public class DisplayTeamMapper extends Mapper<DisplayTeamDTO, InternalTeam> {
 
     @Override
     public DisplayTeamDTO toDTOObject(InternalTeam domainObject) {
-        DisplayTeamDTO newDisplayTeamDTO = new DisplayTeamlDTOImpl();
 
         if (domainObject != null) {
+            DisplayTeamDTO newDisplayTeamDTO = new DisplayTeamlDTOImpl();
             newDisplayTeamDTO.setName(domainObject.getName());
 
             domainObject.getPersons().forEach(p -> newDisplayTeamDTO.addMember(_simplePersonMapper.toDTOObject(p)));
@@ -37,7 +42,9 @@ public class DisplayTeamMapper extends Mapper<DisplayTeamDTO, InternalTeam> {
 
             newDisplayTeamDTO.setId(domainObject.getId());
             newDisplayTeamDTO.setVersion(domainObject.getVersion());
+
+            return newDisplayTeamDTO;
         }
-        return newDisplayTeamDTO;
+        return null;
     }
 }

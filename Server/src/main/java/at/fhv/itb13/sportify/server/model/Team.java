@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "team")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Team extends PersistentObjectImpl {
 
     private String _name;

@@ -1,10 +1,8 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.Sport;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -25,4 +23,18 @@ public interface TournamentDTO extends Serializable, DTO {
     public void addMatchID(String matchID);
 
     public void removeMatchID(String matchID);
+
+    public Set<String> getTeamIDs();
+
+    public void addTeamID(String teamID);
+
+    public void removeTeamID(String teamID);
+
+    public void setStartDate (Date date);
+
+    public Date getStartDate();
+
+    public void setLocation(String location);
+
+    public String getLocation();
 }

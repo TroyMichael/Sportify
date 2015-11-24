@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -176,6 +177,10 @@ public class SportifyGUI extends Application {
         cont.setTeam(team);
     }
 
+    public void loadNewTournamentView() {
+        loadView("view/newTournamentForm.fxml", _rootLayout);
+    }
+
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
@@ -183,5 +188,9 @@ public class SportifyGUI extends Application {
     public void loadEditMemberData(PersonDTO person) {
         EditMemberDataController cont = (EditMemberDataController) loadView("view/EditMemberData.fxml", _rootLayout);
         cont.setPerson(person);
+    }
+
+    public void loadTournamentDataView(TournamentDTO tournamentDTO) {
+        //TODO when implementing tournamentDetailController & View
     }
 }

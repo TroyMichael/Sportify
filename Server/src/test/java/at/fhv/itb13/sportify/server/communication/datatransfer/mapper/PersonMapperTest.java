@@ -1,10 +1,11 @@
-package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
+package at.fhv.itb13.sportify.mapper;
 
-import at.fhv.itb13.sportify.server.database.PersonMother;
-import at.fhv.itb13.sportify.server.database.TeamMother;
+import at.fhv.itb13.sportify.database.PersonMother;
+import at.fhv.itb13.sportify.database.TeamMother;
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
@@ -47,14 +48,14 @@ public class PersonMapperTest {
         PersonDTO personDTO = new PersonDTOImpl("firstname", "lastname", "street", "number", "postalcode","5844354", "01.01.1994","city", true);
 
         TeamMother teamMother = new TeamMother();
-        InternalTeam team1 = teamMother.setId(IdGenerator.createId()).instance();
-        InternalTeam team2 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team1 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team2 = teamMother.setId(IdGenerator.createId()).instance();
 
         personDTO.addTeam(team1.getId());
         personDTO.addTeam(team2.getId());
 
-        when(_facade.get(InternalTeam.class,team1.getId())).thenReturn(team1);
-        when(_facade.get(InternalTeam.class,team2.getId())).thenReturn(team2);
+        when(_facade.get(Team.class,team1.getId())).thenReturn(team1);
+        when(_facade.get(Team.class,team2.getId())).thenReturn(team2);
 
         //act
         Person person = _personMapper.toDomainObject(personDTO);
@@ -73,8 +74,8 @@ public class PersonMapperTest {
         assertEquals(personDTO.isPaid(), person.isPaid());
         assertEquals(personDTO.getTeamIds().size(),person.getTeams().size());
         verify(_facade, times(1)).beginTransaction();
-        verify(_facade,times(1)).get(InternalTeam.class, team1.getId());
-        verify(_facade,times(1)).get(InternalTeam.class,team2.getId());
+        verify(_facade,times(1)).get(Team.class, team1.getId());
+        verify(_facade,times(1)).get(Team.class,team2.getId());
         verify(_facade, times(1)).commitTransaction();
 
     }
@@ -86,20 +87,20 @@ public class PersonMapperTest {
         PersonDTO personDTO = null;
 
         TeamMother teamMother = new TeamMother();
-        InternalTeam team1 = teamMother.setId(IdGenerator.createId()).instance();
-        InternalTeam team2 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team1 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team2 = teamMother.setId(IdGenerator.createId()).instance();
 
 
-        when(_facade.get(InternalTeam.class,team1.getId())).thenReturn(team1);
-        when(_facade.get(InternalTeam.class,team2.getId())).thenReturn(team2);
+        when(_facade.get(Team.class,team1.getId())).thenReturn(team1);
+        when(_facade.get(Team.class,team2.getId())).thenReturn(team2);
 
         //act
         Person person = _personMapper.toDomainObject(personDTO);
 
         //assert
         verify(_facade, times(0)).beginTransaction();
-        verify(_facade,times(0)).get(InternalTeam.class, team1.getId());
-        verify(_facade,times(0)).get(InternalTeam.class,team2.getId());
+        verify(_facade,times(0)).get(Team.class, team1.getId());
+        verify(_facade,times(0)).get(Team.class,team2.getId());
         verify(_facade, times(0)).commitTransaction();
         assertEquals(person,null);
 
@@ -113,8 +114,8 @@ public class PersonMapperTest {
         Person person = personMother.setId(IdGenerator.createId()).instance();
 
         TeamMother teamMother = new TeamMother();
-        InternalTeam team1 = teamMother.setId(IdGenerator.createId()).instance();
-        InternalTeam team2 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team1 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team2 = teamMother.setId(IdGenerator.createId()).instance();
 
         person.addTeam(team1);
         person.addTeam(team2);
@@ -135,7 +136,6 @@ public class PersonMapperTest {
         assertEquals(personDTO.getStreet(), person.getStreet());
         assertEquals(personDTO.isPaid(), person.isPaid());
         assertEquals(personDTO.getTeamIds().size(),person.getTeams().size());
-
     }
 
     @Test
@@ -146,8 +146,8 @@ public class PersonMapperTest {
 
 
         TeamMother teamMother = new TeamMother();
-        InternalTeam team1 = teamMother.setId(IdGenerator.createId()).instance();
-        InternalTeam team2 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team1 = teamMother.setId(IdGenerator.createId()).instance();
+        Team team2 = teamMother.setId(IdGenerator.createId()).instance();
 
 
         //act

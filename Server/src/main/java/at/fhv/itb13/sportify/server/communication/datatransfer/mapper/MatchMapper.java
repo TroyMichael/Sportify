@@ -12,30 +12,30 @@ import org.hibernate.HibernateException;
 import static at.fhv.itb13.sportify.server.model.MatchStatus.FINISHED;
 import static at.fhv.itb13.sportify.server.model.MatchStatus.PLANNED;
 
-/**
- * Created by Caroline on 21.11.2015.
- */
 public class MatchMapper extends Mapper<MatchDTO, Match> {
+
     DBFacade dbFacade = new DBFacadeImpl();
 
-    public MatchMapper(){}
-    public MatchMapper(DBFacade facade){
+    public MatchMapper() {
+    }
+
+    public MatchMapper(DBFacade facade) {
         dbFacade = facade;
     }
 
     @Override
     public Match toDomainObject(MatchDTO matchDTO) {
-
         if (matchDTO != null) {
             Match match = new Match();
             match.setId(matchDTO.getId());
+            match.setVersion(matchDTO.getVersion());
             match.setStart(matchDTO.getStart());
             match.setDuration(matchDTO.getDuration());
             switch (matchDTO.getMatchStatus()) {
                 case "PLANNED":
                     match.setMatchStatus(PLANNED);
                     break;
-                case "FINNISHED":
+                case "FINISHED":
                     match.setMatchStatus(FINISHED);
                     break;
                 default:
@@ -61,28 +61,18 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
         if (domainObject != null) {
             MatchDTO matchDTO = new MatchDTOImpl();
             matchDTO.setId(domainObject.getId());
+            matchDTO.setVersion(domainObject.getVersion());
             matchDTO.setStart(domainObject.getStart());
             matchDTO.setDuration(domainObject.getDuration());
-            if(domainObject.getTournament() != null){
+            if (domainObject.getTournament() != null) {
                 matchDTO.setTorunamentId(domainObject.getTournament().getId());
             }
             matchDTO.setMatchStatus(domainObject.getMatchStatus().name());
-//            switch (domainObject.getMatchStatus()) {
-//                case PLANNED:
-//                    matchDTO.setMatchStatus("PLANNED");
-//                    break;
-//                case FINISHED:
-//                    matchDTO.setMatchStatus("FINISHED");
-//                    break;
-//                default:
-//                    matchDTO.setMatchStatus("PLANNED");
-//            }
             for (MatchTeam matchTeam : domainObject.getMatchTeams()) {
                 matchDTO.addMatchTeamId(matchTeam.getId());
             }
             return matchDTO;
         }
-
         return null;
     }
 }

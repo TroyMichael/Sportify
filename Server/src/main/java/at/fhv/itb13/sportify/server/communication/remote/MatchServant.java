@@ -7,9 +7,6 @@ import at.fhv.itb13.sportify.shared.communication.remote.MatchRemote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-/**
- * Created by Caroline on 21.11.2015.
- */
 public class MatchServant extends UnicastRemoteObject implements MatchRemote {
 
     private MatchController _matchController;

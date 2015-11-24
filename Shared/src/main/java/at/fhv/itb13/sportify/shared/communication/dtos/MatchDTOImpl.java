@@ -1,13 +1,9 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Caroline on 21.11.2015.
- */
 public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
     private Integer _duration;
@@ -16,13 +12,15 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     private String _matchStatus;
     private Set<String> _matchTeamIds = new HashSet<>();
 
-    public MatchDTOImpl(){}
-    public MatchDTOImpl(Integer duration, Date start,String matchStatus){
-        _duration = duration;
-        _start = start;
-        _matchStatus = matchStatus;
+    public MatchDTOImpl() {
     }
 
+    public MatchDTOImpl(Integer duration, Date start, String tournamentId, String matchStatus) {
+        _duration = duration;
+        _start = start;
+        _tournamentId = tournamentId;
+        _matchStatus = matchStatus;
+    }
 
     @Override
     public Integer getDuration() {
@@ -83,6 +81,4 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     public void removeMatchTeamId(String id) {
         _matchTeamIds.remove(id);
     }
-
-
 }

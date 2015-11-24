@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Created by Caroline on 21.11.2015.
- */
 public interface MatchDTO extends Serializable, DTO {
 
     Integer getDuration();

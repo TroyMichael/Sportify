@@ -9,8 +9,8 @@ import java.util.HashSet;
 public interface SimpleTournamentDTO {
     String getName();
     void setName(String name);
-    String getSport();
-    void setSport(String sportID);
+    SimpleSportDTO getSport();
+    void setSport(SimpleSportDTO sport);
     Date getDate();
     void setDate(Date date);
     String getLocation();

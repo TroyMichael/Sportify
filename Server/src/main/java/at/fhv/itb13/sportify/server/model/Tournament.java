@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.server.model;
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
 import javax.persistence.*;
-
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,6 +70,17 @@ public class Tournament extends PersistentObjectImpl {
     }
 
     public void setTeams(Set<Team> teams) {
+        if (_teams != null) {
+            for (Team team : _teams) {
+                team.removeTournament(this);
+            }
+        }
+        _teams = teams;
+        if (_teams != null) {
+            for (Team team : _teams) {
+                team.addTournament(this);
+            }
+        }
         _teams = teams;
     }
 
@@ -84,11 +94,21 @@ public class Tournament extends PersistentObjectImpl {
     }
 
     public void addTeam(Team team) {
-        _teams.add(team);
+        if (team != null) {
+            _teams.add(team);
+            if ((team.getTournaments() != null) && !team.getTournaments().contains(this)) {
+                team.addTournament(this);
+            }
+        }
     }
 
     public void removeTeam(Team team) {
-        _teams.remove(team);
+        if (team != null) {
+            _teams.remove(team);
+            if ((team.getTournaments() != null) && team.getTournaments().contains(this)) {
+                team.removeTournament(this);
+            }
+        }
     }
 
     public void addMatch(Match match) {

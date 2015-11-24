@@ -50,7 +50,17 @@ public class Team extends PersistentObjectImpl {
     }
 
     public void setTournaments(Set<Tournament> tournaments) {
+        if (_tournaments != null) {
+            for (Tournament tournament : _tournaments) {
+                tournament.removeTeam(this);
+            }
+        }
         _tournaments = tournaments;
+        if (_tournaments != null) {
+            for (Tournament tournament : _tournaments) {
+                tournament.addTeam(this);
+            }
+        }
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "team")
@@ -63,11 +73,21 @@ public class Team extends PersistentObjectImpl {
     }
 
     public void addTournament(Tournament tournament) {
-        _tournaments.add(tournament);
+        if (tournament != null) {
+            _tournaments.add(tournament);
+            if ((tournament.getTeams() != null) && !tournament.getTeams().contains(this)) {
+                tournament.addTeam(this);
+            }
+        }
     }
 
     public void removeTournament(Tournament tournament) {
-        _tournaments.remove(tournament);
+        if (tournament != null) {
+            _tournaments.remove(tournament);
+            if ((tournament.getTeams() != null) && tournament.getTeams().contains(this)) {
+                tournament.removeTeam(this);
+            }
+        }
     }
 
     public void addMatchTeam(MatchTeam matchTeam) {

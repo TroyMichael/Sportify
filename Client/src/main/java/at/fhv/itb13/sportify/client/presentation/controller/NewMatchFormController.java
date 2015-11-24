@@ -4,8 +4,7 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.Session;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,16 +35,16 @@ public class NewMatchFormController {
     private TextField _startTimeTextField;
 
     @FXML
-    private TableView<TeamDetailDTO> _allTeamsTableView;
+    private TableView<DisplayTeamDTO> _allTeamsTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _allTeamsNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _allTeamsNameColumn;
 
     @FXML
-    private TableView<TeamDetailDTO> _allTeamsOponentTableView;
+    private TableView<DisplayTeamDTO> _allTeamsOponentTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _allTeamsOponentNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _allTeamsOponentNameColumn;
 
     private LocalDate _localDate;
 
@@ -68,12 +66,12 @@ public class NewMatchFormController {
     private void setAllTeamsTableViewData() {
         //retrieve list of all teams and set the list to the _allTeamsTableView & allTeamsOponentTableView
         try {
-            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all teams
-                ObservableList<TeamDetailDTO> allTeamsObservable = FXCollections.observableArrayList();
-                ObservableList<TeamDetailDTO> allTeamsOponentObservable = FXCollections.observableArrayList();
+                ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
+                ObservableList<DisplayTeamDTO> allTeamsOponentObservable = FXCollections.observableArrayList();
                 allTeams.forEach(team -> {
                     allTeamsObservable.add(team);
                     allTeamsOponentObservable.add(team);

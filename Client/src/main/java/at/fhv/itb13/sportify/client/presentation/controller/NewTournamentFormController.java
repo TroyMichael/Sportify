@@ -35,16 +35,16 @@ public class NewTournamentFormController {
     private TextField _locationTextField;
 
     @FXML
-    private TableView<TeamDetailDTO> _allTeamsTableView;
+    private TableView<DisplayTeamDTO> _allTeamsTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _allTeamsNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _allTeamsNameColumn;
 
     @FXML
-    private TableView<TeamDetailDTO> _addedTeamsTableView;
+    private TableView<DisplayTeamDTO> _addedTeamsTableView;
 
     @FXML
-    private TableColumn<TeamDetailDTO, String> _addedTeamsNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _addedTeamsNameColumn;
 
     @FXML
     private TextField _foreignTeamTextField;
@@ -70,8 +70,8 @@ public class NewTournamentFormController {
 //    @FXML
 //    private TableColumn<MatchDetailDTO, String> _scoreNumberColumn;
 
-    ObservableList<TeamDetailDTO> _allTeamsObservable = FXCollections.observableArrayList();
-    private ObservableList<TeamDetailDTO> _addedTeamsObservable = FXCollections.observableArrayList();
+    ObservableList<DisplayTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
+    private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
     @FXML
     private void initialize(){
@@ -91,7 +91,7 @@ public class NewTournamentFormController {
     private void getAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allTeamsTableView
         try {
-            List<TeamDetailDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all teams
@@ -104,12 +104,12 @@ public class NewTournamentFormController {
         }
     }
 
-    private void setFilterAndDataToAllTeams(ObservableList<TeamDetailDTO> _teams) {
+    private void setFilterAndDataToAllTeams(ObservableList<DisplayTeamDTO> _teams) {
         //filtering-process taken from: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
 
         //wrap observableList into filter list
         //p -> true shows all teams
-        FilteredList<TeamDetailDTO> _filteredTeamList = new FilteredList<>(_teams, p -> false);
+        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, p -> false);
 
         //set changeListener to sportComboBox
         _sportComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -137,7 +137,7 @@ public class NewTournamentFormController {
 
         //FilteredList cannot be modified -> not sortable
         //wrap filteredList in sortedList
-        SortedList<TeamDetailDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
+        SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
         sortedTeamList.comparatorProperty().bind(_allTeamsTableView.comparatorProperty());
@@ -166,7 +166,7 @@ public class NewTournamentFormController {
     @FXML
     private void addTeam () {
         if (_allTeamsTableView.getSelectionModel().getSelectedItem() != null) {
-            TeamDetailDTO teamToAdd = _allTeamsTableView.getSelectionModel().getSelectedItem();
+            DisplayTeamDTO teamToAdd = _allTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().add(teamToAdd);
             _allTeamsObservable.remove(teamToAdd);
             setFilterAndDataToAllTeams(_allTeamsObservable);
@@ -176,7 +176,7 @@ public class NewTournamentFormController {
     @FXML
     private void removeTeam () {
         if (_addedTeamsTableView.getSelectionModel().getSelectedItem() != null) {
-            TeamDetailDTO teamToRemove = _addedTeamsTableView.getSelectionModel().getSelectedItem();
+            DisplayTeamDTO teamToRemove = _addedTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().remove(teamToRemove);
             _allTeamsObservable.add(teamToRemove);
             setFilterAndDataToAllTeams(_allTeamsObservable);
@@ -186,16 +186,16 @@ public class NewTournamentFormController {
     @FXML
     private void removeAllTeams() {
         while (_addedTeamsTableView.getItems().size() > 0) {
-            TeamDetailDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
+            DisplayTeamDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
                 _addedTeamsTableView.getItems().remove(teamToSwitch);
                 _allTeamsObservable.add(teamToSwitch);
         }
         setFilterAndDataToAllTeams(_allTeamsObservable);
     }
 
-    private void switchMember (TableView<TeamDetailDTO> viewToRemoveFrom, TableView<TeamDetailDTO> viewToAddTo) {
+    private void switchMember (TableView<DisplayTeamDTO> viewToRemoveFrom, TableView<DisplayTeamDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
-            TeamDetailDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
+            DisplayTeamDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(teamToSwitch);
             viewToAddTo.getItems().add(teamToSwitch);
         }

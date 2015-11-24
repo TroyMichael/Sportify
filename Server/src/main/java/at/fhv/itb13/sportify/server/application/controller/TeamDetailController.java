@@ -1,10 +1,10 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TeamDetailMapper;
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.DisplayTeamMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import org.hibernate.HibernateException;
 
 import java.util.ArrayList;
@@ -17,14 +17,14 @@ import java.util.List;
 public class TeamDetailController {
 
     private DBFacade _facade;
-    private TeamDetailMapper _teamMapper;
+    private DisplayTeamMapper _teamMapper;
 
     public TeamDetailController() {
         _facade = new DBFacadeImpl();
-        _teamMapper = new TeamDetailMapper();
+        _teamMapper = new DisplayTeamMapper();
     }
 
-    public List<TeamDetailDTO> getAllTeams() {
+    public List<DisplayTeamDTO> getAllTeams() {
         List<InternalTeam> allTeams = null;
 
         try {
@@ -37,7 +37,7 @@ public class TeamDetailController {
         }
 
         if (allTeams != null) {
-            List<TeamDetailDTO> teamDetailList = new ArrayList<>();
+            List<DisplayTeamDTO> teamDetailList = new ArrayList<>();
             for (InternalTeam t : allTeams) {
                 teamDetailList.add(_teamMapper.toDTOObject(t));
             }

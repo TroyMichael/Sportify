@@ -4,7 +4,7 @@ package at.fhv.itb13.sportify.client.presentation;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -167,12 +167,12 @@ public class SportifyGUI extends Application {
         loadView("view/MemberList.fxml", _rootLayout);
     }
 
-    public void loadTeamDetailView(TeamDetailDTO teamToShow) {
+    public void loadTeamDetailView(DisplayTeamDTO teamToShow) {
         TeamDetailViewController cont = (TeamDetailViewController) loadView("view/TeamDetailView.fxml", _rootLayout);
         cont.setTeam(teamToShow);
     }
 
-    public void loadEditTeamForm(TeamDetailDTO team) {
+    public void loadEditTeamForm(DisplayTeamDTO team) {
         EditTeamFormController cont = (EditTeamFormController) loadView("view/EditTeamForm.fxml", _rootLayout);
         cont.setTeam(team);
     }

@@ -6,18 +6,18 @@ import java.util.HashSet;
  * Created by Michael on 16.11.2015.
  *
  */
-public class TeamDetailDTOImpl extends DTOImpl implements TeamDetailDTO {
+public class DisplayTeamlDTOImpl extends DTOImpl implements DisplayTeamDTO {
 
     private String _name;
     private HashSet<SimplePersonDTO> _members = new HashSet<>();
     private SimplePersonDTO _trainer;
     private SimpleSportDTO _sport;
 
-    public TeamDetailDTOImpl() {
+    public DisplayTeamlDTOImpl() {
 
     }
 
-    public TeamDetailDTOImpl(String name, HashSet<SimplePersonDTO> members, SimplePersonDTO trainer, SimpleSportDTO sport) {
+    public DisplayTeamlDTOImpl(String name, HashSet<SimplePersonDTO> members, SimplePersonDTO trainer, SimpleSportDTO sport) {
         _name = name;
         _members = members;
         _trainer = trainer;

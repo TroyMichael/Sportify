@@ -46,7 +46,7 @@ public class EditTeamFormController {
     @FXML
     private TableColumn<SimplePersonDTO, String> _addedMembersLastNameColumn;
 
-    private TeamDetailDTO _team;
+    private DisplayTeamDTO _team;
 
     private ObservableList<SimplePersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
 
@@ -222,7 +222,7 @@ public class EditTeamFormController {
         SportifyGUI.getSharedMainApp().loadHelloView();
     }
 
-    public void setTeam(TeamDetailDTO team) {
+    public void setTeam(DisplayTeamDTO team) {
         _team = team;
         _nameTextField.setText(_team.getName());
         _team.getMembers().forEach(p -> {

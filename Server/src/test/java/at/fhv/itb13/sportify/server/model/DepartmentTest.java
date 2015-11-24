@@ -11,7 +11,7 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class DepartmentTest {
-/*
+
     private Department _department;
 
     @Before
@@ -20,12 +20,11 @@ public class DepartmentTest {
     }
 
     @Test
-    public void setSports() {
+    public void setSportsWithSet() {
         // arrange
         Set<Sport> oldSports = _department.getSports();
         Set<Sport> newSports = new HashSet<Sport>();
-        SportMother sportMother = new SportMother();
-        newSports.add(sportMother.instance());
+        newSports.add(new SportMother().instance());
 
         // assert before
         assertEquals(_department.getSports(), oldSports);
@@ -50,12 +49,56 @@ public class DepartmentTest {
     }
 
     @Test
-    public void addSport() {
+    public void setSportsWithSameSet() {
         // arrange
         Set<Sport> oldSports = _department.getSports();
+
+        // assert before
+        assertEquals(_department.getSports(), oldSports);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+
+        // act
+        _department.setSports(oldSports);
+
+        // assert after
+        assertEquals(_department.getSports(), oldSports);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+    }
+
+    @Test
+    public void setSportsWithNull() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+
+        // assert before
+        assertEquals(_department.getSports(), oldSports);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+
+        // act
+        _department.setSports(null);
+
+        // assert after
+        assertNull(_department.getSports());
+        for (Sport sport : oldSports) {
+            assertNull(sport.getDepartment());
+        }
+    }
+
+    @Test
+    public void addSportWithSport() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+        Sport oldSport = oldSports.iterator().next();
         Sport newSport = new SportMother().instance();
 
         // assert before
+        assertTrue(_department.getSports().contains(oldSport));
         assertTrue(!_department.getSports().contains(newSport));
         assertTrue(_department.getSports().size() == 1);
         for (Sport sport : oldSports) {
@@ -67,6 +110,7 @@ public class DepartmentTest {
         _department.addSport(newSport);
 
         // assert after
+        assertTrue(_department.getSports().contains(oldSport));
         assertTrue(_department.getSports().contains(newSport));
         assertTrue(_department.getSports().size() == 2);
         for (Sport sport : _department.getSports()) {
@@ -75,7 +119,52 @@ public class DepartmentTest {
     }
 
     @Test
-    public void removeSport() {
+    public void addSportWithSameSport() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+        Sport oldSport = oldSports.iterator().next();
+
+        // assert before
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+
+        // act
+        _department.addSport(oldSport);
+
+        // assert after
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+    }
+
+    @Test
+    public void addSportWithNull() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+
+        // assert before
+        assertTrue(_department.getSports().size() == 1);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+
+        // act
+        _department.addSport(null);
+
+        // assert after
+        assertTrue(_department.getSports().size() == 1);
+        for (Sport sport : oldSports) {
+            assertEquals(sport.getDepartment(), _department);
+        }
+    }
+
+    @Test
+    public void removeSportWithSport() {
         // arrange
         Set<Sport> oldSports = _department.getSports();
         Sport oldSport = oldSports.iterator().next();
@@ -92,5 +181,46 @@ public class DepartmentTest {
         assertTrue(!_department.getSports().contains(oldSport));
         assertTrue(_department.getSports().size() == 0);
         assertNull(oldSport.getDepartment());
-    }*/
+    }
+
+    @Test
+    public void removeSportWithNewSport() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+        Sport oldSport = oldSports.iterator().next();
+        Sport newSport = new SportMother().instance();
+
+        // assert before
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        assertEquals(oldSport.getDepartment(), _department);
+
+        // act
+        _department.removeSport(newSport);
+
+        // assert after
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        assertEquals(oldSport.getDepartment(), _department);
+    }
+
+    @Test
+    public void removeSportWithNull() {
+        // arrange
+        Set<Sport> oldSports = _department.getSports();
+        Sport oldSport = oldSports.iterator().next();
+
+        // assert before
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        assertEquals(oldSport.getDepartment(), _department);
+
+        // act
+        _department.removeSport(null);
+
+        // assert after
+        assertTrue(_department.getSports().contains(oldSport));
+        assertTrue(_department.getSports().size() == 1);
+        assertEquals(oldSport.getDepartment(), _department);
+    }
 }

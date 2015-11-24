@@ -72,11 +72,11 @@ public class Sport extends PersistentObjectImpl {
         _tournaments = tournaments;
     }
 
-    public void addTeam(InternalTeam team) {
+    public void addTeam(Team team) {
         _teams.add(team);
     }
 
-    public void removeTeam(InternalTeam team) {
+    public void removeTeam(Team team) {
         _teams.remove(team);
     }
 

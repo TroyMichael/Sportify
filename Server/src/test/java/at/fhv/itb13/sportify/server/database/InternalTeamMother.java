@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TeamMother extends PersistentObjectMother<InternalTeam, TeamMother> {
+public class InternalTeamMother extends PersistentObjectMother<InternalTeam, InternalTeamMother> {
 
     private String _name = "name";
     private Person _trainer;
@@ -15,15 +15,15 @@ public class TeamMother extends PersistentObjectMother<InternalTeam, TeamMother>
     private Set<Tournament> _tournaments = new HashSet<>();
     private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
 
-    public TeamMother() {
+    public InternalTeamMother() {
         super(InternalTeam.class);
     }
 
-    public TeamMother(Session session) {
+    public InternalTeamMother(Session session) {
         super(session, InternalTeam.class);
     }
 
-    public TeamMother(Session session, String defaultId) {
+    public InternalTeamMother(Session session, String defaultId) {
         super(session, InternalTeam.class, defaultId);
     }
 
@@ -44,32 +44,32 @@ public class TeamMother extends PersistentObjectMother<InternalTeam, TeamMother>
         return team;
     }
 
-    public TeamMother name(String name) {
+    public InternalTeamMother name(String name) {
         _name = name;
         return this;
     }
 
-    public TeamMother trainer(Person trainer) {
+    public InternalTeamMother trainer(Person trainer) {
         _trainer = trainer;
         return this;
     }
 
-    public TeamMother sport(Sport sport) {
+    public InternalTeamMother sport(Sport sport) {
         _sport = sport;
         return this;
     }
 
-    public TeamMother person(Person person) {
+    public InternalTeamMother person(Person person) {
         _persons.add(person);
         return this;
     }
 
-    public TeamMother tournament(Tournament tournament) {
+    public InternalTeamMother tournament(Tournament tournament) {
         _tournaments.add(tournament);
         return this;
     }
 
-    public TeamMother matchTeam(MatchTeam matchTeam) {
+    public InternalTeamMother matchTeam(MatchTeam matchTeam) {
         _matchTeams.add(matchTeam);
         return this;
     }

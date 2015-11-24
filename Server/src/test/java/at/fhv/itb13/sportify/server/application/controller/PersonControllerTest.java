@@ -1,12 +1,14 @@
-package at.fhv.itb13.sportify.application.controller;
+package at.fhv.itb13.sportify.server.application.controller;
 
-import at.fhv.itb13.sportify.server.database.PersonMother;
-import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimplePersonMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
+import at.fhv.itb13.sportify.server.database.PersonMother;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.shared.communication.dtos.*;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTOImpl;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,15 +88,16 @@ public class PersonControllerTest {
         verify(_simplePersonMapper, never()).toDTOList(anyListOf(Person.class));
         assertEquals(persons, null);
     }
+
     @Test
-    public void createPerson(){
+    public void createPerson() {
         PersonMother personMother = new PersonMother();
         String id = IdGenerator.createId();
         Person person = personMother.setId(id).instance();
         PersonDTO dto = new PersonDTOImpl();
         dto.setId(id);
 
-        when( _personMapper.toDomainObject(dto)).thenReturn(person);
+        when(_personMapper.toDomainObject(dto)).thenReturn(person);
         _personController.create(dto);
         verify(_facade, times(1)).beginTransaction();
         verify(_facade, times(1)).create(person);
@@ -102,7 +105,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public  void getAllPersons(){
+    public void getAllPersons() {
         PersonMother personMother = new PersonMother();
         Person p1 = personMother.setId(IdGenerator.createId()).instance();
         Person p2 = personMother.setId(IdGenerator.createId()).instance();
@@ -154,7 +157,7 @@ public class PersonControllerTest {
     }*/
 
     @Test
-    public void searchPerson(){
+    public void searchPerson() {
         //arrange
         String id = IdGenerator.createId();
         PersonMother mother = new PersonMother();
@@ -166,7 +169,7 @@ public class PersonControllerTest {
         List<Person> persons = new LinkedList<>();
         persons.add(person);
         when(_facade.getAll(Person.class)).thenReturn(persons);
-        when( _personMapper.listToDTO(persons)).thenReturn(anyList());
+        when(_personMapper.listToDTO(persons)).thenReturn(anyList());
         //act
         List<PersonDTO> result = _personController.searchPerson(personDTO);
         //assert

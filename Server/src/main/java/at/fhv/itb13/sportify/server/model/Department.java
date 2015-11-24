@@ -57,14 +57,14 @@ public class Department extends PersistentObjectImpl {
 
     public void addSport(Sport sport) {
         _sports.add(sport);
-        if (sport != null) {
+        if ((sport != null) && (!this.equals(sport.getDepartment()))) {
             sport.setDepartment(this);
         }
     }
 
     public void removeSport(Sport sport) {
         _sports.remove(sport);
-        if (sport != null) {
+        if (sport != null && (sport.getDepartment() != null)) {
             sport.setDepartment(null);
         }
     }

@@ -1,13 +1,13 @@
-package at.fhv.itb13.sportify.mapper;
+package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.database.*;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.MatchMapper;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SportMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
-import at.fhv.itb13.sportify.server.model.*;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
+import at.fhv.itb13.sportify.server.database.DepartmentMother;
+import at.fhv.itb13.sportify.server.database.InternalTeamMother;
+import at.fhv.itb13.sportify.server.database.SportMother;
+import at.fhv.itb13.sportify.server.model.Department;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
@@ -18,15 +18,8 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.sql.Date;
-import java.time.LocalDate;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
-/**
- * Created by Caroline on 21.11.2015.
- */
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PersonMapper.class)
@@ -38,13 +31,13 @@ public class SportMapperTest {
     private SportMapper _sportMapper;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         _sportMapper = new SportMapper(_facade);
 
     }
 
     @Test
-    public void toDomainObjectReturnSport(){
+    public void toDomainObjectReturnSport() {
 
         // arrange
         SportDTO sportDTO = new SportDTOImpl("sport");
@@ -54,16 +47,16 @@ public class SportMapperTest {
         Department dept = departmentMother.setId(IdGenerator.createId()).instance();
         sportDTO.setDepartment(dept.getId());
 
-        TeamMother teamMother = new TeamMother();
-        Team t1 = teamMother.setId(IdGenerator.createId()).instance();
-        Team t2 = teamMother.setId(IdGenerator.createId()).instance();
+        InternalTeamMother teamMother = new InternalTeamMother();
+        InternalTeam t1 = teamMother.setId(IdGenerator.createId()).instance();
+        InternalTeam t2 = teamMother.setId(IdGenerator.createId()).instance();
 
         sportDTO.addTeam(t1.getId());
         sportDTO.addTeam(t2.getId());
 
-        when(_facade.get(Team.class,t1.getId())).thenReturn(t1);
-        when(_facade.get(Team.class,t2.getId())).thenReturn(t2);
-        when(_facade.get(Department.class,dept.getId())).thenReturn(dept);
+        when(_facade.get(InternalTeam.class, t1.getId())).thenReturn(t1);
+        when(_facade.get(InternalTeam.class, t2.getId())).thenReturn(t2);
+        when(_facade.get(Department.class, dept.getId())).thenReturn(dept);
 
         //act
         Sport sport = _sportMapper.toDomainObject(sportDTO);
@@ -74,14 +67,14 @@ public class SportMapperTest {
         assertEquals(sportDTO.getDepartmentId(), sport.getDepartment().getId());
         assertEquals(sportDTO.getTeamIds().size(), sport.getTeams().size());
         verify(_facade, times(1)).beginTransaction();
-        verify(_facade, times(1)).get(Team.class, t1.getId());
-        verify(_facade, times(1)).get(Team.class, t2.getId());
+        verify(_facade, times(1)).get(InternalTeam.class, t1.getId());
+        verify(_facade, times(1)).get(InternalTeam.class, t2.getId());
         verify(_facade, times(1)).get(Department.class, dept.getId());
         verify(_facade, times(1)).commitTransaction();
     }
 
     @Test
-    public void toDomainObjectReturnNull(){
+    public void toDomainObjectReturnNull() {
 
         // arrange
         SportDTO sportDTO = null;
@@ -90,13 +83,13 @@ public class SportMapperTest {
         Department dept = departmentMother.setId(IdGenerator.createId()).instance();
 
 
-        TeamMother teamMother = new TeamMother();
+        InternalTeamMother teamMother = new InternalTeamMother();
         Team t1 = teamMother.setId(IdGenerator.createId()).instance();
         Team t2 = teamMother.setId(IdGenerator.createId()).instance();
 
 
-        when(_facade.get(Team.class,t1.getId())).thenReturn(t1);
-        when(_facade.get(Team.class,t2.getId())).thenReturn(t2);
+        when(_facade.get(Team.class, t1.getId())).thenReturn(t1);
+        when(_facade.get(Team.class, t2.getId())).thenReturn(t2);
 
         //act
 
@@ -108,12 +101,12 @@ public class SportMapperTest {
         verify(_facade, times(0)).get(Team.class, t2.getId());
         verify(_facade, times(0)).get(Department.class, dept.getId());
         verify(_facade, times(0)).commitTransaction();
-        assertEquals(sport,null);
+        assertEquals(sport, null);
 
     }
 
     @Test
-    public void toDTOObjectReturnMatchDTO(){
+    public void toDTOObjectReturnMatchDTO() {
 
         // arrange
         SportMother sportMother = new SportMother();
@@ -123,7 +116,7 @@ public class SportMapperTest {
         Department dept = departmentMother.setId(IdGenerator.createId()).instance();
         sport.setDepartment(dept);
 
-        TeamMother teamMother = new TeamMother();
+        InternalTeamMother teamMother = new InternalTeamMother();
         Team t1 = teamMother.setId(IdGenerator.createId()).instance();
         Team t2 = teamMother.setId(IdGenerator.createId()).instance();
         sport.addTeam(t1);
@@ -142,7 +135,7 @@ public class SportMapperTest {
     }
 
     @Test
-    public void toDTOObjectReturnNull(){
+    public void toDTOObjectReturnNull() {
 
         // arrange
         Sport sport = null;
@@ -151,7 +144,7 @@ public class SportMapperTest {
         Department dept = departmentMother.setId(IdGenerator.createId()).instance();
 
 
-        TeamMother teamMother = new TeamMother();
+        InternalTeamMother teamMother = new InternalTeamMother();
         Team t1 = teamMother.setId(IdGenerator.createId()).instance();
         Team t2 = teamMother.setId(IdGenerator.createId()).instance();
 
@@ -161,7 +154,7 @@ public class SportMapperTest {
 
 
         //assert
-        assertEquals(sportDTO,null);
+        assertEquals(sportDTO, null);
 
     }
 }

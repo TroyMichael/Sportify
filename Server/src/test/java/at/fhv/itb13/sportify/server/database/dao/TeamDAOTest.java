@@ -1,7 +1,7 @@
 package at.fhv.itb13.sportify.server.database.dao;
 
 import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
-import at.fhv.itb13.sportify.server.database.TeamMother;
+import at.fhv.itb13.sportify.server.database.InternalTeamMother;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;
@@ -20,7 +20,7 @@ public class TeamDAOTest {
         // arrange
         _sf.beginTransaction();
         String teamId = IdGenerator.createId();
-        TeamMother teamMother = new TeamMother(_sf.getSession(), teamId);
+        InternalTeamMother teamMother = new InternalTeamMother(_sf.getSession(), teamId);
         InternalTeam team1 = teamMother.instance();
         // TODO: add objects to collections
         _sf.commitTransaction();

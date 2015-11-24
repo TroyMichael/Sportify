@@ -1,12 +1,6 @@
-package at.fhv.itb13.sportify.mapper;
+package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-
-import at.fhv.itb13.sportify.database.MatchMother;
-import at.fhv.itb13.sportify.database.SportMother;
-import at.fhv.itb13.sportify.database.TeamMother;
-import at.fhv.itb13.sportify.database.TournamentMother;
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TournamentMapper;
-import at.fhv.itb13.sportify.server.database.DBFacade;
+import at.fhv.itb13.sportify.server.database.*;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.Sport;
 import at.fhv.itb13.sportify.server.model.Team;
@@ -24,14 +18,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.Date;
 import java.util.HashSet;
 
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
-
-/**
- * Created by KYUSS on 22.11.2015.
- *
- */
-
+import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(TournamentMapper.class)
@@ -43,7 +31,7 @@ public class TournamentMapperTest {
     private TournamentMapper _tournamentMapper;
 
     @Before
-    public void setUp (){
+    public void setUp() {
         _tournamentMapper = new TournamentMapper(_facade);
     }
 
@@ -124,7 +112,7 @@ public class TournamentMapperTest {
         tournamentDTO.addMatchID(match2.getId());
         tournamentDTO.addMatchID(match3.getId());
 
-        TeamMother teamMother = new TeamMother();
+        InternalTeamMother teamMother = new InternalTeamMother();
         Team team1 = teamMother.setId(IdGenerator.createId()).instance();
         Team team2 = teamMother.setId(IdGenerator.createId()).instance();
         Team team3 = teamMother.setId(IdGenerator.createId()).instance();
@@ -135,11 +123,11 @@ public class TournamentMapperTest {
 
         when(_facade.get(Sport.class, sport.getId())).thenReturn(sport);
         when(_facade.get(Match.class, match1.getId())).thenReturn(match1);
-        when(_facade.get(Match.class,match2.getId())).thenReturn(match2);
-        when(_facade.get(Match.class,match3.getId())).thenReturn(match3);
-        when(_facade.get(Team.class,team1.getId())).thenReturn(team1);
-        when(_facade.get(Team.class,team2.getId())).thenReturn(team2);
-        when(_facade.get(Team.class,team3.getId())).thenReturn(team3);
+        when(_facade.get(Match.class, match2.getId())).thenReturn(match2);
+        when(_facade.get(Match.class, match3.getId())).thenReturn(match3);
+        when(_facade.get(Team.class, team1.getId())).thenReturn(team1);
+        when(_facade.get(Team.class, team2.getId())).thenReturn(team2);
+        when(_facade.get(Team.class, team3.getId())).thenReturn(team3);
 
         //act
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
@@ -167,8 +155,8 @@ public class TournamentMapperTest {
         Match match1 = matchMother.setId(IdGenerator.createId()).instance();
         Match match2 = matchMother.setId(IdGenerator.createId()).instance();
 
-        when(_facade.get(Match.class,match1.getId())).thenReturn(match1);
-        when(_facade.get(Match.class,match2.getId())).thenReturn(match2);
+        when(_facade.get(Match.class, match1.getId())).thenReturn(match1);
+        when(_facade.get(Match.class, match2.getId())).thenReturn(match2);
 
         //act
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
@@ -186,7 +174,7 @@ public class TournamentMapperTest {
         TournamentMother tournamentMother = new TournamentMother();
         Tournament tournament = tournamentMother.setId(IdGenerator.createId()).instance();
 
-        TeamMother teamMother = new TeamMother();
+        InternalTeamMother teamMother = new InternalTeamMother();
         Team team1 = teamMother.setId(IdGenerator.createId()).instance();
         Team team2 = teamMother.setId(IdGenerator.createId()).instance();
         Team team3 = teamMother.setId(IdGenerator.createId()).instance();
@@ -219,6 +207,5 @@ public class TournamentMapperTest {
         assertEquals(tournament.getStart(), tournamentDTO.getStartDate());
         assertEquals(tournament.getMatches().size(), tournamentDTO.getMatchIDs().size());
         assertEquals(tournament.getTeams().size(), tournamentDTO.getTeamIDs().size());
-
     }
 }

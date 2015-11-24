@@ -21,6 +21,11 @@ public class TeamController {
         _teamMapper = new TeamMapper();
     }
 
+    public TeamController(DBFacade facade, TeamMapper teamMapper) {
+        _facade = facade;
+        _teamMapper = teamMapper;
+    }
+
     /**
      * Creates a new entry in the table team
      *

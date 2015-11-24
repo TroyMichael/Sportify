@@ -3,10 +3,9 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
 import org.hibernate.HibernateException;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             try {
                 dbFacade.beginTransaction();
                 for (String teamId : personDTO.getTeamIds()) {
-                    person.addTeam(dbFacade.get(Team.class, teamId));
+                    person.addTeam(dbFacade.get(InternalTeam.class, teamId));
                 }
                 dbFacade.commitTransaction();
             } catch (HibernateException e) {
@@ -71,7 +70,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setId(person.getId());
             personDTO.setPaid(person.isPaid());
 
-            for (Team team : person.getTeams()) {
+            for (InternalTeam team : person.getTeams()) {
                 personDTO.addTeam(team.getId());
             }
             return personDTO;

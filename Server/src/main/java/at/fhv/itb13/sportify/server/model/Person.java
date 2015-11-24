@@ -20,8 +20,8 @@ public class Person extends PersistentObjectImpl {
     private String _birthdate;
     private Boolean _paid;
     private Set<Roster> _rosters = new HashSet<Roster>();
-    private Set<Team> _teams = new HashSet<Team>();
-    private Set<Team> _trainedTeams = new HashSet<>();
+    private Set<InternalTeam> _teams = new HashSet<InternalTeam>();
+    private Set<InternalTeam> _trainedTeams = new HashSet<>();
 
     public Person() {
     }
@@ -131,20 +131,20 @@ public class Person extends PersistentObjectImpl {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "team_person", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)})
-    public Set<Team> getTeams() {
+    public Set<InternalTeam> getTeams() {
         return _teams;
     }
 
-    public void setTeams(Set<Team> teams) {
+    public void setTeams(Set<InternalTeam> teams) {
         _teams = teams;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trainer")
-    public Set<Team> getTrainedTeams() {
+    public Set<InternalTeam> getTrainedTeams() {
         return _trainedTeams;
     }
 
-    public void setTrainedTeams(Set<Team> trainedTeams) {
+    public void setTrainedTeams(Set<InternalTeam> trainedTeams) {
         _trainedTeams = trainedTeams;
     }
 
@@ -156,19 +156,19 @@ public class Person extends PersistentObjectImpl {
         _rosters.remove(roster);
     }
 
-    public void addTeam(Team team) {
+    public void addTeam(InternalTeam team) {
         _teams.add(team);
     }
 
-    public void removeTeam(Team team) {
+    public void removeTeam(InternalTeam team) {
         _teams.remove(team);
     }
 
-    public void addTrainedTeam(Team trainedTeam) {
+    public void addTrainedTeam(InternalTeam trainedTeam) {
         _trainedTeams.add(trainedTeam);
     }
 
-    public void removeTrainedTeam(Team trainedTeam) {
+    public void removeTrainedTeam(InternalTeam trainedTeam) {
         _trainedTeams.remove(trainedTeam);
     }
 

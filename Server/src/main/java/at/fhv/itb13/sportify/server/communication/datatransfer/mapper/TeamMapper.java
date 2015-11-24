@@ -13,10 +13,11 @@ import java.util.HashSet;
 
 /**
  * Created by Caroline on 10.11.2015.
+ *
  */
 
 
-public class TeamMapper extends Mapper<TeamDTO, Team> {
+public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
     DBFacade dbFacade = new DBFacadeImpl();
 
     /**
@@ -25,18 +26,18 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
      * @param teamDTO team DTO from the editing of the team
      * @return team loaded from database and mapped from teamDTO or null
      */
-    public Team toExistingDomainObject(TeamDTO teamDTO) {
-        if (teamDTO.getId() != null) {
+    public InternalTeam toExistingDomainObject (TeamDTO teamDTO){
+        if (teamDTO.getId() != null){
             try {
                 dbFacade.beginTransaction();
-                Team team = dbFacade.get(Team.class, teamDTO.getId());
+                InternalTeam team = dbFacade.get(InternalTeam.class, teamDTO.getId());
                 team.setName(teamDTO.getName());
                 //todo check if version is older? odr so
                 team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
-                if (teamDTO.getPersonIds().size() > 0) {
+                if (teamDTO.getPersonIds().size() > 0){
                     team.setPersons(new HashSet<>());
-                    for (String personID : teamDTO.getPersonIds()) {
+                    for (String personID : teamDTO.getPersonIds()){
                         team.addPerson(dbFacade.get(Person.class, personID));
                     }
                 }
@@ -48,7 +49,7 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
 //                }
                 dbFacade.commitTransaction();
                 return team;
-            } catch (HibernateException e) {
+            } catch (HibernateException e){
                 dbFacade.rollbackTransaction();
             }
         }
@@ -56,15 +57,19 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
     }
 
     @Override
-    public Team toDomainObject(TeamDTO teamDTO) {
+    public InternalTeam toDomainObject(TeamDTO teamDTO) {
         if (teamDTO != null) {
-            Team team = new Team();
+            InternalTeam team = new InternalTeam();
             team.setName(teamDTO.getName());
-            team.setId(teamDTO.getId());
-            team.setVersion(teamDTO.getVersion());
+            if (teamDTO.getId() != null){
+                team.setId(teamDTO.getId());
+            }
+            if (teamDTO.getVersion() != null){
+                team.setVersion(teamDTO.getVersion());
+            }
             try {
                 dbFacade.beginTransaction();
-                if (teamDTO.getPersonIds().size() > 0) {
+                if (teamDTO.getPersonIds().size() >  0){
                     for (String personId : teamDTO.getPersonIds()) {
                         team.addPerson(dbFacade.get(Person.class, personId));
                     }
@@ -74,10 +79,10 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
 //                        team.addRoster(dbFacade.get(Roster.class, rosterId));
 //                    }
 //                }
-                if (teamDTO.getSportId().length() > 0) {
+                if (teamDTO.getSportId().length() > 0){
                     team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 }
-                if (teamDTO.getTrainerId().length() > 0) {
+                if (teamDTO.getTrainerId().length() > 0){
                     team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
                 }
                 dbFacade.commitTransaction();
@@ -90,7 +95,7 @@ public class TeamMapper extends Mapper<TeamDTO, Team> {
     }
 
     @Override
-    public TeamDTO toDTOObject(Team domainObject) {
+    public TeamDTO toDTOObject(InternalTeam domainObject) {
         if (domainObject != null) {
             TeamDTO teamDTO = new TeamDTOImpl();
             teamDTO.setName(domainObject.getName());

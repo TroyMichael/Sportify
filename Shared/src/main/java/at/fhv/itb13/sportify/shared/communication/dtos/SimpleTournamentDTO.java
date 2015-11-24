@@ -8,11 +8,11 @@ import java.util.HashSet;
  */
 public interface SimpleTournamentDTO {
     String getName();
-    void setName(String name);
+    void setDescription(String description);
     SimpleSportDTO getSport();
-    void setSport(SimpleSportDTO sport);
-    Date getDate();
-    void setDate(Date date);
+    void setSport(SimpleSportDTO sportID);
+    Date getStartDate();
+    void setStartDate(Date date);
     String getLocation();
     void setLocation(String location);
     HashSet<SimpleTeamDTO> teamNames();

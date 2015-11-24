@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.server.application.controller;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TeamMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import org.hibernate.HibernateException;
@@ -21,6 +21,11 @@ public class TeamController {
         _teamMapper = new TeamMapper();
     }
 
+    public TeamController(DBFacade facade, TeamMapper teamMapper) {
+        _facade = facade;
+        _teamMapper = teamMapper;
+    }
+
     /**
      * Creates a new entry in the table team
      *
@@ -28,7 +33,7 @@ public class TeamController {
      */
     public void create(TeamDTO team) {
         try {
-            Team teamDomain = _teamMapper.toDomainObject(team);
+            InternalTeam teamDomain = _teamMapper.toDomainObject(team);
             _facade.beginTransaction();
             _facade.create(teamDomain);
             _facade.commitTransaction();
@@ -44,7 +49,7 @@ public class TeamController {
 
     public void editTeam(TeamDTO team) {
         try {
-            Team teamDomain = _teamMapper.toExistingDomainObject(team);
+            InternalTeam teamDomain = _teamMapper.toExistingDomainObject(team);
             _facade.beginTransaction();
             _facade.createOrUpdate(teamDomain);
             _facade.commitTransaction();
@@ -55,10 +60,10 @@ public class TeamController {
     }
 
     public List<TeamDTO> getAllTeams() {
-        List<Team> teams = null;
+        List<InternalTeam> teams = null;
         try {
             _facade.beginTransaction();
-            teams = _facade.getAll(Team.class);
+            teams = _facade.getAll(InternalTeam.class);
             _facade.commitTransaction();
         } catch (HibernateException e) {
             _facade.rollbackTransaction();
@@ -66,7 +71,7 @@ public class TeamController {
         }
         if (teams != null) {
             List<TeamDTO> teamDTOs = new ArrayList<>();
-            for (Team team : teams) {
+            for (InternalTeam team : teams) {
                 teamDTOs.add(_teamMapper.toDTOObject(team));
             }
             return teamDTOs;

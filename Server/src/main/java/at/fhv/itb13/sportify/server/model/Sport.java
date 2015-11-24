@@ -13,7 +13,7 @@ public class Sport extends PersistentObjectImpl {
     private String _name;
     private Department _department;
     private Set<Tournament> _tournaments = new HashSet<>();
-    private Set<Team> _teams = new HashSet<Team>();
+    private Set<Team> _teams = new HashSet<>();
 
     public Sport() {
     }
@@ -39,6 +39,19 @@ public class Sport extends PersistentObjectImpl {
     }
 
     public void setDepartment(Department department) {
+//        if (_department != null) {
+//            Set<Sport> departmentSports = _department.getSports();
+//            if ((departmentSports != null) && (departmentSports.contains(this))) {
+//                _department.removeSport(this);
+//            }
+//        }
+//        _department = department;
+//        if (_department != null) {
+//            Set<Sport> departmentSports = _department.getSports();
+//            if ((departmentSports != null) && (!departmentSports.contains(this))) {
+//                _department.addSport(this);
+//            }
+//        }
         _department = department;
     }
 

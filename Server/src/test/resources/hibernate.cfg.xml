@@ -17,6 +17,8 @@
         <mapping class="at.fhv.itb13.sportify.server.model.Department"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Roster"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Team"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.InternalTeam"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.ExternalTeam"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Match"/>
         <mapping class="at.fhv.itb13.sportify.server.model.MatchTeam"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Tournament"/>

@@ -10,7 +10,10 @@ import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTOImpl;
 import org.hibernate.HibernateException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by KYUSS on 19.11.2015.
@@ -111,5 +114,13 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
             return tournamentDTO;
         }
         return null;
+    }
+
+    public List<TournamentDTO> toDTOList(List<Tournament> tournaments) {
+        List <TournamentDTO> tournamentDTOs = new ArrayList<>();
+        for (Tournament tournament : tournaments){
+            tournamentDTOs.add(toDTOObject(tournament));
+        }
+        return tournamentDTOs;
     }
 }

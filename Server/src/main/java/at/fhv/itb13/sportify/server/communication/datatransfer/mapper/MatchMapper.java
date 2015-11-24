@@ -27,17 +27,18 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 
     @Override
     public Match toDomainObject(MatchDTO matchDTO) {
+
         if (matchDTO != null) {
             Match match = new Match();
             match.setId(matchDTO.getId());
+            match.setVersion(matchDTO.getVersion());
             match.setStart(matchDTO.getStart());
             match.setDuration(matchDTO.getDuration());
-            match.setVersion(matchDTO.getVersion());
             switch (matchDTO.getMatchStatus()) {
                 case "PLANNED":
                     match.setMatchStatus(PLANNED);
                     break;
-                case "FINNISHED":
+                case "FINISHED":
                     match.setMatchStatus(FINISHED);
                     break;
                 default:
@@ -63,9 +64,9 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
         if (domainObject != null) {
             MatchDTO matchDTO = new MatchDTOImpl();
             matchDTO.setId(domainObject.getId());
+            matchDTO.setVersion(domainObject.getVersion());
             matchDTO.setStart(domainObject.getStart());
             matchDTO.setDuration(domainObject.getDuration());
-            matchDTO.setVersion(domainObject.getVersion());
             if (domainObject.getTournament() != null) {
                 matchDTO.setTorunamentId(domainObject.getTournament().getId());
             }

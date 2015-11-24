@@ -4,7 +4,7 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Department;
 import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
 
@@ -14,6 +14,14 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
  */
 public class SportMapper extends Mapper<SportDTO, Sport>{
     private DBFacade _dbFacade = new DBFacadeImpl();
+
+    public SportMapper(){
+
+    }
+
+    public SportMapper(DBFacade facade){
+        _dbFacade = facade;
+    }
 
     @Override
     public Sport toDomainObject(SportDTO sportDTO) {
@@ -32,7 +40,7 @@ public class SportMapper extends Mapper<SportDTO, Sport>{
 
                 //set teams
                 for (String teamID : sportDTO.getTeamIds()) {
-                    newSport.addTeam(_dbFacade.get(Team.class, teamID));
+                    newSport.addTeam(_dbFacade.get(InternalTeam.class, teamID));
                 }
                 _dbFacade.commitTransaction();
             } catch (Exception e) {

@@ -1,30 +1,25 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.server.model.Team;
-import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTOImpl;
+import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDetailDTOImpl;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Michael on 16.11.2015.
  *
  */
-public class TeamDetailMapper extends Mapper<TeamDetailDTO, Team> {
+public class TeamDetailMapper extends Mapper<TeamDetailDTO, InternalTeam> {
 
     private SimplePersonMapper _simplePersonMapper = new SimplePersonMapper();
 
     @Override
-    public Team toDomainObject(TeamDetailDTO teamDetailDTO) {
+    public InternalTeam toDomainObject(TeamDetailDTO teamDetailDTO) {
         return null;
     }
 
     @Override
-    public TeamDetailDTO toDTOObject(Team domainObject) {
+    public TeamDetailDTO toDTOObject(InternalTeam domainObject) {
         TeamDetailDTO newTeamDetailDTO = new TeamDetailDTOImpl();
 
         if (domainObject != null) {

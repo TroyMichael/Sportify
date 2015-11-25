@@ -1,8 +1,8 @@
 package at.fhv.itb13.sportify.server.database.dao;
 
-import at.fhv.itb13.sportify.server.database.ExternalTeamMother;
 import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
-import at.fhv.itb13.sportify.server.model.ExternalTeam;
+import at.fhv.itb13.sportify.server.database.TeamMother;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ExternalTeamDAOTest {
+public class TeamDAOTest {
 
     @Rule
     public SessionFactoryRule _sf = new SessionFactoryRule();
@@ -20,16 +20,16 @@ public class ExternalTeamDAOTest {
         // arrange
         _sf.beginTransaction();
         String teamId = IdGenerator.createId();
-        ExternalTeamMother teamMother = new ExternalTeamMother(_sf.getSession(), teamId);
-        ExternalTeam team1 = teamMother.instance();
+        TeamMother teamMother = new TeamMother(_sf.getSession(), teamId);
+        Team team1 = teamMother.instance();
         // TODO: add objects to collections
         _sf.commitTransaction();
 
         // act
         _sf.beginTransaction();
-        ExternalTeamDAO teamDAO = new ExternalTeamDAO();
+        TeamDAO teamDAO = new TeamDAO();
         teamDAO.setSession(_sf.getSession());
-        ExternalTeam team2 = teamDAO.get(teamId);
+        Team team2 = teamDAO.get(teamId);
         _sf.commitTransaction();
 
         // assert

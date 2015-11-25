@@ -1,14 +1,18 @@
 package at.fhv.itb13.sportify.server.model;
 
-import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import java.util.Properties;
 
-public class User extends PersistentObjectImpl {
+@Embeddable
+public class User {
 
+    //private Person _person;
     private String _username;
     private String _password;
 
@@ -20,6 +24,29 @@ public class User extends PersistentObjectImpl {
         _password = password;
     }
 
+//    public User(Person person, String username, String password) {
+//        _person = person;
+//        _username = username;
+//        _password = password;
+//    }
+
+//    @OneToOne
+//    public Person getPerson() {
+//        return _person;
+//    }
+//
+//    public void setPerson(Person person) {
+//        Person oldPerson = _person;
+//        _person = person;
+//        if ((oldPerson != null) && (!oldPerson.equals(_person))) {
+//            oldPerson.setUser(null);
+//        }
+//        if ((_person != null) && (!_person.equals(oldPerson))) {
+//            _person.setUser(this);
+//        }
+//    }
+
+    @Column(name = "username")
     public String getUsername() {
         return _username;
     }
@@ -28,6 +55,7 @@ public class User extends PersistentObjectImpl {
         _username = username;
     }
 
+    @Transient
     public String getPassword() {
         return _password;
     }
@@ -37,7 +65,7 @@ public class User extends PersistentObjectImpl {
     }
 
     /**
-     * lets the user login if he enters the correct login data
+     * lets the user login if the correct login data has been entered
      */
     public boolean login() {
         Properties env = new Properties();
@@ -45,13 +73,20 @@ public class User extends PersistentObjectImpl {
         env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
         env.put(Context.SECURITY_CREDENTIALS, _password);
 
+        Context context = null;
         try {
-            Context context = new InitialContext(env);
-            context.close();
+            context = new InitialContext(env);
             return true;
         } catch (NamingException e) {
-            e.printStackTrace();
             return false;
+        } finally {
+            if (context != null) {
+                try {
+                    context.close();
+                } catch (NamingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

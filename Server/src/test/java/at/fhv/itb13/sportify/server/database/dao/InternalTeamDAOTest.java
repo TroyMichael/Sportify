@@ -1,7 +1,7 @@
 package at.fhv.itb13.sportify.server.database.dao;
 
-import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
 import at.fhv.itb13.sportify.server.database.InternalTeamMother;
+import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;
@@ -27,7 +27,7 @@ public class InternalTeamDAOTest {
 
         // act
         _sf.beginTransaction();
-        TeamDAO teamDAO = new TeamDAO();
+        InternalTeamDAO teamDAO = new InternalTeamDAO();
         teamDAO.setSession(_sf.getSession());
         InternalTeam team2 = teamDAO.get(teamId);
         _sf.commitTransaction();
@@ -38,9 +38,10 @@ public class InternalTeamDAOTest {
         assertEquals(team1.getId(), team2.getId());
         assertEquals(team1.getVersion(), team2.getVersion());
         assertEquals(team1.getName(), team2.getName());
-        assertEquals(team1.getTrainer(), team2.getTrainer());
         assertEquals(team1.getSport(), team2.getSport());
-        assertEquals(team1.getPersons(), team2.getPersons());
+        assertEquals(team1.getTournaments(), team2.getTournaments());
         assertEquals(team1.getMatchTeams(), team2.getMatchTeams());
+        assertEquals(team1.getTrainer(), team2.getTrainer());
+        assertEquals(team1.getPersons(), team2.getPersons());
     }
 }

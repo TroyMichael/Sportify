@@ -21,7 +21,10 @@ public class UserMapper extends Mapper<UserDTO, User> {
     @Override
     public User toDomainObject(UserDTO userDTO) {
         if (userDTO != null) {
-            return new User(userDTO.getName(), userDTO.getPassword());
+            User user = new User();
+            user.setUsername(userDTO.getName());
+            user.setPassword(userDTO.getPassword());
+            return user;
         }
         return null;
     }

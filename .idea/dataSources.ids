@@ -28,7 +28,7 @@
       <foreign-key name="internalteam_person__fk" columns="trainer_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="internalteam_person__fk" unique="false" columns="trainer_id"/>
     </table>
-    <table name="match" schema="" catalog="sportify" type="TABLE">
+    <table name="match_" schema="" catalog="sportify" type="TABLE">
       <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
       <column name="duration" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
@@ -48,7 +48,7 @@
       <column name="points" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="match_team_match__fk" columns="match_id" ref-table="match" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="match_team_match__fk" columns="match_id" ref-table="match_" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="match_team_roster__fk" columns="roster_id" ref-table="roster" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="match_team_team__fk" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="match_team_match__fk" unique="false" columns="match_id"/>
@@ -129,7 +129,7 @@
       <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="tournament_sport__fk" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="match_tournament__fk" table="match" schema="" catalog="sportify" columns="tournament_id"/>
+      <exported-key name="match_tournament__fk" table="match_" schema="" catalog="sportify" columns="tournament_id"/>
       <exported-key name="tournament_team_tournament__fk" table="tournament_team" schema="" catalog="sportify" columns="tournament_id"/>
       <index name="tournament_sport__fk" unique="false" columns="sport_id"/>
     </table>

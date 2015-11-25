@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "match")
+@Table(name = "match_")
 public class Match extends PersistentObjectImpl {
 
     private Integer _duration;

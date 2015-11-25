@@ -8,7 +8,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 public class UserController {
 
     public boolean login(UserDTO userDTO) throws DTOIsNullException {
-        User userDomain = UserMapper.getInstance().toDomainObject(userDTO);
+        User userDomain = new UserMapper().toDomainObject(userDTO);
         return userDomain.login();
     }
 }

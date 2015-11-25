@@ -21,6 +21,12 @@ import java.util.HashSet;
 public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
     DBFacade dbFacade = new DBFacadeImpl();
 
+    public TeamMapper(){}
+
+    public TeamMapper(DBFacade facade){
+        dbFacade = facade;
+    }
+
     /**
      * use this method if the team to be saved is already in the database
      *
@@ -34,9 +40,13 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
                 InternalTeam team = dbFacade.get(InternalTeam.class, teamDTO.getId());
                 team.setName(teamDTO.getName());
                 //todo check if version is older? odr so
-                team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
-                team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
-                if (teamDTO.getPersonIds().size() > 0){
+                if(teamDTO.getSportId() != null) {
+                    team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
+                }
+                if(teamDTO.getTrainerId() != null) {
+                    team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
+                }
+                if (teamDTO.getPersonIds() != null){
                     team.setPersons(new HashSet<>());
                     for (String personID : teamDTO.getPersonIds()){
                         team.addPerson(dbFacade.get(Person.class, personID));
@@ -70,7 +80,7 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
             }
             try {
                 dbFacade.beginTransaction();
-                if (teamDTO.getPersonIds().size() >  0){
+                if (teamDTO.getPersonIds() != null){
                     for (String personId : teamDTO.getPersonIds()) {
                         team.addPerson(dbFacade.get(Person.class, personId));
                     }

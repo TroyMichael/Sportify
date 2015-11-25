@@ -18,11 +18,17 @@ public interface TournamentDTO extends Serializable, DTO {
 
     void setSportID(String sportID);
 
-    Set<String> getMatchIDs();
+//    Set<String> getMatchIDs();
+//
+//    void addMatchID(String matchID);
+//
+//    void removeMatchID(String matchID);
 
-    void addMatchID(String matchID);
+    Set<MatchDTO> getMatches();
 
-    void removeMatchID(String matchID);
+    void addMatch(MatchDTO match);
+
+    void removeMatch(MatchDTO match);
 
     Set<String> getTeamIDs();
 

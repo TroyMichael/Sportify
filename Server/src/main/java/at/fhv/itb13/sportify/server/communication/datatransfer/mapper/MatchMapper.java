@@ -2,9 +2,7 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
-import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.MatchTeam;
-import at.fhv.itb13.sportify.server.model.Tournament;
+import at.fhv.itb13.sportify.server.model.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
 import org.hibernate.HibernateException;
@@ -47,7 +45,10 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             try {
                 _dbFacade.beginTransaction();
                 for (String matchTeamId : matchDTO.getMatchTeamIds()) {
-                    match.addMatchTeam(_dbFacade.get(MatchTeam.class, matchTeamId));
+                    MatchTeam matchTeam = new MatchTeam();
+                    matchTeam.setMatch(match);
+                    matchTeam.setTeam(_dbFacade.get(Team.class, matchTeamId));
+                    match.addMatchTeam(matchTeam);
                 }
                 match.setTournament(_dbFacade.get(Tournament.class, matchDTO.getTournamentId()));
                 _dbFacade.commitTransaction();

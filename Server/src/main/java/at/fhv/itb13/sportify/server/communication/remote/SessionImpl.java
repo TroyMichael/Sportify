@@ -18,7 +18,7 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     }
     
     public static Session create(UserDTO userDTO) throws RemoteException {
-        User user = UserMapper.getInstance().toDomainObject(userDTO);
+        User user = new UserMapper().toDomainObject(userDTO);
         if (user.login()) {
             return new SessionImpl(user);
         }

@@ -8,7 +8,7 @@ import at.fhv.itb13.sportify.shared.util.IdGenerator;
 public abstract class DTOImpl implements DTO {
 
     private String _id = IdGenerator.createId();
-    private Integer _version = null;
+    private Integer _version = 0;
 
     @Override
     public String getId() {

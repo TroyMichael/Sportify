@@ -12,8 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -67,7 +66,7 @@ public class NewMatchFormController {
 
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
-            newMatch.setStart(Date.from(_localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            newMatch.setStart(Date.valueOf(_localDate));
             newMatch.addMatchTeamId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
             newMatch.addMatchTeamId(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getId());
             newMatch.setTorunamentId(_tournament.getId());

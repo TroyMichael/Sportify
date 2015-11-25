@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.server.model;
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 

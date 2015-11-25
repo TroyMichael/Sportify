@@ -8,7 +8,8 @@ import org.hibernate.Session;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,29 +23,20 @@ public class MatchMother extends PersistentObjectMother<Match, MatchMother> {
 
     public MatchMother() {
         super(Match.class);
-        try {
-            _start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        _start = new Date(Calendar.getInstance().getTime().getTime());
+        //new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
     }
 
     public MatchMother(Session session) {
         super(session, Match.class);
-        try {
-            _start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        _start = new Date(Calendar.getInstance().getTime().getTime());
+        //new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
     }
 
     public MatchMother(Session session, String defaultId) {
         super(session, Match.class, defaultId);
-        try {
-            _start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        _start = new Date(Calendar.getInstance().getTime().getTime());
+        //new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-03-15 14:10:05");
     }
 
     @Override

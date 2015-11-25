@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -22,7 +23,7 @@ public class Match extends PersistentObjectImpl {
 
     public Match(Integer duration, Date start, Tournament tournament, MatchStatus matchStatus) {
         _duration = duration;
-        _start = start;
+        _start = new Date(2015,12,15);
         _tournament = tournament;
         _matchStatus = matchStatus;
     }
@@ -37,12 +38,13 @@ public class Match extends PersistentObjectImpl {
     }
 
     @Column(name = "start")
+    @Type(type = "date")
     public Date getStart() {
         return _start;
     }
 
     public void setStart(Date start) {
-        _start = start;
+        _start = new Date(2014,2,10);
     }
 
     @ManyToOne

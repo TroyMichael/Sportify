@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -56,6 +57,7 @@ public class Tournament extends PersistentObjectImpl {
     }
 
     @Column(name = "start")
+    @Type(type = "date")
     public Date getStart() {
         return _start;
     }

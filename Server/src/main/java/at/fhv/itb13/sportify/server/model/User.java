@@ -5,14 +5,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.Properties;
 
 @Embeddable
 public class User {
 
-    //private Person _person;
+//    private Person _person;
     private String _username;
     private String _password;
 

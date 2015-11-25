@@ -72,17 +72,6 @@ public class Tournament extends PersistentObjectImpl {
     }
 
     public void setTeams(Set<Team> teams) {
-        if (_teams != null) {
-            for (Team team : _teams) {
-                team.removeTournament(this);
-            }
-        }
-        _teams = teams;
-        if (_teams != null) {
-            for (Team team : _teams) {
-                team.addTournament(this);
-            }
-        }
         _teams = teams;
     }
 
@@ -98,26 +87,24 @@ public class Tournament extends PersistentObjectImpl {
     public void addTeam(Team team) {
         if (team != null) {
             _teams.add(team);
-            if ((team.getTournaments() != null) && !team.getTournaments().contains(this)) {
-                team.addTournament(this);
-            }
         }
     }
 
     public void removeTeam(Team team) {
         if (team != null) {
             _teams.remove(team);
-            if ((team.getTournaments() != null) && team.getTournaments().contains(this)) {
-                team.removeTournament(this);
-            }
         }
     }
 
     public void addMatch(Match match) {
-        _matches.add(match);
+        if (match != null) {
+            _matches.add(match);
+        }
     }
 
     public void removeMatch(Match match) {
-        _matches.remove(match);
+        if (match != null) {
+            _matches.remove(match);
+        }
     }
 }

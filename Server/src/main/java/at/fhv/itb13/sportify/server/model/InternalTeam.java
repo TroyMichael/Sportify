@@ -41,10 +41,14 @@ public class InternalTeam extends Team {
     }
 
     public void addPerson(Person person) {
-        _persons.add(person);
+        if (person != null) {
+            _persons.add(person);
+        }
     }
 
     public void removePerson(Person person) {
-        _persons.remove(person);
+        if (person != null) {
+            _persons.remove(person);
+        }
     }
 }

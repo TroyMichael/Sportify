@@ -23,7 +23,7 @@ public class Match extends PersistentObjectImpl {
 
     public Match(Integer duration, Date start, Tournament tournament, MatchStatus matchStatus) {
         _duration = duration;
-        _start = new Date(2015,12,15);
+        _start = start;
         _tournament = tournament;
         _matchStatus = matchStatus;
     }
@@ -44,7 +44,7 @@ public class Match extends PersistentObjectImpl {
     }
 
     public void setStart(Date start) {
-        _start = new Date(2014,2,10);
+        _start = start;
     }
 
     @ManyToOne
@@ -77,10 +77,14 @@ public class Match extends PersistentObjectImpl {
     }
 
     public void addMatchTeam(MatchTeam matchTeam) {
-        _matchTeams.add(matchTeam);
+        if (matchTeam != null) {
+            _matchTeams.add(matchTeam);
+        }
     }
 
     public void removeMatchTeam(MatchTeam matchTeam) {
-        _matchTeams.remove(matchTeam);
+        if (matchTeam != null) {
+            _matchTeams.remove(matchTeam);
+        }
     }
 }

@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.server.database.MatchTeamMother;
 import at.fhv.itb13.sportify.server.database.TournamentMother;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.MatchTeam;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
@@ -59,9 +60,9 @@ public class MatchMapperTest {
         matchDTO.addMatchTeamId(mt2.getId());
         matchDTO.addMatchTeamId(mt3.getId());
 
-        when(_facade.get(MatchTeam.class, mt1.getId())).thenReturn(mt1);
-        when(_facade.get(MatchTeam.class, mt2.getId())).thenReturn(mt2);
-        when(_facade.get(MatchTeam.class, mt3.getId())).thenReturn(mt3);
+        when(_facade.get(Team.class, mt1.getId())).thenReturn(mt1.getTeam());
+        when(_facade.get(Team.class, mt2.getId())).thenReturn(mt2.getTeam());
+        when(_facade.get(Team.class, mt3.getId())).thenReturn(mt3.getTeam());
         when(_facade.get(Tournament.class, t.getId())).thenReturn(t);
 
         //act
@@ -75,9 +76,9 @@ public class MatchMapperTest {
         assertEquals(matchDTO.getStart(), match.getStart());
         assertEquals(matchDTO.getTournamentId(), match.getTournament().getId());
         verify(_facade, times(1)).beginTransaction();
-        verify(_facade, times(1)).get(MatchTeam.class, mt1.getId());
-        verify(_facade, times(1)).get(MatchTeam.class, mt2.getId());
-        verify(_facade, times(1)).get(MatchTeam.class, mt3.getId());
+        verify(_facade, times(1)).get(Team.class, mt1.getId());
+        verify(_facade, times(1)).get(Team.class, mt2.getId());
+        verify(_facade, times(1)).get(Team.class, mt3.getId());
         verify(_facade, times(1)).get(Tournament.class, t.getId());
         verify(_facade, times(1)).commitTransaction();
     }

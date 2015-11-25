@@ -19,8 +19,8 @@ public class Person extends PersistentObjectImpl {
     private String _email;
     private String _birthdate;
     private Boolean _paid;
-    private Set<Roster> _rosters = new HashSet<Roster>();
-    private Set<InternalTeam> _teams = new HashSet<InternalTeam>();
+    private Set<Roster> _rosters = new HashSet<>();
+    private Set<InternalTeam> _teams = new HashSet<>();
     private Set<InternalTeam> _trainedTeams = new HashSet<>();
 
     public Person() {
@@ -149,27 +149,38 @@ public class Person extends PersistentObjectImpl {
     }
 
     public void addRoster(Roster roster) {
-        _rosters.add(roster);
+        if (roster != null) {
+            _rosters.add(roster);
+        }
     }
 
     public void removeRoster(Roster roster) {
-        _rosters.remove(roster);
+        if (roster != null) {
+            _rosters.remove(roster);
+        }
     }
 
     public void addTeam(InternalTeam team) {
-        _teams.add(team);
+        if (team != null) {
+            _teams.add(team);
+        }
     }
 
     public void removeTeam(InternalTeam team) {
-        _teams.remove(team);
+        if (team != null) {
+            _teams.remove(team);
+        }
     }
 
     public void addTrainedTeam(InternalTeam trainedTeam) {
-        _trainedTeams.add(trainedTeam);
+        if (trainedTeam != null) {
+            _trainedTeams.add(trainedTeam);
+        }
     }
 
     public void removeTrainedTeam(InternalTeam trainedTeam) {
-        _trainedTeams.remove(trainedTeam);
+        if (trainedTeam != null) {
+            _trainedTeams.add(trainedTeam);
+        }
     }
-
 }

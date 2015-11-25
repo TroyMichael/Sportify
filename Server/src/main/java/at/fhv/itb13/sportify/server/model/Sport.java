@@ -39,20 +39,7 @@ public class Sport extends PersistentObjectImpl {
     }
 
     public void setDepartment(Department department) {
-        Department oldDepartment = _department;
         _department = department;
-        if ((oldDepartment != null) && (!oldDepartment.equals(_department))) {
-            Set<Sport> oldDepartmentSports = oldDepartment.getSports();
-            if ((oldDepartmentSports != null) && (oldDepartmentSports.contains(this))) {
-                oldDepartment.removeSport(this);
-            }
-        }
-        if ((_department != null) && (!_department.equals(oldDepartment))) {
-            Set<Sport> newDepartmentSports = _department.getSports();
-            if ((newDepartmentSports != null) && (!newDepartmentSports.contains(this))) {
-                _department.addSport(this);
-            }
-        }
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
@@ -74,18 +61,26 @@ public class Sport extends PersistentObjectImpl {
     }
 
     public void addTeam(Team team) {
-        _teams.add(team);
+        if (team != null) {
+            _teams.add(team);
+        }
     }
 
     public void removeTeam(Team team) {
-        _teams.remove(team);
+        if (team != null) {
+            _teams.remove(team);
+        }
     }
 
     public void addTournament(Tournament tournament) {
-        _tournaments.add(tournament);
+        if (tournament != null) {
+            _tournaments.add(tournament);
+        }
     }
 
-    public void removeTournament(Tournament tournamet) {
-        _tournaments.remove(tournamet);
+    public void removeTournament(Tournament tournament) {
+        if (tournament != null) {
+            _tournaments.remove(tournament);
+        }
     }
 }

@@ -11,8 +11,8 @@ import java.util.Set;
 public class Roster extends PersistentObjectImpl {
 
     private String _name;
-    private Set<MatchTeam> _matchTeams = new HashSet<MatchTeam>();
-    private Set<Person> _persons = new HashSet<Person>();
+    private Set<MatchTeam> _matchTeams = new HashSet<>();
+    private Set<Person> _persons = new HashSet<>();
 
     public Roster() {
     }
@@ -50,10 +50,14 @@ public class Roster extends PersistentObjectImpl {
     }
 
     public void addPerson(Person person) {
-        _persons.add(person);
+        if (person != null) {
+            _persons.add(person);
+        }
     }
 
     public void removePerson(Person person) {
-        _persons.remove(person);
+        if (person != null) {
+            _persons.remove(person);
+        }
     }
 }

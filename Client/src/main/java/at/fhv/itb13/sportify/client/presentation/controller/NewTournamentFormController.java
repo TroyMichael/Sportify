@@ -121,6 +121,7 @@ public class NewTournamentFormController {
 
         //wrap observableList into filter list
         //p -> true shows all teams
+        //p -> false shows no teams
         FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, p -> false);
 
         //set changeListener to sportComboBox
@@ -158,6 +159,45 @@ public class NewTournamentFormController {
         _allTeamsTableView.setItems(sortedTeamList);
     }
 
+    private void setAllTeamsListData(ObservableList<DisplayTeamDTO> teams) {
+
+        //wrap observableList into filter list
+        //p -> true shows all teams
+        //p -> false shows no teams
+        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(teams, p -> false);
+
+        _filteredTeamList.setPredicate(team -> {
+
+            //define here all rules of filtering and what should be searched and filtered
+
+            //if nothing is selected in the combobox show no teams
+            if (_sportComboBox.getSelectionModel().getSelectedItem() == null) {
+                return false;
+            }
+
+            //else compare the ID of the selected combobox to the sportIDs of the teams
+            String filterID = _sportComboBox.getValue().getId();
+
+            if (team.getSport().getId().equals(filterID)) {
+                return true;
+            }
+            //filter more attributes if wanted
+
+            //if nothing matches, return false, so that that person won't be shown in the list
+            return false;
+        });
+
+        //FilteredList cannot be modified -> not sortable
+        //wrap filteredList in sortedList
+        SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedTeamList.comparatorProperty().bind(_allTeamsTableView.comparatorProperty());
+
+        //set sortedList as items to allTeamsTableView
+        _allTeamsTableView.setItems(sortedTeamList);
+    }
+
 
     private void setSportComboBoxData() {
         try {
@@ -181,7 +221,7 @@ public class NewTournamentFormController {
             DisplayTeamDTO teamToAdd = _allTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().add(teamToAdd);
             _allTeamsObservable.remove(teamToAdd);
-            setFilterAndDataToAllTeams(_allTeamsObservable);
+            setAllTeamsListData(_allTeamsObservable);
         }
     }
 
@@ -191,7 +231,7 @@ public class NewTournamentFormController {
             DisplayTeamDTO teamToRemove = _addedTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().remove(teamToRemove);
             _allTeamsObservable.add(teamToRemove);
-            setFilterAndDataToAllTeams(_allTeamsObservable);
+            setAllTeamsListData(_allTeamsObservable);
         }
     }
 
@@ -202,7 +242,7 @@ public class NewTournamentFormController {
                 _addedTeamsTableView.getItems().remove(teamToSwitch);
                 _allTeamsObservable.add(teamToSwitch);
         }
-        setFilterAndDataToAllTeams(_allTeamsObservable);
+        setAllTeamsListData(_allTeamsObservable);
     }
 
     @FXML

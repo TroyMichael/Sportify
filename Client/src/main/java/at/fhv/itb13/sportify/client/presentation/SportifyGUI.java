@@ -181,6 +181,11 @@ public class SportifyGUI extends Application {
         loadView("view/newTournamentForm.fxml", _rootLayout);
     }
 
+    public void loadNewTournamentView(TournamentDTO tournament) {
+        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        cont.setTournament(tournament);
+    }
+
     public static SportifyGUI getSharedMainApp() {
         return _sharedMainApp;
     }
@@ -194,7 +199,8 @@ public class SportifyGUI extends Application {
         //TODO when implementing tournamentDetailController & View
     }
 
-    public void loadNewMatchForm() {
-        loadView("view/NewMatchForm.fxml", _rootLayout);
+    public void loadNewMatchForm(TournamentDTO tournament) {
+        NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
+        cont.setTournament(tournament);
     }
 }

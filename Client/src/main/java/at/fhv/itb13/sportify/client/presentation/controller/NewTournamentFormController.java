@@ -12,7 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
+import java.time.ZoneId;
+import java.sql.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -49,17 +52,17 @@ public class NewTournamentFormController {
     @FXML
     private TextField _foreignTeamTextField;
 
-//    @FXML
-//    private TableView<MatchDetailDTO> _matchTableView;
+    @FXML
+    private TableView<MatchDTO> _matchTableView;
 //
 //    @FXML
 //    private TableColumn<MatchDetailDTO, String> _matchNumberColumn;
 //
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _team1NumberColumn;
-//
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _team2NumberColumn;
+    @FXML
+    private TableColumn<MatchDTO, String> _team1NameColumn;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _team2NameColumn;
 //
 //    @FXML
 //    private TableColumn<MatchDetailDTO, String> _dateNumberColumn;
@@ -70,8 +73,11 @@ public class NewTournamentFormController {
 //    @FXML
 //    private TableColumn<MatchDetailDTO, String> _scoreNumberColumn;
 
-    ObservableList<DisplayTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
+    private ObservableList<DisplayTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
+    private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
+
+    private TournamentDTO _tournament;
 
     @FXML
     private void initialize(){
@@ -86,6 +92,12 @@ public class NewTournamentFormController {
 
         getAllTeamsTableViewData();
         setSportComboBoxData();
+        _sportComboBox.setValue(_sportComboBox.getItems().get(3));
+
+        //set values for matchTable
+        //_team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        //_team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _matchTableView.setItems(_matchObservable);
     }
 
     private void getAllTeamsTableViewData() {
@@ -193,40 +205,19 @@ public class NewTournamentFormController {
         setFilterAndDataToAllTeams(_allTeamsObservable);
     }
 
-    private void switchMember (TableView<DisplayTeamDTO> viewToRemoveFrom, TableView<DisplayTeamDTO> viewToAddTo) {
-        if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
-            DisplayTeamDTO teamToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
-            viewToRemoveFrom.getItems().remove(teamToSwitch);
-            viewToAddTo.getItems().add(teamToSwitch);
-        }
-    }
-
     @FXML
     private void saveNewTournament() {
 
-        if (validate()) {
-            //gather all information of the new tournament
-            String tournamentName = _nameTextField.getText();
-            SportDTO selectedSport = _sportComboBox.getValue();
-            Set<String> teamIDs = new HashSet<>();
-
-            //create new TournamentDTO
-            TournamentDTO newTournament = new TournamentDTOImpl();
-            newTournament.setDescription(tournamentName);
-            newTournament.setSportID(selectedSport.getId());
-            newTournament.setLocation(_locationTextField.getText());
-            _addedTeamsTableView.getItems().forEach(team -> newTournament.addTeamID(team.getId()));
-
+        if (createOrUpdateTournamentDTO()) {
             //call createFunction
             try {
-                SessionController.getInstance().getSession().getTournamentRemote().createTournament(newTournament);
+                SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
                 initSuccessAlert();
                 //TODO switch to tournamentdetail view
             } catch (RemoteException e) {
                 e.printStackTrace();
+                initErrorAlert();
             }
-        } else {
-           initErrorAlert();
         }
     }
 
@@ -276,14 +267,39 @@ public class NewTournamentFormController {
 
     @FXML
     private void addNewMatch() {
-        SportifyGUI.getSharedMainApp().loadNewMatchForm();
+        if (createOrUpdateTournamentDTO()) {
+            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament);
+        }
+    }
+
+    private boolean createOrUpdateTournamentDTO() {
+        if (_tournament == null) {
+            _tournament = new TournamentDTOImpl();
+        }
+
+        if (validate()) {
+            //gather all information of the new tournament
+            String tournamentName = _nameTextField.getText();
+            SportDTO selectedSport = _sportComboBox.getValue();
+            Date startDate = Date.valueOf(_datePicker.getValue());
+
+            //fill _tournament with gathered data
+            _tournament.setDescription(tournamentName);
+            _tournament.setSportID(selectedSport.getId());
+            _tournament.setLocation(_locationTextField.getText());
+            _tournament.setStartDate(startDate);
+            _addedTeamsTableView.getItems().forEach(team -> _tournament.addTeamID(team.getId()));
+            _matchTableView.getItems().forEach(match -> _tournament.addMatch(match));
+            return true;
+        }
+        return false;
     }
 
     private void initSuccessAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Saving successful!");
         alert.setTitle("Saving successful");
-        alert.setContentText("A new Team with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
+        alert.setContentText("A new Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
         alert.showAndWait();
     }
 
@@ -293,5 +309,36 @@ public class NewTournamentFormController {
         alert.setTitle("Components missing!");
         alert.setContentText("A new Team could not be created due to missing fields!");
         alert.showAndWait();
+    }
+
+    public void setTournament(TournamentDTO tournament) {
+        _tournament = tournament;
+
+        //set data
+        _nameTextField.setText(_tournament.getDescription());
+        _locationTextField.setText(_tournament.getLocation());
+        _datePicker.setValue(_tournament.getStartDate().toLocalDate());
+
+        //set combobox value
+        for (SportDTO sport : _sportComboBox.getItems()) {
+            if (sport.getId().equals(_tournament.getSportID())) {
+                _sportComboBox.setValue(sport);
+            }
+        }
+
+        //add Teams to addedTeamTableView and remove them from allTeamTableView
+        //so teams cannot be chosen twice
+        Iterator it = _allTeamsObservable.iterator();
+        while (it.hasNext()) {
+            DisplayTeamDTO team = (DisplayTeamDTO)it.next();
+            if (_tournament.getTeamIDs().contains(team.getId())) {
+                it.remove();
+                _addedTeamsTableView.getItems().add(team);
+            }
+        }
+
+        setFilterAndDataToAllTeams(_allTeamsObservable);
+
+        _tournament.getMatches().forEach(match -> _matchObservable.add(match));
     }
 }

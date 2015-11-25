@@ -12,15 +12,16 @@ public class TournamentDTOImpl extends DTOImpl implements TournamentDTO {
 
     private String _description;
     private String _sportID;
-    private Set<String> _matchIDs = new HashSet<>();
+//    private Set<String> _matchIDs = new HashSet<>();
+    private Set<MatchDTO> _matches = new HashSet<>();
     private Set<String> _teamIDs = new HashSet<>();
     private Date _date;
     private String _location;
 
-    public TournamentDTOImpl (String description, String sportID, HashSet<String> matchIDs, Date date, String location){
+    public TournamentDTOImpl (String description, String sportID, HashSet<MatchDTO> matches, Date date, String location){
         _description = description;
         _sportID = sportID;
-        _matchIDs = matchIDs;
+        _matches = matches;
         _date = date;
         _location = location;
     }
@@ -50,19 +51,34 @@ public class TournamentDTOImpl extends DTOImpl implements TournamentDTO {
     }
 
     @Override
-    public Set<String> getMatchIDs() {
-        return _matchIDs;
+    public Set<MatchDTO> getMatches() {
+        return _matches;
     }
 
     @Override
-    public void addMatchID(String matchID) {
-        _matchIDs.add(matchID);
+    public void addMatch(MatchDTO match) {
+        _matches.add(match);
     }
 
     @Override
-    public void removeMatchID(String matchID) {
-        _matchIDs.remove(matchID);
+    public void removeMatch(MatchDTO match) {
+        _matches.remove(match);
     }
+
+//    @Override
+//    public Set<String> getMatchIDs() {
+//        return _matchIDs;
+//    }
+//
+//    @Override
+//    public void addMatchID(String matchID) {
+//        _matchIDs.add(matchID);
+//    }
+//
+//    @Override
+//    public void removeMatchID(String matchID) {
+//        _matchIDs.remove(matchID);
+//    }
 
     @Override
     public Set<String> getTeamIDs() {

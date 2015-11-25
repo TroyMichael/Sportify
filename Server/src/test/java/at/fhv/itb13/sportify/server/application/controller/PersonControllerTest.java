@@ -65,6 +65,7 @@ public class PersonControllerTest {
         // act
         List<SimplePersonDTO> persons2 = _personController.getAllSimplePersons();
 
+
         // assert
         verify(_facade, times(1)).beginTransaction();
         verify(_facade, times(1)).getAll(Person.class);

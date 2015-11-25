@@ -33,6 +33,9 @@ public class TournamentController {
         try {
             _facade.beginTransaction();
             _facade.create(tournament);
+
+            tournament.getMatches().forEach(match -> _facade.create(match));
+
             _facade.commitTransaction();
         } catch (Exception e) {
             _facade.rollbackTransaction();

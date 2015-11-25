@@ -5,8 +5,7 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,6 +49,7 @@ public class NewMatchFormController {
 
     private int _duration;
 
+    private TournamentDTO _tournament;
 
     @FXML
     private void initialize(){
@@ -58,32 +58,7 @@ public class NewMatchFormController {
 
         //set values for addedTeamsTableViews' columns
         _allTeamsOponentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-
-
-        setAllTeamsTableViewData();
     }
-
-    private void setAllTeamsTableViewData() {
-        //retrieve list of all teams and set the list to the _allTeamsTableView & allTeamsOponentTableView
-        try {
-            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
-
-            if (allTeams != null) {
-                //create an observableArrayList and fill it with all teams
-                ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
-                ObservableList<DisplayTeamDTO> allTeamsOponentObservable = FXCollections.observableArrayList();
-                allTeams.forEach(team -> {
-                    allTeamsObservable.add(team);
-                    allTeamsOponentObservable.add(team);
-                });
-                _allTeamsTableView.setItems(allTeamsObservable);
-                _allTeamsOponentTableView.setItems(allTeamsOponentObservable);
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @FXML
     private void saveNewMatch() throws RemoteException {
@@ -95,9 +70,13 @@ public class NewMatchFormController {
             newMatch.setStart(Date.from(_localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             newMatch.addMatchTeamId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
             newMatch.addMatchTeamId(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getId());
+            newMatch.setTorunamentId(_tournament.getId());
+            newMatch.setMatchStatus("Planned");
 
-            SessionController.getInstance().getSession().getMatchRemote().create(newMatch);
+            _tournament.addMatch(newMatch);
+
             initSuccessAlert();
+            SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament);
         }
     }
 
@@ -147,7 +126,7 @@ public class NewMatchFormController {
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
                 _localDate = _datePicker.getValue();
                 String[] times = _startTimeTextField.getText().split(":");
-                _localDate.atTime(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[3]));
+                _localDate.atTime(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[2]));
                 _startTimeTextField.setStyle("-fx-text-box-border: lightgrey;");
             } else {
                 _startTimeTextField.setStyle("-fx-text-box-border: red;");
@@ -163,11 +142,24 @@ public class NewMatchFormController {
     }
 
     @FXML
-    private void cancelNewMember() {
-        SportifyGUI.getSharedMainApp().loadMemberList();
+    private void cancelNewMatch() {
+        SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament);
     }
 
-    public void setAllPlayingTeams() {
 
+    public void setTournament(TournamentDTO tournament) {
+        _tournament = tournament;
+
+        try {
+            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            teams.forEach(team -> {
+                if (_tournament.getTeamIDs().contains(team.getId())) {
+                    _allTeamsTableView.getItems().add(team);
+                    _allTeamsOponentTableView.getItems().add(team);
+                }
+            });
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

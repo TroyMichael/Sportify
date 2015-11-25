@@ -77,12 +77,10 @@
             </Label>
             <TableView fx:id="_matchTableView" prefHeight="215.0" prefWidth="446.0">
               <columns>
-                <TableColumn fx:id="_matchNumberColumn" prefWidth="75.0" text="Match No." />
-                <TableColumn fx:id="_team1NumberColumn" prefWidth="75.0" text="Team 1" />
-                  <TableColumn fx:id="_team2NumberColumn" prefWidth="75.0" text="Team 2" />
-                  <TableColumn fx:id="_dateNumberColumn" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="_timeNumberColumn" prefWidth="75.0" text="Time" />
-                  <TableColumn fx:id="_scoreNumberColumn" prefWidth="75.0" text="Score" />
+                <TableColumn fx:id="_team1NameColumn" prefWidth="75.0" text="Team 1" />
+                <TableColumn fx:id="_team2NameColumn" prefWidth="75.0" text="Team 2" />
+                <TableColumn fx:id="_dateColumn" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="_timeColumn" prefWidth="75.0" text="Time" />
               </columns>
             </TableView>
          </children>

@@ -67,9 +67,20 @@ public class NewMatchFormController {
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
             newMatch.setStart(Date.valueOf(_localDate));
-            newMatch.addMatchTeamId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
-            newMatch.addMatchTeamId(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getId());
-            newMatch.setTorunamentId(_tournament.getId());
+
+            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team1.setId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            team1.setName(_allTeamsTableView.getSelectionModel().getSelectedItem().getName());
+            team1.setVersion(_allTeamsTableView.getSelectionModel().getSelectedItem().getVersion());
+
+            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team2.setId(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getId());
+            team2.setName(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getName());
+            team2.setVersion(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getVersion());
+
+            newMatch.setTeam1(team1);
+            newMatch.setTeam2(team2);
+            newMatch.setTournamentId(_tournament.getId());
             newMatch.setMatchStatus("Planned");
 
             _tournament.addMatch(newMatch);
@@ -122,6 +133,7 @@ public class NewMatchFormController {
                 validation = false;
             }
 
+            //define Regex: 0-24h, 0-59min, 0-69sek
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
                 _localDate = _datePicker.getValue();
                 String[] times = _startTimeTextField.getText().split(":");

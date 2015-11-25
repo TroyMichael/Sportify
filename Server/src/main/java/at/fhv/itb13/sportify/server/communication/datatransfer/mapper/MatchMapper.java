@@ -12,6 +12,7 @@ import static at.fhv.itb13.sportify.server.model.MatchStatus.PLANNED;
 
 /**
  * Created by Caroline on 21.11.2015.
+ *
  */
 public class MatchMapper extends Mapper<MatchDTO, Match> {
     private DBFacade _dbFacade = new DBFacadeImpl();
@@ -44,12 +45,19 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             }
             try {
                 _dbFacade.beginTransaction();
-                for (String matchTeamId : matchDTO.getMatchTeamIds()) {
-                    MatchTeam matchTeam = new MatchTeam();
-                    matchTeam.setMatch(match);
-                    matchTeam.setTeam(_dbFacade.get(Team.class, matchTeamId));
-                    match.addMatchTeam(matchTeam);
-                }
+
+                MatchDTOImpl.SimpleMatchTeamDTO matchTeam = matchDTO.getTeam1();
+                MatchTeam mMatchTeam = new MatchTeam();
+                mMatchTeam.setMatch(match);
+                mMatchTeam.setTeam(_dbFacade.get(Team.class, matchTeam.getId()));
+                match.addMatchTeam(mMatchTeam);
+
+                MatchDTOImpl.SimpleMatchTeamDTO matchTeam2 = matchDTO.getTeam1();
+                MatchTeam mMatchTeam2 = new MatchTeam();
+                mMatchTeam2.setMatch(match);
+                mMatchTeam2.setTeam(_dbFacade.get(Team.class, matchTeam2.getId()));
+                match.addMatchTeam(mMatchTeam2);
+
                 match.setTournament(_dbFacade.get(Tournament.class, matchDTO.getTournamentId()));
                 _dbFacade.commitTransaction();
             } catch (HibernateException e) {
@@ -68,9 +76,11 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             matchDTO.setVersion(domainObject.getVersion());
             matchDTO.setStart(domainObject.getStart());
             matchDTO.setDuration(domainObject.getDuration());
+
             if (domainObject.getTournament() != null) {
-                matchDTO.setTorunamentId(domainObject.getTournament().getId());
+                matchDTO.setTournamentId(domainObject.getTournament().getId());
             }
+
             matchDTO.setMatchStatus(domainObject.getMatchStatus().name());
 //            switch (domainObject.getMatchStatus()) {
 //                case PLANNED:
@@ -82,12 +92,22 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 //                default:
 //                    matchDTO.setMatchStatus("PLANNED");
 //            }
-            for (MatchTeam matchTeam : domainObject.getMatchTeams()) {
-                matchDTO.addMatchTeamId(matchTeam.getId());
-            }
+
+            MatchTeam mteam = domainObject.getMatchTeams().iterator().next();
+            //domainObject.getMatchTeams().remove(0);
+            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team1.setId(mteam.getId());
+            team1.setName(mteam.getTeam().getName());
+            matchDTO.setTeam1(team1);
+
+            MatchTeam mteam2 = domainObject.getMatchTeams().iterator().next();
+            //domainObject.getMatchTeams().remove(0);
+            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team2.setId(mteam2.getId());
+            team2.setName(mteam2.getTeam().getName());
+            matchDTO.setTeam2(team2);
             return matchDTO;
         }
-
         return null;
     }
 }

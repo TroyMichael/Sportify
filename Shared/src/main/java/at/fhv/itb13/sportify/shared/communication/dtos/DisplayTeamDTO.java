@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 /**
  * Created by Michael on 16.11.2015.
+ *
  */
 public interface DisplayTeamDTO extends Serializable, DTO {
 

@@ -203,4 +203,8 @@ public class SportifyGUI extends Application {
         NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament);
     }
+
+    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO){
+        loadView("view/NewTournamentForm.fxml", new BorderPane());
+    }
 }

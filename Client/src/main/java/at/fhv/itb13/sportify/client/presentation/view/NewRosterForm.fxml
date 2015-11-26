@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.NewRosterFormController">
+   <children>
+      <Label layoutX="14.0" layoutY="87.0" text="Create new Roster" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="142.0" text="Add Members" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="15.0" layoutY="232.0" prefHeight="218.0" prefWidth="570.0" spacing="30.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <TableView fx:id="_allMembersTableView" prefHeight="207.0" prefWidth="199.0">
+              <columns>
+                <TableColumn fx:id="_allMembersFirstNameColumn" prefWidth="98.0" text="First Name" />
+                <TableColumn fx:id="_allMembersLastNameColumn" prefWidth="99.0" text="Last Name" />
+              </columns>
+            </TableView>
+            <VBox prefHeight="196.0" prefWidth="115.0" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addMember" prefHeight="25.0" prefWidth="115.0" text="add --&gt;" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeMember" prefHeight="25.0" prefWidth="140.0" text="&lt;-- remove" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeAllMembers" prefHeight="25.0" prefWidth="129.0" text="&lt;&lt;-- remove all" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <TableView fx:id="_addedMembersTableView" prefHeight="207.0" prefWidth="199.0">
+               <columns>
+                  <TableColumn fx:id="_addedMembersFirstNameColumn" prefWidth="98.0" text="First Name" />
+                  <TableColumn fx:id="_addedMembersLastNameColumn" prefWidth="99.0" text="Last Name" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <HBox layoutX="482.0" layoutY="366.0" prefHeight="25.0" prefWidth="179.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#informMembers" prefHeight="25.0" prefWidth="113.0" text="Inform Members" />
+            <Button fx:id="_cancelButton" mnemonicParsing="false" onAction="#cancelNewRoster" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

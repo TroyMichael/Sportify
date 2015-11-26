@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.TeamDetailViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.TeamDetailViewController">
    <children>
       <GridPane layoutX="21.0" layoutY="70.0" prefHeight="86.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="70.0">
         <columnConstraints>
@@ -44,6 +44,19 @@
          </columns>
       </TableView>
       <Button layoutX="549.0" layoutY="472.0" mnemonicParsing="false" onAction="#editTeam" text="Edit" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-      <Button layoutX="498.0" layoutY="471.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button layoutX="499.0" layoutY="675.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <TextField fx:id="_filterTextField" layoutX="15.0" layoutY="495.0" prefHeight="25.0" prefWidth="570.0" promptText="Enter words to filter list" />
+      <TableView fx:id="_tournamentTableView" layoutX="15.0" layoutY="520.0" prefHeight="140.0" prefWidth="570.0">
+         <columns>
+            <TableColumn fx:id="_descriptionColumn" prefWidth="295.0" text="Description" />
+            <TableColumn fx:id="_startDateColumn" prefWidth="128.0" text="Start Date" />
+            <TableColumn fx:id="_locationColumn" prefWidth="146.0" text="Location" />
+         </columns>
+      </TableView>
+      <Label layoutX="15.0" layoutY="461.0" text="Tournaments">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -21,6 +21,6 @@ public interface DisplayTeamDTO extends Serializable, DTO {
     SimpleSportDTO getSport();
     void setSport(SimpleSportDTO sport);
 
-
-
+    HashSet<SimpleTournamentDTO> getTournaments ();
+    void addSimpleTournamentDTO (SimpleTournamentDTO simpleTournamentDTO);
 }

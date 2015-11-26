@@ -12,16 +12,18 @@ public class DisplayTeamlDTOImpl extends DTOImpl implements DisplayTeamDTO {
     private HashSet<SimplePersonDTO> _members = new HashSet<>();
     private SimplePersonDTO _trainer;
     private SimpleSportDTO _sport;
+    private HashSet<SimpleTournamentDTO> _tournaments = new HashSet<>();
 
     public DisplayTeamlDTOImpl() {
 
     }
 
-    public DisplayTeamlDTOImpl(String name, HashSet<SimplePersonDTO> members, SimplePersonDTO trainer, SimpleSportDTO sport) {
+    public DisplayTeamlDTOImpl(String name, HashSet<SimplePersonDTO> members, SimplePersonDTO trainer, SimpleSportDTO sport, HashSet<SimpleTournamentDTO> tournaments) {
         _name = name;
         _members = members;
         _trainer = trainer;
         _sport = sport;
+        _tournaments = tournaments;
     }
 
 
@@ -63,5 +65,15 @@ public class DisplayTeamlDTOImpl extends DTOImpl implements DisplayTeamDTO {
     @Override
     public void setSport(SimpleSportDTO sport) {
         _sport = sport;
+    }
+
+    @Override
+    public HashSet<SimpleTournamentDTO> getTournaments() {
+        return _tournaments;
+    }
+
+    @Override
+    public void addSimpleTournamentDTO(SimpleTournamentDTO simpleTournamentDTO) {
+        _tournaments.add(simpleTournamentDTO);
     }
 }

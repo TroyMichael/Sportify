@@ -1,6 +1,8 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +41,7 @@ public class NewRosterFormController {
 
     private ObservableList<PersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
 
+    private DisplayTeamDTO _team;
 
     @FXML
     private void initialize(){
@@ -55,6 +58,10 @@ public class NewRosterFormController {
 
         setAllMembersTableViewData();
 
+    }
+
+    public void setDisplayTeamDTO(DisplayTeamDTO team){
+        _team = team;
     }
 
     private void setAllMembersTableViewData() {
@@ -118,10 +125,7 @@ public class NewRosterFormController {
 
     @FXML
     private void cancelNewRoster() {
-        // get a handle to the stage
-        Stage stage = (Stage)_cancelButton.getScene().getWindow();
-        // do what you have to do
-        stage.close();
+        SportifyGUI.getSharedMainApp().loadTeamDetailView(_team);
     }
 
 }

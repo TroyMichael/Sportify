@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.TeamController;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.TeamRemote;
@@ -43,5 +44,10 @@ public class TeamServant extends UnicastRemoteObject implements TeamRemote {
     @Override
     public List<TeamDTO> getAllTeams() throws RemoteException {
         return _teamController.getAllTeams();
+    }
+
+    @Override
+    public List<DisplayTeamDTO> getAllDisplayTeams() throws RemoteException {
+        return _teamController.getAllDisplayTeams();
     }
 }

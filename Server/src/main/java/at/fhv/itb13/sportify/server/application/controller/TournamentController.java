@@ -1,12 +1,14 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.MatchMapper;
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimpleTournamentMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TournamentMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 
 import java.util.HashSet;
@@ -21,15 +23,18 @@ import java.util.Set;
 public class TournamentController {
     private DBFacade _facade;
     private TournamentMapper _tournamentMapper;
+    private SimpleTournamentMapper _simpleTournamentMapper;
 
     public TournamentController() {
         _facade = new DBFacadeImpl();
         _tournamentMapper = new TournamentMapper();
+        _simpleTournamentMapper = new SimpleTournamentMapper();
     }
 
-    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper) {
+    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper, SimpleTournamentMapper simpleTournamentMapper) {
         _facade = facade;
         _tournamentMapper = tournamentMapper;
+        _simpleTournamentMapper = simpleTournamentMapper;
     }
 
 
@@ -82,17 +87,32 @@ public class TournamentController {
     }
 
     public List<TournamentDTO> getAllTournaments() {
-        List <Tournament> _tournamentDTOs = new LinkedList<>();
+        List <Tournament> tournaments = new LinkedList<>();
         try {
             _facade.beginTransaction();
-            _tournamentDTOs = _facade.getAll(Tournament.class);
+            tournaments = _facade.getAll(Tournament.class);
             _facade.commitTransaction();
         } catch (Exception e){
             e.printStackTrace();
             _facade.rollbackTransaction();
         }
         List <TournamentDTO> tournamentDTOs;
-        tournamentDTOs = _tournamentMapper.toDTOList(_tournamentDTOs);
+        tournamentDTOs = _tournamentMapper.toDTOList(tournaments);
         return tournamentDTOs;
+    }
+
+    public List<SimpleTournamentDTO> getAllSimpleTournaments() {
+        List <Tournament> tournaments = new LinkedList<>();
+        try {
+            _facade.beginTransaction();
+            tournaments = _facade.getAll(Tournament.class);
+            _facade.commitTransaction();
+        } catch (Exception e){
+            e.printStackTrace();
+            _facade.rollbackTransaction();
+        }
+        List <SimpleTournamentDTO> simpleTournamentDTOs;
+        simpleTournamentDTOs = _simpleTournamentMapper.toDTOList(tournaments);
+        return simpleTournamentDTOs;
     }
 }

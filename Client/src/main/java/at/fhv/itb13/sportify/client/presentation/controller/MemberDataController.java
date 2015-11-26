@@ -115,7 +115,7 @@ public class MemberDataController {
     private void setTeamsTableViewData() {
         try {
 
-            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
             HashSet<String> teams = new HashSet<>();
             teams = _person.getTeamIds();
 

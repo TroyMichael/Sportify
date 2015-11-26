@@ -162,7 +162,7 @@ public class NewMatchFormController {
         _tournament = tournament;
 
         try {
-            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
             teams.forEach(team -> {
                 if (_tournament.getTeamIDs().contains(team.getId())) {
                     _allTeamsTableView.getItems().add(team);

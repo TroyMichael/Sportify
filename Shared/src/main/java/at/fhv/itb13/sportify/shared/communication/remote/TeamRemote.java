@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.remote;
 
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 
@@ -15,4 +16,6 @@ public interface TeamRemote extends Remote {
     void addPersonToTeam(PersonDTO personDTO) throws RemoteException;
 
     List<TeamDTO> getAllTeams() throws RemoteException;
+
+    List<DisplayTeamDTO> getAllDisplayTeams() throws RemoteException;
 }

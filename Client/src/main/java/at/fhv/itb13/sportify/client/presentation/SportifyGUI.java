@@ -195,8 +195,8 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadTournamentDataView(TournamentDTO tournamentDTO) {
-        //TODO when implementing tournamentDetailController & View
+    public void loadTournamentListView () {
+        loadView("view/TournamentList.fxml", _rootLayout);
     }
 
     public void loadNewMatchForm(TournamentDTO tournament) {

@@ -68,6 +68,8 @@ public class TournamentController {
 
     public void saveOrUpdate(TournamentDTO tournamentDTO) {
         try {
+            //todo verify if tournament mapper doesn't need to call "toExistingDomainObject"
+            //todo to ensure that the tournament is not being duplicated
             Tournament tournamentDomain = _tournamentMapper.toDomainObject(tournamentDTO);
             _facade.beginTransaction();
             _facade.createOrUpdate(tournamentDomain);

@@ -72,6 +72,11 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
             tournament.setLocation(tournamentDTO.getLocation());
             tournament.setId(tournamentDTO.getId());
             tournament.setVersion(tournamentDTO.getVersion());
+            if (tournamentDTO.getMatches().size() > 0){
+                for (MatchDTO matchDTO : tournamentDTO.getMatches()){
+                    tournament.addMatch(_matchMapper.toDomainObject(matchDTO));
+                }
+            }
             try {
                 dbFacade.beginTransaction();
                 if (tournamentDTO.getTeamIDs().size() > 0) {

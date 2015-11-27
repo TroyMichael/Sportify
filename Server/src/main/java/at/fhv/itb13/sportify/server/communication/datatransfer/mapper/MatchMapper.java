@@ -94,14 +94,14 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 //            }
 
             MatchTeam mteam = domainObject.getMatchTeams().iterator().next();
-            //domainObject.getMatchTeams().remove(0);
+            domainObject.getMatchTeams().remove(0);
             MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
             team1.setId(mteam.getId());
             team1.setName(mteam.getTeam().getName());
             matchDTO.setTeam1(team1);
 
             MatchTeam mteam2 = domainObject.getMatchTeams().iterator().next();
-            //domainObject.getMatchTeams().remove(0);
+            domainObject.getMatchTeams().remove(0);
             MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
             team2.setId(mteam2.getId());
             team2.setName(mteam2.getTeam().getName());

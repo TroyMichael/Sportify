@@ -10,7 +10,6 @@ import java.util.Properties;
 
 public class QueueProducerTest {
 
-    @Test
     public void sendMessage() {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");

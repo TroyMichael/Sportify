@@ -10,8 +10,7 @@ import java.util.Properties;
 
 public class QueueConsumerTest {
 
-    @Test
-    public void sendMessage() {
+    public void getMessage() {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");

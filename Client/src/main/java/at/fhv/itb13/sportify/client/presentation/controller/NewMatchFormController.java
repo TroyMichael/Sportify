@@ -39,10 +39,10 @@ public class NewMatchFormController {
     private TableColumn<DisplayTeamDTO, String> _allTeamsNameColumn;
 
     @FXML
-    private TableView<DisplayTeamDTO> _allTeamsOponentTableView;
+    private TableView<DisplayTeamDTO> _allTeamsOpponentTableView;
 
     @FXML
-    private TableColumn<DisplayTeamDTO, String> _allTeamsOponentNameColumn;
+    private TableColumn<DisplayTeamDTO, String> _allTeamsOpponentNameColumn;
 
     private LocalDate _localDate;
 
@@ -56,7 +56,7 @@ public class NewMatchFormController {
         _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _allTeamsOponentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsOpponentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     }
 
     @FXML
@@ -67,9 +67,20 @@ public class NewMatchFormController {
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
             newMatch.setStart(Date.valueOf(_localDate));
-            newMatch.addMatchTeamId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
-            newMatch.addMatchTeamId(_allTeamsOponentTableView.getSelectionModel().getSelectedItem().getId());
-            newMatch.setTorunamentId(_tournament.getId());
+
+            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team1.setId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            team1.setName(_allTeamsTableView.getSelectionModel().getSelectedItem().getName());
+            team1.setVersion(_allTeamsTableView.getSelectionModel().getSelectedItem().getVersion());
+
+            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            team2.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
+            team2.setName(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getName());
+            team2.setVersion(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getVersion());
+
+            newMatch.setTeam1(team1);
+            newMatch.setTeam2(team2);
+            newMatch.setTournamentId(_tournament.getId());
             newMatch.setMatchStatus("Planned");
 
             _tournament.addMatch(newMatch);
@@ -83,7 +94,7 @@ public class NewMatchFormController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Saving successful!");
         alert.setTitle("Saving successful");
-        alert.setContentText("A new Match between " + _allTeamsTableView.getSelectionModel().getSelectedItem().getName() + " and " + _allTeamsOponentTableView.getSelectionModel().getSelectedItem().getName() + " was saved successfully!");
+        alert.setContentText("A new Match between " + _allTeamsTableView.getSelectionModel().getSelectedItem().getName() + " and " + _allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getName() + " was saved successfully!");
         alert.showAndWait();
     }
 
@@ -122,6 +133,7 @@ public class NewMatchFormController {
                 validation = false;
             }
 
+            //define Regex: 0-24h, 0-59min, 0-69sek
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
                 _localDate = _datePicker.getValue();
                 String[] times = _startTimeTextField.getText().split(":");
@@ -133,7 +145,7 @@ public class NewMatchFormController {
             }
         }
 
-        if (_allTeamsTableView.getSelectionModel().getSelectedItem() == null ||_allTeamsOponentTableView.getSelectionModel().getSelectedItem() == null) {
+        if (_allTeamsTableView.getSelectionModel().getSelectedItem() == null || _allTeamsOpponentTableView.getSelectionModel().getSelectedItem() == null) {
             validation = false;
         }
 
@@ -150,11 +162,11 @@ public class NewMatchFormController {
         _tournament = tournament;
 
         try {
-            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
             teams.forEach(team -> {
                 if (_tournament.getTeamIDs().contains(team.getId())) {
                     _allTeamsTableView.getItems().add(team);
-                    _allTeamsOponentTableView.getItems().add(team);
+                    _allTeamsOpponentTableView.getItems().add(team);
                 }
             });
         } catch (RemoteException e) {

@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.DisplayTeamMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TeamMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.InternalTeamMother;
@@ -23,12 +24,14 @@ public class TeamControllerTest {
     private DBFacade _facade;
     @Mock
     private TeamMapper _teamMapper;
+    @Mock
+    private DisplayTeamMapper _displayTeamMapper;
 
     private TeamController _teamController;
 
     @Before
     public void setUp() {
-        _teamController = new TeamController(_facade, _teamMapper);
+        _teamController = new TeamController(_facade, _teamMapper, _displayTeamMapper);
     }
 
     @Test

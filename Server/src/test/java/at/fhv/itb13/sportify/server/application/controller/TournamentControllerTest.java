@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.SimpleTournamentMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TournamentMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.TournamentMother;
@@ -23,12 +24,14 @@ public class TournamentControllerTest {
     private DBFacade _facade;
     @Mock
     private TournamentMapper _mapper;
+    @Mock
+    private SimpleTournamentMapper _simpleTournamentMapper;
 
     private TournamentController _tournamentController;
 
     @Before
     public void setUp() {
-        _tournamentController = new TournamentController(_facade, _mapper);
+        _tournamentController = new TournamentController(_facade, _mapper, _simpleTournamentMapper);
     }
 
     @Test

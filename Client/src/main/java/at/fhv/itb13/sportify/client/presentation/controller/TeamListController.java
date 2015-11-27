@@ -50,7 +50,7 @@ public class TeamListController {
         _trainerColumn.setCellValueFactory(new PropertyValueFactory<>("Trainer"));
 
         try {
-            List<DisplayTeamDTO> tempTeamList = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> tempTeamList = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
             tempTeamList.forEach(team -> _teams.add(team));
         } catch (RemoteException e) {
             e.printStackTrace();

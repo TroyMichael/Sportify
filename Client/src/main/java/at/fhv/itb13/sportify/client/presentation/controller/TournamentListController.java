@@ -2,7 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,47 +29,48 @@ public class TournamentListController {
     private TextField _filterTextField;
 
     @FXML
-    private TableView<TournamentDTO> _tournamentTableView;
+    private TableView<SimpleTournamentDTO> _tournamentTableView;
 
     @FXML
-    private TableColumn<TournamentDTO, String> _descriptionColumn;
+    private TableColumn<SimpleTournamentDTO, String> _descriptionColumn;
 
     @FXML
-    private TableColumn<TournamentDTO, String> _sportColumn;
+    private TableColumn<SimpleTournamentDTO, String> _sportColumn;
 
     @FXML
-    private TableColumn<TournamentDTO, String> _startDateColumn;
+    private TableColumn<SimpleTournamentDTO, String> _startDateColumn;
 
     @FXML
-    private TableColumn<TournamentDTO, String> _locationColumn;
+    private TableColumn<SimpleTournamentDTO, String> _locationColumn;
 
-    private ObservableList<TournamentDTO> _tournamentList = FXCollections.observableArrayList();
+    private ObservableList<SimpleTournamentDTO> _tournamentList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
 
         //set column values
-        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _sportColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
-        _startDateColumn.setCellValueFactory(new PropertyValueFactory<>("Birthdate"));
-        _locationColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        _sportColumn.setCellValueFactory(new PropertyValueFactory<>("Sport"));
+        _startDateColumn.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
+        _locationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
 
         getAndAddDataToTournamentList();
-        setDoubleClickOnMemberTableView();
+        setDoubleClickOnTournamentTableView();
         setFilterProcess();
     }
 
     /*
-    defines that when a doubleclick occurs on a row in memberTableView the given TournamentDTO is loaded in detail
+    defines that when a doubleclick occurs on a row in TournamentTableView the given TournamentDTO is loaded in detail
      */
-    private void setDoubleClickOnMemberTableView() {
+    private void setDoubleClickOnTournamentTableView() {
         //set doubleclick handling of tableViewRow
         _tournamentTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     if (_tournamentTableView.getSelectionModel().getSelectedItem() != null) {
-                        SportifyGUI.getSharedMainApp().loadTournamentDataView(_tournamentTableView.getSelectionModel().getSelectedItem());
+                        //todo load detail view of tournament when implemented
+                        //SportifyGUI.getSharedMainApp().loadTournamentDataView(_tournamentTableView.getSelectionModel().getSelectedItem());
                     }
                 }
             }
@@ -85,7 +86,7 @@ public class TournamentListController {
 
         //wrap observableList into filter list
         //tournamentDTO -> true shows all tournaments
-        FilteredList<TournamentDTO> _filteredTournamentDTOList = new FilteredList<>(_tournamentList, tournamentDTO -> true);
+        FilteredList<SimpleTournamentDTO> _filteredTournamentDTOList = new FilteredList<>(_tournamentList, tournamentDTO -> true);
 
         //set changeListener to textfield
         _filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -117,13 +118,13 @@ public class TournamentListController {
 
         //FilteredList cannot be modified -> not sortable
         //wrap filteredList in sortedList
-        SortedList<TournamentDTO> sortedMemberList = new SortedList<>(_filteredTournamentDTOList);
+        SortedList<SimpleTournamentDTO> sortedTournamentList = new SortedList<>(_filteredTournamentDTOList);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedMemberList.comparatorProperty().bind(_tournamentTableView.comparatorProperty());
+        sortedTournamentList.comparatorProperty().bind(_tournamentTableView.comparatorProperty());
 
-        //set sortedList as items to memberTableView
-        _tournamentTableView.setItems(sortedMemberList);
+        //set sortedList as items to TournamentTableView
+        _tournamentTableView.setItems(sortedTournamentList);
     }
 
     /*
@@ -131,7 +132,7 @@ public class TournamentListController {
      */
     private void getAndAddDataToTournamentList() {
         try {
-            List<TournamentDTO> tempTournamentList = SessionController.getInstance().getSession().getTournamentRemote().getAllTournaments();
+            List<SimpleTournamentDTO> tempTournamentList = SessionController.getInstance().getSession().getTournamentRemote().getAllSimpleTournaments();
             tempTournamentList.forEach(tournamentDTO -> _tournamentList.add(tournamentDTO));
         } catch (RemoteException e) {
             e.printStackTrace();

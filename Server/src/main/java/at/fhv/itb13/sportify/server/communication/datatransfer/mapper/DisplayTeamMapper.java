@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
 import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamlDTOImpl;
@@ -12,6 +13,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamlDTOImpl;
 public class DisplayTeamMapper extends Mapper<DisplayTeamDTO, InternalTeam> {
 
     private SimplePersonMapper _simplePersonMapper = new SimplePersonMapper();
+    private SimpleTournamentMapper _simpleTournamentMapper = new SimpleTournamentMapper();
 
     public DisplayTeamMapper(){}
     public DisplayTeamMapper(SimplePersonMapper simplePersonMapper){
@@ -38,6 +40,12 @@ public class DisplayTeamMapper extends Mapper<DisplayTeamDTO, InternalTeam> {
 
             if (domainObject.getSport() != null) {
                 newDisplayTeamDTO.setSport(new SimpleSportDTOImpl(domainObject.getSport().getName(), domainObject.getSport().getId()));
+            }
+
+            if (domainObject.getTournaments() != null){
+                for (Tournament tournament : domainObject.getTournaments()){
+                    newDisplayTeamDTO.addSimpleTournamentDTO (_simpleTournamentMapper.toDTOObject(tournament));
+                }
             }
 
             newDisplayTeamDTO.setId(domainObject.getId());

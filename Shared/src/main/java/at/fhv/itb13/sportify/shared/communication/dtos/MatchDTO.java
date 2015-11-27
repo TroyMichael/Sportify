@@ -16,17 +16,17 @@ public interface MatchDTO extends Serializable, DTO {
 
     String getTournamentId();
 
-    void setTorunamentId(String id);
+    void setTournamentId(String id);
 
     String getMatchStatus();
 
     void setMatchStatus(String matchStatus);
 
-    Set<String> getMatchTeamIds();
+    MatchDTOImpl.SimpleMatchTeamDTO getTeam1();
 
-    void setMatchTeams(Set<String> ids);
+    void setTeam1(MatchDTOImpl.SimpleMatchTeamDTO team1);
 
-    void addMatchTeamId(String id);
+    MatchDTOImpl.SimpleMatchTeamDTO getTeam2();
 
-    void removeMatchTeamId(String id);
+    void setTeam2(MatchDTOImpl.SimpleMatchTeamDTO team2);
 }

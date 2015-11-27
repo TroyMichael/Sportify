@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -195,12 +196,18 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadTournamentDataView(TournamentDTO tournamentDTO) {
-        //TODO when implementing tournamentDetailController & View
+    public void loadTournamentListView () {
+        loadView("view/TournamentList.fxml", _rootLayout);
     }
 
     public void loadNewMatchForm(TournamentDTO tournament) {
         NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament);
+    }
+
+    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
+       NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
+        cont.setDisplayTeamDTO(displayTeamDTO);
+
     }
 }

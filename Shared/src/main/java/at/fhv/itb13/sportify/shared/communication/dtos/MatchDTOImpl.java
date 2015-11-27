@@ -1,8 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
@@ -10,7 +8,8 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     private Date _start;
     private String _tournamentId;
     private String _matchStatus;
-    private Set<String> _matchTeamIds = new HashSet<>();
+    private SimpleMatchTeamDTO _team1;
+    private SimpleMatchTeamDTO _team2;
 
     public MatchDTOImpl() {
     }
@@ -48,7 +47,7 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     }
 
     @Override
-    public void setTorunamentId(String id) {
+    public void setTournamentId(String id) {
         _tournamentId = id;
     }
 
@@ -63,22 +62,46 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     }
 
     @Override
-    public Set<String> getMatchTeamIds() {
-        return _matchTeamIds;
+    public SimpleMatchTeamDTO getTeam1() {
+        return _team1;
     }
 
     @Override
-    public void setMatchTeams(Set<String> ids) {
-        _matchTeamIds = ids;
+    public void setTeam1(SimpleMatchTeamDTO team1) {
+        _team1 = team1;
     }
 
     @Override
-    public void addMatchTeamId(String id) {
-        _matchTeamIds.add(id);
+    public SimpleMatchTeamDTO getTeam2() {
+        return _team2;
     }
 
     @Override
-    public void removeMatchTeamId(String id) {
-        _matchTeamIds.remove(id);
+    public void setTeam2(SimpleMatchTeamDTO team2) {
+        _team2 = team2;
+    }
+
+    public static class SimpleMatchTeamDTO extends DTOImpl{
+        private String _name;
+
+        public SimpleMatchTeamDTO() {
+        }
+
+        public SimpleMatchTeamDTO(String name) {
+            _name = name;
+        }
+
+        public String getName() {
+            return _name;
+        }
+
+        public void setName(String name) {
+            _name = name;
+        }
+
+        @Override
+        public String toString() {
+            return _name;
+        }
     }
 }

@@ -31,6 +31,7 @@
                   <Menu mnemonicParsing="false" text="Tournament">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#loadNewTournamentView" text="New Tournament" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadTournamentListView" text="Tournament List" />
                     </items>
                   </Menu>
                     </menus>

@@ -124,7 +124,7 @@ public class EditMemberDataController {
     private void setAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
         try {
-            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all members

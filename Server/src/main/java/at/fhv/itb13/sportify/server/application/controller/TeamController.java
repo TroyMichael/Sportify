@@ -1,9 +1,11 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
+import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.DisplayTeamMapper;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.TeamMapper;
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import org.hibernate.HibernateException;
@@ -15,15 +17,18 @@ public class TeamController {
 
     private DBFacade _facade;
     private TeamMapper _teamMapper;
+    private DisplayTeamMapper _displayTeamMapper;
 
     public TeamController() {
         _facade = new DBFacadeImpl();
         _teamMapper = new TeamMapper();
+        _displayTeamMapper = new DisplayTeamMapper();
     }
 
-    public TeamController(DBFacade facade, TeamMapper teamMapper) {
+    public TeamController(DBFacade facade, TeamMapper teamMapper, DisplayTeamMapper displayTeamMapper) {
         _facade = facade;
         _teamMapper = teamMapper;
+        _displayTeamMapper = displayTeamMapper;
     }
 
     /**
@@ -75,6 +80,28 @@ public class TeamController {
                 teamDTOs.add(_teamMapper.toDTOObject(team));
             }
             return teamDTOs;
+        }
+        return null;
+    }
+
+    public List<DisplayTeamDTO> getAllDisplayTeams() {
+        List<InternalTeam> allTeams = null;
+
+        try {
+            _facade.beginTransaction();
+            allTeams = _facade.getAll(InternalTeam.class);
+            _facade.commitTransaction();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            _facade.rollbackTransaction();
+        }
+
+        if (allTeams != null) {
+            List<DisplayTeamDTO> teamDetailList = new ArrayList<>();
+            for (InternalTeam t : allTeams) {
+                teamDetailList.add(_displayTeamMapper.toDTOObject(t));
+            }
+            return teamDetailList;
         }
         return null;
     }

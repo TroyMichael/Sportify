@@ -12,12 +12,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
-import java.time.ZoneId;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
+import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.*;
 
 /**
  * Created by Michael on 10.11.2015.
@@ -54,24 +53,18 @@ public class NewTournamentFormController {
 
     @FXML
     private TableView<MatchDTO> _matchTableView;
-//
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _matchNumberColumn;
-//
-    @FXML
-    private TableColumn<MatchDTO, String> _team1NameColumn;
 
     @FXML
-    private TableColumn<MatchDTO, String> _team2NameColumn;
-//
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _dateNumberColumn;
-//
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _timeNumberColumn;
-//
-//    @FXML
-//    private TableColumn<MatchDetailDTO, String> _scoreNumberColumn;
+    private TableColumn<MatchDTO, SimpleMatchTeamDTO> _team1NameColumn;
+
+    @FXML
+    private TableColumn<MatchDTO, SimpleMatchTeamDTO> _team2NameColumn;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _dateColumn;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _timeColumn;
 
     private ObservableList<DisplayTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
@@ -95,19 +88,20 @@ public class NewTournamentFormController {
         _sportComboBox.setValue(_sportComboBox.getItems().get(3));
 
         //set values for matchTable
-        //_team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        //_team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        _team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team1"));
+        _team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team2"));
+        _dateColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
         _matchTableView.setItems(_matchObservable);
     }
 
     private void getAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allTeamsTableView
         try {
-            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamDetailRemote().getAllTeams();
+            List<DisplayTeamDTO> allTeams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
 
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all teams
-
                 allTeams.forEach(team -> _allTeamsObservable.add(team));
                 setFilterAndDataToAllTeams(_allTeamsObservable);
             }
@@ -302,7 +296,7 @@ public class NewTournamentFormController {
 
     @FXML
     private void addForeignTeam() {
-        //TODO
+
     }
 
     @FXML
@@ -359,7 +353,7 @@ public class NewTournamentFormController {
         _locationTextField.setText(_tournament.getLocation());
         _datePicker.setValue(_tournament.getStartDate().toLocalDate());
 
-        //set combobox value
+        //set _sportCombobox value
         for (SportDTO sport : _sportComboBox.getItems()) {
             if (sport.getId().equals(_tournament.getSportID())) {
                 _sportComboBox.setValue(sport);
@@ -378,7 +372,6 @@ public class NewTournamentFormController {
         }
 
         setFilterAndDataToAllTeams(_allTeamsObservable);
-
         _tournament.getMatches().forEach(match -> _matchObservable.add(match));
     }
 }

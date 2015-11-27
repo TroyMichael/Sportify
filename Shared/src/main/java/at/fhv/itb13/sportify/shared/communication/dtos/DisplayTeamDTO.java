@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 /**
  * Created by Michael on 16.11.2015.
+ *
  */
 public interface DisplayTeamDTO extends Serializable, DTO {
 
@@ -20,6 +21,6 @@ public interface DisplayTeamDTO extends Serializable, DTO {
     SimpleSportDTO getSport();
     void setSport(SimpleSportDTO sport);
 
-
-
+    HashSet<SimpleTournamentDTO> getTournaments ();
+    void addSimpleTournamentDTO (SimpleTournamentDTO simpleTournamentDTO);
 }

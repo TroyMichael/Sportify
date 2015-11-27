@@ -1,12 +1,10 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
-import at.fhv.itb13.sportify.server.database.DBFacade;
-import at.fhv.itb13.sportify.server.database.InternalTeamMother;
-import at.fhv.itb13.sportify.server.database.PersonMother;
-import at.fhv.itb13.sportify.server.database.SportMother;
+import at.fhv.itb13.sportify.server.database.*;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Before;
@@ -26,6 +24,8 @@ public class DisplayTeamMapperTest {
     @Mock
     private SimplePersonMapper _simplePersonMapper;
 
+    @Mock
+    private SimpleTournamentMapper _simpleTournamentMapper;
 
     private DisplayTeamMapper _displayTeamMapper;
 
@@ -37,7 +37,6 @@ public class DisplayTeamMapperTest {
 
     @Test
     public void toDTOObjectReturnTeamDTO() {
-
         // arrange
         InternalTeamMother teamMother = new InternalTeamMother();
         InternalTeam team = teamMother.setId(IdGenerator.createId()).instance();
@@ -64,9 +63,21 @@ public class DisplayTeamMapperTest {
         simplePersonDTO1.setLName(trainer.getLName());
         simplePersonDTO1.setFName(trainer.getFName());
 
+        TournamentMother tournamentMother = new TournamentMother();
+        Tournament tournament1 = tournamentMother.setId(IdGenerator.createId()).instance();
+        Tournament tournament2 = tournamentMother.setId(IdGenerator.createId()).instance();
+
+        team.addTournament(tournament1);
+        team.addTournament(tournament2);
+
+        SimpleTournamentDTO simpleTournamentDTO1 = _simpleTournamentMapper.toDTOObject(tournament1);
+        SimpleTournamentDTO simpleTournamentDTO2 = _simpleTournamentMapper.toDTOObject(tournament2);
+
         when(_simplePersonMapper.toDTOObject(p1)).thenReturn(simplePersonDTO1);
         when(_simplePersonMapper.toDTOObject(p2)).thenReturn(simplePersonDTO2);
         when(_simplePersonMapper.toDTOObject(trainer)).thenReturn(simpleTrainer);
+        when(_simpleTournamentMapper.toDTOObject(tournament1)).thenReturn(simpleTournamentDTO1);
+        when(_simpleTournamentMapper.toDTOObject(tournament2)).thenReturn(simpleTournamentDTO2);
 
         //act
         DisplayTeamDTO teamDTO = _displayTeamMapper.toDTOObject(team);
@@ -76,6 +87,7 @@ public class DisplayTeamMapperTest {
         assertEquals(teamDTO.getId(), team.getId());
         assertEquals(teamDTO.getVersion(), team.getVersion());
         assertEquals(teamDTO.getName(), team.getName());
+        assertEquals(teamDTO.getTournaments().size(), team.getTournaments().size());
     }
 
     @Test

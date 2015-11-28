@@ -19,6 +19,7 @@ public class Person extends PersistentObjectImpl {
     private String _email;
     private String _birthdate;
     private Boolean _paid;
+    private User _user;
     private Set<Roster> _rosters = new HashSet<>();
     private Set<InternalTeam> _teams = new HashSet<>();
     private Set<InternalTeam> _trainedTeams = new HashSet<>();
@@ -117,6 +118,15 @@ public class Person extends PersistentObjectImpl {
 
     public void setPaid(Boolean paid) {
         _paid = paid;
+    }
+
+    @Embedded
+    public User getUser() {
+        return _user;
+    }
+
+    public void setUser(User user) {
+        _user = user;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

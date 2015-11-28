@@ -2,7 +2,9 @@ package at.fhv.itb13.sportify.server.database.dao;
 
 import at.fhv.itb13.sportify.server.database.PersonMother;
 import at.fhv.itb13.sportify.server.database.SessionFactoryRule;
+import at.fhv.itb13.sportify.server.database.UserMother;
 import at.fhv.itb13.sportify.server.model.Person;
+import at.fhv.itb13.sportify.server.model.User;
 import at.fhv.itb13.sportify.shared.util.IdGenerator;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,8 +22,11 @@ public class PersonDAOTest {
         // arrange
         _sf.beginTransaction();
         String personId = IdGenerator.createId();
-        PersonMother personMother = new PersonMother(_sf.getSession(), personId);
-        Person person1 = personMother.instance();
+        Person person1 = new PersonMother(_sf.getSession(), personId).instance();
+        User user = new UserMother().instance();
+
+        person1.setUser(user);
+        user.setPerson(person1);
         // TODO: add objects to collections
         _sf.commitTransaction();
 
@@ -46,6 +51,7 @@ public class PersonDAOTest {
         assertEquals(person1.getEmail(), person2.getEmail());
         assertEquals(person1.getBirthdate(), person2.getBirthdate());
         assertEquals(person1.isPaid(), person2.isPaid());
+        assertEquals(person1.getUser(), person2.getUser());
         assertEquals(person1.getRosters(), person2.getRosters());
         assertEquals(person1.getTeams(), person2.getTeams());
         assertEquals(person1.getTrainedTeams(), person2.getTrainedTeams());

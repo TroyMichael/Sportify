@@ -10,19 +10,23 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class SessionImpl extends UnicastRemoteObject implements Session {
 
-    private User _user;
+    private UserDTO _userDto;
 
-    private SessionImpl(User user) throws RemoteException {
+    private SessionImpl(UserDTO userDto) throws RemoteException {
         super();
-        _user = user;
+        _userDto = userDto;
     }
-    
+
     public static Session create(UserDTO userDTO) throws RemoteException {
         User user = new UserMapper().toDomainObject(userDTO);
         if (user.login()) {
-            return new SessionImpl(user);
+            return new SessionImpl(userDTO);
         }
         return null;
+    }
+
+    public UserDTO getUserDto() {
+        return _userDto;
     }
 
     public PersonRemote getPersonRemote() throws RemoteException {
@@ -41,11 +45,11 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
         return new SportServant();
     }
 
-    public TournamentRemote getTournamentRemote() throws RemoteException{
+    public TournamentRemote getTournamentRemote() throws RemoteException {
         return new TournamentServant();
     }
 
-    public MatchRemote getMatchRemote () throws RemoteException{
+    public MatchRemote getMatchRemote() throws RemoteException {
         return new MatchServant();
     }
 }

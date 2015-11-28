@@ -9,31 +9,27 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-/**
- * Created by mod on 11/19/15.
- *
- */
 public class TournamentServant extends UnicastRemoteObject implements TournamentRemote {
 
-    TournamentController _controller = null;
+    private TournamentController _tournamentController = null;
 
     public TournamentServant() throws RemoteException {
         super();
-        _controller = new TournamentController();
+        _tournamentController = new TournamentController();
     }
 
     @Override
     public void createTournament(TournamentDTO tournamentDTO) throws RemoteException {
-        _controller.create(tournamentDTO);
+        _tournamentController.create(tournamentDTO);
     }
 
     @Override
     public List<TournamentDTO> getAllTournaments() throws RemoteException {
-        return _controller.getAllTournaments();
+        return _tournamentController.getAllTournaments();
     }
 
     @Override
     public List<SimpleTournamentDTO> getAllSimpleTournaments() throws RemoteException {
-        return _controller.getAllSimpleTournaments();
+        return _tournamentController.getAllSimpleTournaments();
     }
 }

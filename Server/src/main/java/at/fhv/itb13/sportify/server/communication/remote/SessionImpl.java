@@ -33,10 +33,6 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
         return new PersonServant();
     }
 
-    public UserRemote getUserRemote() throws RemoteException {
-        return new UserServant();
-    }
-
     public TeamRemote getTeamRemote() throws RemoteException {
         return new TeamServant();
     }

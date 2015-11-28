@@ -7,10 +7,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-/**
- * Created by Patrick on 28.10.2015.
- *
- */
 public interface PersonRemote extends Remote {
     void create(PersonDTO personDto) throws RemoteException;
 

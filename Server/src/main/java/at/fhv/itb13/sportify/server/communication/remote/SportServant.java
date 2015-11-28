@@ -18,7 +18,7 @@ public class SportServant extends UnicastRemoteObject implements SportRemote {
     }
 
     @Override
-    public List<SportDTO> getSports() throws RemoteException{
+    public List<SportDTO> getSports() throws RemoteException {
         return _spoSportController.getSports();
     }
 }

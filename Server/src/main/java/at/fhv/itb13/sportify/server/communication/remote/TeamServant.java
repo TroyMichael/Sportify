@@ -11,21 +11,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 public class TeamServant extends UnicastRemoteObject implements TeamRemote {
-    /**
-     * TODO: new TEAMCONTROLLER anpassen
-     */
+
     private TeamController _teamController;
 
     public TeamServant() throws RemoteException {
         super();
         _teamController = new TeamController();
     }
-
-    /**
-     * TODO: teamcontroller.create(); teamcontroller.update(); teamcontroller.addPerson();
-     *
-     * @param teamDTO
-     */
+    
     @Override
     public void createTeam(TeamDTO teamDTO) throws RemoteException {
         _teamController.create(teamDTO);

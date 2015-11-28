@@ -9,11 +9,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-/**
- * Created by Patrick on 28.10.2015.
- *
- */
 public class PersonServant extends UnicastRemoteObject implements PersonRemote {
+    
     private PersonController _personController;
 
     public PersonServant() throws RemoteException {
@@ -37,7 +34,7 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     }
 
     @Override
-    public List<PersonDTO> getAllPersons() throws RemoteException{
+    public List<PersonDTO> getAllPersons() throws RemoteException {
         return _personController.getAllPersons();
     }
 

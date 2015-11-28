@@ -10,17 +10,14 @@ import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import org.hibernate.HibernateException;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by mod on 11/19/15.
-
- */
 public class TournamentController {
+
     private DBFacade _facade;
     private TournamentMapper _tournamentMapper;
     private SimpleTournamentMapper _simpleTournamentMapper;
@@ -37,7 +34,6 @@ public class TournamentController {
         _simpleTournamentMapper = simpleTournamentMapper;
     }
 
-
     public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
         try {
@@ -47,29 +43,28 @@ public class TournamentController {
             //_facade.beginTransaction();
             MatchMapper matchMapper = new MatchMapper();
             Set<Match> matches = new HashSet<>();
-            for(MatchDTO matchDTO:tournamentDTO.getMatches()){
+            for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
                 Match match = matchMapper.toDomainObject(matchDTO);
                 //_facade.create(match);
                 matches.add(match);
                 match.setTournament(tournament);
             }
-          //  tournament.getMatches().forEach(match -> _facade.create(match));
+            //  tournament.getMatches().forEach(match -> _facade.create(match));
 
             //_facade.commitTransaction();
             //_facade.beginTransaction();
             tournament.setMatches(matches);
             _facade.beginTransaction();
-            for(Match match : tournament.getMatches()) {
+            for (Match match : tournament.getMatches()) {
                 _facade.create(match);
             }
             _facade.create(tournament);
             _facade.commitTransaction();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (HibernateException e) {
             _facade.rollbackTransaction();
+            e.printStackTrace();
         }
     }
-
 
     public void saveOrUpdate(TournamentDTO tournamentDTO) {
         try {
@@ -79,40 +74,35 @@ public class TournamentController {
             _facade.beginTransaction();
             _facade.createOrUpdate(tournamentDomain);
             _facade.commitTransaction();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             _facade.rollbackTransaction();
             e.printStackTrace();
         }
-
     }
 
     public List<TournamentDTO> getAllTournaments() {
-        List <Tournament> tournaments = new LinkedList<>();
+        List<Tournament> tournaments = null;
         try {
             _facade.beginTransaction();
             tournaments = _facade.getAll(Tournament.class);
             _facade.commitTransaction();
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (HibernateException e) {
             _facade.rollbackTransaction();
+            e.printStackTrace();
         }
-        List <TournamentDTO> tournamentDTOs;
-        tournamentDTOs = _tournamentMapper.toDTOList(tournaments);
-        return tournamentDTOs;
+        return _tournamentMapper.toDTOList(tournaments);
     }
 
     public List<SimpleTournamentDTO> getAllSimpleTournaments() {
-        List <Tournament> tournaments = new LinkedList<>();
+        List<Tournament> tournaments = null;
         try {
             _facade.beginTransaction();
             tournaments = _facade.getAll(Tournament.class);
             _facade.commitTransaction();
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (HibernateException e) {
             _facade.rollbackTransaction();
+            e.printStackTrace();
         }
-        List <SimpleTournamentDTO> simpleTournamentDTOs;
-        simpleTournamentDTOs = _simpleTournamentMapper.toDTOList(tournaments);
-        return simpleTournamentDTOs;
+        return _simpleTournamentMapper.toDTOList(tournaments);
     }
 }

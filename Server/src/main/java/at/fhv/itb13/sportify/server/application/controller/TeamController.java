@@ -43,8 +43,8 @@ public class TeamController {
             _facade.create(teamDomain);
             _facade.commitTransaction();
         } catch (HibernateException e) {
-            _facade.rollbackTransaction();
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
     }
 
@@ -59,8 +59,8 @@ public class TeamController {
             _facade.createOrUpdate(teamDomain);
             _facade.commitTransaction();
         } catch (HibernateException e) {
-            _facade.rollbackTransaction();
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
     }
 
@@ -71,8 +71,8 @@ public class TeamController {
             teams = _facade.getAll(InternalTeam.class);
             _facade.commitTransaction();
         } catch (HibernateException e) {
-            _facade.rollbackTransaction();
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
         if (teams != null) {
             List<TeamDTO> teamDTOs = new ArrayList<>();

@@ -10,17 +10,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SportController {
-    private SportMapper _sportMapper = new SportMapper();
+
     private DBFacade _facade;
+    private SportMapper _sportMapper;
 
     public SportController() {
         _facade = new DBFacadeImpl();
+        _sportMapper = new SportMapper();
+    }
+
+    public SportController(DBFacade facade, SportMapper sportMapper) {
+        _facade = facade;
+        _sportMapper = sportMapper;
     }
 
     public List<SportDTO> getSports() {
-
-        List<Sport> allSports = new LinkedList<>();
-
+        List<Sport> allSports = null;
         try {
             _facade.beginTransaction();
             allSports = _facade.getAll(Sport.class);
@@ -31,7 +36,6 @@ public class SportController {
 
         List<SportDTO> sportDTOList = new LinkedList<>();
         allSports.forEach(sport -> sportDTOList.add(_sportMapper.toDTOObject(sport)));
-
         return sportDTOList;
     }
 }

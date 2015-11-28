@@ -5,24 +5,21 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
+import org.hibernate.HibernateException;
 
-/**
- * Created by Caroline on 21.11.2015.
- *
- */
 public class MatchController {
 
     private DBFacade _facade;
     private MatchMapper _matchMapper;
 
-    public MatchController (DBFacade facade, MatchMapper matchMapper){
-        _facade = facade;
-        _matchMapper = matchMapper;
-    }
-
-    public MatchController (){
+    public MatchController() {
         _facade = new DBFacadeImpl();
         _matchMapper = new MatchMapper();
+    }
+
+    public MatchController(DBFacade facade, MatchMapper matchMapper) {
+        _facade = facade;
+        _matchMapper = matchMapper;
     }
 
     public void create(MatchDTO matchDto) {
@@ -31,7 +28,7 @@ public class MatchController {
             _facade.beginTransaction();
             _facade.create(match);
             _facade.commitTransaction();
-        } catch (Exception e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             _facade.rollbackTransaction();
         }

@@ -7,6 +7,7 @@ import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
@@ -38,13 +39,12 @@ public class PersonController {
     public void create(PersonDTO person) {
         try {
             Person personDomain = _personMapper.toDomainObject(person);
-
             _facade.beginTransaction();
             _facade.create(personDomain);
             _facade.commitTransaction();
-        } catch (Exception e) {
-            _facade.rollbackTransaction();
+        } catch (HibernateException e) {
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
     }
 
@@ -59,9 +59,9 @@ public class PersonController {
             _facade.beginTransaction();
             _facade.createOrUpdate(personDomain);
             _facade.commitTransaction();
-        } catch (Exception e) {
-            _facade.rollbackTransaction();
+        } catch (HibernateException e) {
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
     }
 
@@ -78,6 +78,7 @@ public class PersonController {
             personList = _facade.getAll(Person.class);
             _facade.commitTransaction();
         } catch (Exception e) {
+            e.printStackTrace();
             _facade.rollbackTransaction();
         }
 
@@ -215,17 +216,16 @@ public class PersonController {
      * returns all available members from the database
      */
     public List<PersonDTO> getAllPersons() {
-        List<Person> personList = new LinkedList<>();
+        List<Person> personList = null;
         try {
             _facade.beginTransaction();
             personList = _facade.getAll(Person.class);
             _facade.commitTransaction();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            e.printStackTrace();
             _facade.rollbackTransaction();
         }
-        List<PersonDTO> personDTOList = null;
-        personDTOList = _personMapper.listToDTO(personList);
-        return personDTOList;
+        return _personMapper.listToDTO(personList);
     }
 
     /**
@@ -255,9 +255,9 @@ public class PersonController {
             if (personList != null) {
                 return _simplePersonMapper.toDTOList(personList);
             }
-        } catch (Exception e) {
-            _facade.rollbackTransaction();
+        } catch (HibernateException e) {
             e.printStackTrace();
+            _facade.rollbackTransaction();
         }
         return null;
     }

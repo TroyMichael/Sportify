@@ -109,7 +109,9 @@ public class NewRosterFormController {
 
       @FXML
     private void informMembers() {
-        //todo
+        for(PersonDTO p : _addedMembersTableView.getItems()){
+          //  SessionController.getInstance().getSession().getMessageRemote()
+        }
 
     }
 

@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation;
 
 
+import at.fhv.itb13.sportify.client.communication.JMSCommunication;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
@@ -8,6 +9,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -149,6 +151,8 @@ public class SportifyGUI extends Application {
         HelloUserViewController cont = (HelloUserViewController) loadView("view/HelloUserView.fxml", _rootLayout);
         cont.setUsername(_userName);
         _mainFrameController.setMenuBarDisable(false);
+
+        startJMSCommunication();
     }
 
     public void loadHelloView() {
@@ -208,6 +212,15 @@ public class SportifyGUI extends Application {
     public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
        NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
         cont.setDisplayTeamDTO(displayTeamDTO);
+    }
 
+
+    /*
+    This Method starts a Thread that asks the users queue constantly if there are new Messages.
+    If yes, it will show an Alert.
+     */
+    private void startJMSCommunication() {
+        JMSCommunication jmsComThread = new JMSCommunication(_primaryStage);
+        Platform.runLater(jmsComThread);
     }
 }

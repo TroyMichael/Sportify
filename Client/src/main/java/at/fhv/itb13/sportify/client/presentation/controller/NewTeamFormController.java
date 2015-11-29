@@ -111,10 +111,14 @@ public class NewTeamFormController {
 
     @FXML
     private void removeAllMembers() {
-        while (_addedMembersTableView.getItems().size() > 0) {
-            PersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
-                _addedMembersTableView.getItems().remove(personToSwitch);
-                _allMembersTableView.getItems().add(personToSwitch);
+       removeAllMembers(_addedMembersTableView, _allMembersTableView);
+    }
+
+    private void removeAllMembers(TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
+        while (viewToRemoveFrom.getItems().size() > 0) {
+            PersonDTO personToSwitch = viewToRemoveFrom.getItems().get(0);
+            viewToRemoveFrom.getItems().remove(personToSwitch);
+            viewToAddTo.getItems().add(personToSwitch);
         }
     }
 

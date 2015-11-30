@@ -5,12 +5,12 @@ package at.fhv.itb13.sportify.shared.communication.dtos;
  */
 public class TournamentInvitationMessageDTOImpl extends DTOImpl implements TournamentInvitationMessageDTO {
 
-    private TournamentDTO _tournamentDTO;
+    private SimpleTournamentDTO _tournamentDTO;
     private UserDTO _sender;
 
     public TournamentInvitationMessageDTOImpl(){}
 
-    public TournamentInvitationMessageDTOImpl(TournamentDTO tournamentDTO, UserDTO responseQueueName){
+    public TournamentInvitationMessageDTOImpl(SimpleTournamentDTO tournamentDTO, UserDTO responseQueueName){
         _tournamentDTO = tournamentDTO;
         _sender = responseQueueName;
     }
@@ -18,12 +18,12 @@ public class TournamentInvitationMessageDTOImpl extends DTOImpl implements Tourn
 
 
     @Override
-    public TournamentDTO getTournament() {
+    public SimpleTournamentDTO getSimpleTournament() {
         return _tournamentDTO;
     }
 
     @Override
-    public void setTournament(TournamentDTO tournament) {
+    public void setSimpleTournament(SimpleTournamentDTO tournament) {
         _tournamentDTO = tournament;
     }
 

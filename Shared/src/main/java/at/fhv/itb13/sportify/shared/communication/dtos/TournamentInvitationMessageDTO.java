@@ -8,9 +8,9 @@ import java.io.Serializable;
  */
 public interface TournamentInvitationMessageDTO extends DTO, Serializable {
 
-    TournamentDTO getTournament();
+    SimpleTournamentDTO getSimpleTournament();
 
-    void setTournament(TournamentDTO tournament);
+    void setSimpleTournament(SimpleTournamentDTO tournament);
 
     UserDTO getSender();
 

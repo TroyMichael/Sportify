@@ -18,6 +18,7 @@ import java.util.TimerTask;
 
 /**
  * Created by Michael on 28.11.2015.
+
  */
 public class JMSCommunication implements Runnable {
 
@@ -39,9 +40,8 @@ public class JMSCommunication implements Runnable {
                     //get message
                     Serializable message = SessionController.getInstance().getSession().getMessageRemote().getMessage(_userName);
 
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
+                    if (message != null) {
+                        Platform.runLater(() -> {
                             //check what kind of message it is and start respective alert
                             if (message instanceof TournamentInvitationMessageDTOImpl) {
                                 TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
@@ -50,8 +50,8 @@ public class JMSCommunication implements Runnable {
                                 TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
                                 createInvitationResponseAlert(respMessage);
                             }
-                        }
-                    });
+                        });
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

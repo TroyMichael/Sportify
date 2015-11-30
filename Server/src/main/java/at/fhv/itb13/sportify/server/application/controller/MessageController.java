@@ -1,9 +1,5 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
-import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
-import at.fhv.itb13.sportify.server.model.Person;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,6 +9,7 @@ import java.util.Properties;
 
 /**
  * Created by Caroline on 28.11.2015.
+ *
  */
 public class MessageController {
 
@@ -24,7 +21,7 @@ public class MessageController {
         env.setProperty("queue." + queueName, queueName);
 
         Context context = null;
-        ObjectMessage message = null;
+        ObjectMessage message;
 
         try {
             context = new InitialContext(env);
@@ -37,9 +34,11 @@ public class MessageController {
                 Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
                 MessageConsumer cons = session.createConsumer(dest);
                 con.start();
-                message = (ObjectMessage) cons.receive();
+                message = (ObjectMessage) cons.receive(500);
                 //   System.out.println(message.getText());
-                return message.getObject();
+                if (message != null) {
+                    return message.getObject();
+                }
             } catch (JMSException e) {
                 e.printStackTrace();
             } finally {

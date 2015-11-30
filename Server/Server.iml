@@ -206,7 +206,9 @@
           <root url="jar://$MODULE_DIR$/../lib/activemq-all-5.12.1.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/activemq-all-5.12.1-sources.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />

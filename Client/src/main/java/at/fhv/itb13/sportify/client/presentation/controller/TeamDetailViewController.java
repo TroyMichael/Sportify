@@ -125,7 +125,7 @@ public class TeamDetailViewController {
 
 
         if(_team.getTournaments() != null) {
-            System.out.println("team.getTournaments != null");
+
             HashSet<SimpleTournamentDTO>  tempTournamentList = _team.getTournaments();
             tempTournamentList.forEach(tournamentDTO -> _tournamentList.add(tournamentDTO));
         }

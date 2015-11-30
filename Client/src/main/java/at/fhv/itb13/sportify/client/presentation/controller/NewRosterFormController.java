@@ -128,9 +128,10 @@ public class NewRosterFormController {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-
-
         }
+
+        initSuccessAlert();
+        cancelNewRoster();
 
     }
 

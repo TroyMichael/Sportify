@@ -123,11 +123,13 @@ public class TeamDetailViewController {
    */
     private void getAndAddDataToTournamentList() {
 
-        HashSet<SimpleTournamentDTO> tempTournamentList = new HashSet<>();
+
         if(_team.getTournaments() != null) {
-            tempTournamentList = _team.getTournaments();
+            System.out.println("team.getTournaments != null");
+            HashSet<SimpleTournamentDTO>  tempTournamentList = _team.getTournaments();
             tempTournamentList.forEach(tournamentDTO -> _tournamentList.add(tournamentDTO));
         }
+        _tournamentTableView.setItems(_tournamentList);
     }
 
     /*

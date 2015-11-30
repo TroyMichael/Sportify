@@ -17,6 +17,7 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private String _email = "";
     private String _birthdate = "";
     private boolean _paid = false;
+    private String _userName;
     private HashSet<String> _teamIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
     private HashSet<String> _trainedTeamIds = new HashSet<>();
@@ -114,6 +115,16 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     @Override
     public void setBirthdate(String birthdate) {
         _birthdate = birthdate;
+    }
+
+    @Override
+    public String getUserName() {
+        return _userName;
+    }
+
+    @Override
+    public void setUserName(String User) {
+        _userName = User;
     }
 
     @Override

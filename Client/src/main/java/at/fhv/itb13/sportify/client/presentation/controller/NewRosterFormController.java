@@ -120,11 +120,11 @@ public class NewRosterFormController {
 
         TournamentInvitationMessageDTO message = new TournamentInvitationMessageDTOImpl();
         message.setSimpleTournament(_tournament);
-        message.setSender(SessionController.getInstance().getSession().getUserDTO());
+        message.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
 
         for (PersonDTO p : _addedMembersTableView.getItems()) {
             try {
-                SessionController.getInstance().getSession().getMessageRemote().sendMessage(p, message);
+                SessionController.getInstance().getSession().getMessageRemote().sendMessage(p.getUserName(), message);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

@@ -16,10 +16,11 @@ import java.util.Properties;
  */
 public class MessageController {
 
-    public Serializable getMessage(String queueName) {
+    public Serializable getMessage(String username) {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");
+        String queueName = username +"Queue";
         env.setProperty("queue." + queueName, queueName);
 
         Context context = null;
@@ -64,12 +65,12 @@ public class MessageController {
         return null;
     }
 
-    public void sendMessage(PersonDTO personDTO, Serializable messageDTO) {
+    public void sendMessage(String username, Serializable messageDTO) {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");
-        Person person = new PersonMapper().toDomainObject(personDTO);
-        String queueName = person.getUser().getUsername() + "Queue";
+
+        String queueName = username + "Queue";
         env.setProperty("queue." + queueName, queueName);
 
         Context context = null;

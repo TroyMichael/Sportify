@@ -22,12 +22,12 @@ public class MessageServant extends UnicastRemoteObject implements MessageRemote
 
 
     @Override
-    public Serializable getMessage(String queueName) throws RemoteException {
-        return _messageController.getMessage(queueName);
+    public Serializable getMessage(String username) throws RemoteException {
+        return _messageController.getMessage(username);
     }
 
     @Override
-    public void sendMessage(PersonDTO queueName, Serializable objectMessage) throws RemoteException {
-        _messageController.sendMessage(queueName, objectMessage);
+    public void sendMessage(String username , Serializable objectMessage) throws RemoteException {
+        _messageController.sendMessage(username, objectMessage);
     }
 }

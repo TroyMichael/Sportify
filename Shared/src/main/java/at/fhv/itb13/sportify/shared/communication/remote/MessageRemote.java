@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
  */
 public interface MessageRemote extends Remote {
 
-    Serializable getMessage(String queueName) throws RemoteException;
+    Serializable getMessage(String username) throws RemoteException;
 
-    void sendMessage(PersonDTO queueName, Serializable objectMessage) throws RemoteException;
+    void sendMessage(String username, Serializable objectMessage) throws RemoteException;
 }

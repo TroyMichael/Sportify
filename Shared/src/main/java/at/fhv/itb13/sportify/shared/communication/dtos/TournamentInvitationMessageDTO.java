@@ -12,7 +12,7 @@ public interface TournamentInvitationMessageDTO extends DTO, Serializable {
 
     void setSimpleTournament(SimpleTournamentDTO tournament);
 
-    UserDTO getSender();
+    String getSender();
 
-    void setSender(UserDTO name);
+    void setSender(String name);
 }

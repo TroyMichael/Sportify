@@ -14,4 +14,8 @@ public interface TournamentInvResponseMessageDTO extends DTO, Serializable{
     Boolean isAccepted();
 
     void accept(Boolean b);
+
+    void setSender(String sender);
+
+    String getSender();
 }

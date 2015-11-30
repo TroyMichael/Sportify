@@ -10,6 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by KYUSS on 29.11.2015.
+ *
  */
 public class MessageServant extends UnicastRemoteObject implements MessageRemote {
 

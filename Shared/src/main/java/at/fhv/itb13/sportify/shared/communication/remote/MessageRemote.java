@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 
 /**
  * Created by KYUSS on 29.11.2015.
+ *
  */
 public interface MessageRemote extends Remote {
 

@@ -215,13 +215,12 @@ public class SportifyGUI extends Application {
         cont.setSimpleTournamentDTO(simpleTournamentDTO);
     }
 
-
     /*
     This Method starts a Thread that asks the users queue constantly if there are new Messages.
     If yes, it will show an Alert.
      */
     private void startJMSCommunication() {
-        JMSCommunication jmsComThread = new JMSCommunication(_primaryStage);
-        Platform.runLater(jmsComThread);
+        JMSCommunication jmsComThread = new JMSCommunication(_primaryStage, _userName);
+        new Thread(jmsComThread).start();
     }
 }

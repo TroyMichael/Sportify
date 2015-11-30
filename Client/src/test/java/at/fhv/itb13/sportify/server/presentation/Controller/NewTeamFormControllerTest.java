@@ -53,7 +53,7 @@ public class NewTeamFormControllerTest {
     }
 
     @Test
-    public void switchMember() {
+    public void switchMemberItemSelected() {
 
         //setup
         TableView<PersonDTO> _allMemberTableView = new TableView<>();
@@ -88,6 +88,38 @@ public class NewTeamFormControllerTest {
         assert(_addedMemberTableView.getItems().get(0) == p1);
     }
 
+    @Test
+    public void switchMemberNoItemSelected() {
+
+        //setup
+        TableView<PersonDTO> _allMemberTableView = new TableView<>();
+        TableView<PersonDTO> _addedMemberTableView = new TableView<>();
+
+        ObservableList<PersonDTO> _allMemberList = FXCollections.observableArrayList();
+        ObservableList<PersonDTO> _addedMemberList = FXCollections.observableArrayList();
+
+        PersonDTO p1 = new PersonDTOImpl();
+        PersonDTO p2 = new PersonDTOImpl();
+        _allMemberList.add(p1);
+        _allMemberList.add(p2);
+
+        _allMemberTableView.setItems(_allMemberList);
+        _addedMemberTableView.setItems(_addedMemberList);
+
+        //act
+        try {
+            Method switchMemberMethod = NewTeamFormController.class.getDeclaredMethod("switchMember", TableView.class, TableView.class);
+            switchMemberMethod.setAccessible(true);
+            switchMemberMethod.invoke(new NewTeamFormController(), _allMemberTableView, _addedMemberTableView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //assert
+        assert(_allMemberTableView.getItems().size() == 2);
+        assert(_addedMemberTableView.getItems().size() == 0);
+    }
+
 
     @Test
     public void removeAllMembers() {
@@ -120,5 +152,29 @@ public class NewTeamFormControllerTest {
         assert(_allMemberTableView.getItems().size() == 2);
     }
 
+    @Test
+    public void removeAllMembersNoItemsToRemove() {
+        //setup
+        TableView<PersonDTO> _allMemberTableView = new TableView<>();
+        TableView<PersonDTO> _addedMemberTableView = new TableView<>();
 
+        ObservableList<PersonDTO> _allMemberList = FXCollections.observableArrayList();
+        ObservableList<PersonDTO> _addedMemberList = FXCollections.observableArrayList();
+
+        _allMemberTableView.setItems(_allMemberList);
+        _addedMemberTableView.setItems(_addedMemberList);
+
+        //act
+        try {
+            Method switchMemberMethod = NewTeamFormController.class.getDeclaredMethod("removeAllMembers", TableView.class, TableView.class);
+            switchMemberMethod.setAccessible(true);
+            switchMemberMethod.invoke(new NewTeamFormController(), _addedMemberTableView, _allMemberTableView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //asserts
+        assert(_addedMemberTableView.getItems().size() == 0);
+        assert(_allMemberTableView.getItems().size() == 0);
+    }
 }

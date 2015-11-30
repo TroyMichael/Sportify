@@ -8,6 +8,7 @@ public class TournamentInvResponseMessageDTOImpl extends  DTOImpl implements  To
   private SimpleTournamentDTO _tournamentDTO;
 
     private Boolean _accepted;
+    private String _sender;
 
     public TournamentInvResponseMessageDTOImpl(){}
 
@@ -36,5 +37,15 @@ public class TournamentInvResponseMessageDTOImpl extends  DTOImpl implements  To
     @Override
     public void accept(Boolean b) {
         _accepted = b;
+    }
+
+    @Override
+    public void setSender(String sender) {
+        _sender = sender;
+    }
+
+    @Override
+    public String getSender() {
+        return _sender;
     }
 }

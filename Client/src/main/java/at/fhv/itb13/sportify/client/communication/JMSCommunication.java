@@ -1,52 +1,82 @@
 package at.fhv.itb13.sportify.client.communication;
 
+import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvResponseMessageDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvResponseMessageDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTOImpl;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Created by Michael on 28.11.2015.
- *
  */
-public class JMSCommunication extends Thread {
+public class JMSCommunication implements Runnable {
 
     private Stage _primaryStage;
+    private String _userName;
 
-    public JMSCommunication(Stage primaryStage) {
+    public JMSCommunication(Stage primaryStage, String userName) {
         _primaryStage = primaryStage;
+        _userName = userName;
     }
 
     public void run() {
-
         //create TimerTask that asks for new Messages
         TimerTask askForMessages = new TimerTask() {
             @Override
             public void run() {
-                //ask for messages
-                //check what message it is and start respective alert
+                //check what message it is and start the respective alert
+                try {
+                    //get message
+                    Serializable message = SessionController.getInstance().getSession().getMessageRemote().getMessage(_userName);
+
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            //check what kind of message it is and start respective alert
+                            if (message instanceof TournamentInvitationMessageDTOImpl) {
+                                TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
+                                createRosterInvitationAlert(invMessage);
+                            } else if (message instanceof TournamentInvResponseMessageDTOImpl) {
+                                TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
+                                createInvitationResponseAlert(respMessage);
+                            }
+                        }
+                    });
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         };
 
         //create timer which runs TimerTasks
         Timer timer = new Timer();
 
-        //start timer at fixed rate
+        //start timer at fixed rate - every 30s
         //scheduleAtFixedRate(TimerTask task, Long delay, Long interval)
         timer.scheduleAtFixedRate(askForMessages, 0, 30000);
-
     }
 
-    private void createRosterInvitationAlert() {
-
+    private void createRosterInvitationAlert(TournamentInvitationMessageDTO invMessage) {
         //set Alert type and contents
+
+        System.out.println("received rosterInv");
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Roster Invitation");
         alert.setHeaderText("Invitation to play in a Tournament");
-        alert.setContentText("You have been invited to play in the Tournament TournamentName at TournamentLocation on the TournamentDate.\n" +
+        alert.setContentText("You have been invited to play in the Tournament " + invMessage.getSimpleTournament().getDescription() +
+                " in " + invMessage.getSimpleTournament().getLocation() +
+                " on the " + invMessage.getSimpleTournament().getStartDate().toString() + ".\n\n" +
                 "Do you want to participate?");
 
         //set two options and add them to the alert
@@ -59,23 +89,41 @@ public class JMSCommunication extends Thread {
         //with alert.showAndWait the alert window is shown. It returns whether the user pressed the Yes or No Button
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {
+
+            TournamentInvResponseMessageDTO respMessage = new TournamentInvResponseMessageDTOImpl();
+            respMessage.setSimpleTournamentDTO(invMessage.getSimpleTournament());
             if (result.get() == buttonTypeYes) {
-                //create yes message for trainer
-                System.out.println("yes");
-            } else if (result.get() == buttonTypeNo) {
-                //create no message for trainer
-                System.out.println("no");
+                respMessage.accept(true);
+            } else {
+                respMessage.accept(false);
+            }
+
+            try {
+                respMessage.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
+                SessionController.getInstance().getSession().getMessageRemote().sendMessage(invMessage.getSender(), respMessage);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    private void createInvitationResponseAlert() {
+    private void createInvitationResponseAlert(TournamentInvResponseMessageDTO respMessage) {
         Alert invResponseAlert = new Alert(Alert.AlertType.INFORMATION);
         invResponseAlert.setTitle("Response to Roster Invitation");
-        invResponseAlert.setHeaderText("Response from PlayerName");
-        invResponseAlert.setContentText("PlayerName has accepted/declined to play in TournamentName.");
+        invResponseAlert.setHeaderText("Response from " + respMessage.getSender());
+
+        String isPlaying;
+        if (respMessage.isAccepted()) {
+            isPlaying = "accepted";
+        } else {
+            isPlaying = "declined";
+        }
+
+        invResponseAlert.setContentText(respMessage.getSender() + " has " + isPlaying +
+                " to play in " + respMessage.getSimpleTournamentDTO().getDescription() + ".");
 
         invResponseAlert.initOwner(_primaryStage);
         invResponseAlert.showAndWait();
     }
+
 }

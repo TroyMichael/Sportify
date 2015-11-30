@@ -25,7 +25,7 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
         return null;
     }
 
-    public UserDTO getUserDto() {
+    public UserDTO getUserDTO() {
         return _userDto;
     }
 

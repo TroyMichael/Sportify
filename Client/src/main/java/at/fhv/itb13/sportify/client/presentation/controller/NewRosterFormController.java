@@ -116,7 +116,7 @@ public class NewRosterFormController {
     }
 
     @FXML
-    private void informMembers() {
+    private void informMembers() throws RemoteException {
 
         TournamentInvitationMessageDTO message = new TournamentInvitationMessageDTOImpl();
         message.setSimpleTournament(_tournament);

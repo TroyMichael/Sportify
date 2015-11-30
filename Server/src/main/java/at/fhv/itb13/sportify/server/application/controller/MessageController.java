@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.server.application.controller;
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.PersonMapper;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTO;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -14,11 +13,10 @@ import java.util.Properties;
 
 /**
  * Created by Caroline on 28.11.2015.
- *
  */
 public class MessageController {
 
-    public ObjectMessage getMessage(String queueName) {
+    public Serializable getMessage(String queueName) {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");
@@ -38,8 +36,9 @@ public class MessageController {
                 Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
                 MessageConsumer cons = session.createConsumer(dest);
                 con.start();
-                 message = (ObjectMessage) cons.receive();
-             //   System.out.println(message.getText());
+                message = (ObjectMessage) cons.receive();
+                //   System.out.println(message.getText());
+                return message.getObject();
             } catch (JMSException e) {
                 e.printStackTrace();
             } finally {
@@ -62,12 +61,10 @@ public class MessageController {
                 }
             }
         }
-        return message;
-
-
+        return null;
     }
 
-    public void sendMessage(PersonDTO personDTO, TournamentInvitationMessageDTO messageDTO) {
+    public void sendMessage(PersonDTO personDTO, Serializable messageDTO) {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");

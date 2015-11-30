@@ -76,7 +76,7 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             personDTO.setPaid(person.isPaid());
-            if(personDTO.getUserName() != null) {
+            if(person.getUser() != null) {
                 personDTO.setUserName(person.getUser().getUsername());
             }
             for (InternalTeam team : person.getTeams()) {

@@ -8,6 +8,7 @@ import java.util.Properties;
 
 /**
  * Created by Caroline on 28.11.2015.
+ *
  */
 public class MessageController {
 

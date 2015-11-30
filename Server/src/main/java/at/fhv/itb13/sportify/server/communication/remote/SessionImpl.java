@@ -48,4 +48,9 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     public MatchRemote getMatchRemote() throws RemoteException {
         return new MatchServant();
     }
+
+    @Override
+    public MessageRemote getMessageRemote() throws RemoteException {
+        return new MessageServant();
+    }
 }

@@ -2,12 +2,14 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
-import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
@@ -42,8 +44,10 @@ public class NewRosterFormController {
 
     private DisplayTeamDTO _team;
 
+    private SimpleTournamentDTO _tournament;
+
     @FXML
-    private void initialize(){
+    private void initialize() {
 
         //set values for allMembersTableView's columns
         _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
@@ -59,8 +63,12 @@ public class NewRosterFormController {
 
     }
 
-    public void setDisplayTeamDTO(DisplayTeamDTO team){
+    public void setDisplayTeamDTO(DisplayTeamDTO team) {
         _team = team;
+    }
+
+    public void setSimpleTournamentDTO(SimpleTournamentDTO tournamentDTO) {
+        _tournament = tournamentDTO;
     }
 
     private void setAllMembersTableViewData() {
@@ -81,12 +89,12 @@ public class NewRosterFormController {
 
 
     @FXML
-    private void addMember () {
+    private void addMember() {
         switchMember(_allMembersTableView, _addedMembersTableView);
     }
 
     @FXML
-    private void removeMember () {
+    private void removeMember() {
         switchMember(_addedMembersTableView, _allMembersTableView);
     }
 
@@ -94,12 +102,12 @@ public class NewRosterFormController {
     private void removeAllMembers() {
         while (_addedMembersTableView.getItems().size() > 0) {
             PersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
-                _addedMembersTableView.getItems().remove(personToSwitch);
-                _allMembersTableView.getItems().add(personToSwitch);
+            _addedMembersTableView.getItems().remove(personToSwitch);
+            _allMembersTableView.getItems().add(personToSwitch);
         }
     }
 
-    private void switchMember (TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
+    private void switchMember(TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
             PersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
@@ -107,10 +115,21 @@ public class NewRosterFormController {
         }
     }
 
-      @FXML
-    private void informMembers() {
-        for(PersonDTO p : _addedMembersTableView.getItems()){
-          //  SessionController.getInstance().getSession().getMessageRemote()
+    @FXML
+    private void informMembers() throws RemoteException {
+
+        TournamentInvitationMessageDTO message = new TournamentInvitationMessageDTOImpl();
+        message.setSimpleTournament(_tournament);
+        message.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
+
+        for (PersonDTO p : _addedMembersTableView.getItems()) {
+            try {
+                SessionController.getInstance().getSession().getMessageRemote().sendMessage(p.getUserName(), message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
     }

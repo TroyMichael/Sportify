@@ -18,14 +18,16 @@ public class DBFacadeImpl implements DBFacade {
         _daoMap = new HashMap<>();
 
         _daoMap.put(Department.class, new DepartmentDAO());
+        _daoMap.put(ExternalTeam.class, new ExternalTeamDAO());
+        _daoMap.put(InternalTeam.class, new InternalTeamDAO());
+        _daoMap.put(Match.class, new MatchDAO());
         _daoMap.put(Person.class, new PersonDAO());
         _daoMap.put(Roster.class, new RosterDAO());
         _daoMap.put(Sport.class, new SportDAO());
         _daoMap.put(Team.class, new TeamDAO());
-        _daoMap.put(InternalTeam.class, new InternalTeamDAO());
-        _daoMap.put(ExternalTeam.class, new ExternalTeamDAO());
         _daoMap.put(Tournament.class, new TournamentDAO());
-        _daoMap.put(Match.class, new MatchDAO());
+        _daoMap.put(UserRight.class, new UserRightDAO());
+        _daoMap.put(UserRole.class, new UserRoleDAO());
     }
 
     @Override

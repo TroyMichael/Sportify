@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public interface TournamentInvResponseMessageDTO extends DTO, Serializable{
 
-    TournamentDTO getTournamentDTO();
+    SimpleTournamentDTO getSimpleTournamentDTO();
 
-    void setTournamentDTO(TournamentDTO tournamentDTO);
+    void setSimpleTournamentDTO(SimpleTournamentDTO tournamentDTO);
 
     Boolean isAccepted();
 

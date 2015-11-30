@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.User;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import org.hibernate.HibernateException;
@@ -40,6 +41,11 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             person.setId(personDTO.getId());
             person.setVersion(personDTO.getVersion());
 
+            if(personDTO.getUserName() != null){
+                person.setUser(new User(personDTO.getUserName(), null));
+            }
+
+
             try {
                 dbFacade.beginTransaction();
                 for (String teamId : personDTO.getTeamIds()) {
@@ -73,7 +79,9 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
             personDTO.setVersion(person.getVersion());
             personDTO.setId(person.getId());
             personDTO.setPaid(person.isPaid());
-
+            if(person.getUser() != null) {
+                personDTO.setUserName(person.getUser().getUsername());
+            }
             for (InternalTeam team : person.getTeams()) {
                 personDTO.addTeam(team.getId());
             }

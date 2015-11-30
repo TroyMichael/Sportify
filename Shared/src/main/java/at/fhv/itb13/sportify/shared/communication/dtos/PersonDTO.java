@@ -39,6 +39,10 @@ public interface PersonDTO extends Serializable, DTO {
 
     void setBirthdate(String birthdate);
 
+    String getUserName();
+
+    void setUserName(String User);
+
     boolean isPaid();
 
     void setPaid(boolean paid);

@@ -86,5 +86,18 @@
             </TableView>
          </children>
       </HBox>
+        <Label layoutX="425.0" layoutY="64.0" text="Sports">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="_sportComboBox" layoutX="429.0" layoutY="88.0" prefWidth="150.0" />
+        <TableView fx:id="_sportsTableView" layoutX="425.0" layoutY="142.0" prefHeight="167.0" prefWidth="163.0">
+            <columns>
+                <TableColumn fx:id="_sportTableColumn" prefWidth="162.0" resizable="false" text="Sports" />
+            </columns>
+        </TableView>
+        <Button layoutX="429.0" layoutY="313.0" mnemonicParsing="false" onAction="#addSport" text="Add" />
+        <Button layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#removeSport" text="Remove" />
     </children>
 </AnchorPane>

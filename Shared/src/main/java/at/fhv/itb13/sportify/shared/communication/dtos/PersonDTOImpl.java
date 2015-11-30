@@ -20,6 +20,7 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     private HashSet<String> _teamIds = new HashSet<>();
     private HashSet<String> _rosterIds = new HashSet<>();
     private HashSet<String> _trainedTeamIds = new HashSet<>();
+    private HashSet<String> _sports = new HashSet<>();
 
     public PersonDTOImpl() {
     }
@@ -169,5 +170,20 @@ public class PersonDTOImpl extends DTOImpl implements PersonDTO {
     @Override
     public void removeRoster(String rosterId) {
         _rosterIds.remove(rosterId);
+    }
+
+    @Override
+    public HashSet<String> getSportIDs () {
+        return _sports;
+    }
+
+    @Override
+    public void addSport(String sportID) {
+        _sports.add(sportID);
+    }
+
+    @Override
+    public void removeSport(String sportID) {
+        _sports.remove(sportID);
     }
 }

@@ -86,5 +86,18 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <ComboBox fx:id="_sportComboBox" layoutX="429.0" layoutY="88.0" prefWidth="150.0" />
+      <TableView fx:id="_sportTableView" layoutX="429.0" layoutY="125.0" prefHeight="184.0" prefWidth="150.0">
+        <columns>
+          <TableColumn fx:id="_sportTableColumn" prefWidth="149.0" text="Sport" />
+        </columns>
+      </TableView>
+      <Label layoutX="429.0" layoutY="54.0" text="Add Sport">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="429.0" layoutY="313.0" mnemonicParsing="false" onAction="#addSport" text="Add" />
+      <Button layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#removeSport" text="Remove" />
     </children>
 </AnchorPane>

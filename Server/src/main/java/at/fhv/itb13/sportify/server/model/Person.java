@@ -23,6 +23,7 @@ public class Person extends PersistentObjectImpl {
     private Set<Roster> _rosters = new HashSet<>();
     private Set<InternalTeam> _teams = new HashSet<>();
     private Set<InternalTeam> _trainedTeams = new HashSet<>();
+    private Set<Sport> _sports = new HashSet<>();
 
     public Person() {
     }
@@ -149,6 +150,16 @@ public class Person extends PersistentObjectImpl {
         _teams = teams;
     }
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "person_sport", joinColumns = {@JoinColumn(name = "person_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "sport_id", nullable = false, updatable = false)})
+    public Set<Sport> getSports () {
+        return _sports;
+    }
+
+    public void setSports (Set<Sport> sports){
+        _sports = sports;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trainer")
     public Set<InternalTeam> getTrainedTeams() {
         return _trainedTeams;
@@ -191,6 +202,12 @@ public class Person extends PersistentObjectImpl {
     public void removeTrainedTeam(InternalTeam trainedTeam) {
         if (trainedTeam != null) {
             _trainedTeams.add(trainedTeam);
+        }
+    }
+
+    public void addSport (Sport sport) {
+        if (sport != null){
+            _sports.add(sport);
         }
     }
 }

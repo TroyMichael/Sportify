@@ -4,8 +4,10 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +24,15 @@ import java.util.List;
  * and then creates a DTO.
  */
 public class EditMemberDataController {
+
+    @FXML
+    private ComboBox _sportComboBox;
+
+    @FXML
+    private TableView<SimpleSportDTO> _sportsTableView;
+
+    @FXML
+    private TableColumn _sportTableColumn;
 
     @FXML
     private TextField _fNameTextField;
@@ -67,6 +78,9 @@ public class EditMemberDataController {
 
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
+ //   private ObservableList<SimpleSportDTO> _sportObservable = FXCollections.observableArrayList();
+
+    private ObservableList<SimpleSportDTO> _addedSportObservable = FXCollections.observableArrayList();
 
     private PersonDTO _person;
 
@@ -102,7 +116,10 @@ public class EditMemberDataController {
         }
         setAllTeamsTableViewData();
         setSelectedTeamsTableViewData();
+        setAllSportsTableViewData();
+        _sportComboBox.getItems().setAll(setAllSports());
     }
+
 
 
     @FXML
@@ -117,6 +134,9 @@ public class EditMemberDataController {
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
 
+        _sportTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        _sportsTableView.setItems(_addedSportObservable);
 
     }
 
@@ -137,6 +157,29 @@ public class EditMemberDataController {
         }
     }
 
+    private void setAllSportsTableViewData() {
+        try {
+            List<SimpleSportDTO> allSports = SessionController.getInstance().getSession().getSportRemote().getAllSimpleSports();
+            for (SimpleSportDTO simpleSportDTO : allSports){
+                if (_person.getSportIDs().contains(simpleSportDTO.getId())){
+                    _addedSportObservable.add(simpleSportDTO);
+                }
+            }
+        } catch (RemoteException e){
+            e.printStackTrace();
+        }
+    }
+
+    private  List<SimpleSportDTO>  setAllSports() {
+        List<SimpleSportDTO> simpleSportDTOs = null;
+        try {
+            simpleSportDTOs = SessionController.getInstance().getSession().getSportRemote().getAllSimpleSports();
+            //_sportObservable.setAll(simpleSportDTOs);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return simpleSportDTOs;
+    }
     private void setSelectedTeamsTableViewData() {
 
         Iterator<DisplayTeamDTO> iter = _allTeamsTableView.getItems().iterator();
@@ -192,11 +235,15 @@ public class EditMemberDataController {
             _person.setBirthdate(_birthdayTextField.getText());
 
             _person.getTeamIds().clear();
-
+            _person.getSportIDs().clear();
             for (DisplayTeamDTO team : _addedTeamsTableView.getItems()) {
                 _person.addTeam(team.getId());
             }
-
+           if(_sportsTableView.getItems() != null){
+                for(SimpleSportDTO sport : _sportsTableView.getItems()){
+                    _person.addSport(sport.getId());
+                }
+            }
 
             SessionController.getInstance().getSession().getPersonRemote().editPerson(_person);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -238,5 +285,18 @@ public class EditMemberDataController {
         }
 
         return validation;
+    }
+
+    @FXML
+    public void addSport(ActionEvent actionEvent) {
+        SimpleSportDTO simpleSportDTO = (SimpleSportDTO) _sportComboBox.getSelectionModel().getSelectedItem();
+        if(!_addedSportObservable.contains(simpleSportDTO)) {
+            _addedSportObservable.add(simpleSportDTO);
+        }
+    }
+
+    @FXML
+    public void removeSport(ActionEvent actionEvent) {
+        _addedSportObservable.remove(_sportsTableView.getSelectionModel().getSelectedItem());
     }
 }

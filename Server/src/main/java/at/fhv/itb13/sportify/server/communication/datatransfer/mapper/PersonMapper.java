@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
+import at.fhv.itb13.sportify.server.model.Sport;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import org.hibernate.HibernateException;
@@ -44,6 +45,9 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
                 for (String teamId : personDTO.getTeamIds()) {
                     person.addTeam(dbFacade.get(InternalTeam.class, teamId));
                 }
+                for (String sportID : personDTO.getSportIDs()) {
+                    person.addSport(dbFacade.get(Sport.class, sportID));
+                }
                 dbFacade.commitTransaction();
             } catch (HibernateException e) {
                 dbFacade.rollbackTransaction();
@@ -72,6 +76,10 @@ public class PersonMapper extends Mapper<PersonDTO, Person> {
 
             for (InternalTeam team : person.getTeams()) {
                 personDTO.addTeam(team.getId());
+            }
+
+            for (Sport sport : person.getSports()){
+                personDTO.addSport(sport.getId());
             }
             return personDTO;
         }

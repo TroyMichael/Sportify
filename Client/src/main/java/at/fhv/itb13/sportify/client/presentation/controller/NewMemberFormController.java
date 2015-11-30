@@ -4,13 +4,12 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
@@ -23,6 +22,15 @@ import java.util.List;
  * and then creates a DTO.
  */
 public class NewMemberFormController {
+
+    @FXML
+    public ComboBox _sportComboBox;
+
+    @FXML
+    public TableView<SimpleSportDTO> _sportTableView;
+
+    @FXML
+    public TableColumn _sportTableColumn;
 
     @FXML
     private TextField _fNameTextField;
@@ -61,6 +69,7 @@ public class NewMemberFormController {
     private TableColumn<DisplayTeamDTO, String> _addedTeamsNameColumn;
 
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
+    private ObservableList<SimpleSportDTO> _sportObservable = FXCollections.observableArrayList();
 
 
     @FXML
@@ -71,10 +80,29 @@ public class NewMemberFormController {
         //set values for addedTeamsTableViews' columns
         _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
+        _sportTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
 
+        _sportTableView.setItems(_sportObservable);
+
+        //_sportTableView.setItems(_sportObservable);
+
+        _sportComboBox.getItems().setAll(setSports());
+
         setAllTeamsTableViewData();
+    }
+
+    private List<SimpleSportDTO> setSports() {
+        List<SimpleSportDTO> simpleSportDTOs = null;
+        try {
+            simpleSportDTOs = SessionController.getInstance().getSession().getSportRemote().getAllSimpleSports();
+            //_sportObservable.setAll(simpleSportDTOs);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return simpleSportDTOs;
+
     }
 
     private void setAllTeamsTableViewData() {
@@ -146,6 +174,11 @@ public class NewMemberFormController {
                     newMember.addTeam(team.getId());
                 }
             }
+            if(_sportTableView.getItems() != null){
+                for(SimpleSportDTO sport : _sportTableView.getItems()){
+                    newMember.addSport(sport.getId());
+                }
+            }
 
             SessionController.getInstance().getSession().getPersonRemote().create(newMember);
             initSuccessAlert();
@@ -191,5 +224,18 @@ public class NewMemberFormController {
     @FXML
     private void cancelNewMember() {
         SportifyGUI.getSharedMainApp().loadMemberList();
+    }
+
+    @FXML
+    public void addSport(ActionEvent actionEvent) {
+        SimpleSportDTO simpleSportDTO = (SimpleSportDTO) _sportComboBox.getSelectionModel().getSelectedItem();
+        if(!_sportObservable.contains(simpleSportDTO)) {
+            _sportObservable.add(simpleSportDTO);
+        }
+    }
+
+    @FXML
+    public void removeSport(ActionEvent actionEvent) {
+        _sportObservable.remove(_sportTableView.getSelectionModel().getSelectedItem());
     }
 }

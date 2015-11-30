@@ -64,4 +64,10 @@ public interface PersonDTO extends Serializable, DTO {
     void addRoster(String rosterId);
 
     void removeRoster(String rosterId);
+
+    HashSet<String> getSportIDs ();
+
+    void addSport (String sportID);
+
+    void removeSport (String sportID);
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.MemberDataController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.MemberDataController">
     <children>
         <GridPane layoutX="15.0" layoutY="54.0" prefHeight="263.0" prefWidth="399.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="54.0">
             <children>
@@ -45,13 +45,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-      <Button fx:id="_editButton" layoutX="377.0" layoutY="561.0" mnemonicParsing="false" onAction="#clickEditButton" text="Edit" />
+      <Button fx:id="_editButton" layoutX="501.0" layoutY="561.0" mnemonicParsing="false" onAction="#clickEditButton" text="Edit Member" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
       <Label fx:id="_memberViewTitle" layoutX="14.0" layoutY="14.0" text="Member Details" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <TableView fx:id="_teamTableView" layoutX="153.0" layoutY="351.0" prefHeight="200.0" prefWidth="261.0">
+      <TableView fx:id="_teamTableView" layoutX="21.0" layoutY="351.0" prefHeight="200.0" prefWidth="261.0">
         <columns>
           <TableColumn fx:id="_teamNameColumn" prefWidth="260.0" text="Teams" />
         </columns>
@@ -61,5 +61,15 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="300.0" layoutY="324.0" text="Sports">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="_sportsTableView" layoutX="300.0" layoutY="351.0" prefHeight="200.0" prefWidth="261.0">
+        <columns>
+          <TableColumn fx:id="_sportNameColumn" prefWidth="260.0" text="Sports" />
+        </columns>
+      </TableView>
     </children>
 </AnchorPane>

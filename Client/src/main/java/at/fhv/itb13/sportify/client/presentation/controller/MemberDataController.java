@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,9 +49,6 @@ public class MemberDataController {
     private TextField _birthdayTextField;
 
     @FXML
-    private HBox _editButtonsHBox;
-
-    @FXML
     private Button _editButton;
 
     @FXML
@@ -60,9 +58,17 @@ public class MemberDataController {
     private javafx.scene.control.TableView<DisplayTeamDTO> _teamTableView;
 
     @FXML
+    private TableView<SimpleSportDTO> _sportsTableView;
+
+    @FXML
     private TableColumn<DisplayTeamDTO, String> _teamNameColumn;
 
+    @FXML
+    private TableColumn<SimpleSportDTO, String> _sportNameColumn;
+
     private ObservableList<DisplayTeamDTO> _teamsObservable = FXCollections.observableArrayList();
+
+    private ObservableList<SimpleSportDTO> _sportsObservable = FXCollections.observableArrayList();
 
 
     private PersonDTO _person;
@@ -98,6 +104,26 @@ public class MemberDataController {
             }
         }
         setTeamsTableViewData();
+        setSportTableViewData();
+    }
+
+    private void setSportTableViewData() {
+        try {
+            List<SimpleSportDTO> allSports = SessionController.getInstance().getSession().getSportRemote().getAllSimpleSports();
+            HashSet<String> sports = new HashSet<>();
+            sports = _person.getSportIDs();
+            if (sports != null){
+                for (SimpleSportDTO simpleSportDTO : allSports){
+                    if (sports.contains(simpleSportDTO.getId())){
+                        _sportsObservable.add(simpleSportDTO);
+                    }
+                }
+
+                _sportsTableView.setItems(_sportsObservable);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -106,10 +132,11 @@ public class MemberDataController {
         //set values for allTeamsTableView's columns
         _teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
-
         _teamTableView.setItems(_teamsObservable);
 
+        _sportNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
+        _sportsTableView.setItems(_sportsObservable);
     }
 
     private void setTeamsTableViewData() {

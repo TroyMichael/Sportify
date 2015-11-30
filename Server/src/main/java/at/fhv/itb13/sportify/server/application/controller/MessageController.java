@@ -1,5 +1,7 @@
 package at.fhv.itb13.sportify.server.application.controller;
 
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -59,7 +61,7 @@ public class MessageController {
 
     }
 
-    public void sendMessage(String queueName, ObjectMessage message) {
+    public void sendMessage(PersonDTO personDTO, ObjectMessage message) {
         Properties env = new Properties();
         env.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
         env.setProperty(Context.PROVIDER_URL, "tcp://52.28.97.28:61616");

@@ -212,6 +212,7 @@ public class SportifyGUI extends Application {
     public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
        NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
         cont.setDisplayTeamDTO(displayTeamDTO);
+        cont.setTournamentDTO(simpleTournamentDTO);
     }
 
 

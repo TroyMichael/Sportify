@@ -1,5 +1,8 @@
 package at.fhv.itb13.sportify.shared.communication.remote;
 
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTO;
+
 import javax.jms.ObjectMessage;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,5 +13,5 @@ import java.rmi.RemoteException;
 public interface MessageRemote extends Remote{
 
     void getMessage (String queueName) throws RemoteException;
-    void sendMessage (String queueName, ObjectMessage objectMessage) throws RemoteException;
+    void sendMessage (PersonDTO queueName, TournamentInvitationMessageDTO objectMessage) throws RemoteException;
 }

@@ -1,9 +1,10 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.MessageController;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.MessageRemote;
 
-import javax.jms.ObjectMessage;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -26,7 +27,7 @@ public class MessageServant extends UnicastRemoteObject implements MessageRemote
     }
 
     @Override
-    public void sendMessage(String queueName, ObjectMessage objectMessage) throws RemoteException {
+    public void sendMessage(PersonDTO queueName, TournamentInvitationMessageDTO objectMessage) throws RemoteException {
         _messageController.sendMessage(queueName, objectMessage);
     }
 }

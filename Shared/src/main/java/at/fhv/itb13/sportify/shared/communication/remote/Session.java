@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 public interface Session extends Remote {
 
-    UserDTO getUserDTO();
+    UserDTO getUserDTO() throws RemoteException;
 
     PersonRemote getPersonRemote() throws RemoteException;
 

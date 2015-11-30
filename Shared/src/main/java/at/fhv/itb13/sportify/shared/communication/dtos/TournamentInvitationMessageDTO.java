@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
+import javax.jms.Message;
 import java.io.Serializable;
 
 /**
@@ -7,11 +8,11 @@ import java.io.Serializable;
  */
 public interface TournamentInvitationMessageDTO extends DTO, Serializable {
 
-    TournamentDTO getTournament();
+    SimpleTournamentDTO getSimpleTournament();
 
-    void setTournament(TournamentDTO tournament);
+    void setSimpleTournament(SimpleTournamentDTO tournament);
 
-    String getResponseQueueName();
+    UserDTO getSender();
 
-    void setResponseQueueName(String name);
+    void setSender(UserDTO name);
 }

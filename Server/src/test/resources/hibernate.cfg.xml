@@ -22,6 +22,8 @@
         <mapping class="at.fhv.itb13.sportify.server.model.Match"/>
         <mapping class="at.fhv.itb13.sportify.server.model.MatchTeam"/>
         <mapping class="at.fhv.itb13.sportify.server.model.Tournament"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.UserRight"/>
+        <mapping class="at.fhv.itb13.sportify.server.model.UserRole"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -8,6 +8,7 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
 
     private String _fName;
     private String _lName;
+    private String _username;
 
 
     public SimplePersonDTOImpl() {
@@ -38,6 +39,16 @@ public class SimplePersonDTOImpl extends DTOImpl implements SimplePersonDTO {
     @Override
     public void setLName(String lName) {
         _lName = lName;
+    }
+
+    @Override
+    public String getUserName() {
+        return _username;
+    }
+
+    @Override
+    public void setUserName(String username) {
+        _username = username;
     }
 
     @Override

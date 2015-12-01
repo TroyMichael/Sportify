@@ -13,6 +13,9 @@ public interface SimplePersonDTO extends Serializable, DTO {
     String getLName();
     void setLName(String lName);
 
+    String getUserName();
+    void setUserName(String username);
+
 
 
 }

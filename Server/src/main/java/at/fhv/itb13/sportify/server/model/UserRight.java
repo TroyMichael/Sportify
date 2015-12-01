@@ -10,25 +10,32 @@ import java.util.Set;
 @Table(name = "userright")
 public class UserRight extends PersistentObjectImpl {
 
-    private String _name;
+    public enum RightName {
+        PERSON_MODIFY,
+        TEAM_MODIFY,
+        TOURNAMENT_MODIFY
+    }
+
+    private RightName _name;
     private String _description;
     private Set<UserRole> _userRoles = new HashSet<>();
 
     public UserRight() {
     }
 
-    public UserRight(String name, String description, Set<UserRole> userRoles) {
+    public UserRight(RightName name, String description, Set<UserRole> userRoles) {
         _name = name;
         _description = description;
         _userRoles = userRoles;
     }
 
     @Column(name = "name")
-    public String getName() {
+    @Enumerated(EnumType.STRING)
+    public RightName getName() {
         return _name;
     }
 
-    public void setName(String name) {
+    public void setName(RightName name) {
         _name = name;
     }
 

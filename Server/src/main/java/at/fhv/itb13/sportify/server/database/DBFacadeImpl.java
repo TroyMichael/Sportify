@@ -5,9 +5,7 @@ import at.fhv.itb13.sportify.server.model.*;
 import at.fhv.itb13.sportify.server.util.HibernateUtil;
 import org.hibernate.criterion.Criterion;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class DBFacadeImpl implements DBFacade {
@@ -83,6 +81,21 @@ public class DBFacadeImpl implements DBFacade {
     @Override
     public <T extends PersistentObject> T merge(T object) {
         return (T) getDAO(object.getClass()).merge(object);
+    }
+
+    public Set<UserRight> getUserRightsByUserName(String userName) {
+        List<UserRole> roles = HibernateUtil.getCurrentSession()
+                .createQuery("FROM UserRole WHERE :username IN elements(userNames)")
+                .setParameter("username", userName)
+                .list();
+
+        Set<UserRight> rights = new HashSet<>();
+        if (roles != null) {
+            for (UserRole role : roles) {
+                rights.addAll(role.getUserRights());
+            }
+        }
+        return rights;
     }
 
     private <T extends PersistentObject> GenericDAO getDAO(Class<T> type) {

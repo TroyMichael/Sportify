@@ -3,6 +3,7 @@ package at.fhv.itb13.sportify.server.communication.remote;
 import at.fhv.itb13.sportify.server.application.controller.TeamController;
 import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.ExternalDisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
@@ -25,6 +26,11 @@ public class TeamServant extends SessionServant implements TeamRemote {
     public void createTeam(TeamDTO teamDTO) throws RemoteException, NotAuthorizedException {
         authorize(UserRight.RightName.TEAM_MODIFY);
         _teamController.create(teamDTO);
+    }
+
+    @Override
+    public void createExternalTeam(ExternalDisplayTeamDTO team) throws RemoteException {
+        _teamController.createExternalTeam(team);
     }
 
     @Override

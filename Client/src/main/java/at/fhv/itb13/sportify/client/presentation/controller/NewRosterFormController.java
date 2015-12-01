@@ -13,34 +13,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.HashSet;
 
 
 public class NewRosterFormController {
 
 
     @FXML
-    private TableView<PersonDTO> _allMembersTableView;
+    private TableView<SimplePersonDTO> _allMembersTableView;
 
     @FXML
-    private TableColumn<PersonDTO, String> _allMembersFirstNameColumn;
+    private TableColumn<SimplePersonDTO, String> _allMembersFirstNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _allMembersLastNameColumn;
+    private TableColumn<SimplePersonDTO, String> _allMembersLastNameColumn;
 
     @FXML
-    private TableView<PersonDTO> _addedMembersTableView;
+    private TableView<SimplePersonDTO> _addedMembersTableView;
 
     @FXML
-    private TableColumn<PersonDTO, String> _addedMembersFirstNameColumn;
+    private TableColumn<SimplePersonDTO, String> _addedMembersFirstNameColumn;
 
     @FXML
-    private TableColumn<PersonDTO, String> _addedMembersLastNameColumn;
+    private TableColumn<SimplePersonDTO, String> _addedMembersLastNameColumn;
 
     @FXML
     private Button _cancelButton;
 
-    private ObservableList<PersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
+    private ObservableList<SimplePersonDTO> _addedMembersObservable = FXCollections.observableArrayList();
 
     private DisplayTeamDTO _team;
 
@@ -59,12 +59,13 @@ public class NewRosterFormController {
 
         _addedMembersTableView.setItems(_addedMembersObservable);
 
-        setAllMembersTableViewData();
+
 
     }
 
     public void setDisplayTeamDTO(DisplayTeamDTO team) {
         _team = team;
+        setAllMembersTableViewData();
     }
 
     public void setSimpleTournamentDTO(SimpleTournamentDTO tournamentDTO) {
@@ -73,18 +74,16 @@ public class NewRosterFormController {
 
     private void setAllMembersTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
-        try {
-            List<PersonDTO> allMembers = SessionController.getInstance().getSession().getPersonRemote().getAllPersons();
 
-            if (allMembers != null) {
-                //create an observableArrayList and fill it with all members
-                ObservableList<PersonDTO> allMembersObservable = FXCollections.observableArrayList();
-                allMembers.forEach(person -> allMembersObservable.add(person));
-                _allMembersTableView.setItems(allMembersObservable);
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        HashSet<SimplePersonDTO> allMembers = _team.getMembers();
+
+        if (allMembers != null) {
+            //create an observableArrayList and fill it with all members
+            ObservableList<SimplePersonDTO> allMembersObservable = FXCollections.observableArrayList();
+            allMembers.forEach(person -> allMembersObservable.add(person));
+            _allMembersTableView.setItems(allMembersObservable);
         }
+
     }
 
 
@@ -101,15 +100,15 @@ public class NewRosterFormController {
     @FXML
     private void removeAllMembers() {
         while (_addedMembersTableView.getItems().size() > 0) {
-            PersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
+            SimplePersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
             _addedMembersTableView.getItems().remove(personToSwitch);
             _allMembersTableView.getItems().add(personToSwitch);
         }
     }
 
-    private void switchMember(TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
+    private void switchMember(TableView<SimplePersonDTO> viewToRemoveFrom, TableView<SimplePersonDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
-            PersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
+            SimplePersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
             viewToAddTo.getItems().add(personToSwitch);
         }
@@ -122,7 +121,7 @@ public class NewRosterFormController {
         message.setSimpleTournament(_tournament);
         message.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
 
-        for (PersonDTO p : _addedMembersTableView.getItems()) {
+        for (SimplePersonDTO p : _addedMembersTableView.getItems()) {
             try {
                 SessionController.getInstance().getSession().getMessageRemote().sendMessage(p.getUserName(), message);
             } catch (RemoteException e) {

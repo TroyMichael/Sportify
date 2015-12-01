@@ -68,9 +68,6 @@ public class JMSCommunication implements Runnable {
 
     private void createRosterInvitationAlert(TournamentInvitationMessageDTO invMessage) {
         //set Alert type and contents
-
-        System.out.println("received rosterInv");
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Roster Invitation");
         alert.setHeaderText("Invitation to play in a Tournament");

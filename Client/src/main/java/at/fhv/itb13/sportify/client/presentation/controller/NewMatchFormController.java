@@ -2,10 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -50,6 +48,7 @@ public class NewMatchFormController {
 
     private TournamentDTO _tournament;
 
+    private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs;
     @FXML
     private void initialize(){
         //set values for allTeamsTableView's columns
@@ -86,7 +85,7 @@ public class NewMatchFormController {
             _tournament.addMatch(newMatch);
 
             initSuccessAlert();
-            SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament);
+            SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
         }
     }
 
@@ -154,13 +153,13 @@ public class NewMatchFormController {
 
     @FXML
     private void cancelNewMatch() {
-        SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament);
+        SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
     }
 
 
-    public void setTournament(TournamentDTO tournament) {
+    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
         _tournament = tournament;
-
+        _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
         try {
             List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
             teams.forEach(team -> {
@@ -169,6 +168,8 @@ public class NewMatchFormController {
                     _allTeamsOpponentTableView.getItems().add(team);
                 }
             });
+            _allTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
+            _allTeamsOpponentTableView.getItems().addAll(_externalDisplayTeamDTOs);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

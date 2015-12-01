@@ -4,6 +4,7 @@ package at.fhv.itb13.sportify.client.presentation;
 import at.fhv.itb13.sportify.client.communication.JMSCommunication;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.HashSet;
 import java.util.List;
 
 public class SportifyGUI extends Application {
@@ -192,9 +194,9 @@ public class SportifyGUI extends Application {
         loadView("view/newTournamentForm.fxml", _rootLayout);
     }
 
-    public void loadNewTournamentView(TournamentDTO tournament) {
-        NewTournamentFormController cont = (NewTournamentFormController) loadView("view/NewTournamentForm.fxml", _rootLayout);
-        cont.setTournament(tournament);
+    public void loadNewTournamentView(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
+        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        cont.setTournament(tournament, externalDisplayTeamDTOs);
     }
 
     public static SportifyGUI getSharedMainApp() {
@@ -206,17 +208,17 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadTournamentListView() {
+    public void loadTournamentListView () {
         loadView("view/TournamentList.fxml", _rootLayout);
     }
 
-    public void loadNewMatchForm(TournamentDTO tournament) {
-        NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
-        cont.setTournament(tournament);
+    public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams) {
+        NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
+        cont.setTournament(tournament, externalTeams);
     }
 
-    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO) {
-        NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
+    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
+       NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
         cont.setDisplayTeamDTO(displayTeamDTO);
         cont.setSimpleTournamentDTO(simpleTournamentDTO);
     }

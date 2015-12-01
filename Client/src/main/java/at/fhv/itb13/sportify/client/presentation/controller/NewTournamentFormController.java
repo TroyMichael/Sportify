@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.util.IdGenerator;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -74,7 +74,7 @@ public class NewTournamentFormController {
     private TournamentDTO _tournament;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
 
         //set values for allTeamsTableView's columns
         _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -211,7 +211,7 @@ public class NewTournamentFormController {
     }
 
     @FXML
-    private void addTeam () {
+    private void addTeam() {
         if (_allTeamsTableView.getSelectionModel().getSelectedItem() != null) {
             DisplayTeamDTO teamToAdd = _allTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().add(teamToAdd);
@@ -221,7 +221,7 @@ public class NewTournamentFormController {
     }
 
     @FXML
-    private void removeTeam () {
+    private void removeTeam() {
         if (_addedTeamsTableView.getSelectionModel().getSelectedItem() != null) {
             DisplayTeamDTO teamToRemove = _addedTeamsTableView.getSelectionModel().getSelectedItem();
             _addedTeamsTableView.getItems().remove(teamToRemove);
@@ -234,30 +234,26 @@ public class NewTournamentFormController {
     private void removeAllTeams() {
         while (_addedTeamsTableView.getItems().size() > 0) {
             DisplayTeamDTO teamToSwitch = _addedTeamsTableView.getItems().get(0);
-                _addedTeamsTableView.getItems().remove(teamToSwitch);
-                _allTeamsObservable.add(teamToSwitch);
+            _addedTeamsTableView.getItems().remove(teamToSwitch);
+            _allTeamsObservable.add(teamToSwitch);
         }
         setAllTeamsListData(_allTeamsObservable);
     }
 
     @FXML
-    private void saveNewTournament() {
+    private void saveNewTournament() throws RemoteException, NotAuthorizedException {
 
         if (createOrUpdateTournamentDTO()) {
-            //call createFunction
-            try {
-                for(ExternalDisplayTeamDTO externalDisplayTeamDTO:_externalDisplayTeamDTOs){
-                    externalDisplayTeamDTO.setSport(_sportComboBox.getValue());
-                    SessionController.getInstance().getSession().getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
-                }
-
-                SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
-                initSuccessAlert();
-                //TODO switch to tournamentdetail view
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                initErrorAlert();
+            for (ExternalDisplayTeamDTO externalDisplayTeamDTO : _externalDisplayTeamDTOs) {
+                externalDisplayTeamDTO.setSport(_sportComboBox.getValue());
+                SessionController.getInstance().getSession().getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
             }
+
+            SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
+            initSuccessAlert();
+            //TODO switch to tournamentdetail view
+        } else {
+            initErrorAlert();
         }
     }
 
@@ -278,14 +274,14 @@ public class NewTournamentFormController {
             _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
-        if (_datePicker.getValue() == null){
+        if (_datePicker.getValue() == null) {
             _datePicker.setStyle("-fx-date-picker-border:red;");
             validation = false;
         } else {
             _datePicker.setStyle("-fx-date-picker-border:lightgrey;");
         }
 
-        if (_locationTextField.getText().length() == 0){
+        if (_locationTextField.getText().length() == 0) {
             _locationTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
@@ -304,14 +300,14 @@ public class NewTournamentFormController {
     private void addForeignTeam() {
         ExternalDisplayTeamDTO externalDisplayTeamDTO = new ExternalDisplayTeamDTO(_foreignTeamTextField.getText());
         _externalDisplayTeamDTOs.add(externalDisplayTeamDTO);
-       // _tournament.addTeamID(externalDisplayTeamDTO.getId());
+        // _tournament.addTeamID(externalDisplayTeamDTO.getId());
         _addedTeamsObservable.add(externalDisplayTeamDTO);
     }
 
     @FXML
     private void addNewMatch() {
         if (createOrUpdateTournamentDTO()) {
-            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament,_externalDisplayTeamDTOs);
+            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs);
         }
     }
 
@@ -354,7 +350,7 @@ public class NewTournamentFormController {
         alert.showAndWait();
     }
 
-    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO>externalDisplayTeamDTOs) {
+    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
         _tournament = tournament;
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
         //set data
@@ -373,7 +369,7 @@ public class NewTournamentFormController {
         //so teams cannot be chosen twice
         Iterator it = _allTeamsObservable.iterator();
         while (it.hasNext()) {
-            DisplayTeamDTO team = (DisplayTeamDTO)it.next();
+            DisplayTeamDTO team = (DisplayTeamDTO) it.next();
             if (_tournament.getTeamIDs().contains(team.getId())) {
                 it.remove();
                 _addedTeamsTableView.getItems().add(team);

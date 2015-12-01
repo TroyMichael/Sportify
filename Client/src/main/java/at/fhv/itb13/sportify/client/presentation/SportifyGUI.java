@@ -4,12 +4,12 @@ package at.fhv.itb13.sportify.client.presentation;
 import at.fhv.itb13.sportify.client.communication.JMSCommunication;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -52,6 +52,12 @@ public class SportifyGUI extends Application {
                 alert.setHeaderText("Server not reachable");
                 alert.setTitle("Server not reachable");
                 alert.setContentText("The server or your network connection may be down.");
+                alert.showAndWait();
+            } else if (e instanceof NotAuthorizedException) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("User not authorized");
+                alert.setTitle("User not authorized");
+                alert.setContentText("The current user is not authorized to fulfill this action.");
                 alert.showAndWait();
             } else {
                 e.printStackTrace();
@@ -187,7 +193,7 @@ public class SportifyGUI extends Application {
     }
 
     public void loadNewTournamentView(TournamentDTO tournament) {
-        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        NewTournamentFormController cont = (NewTournamentFormController) loadView("view/NewTournamentForm.fxml", _rootLayout);
         cont.setTournament(tournament);
     }
 
@@ -200,17 +206,17 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadTournamentListView () {
+    public void loadTournamentListView() {
         loadView("view/TournamentList.fxml", _rootLayout);
     }
 
     public void loadNewMatchForm(TournamentDTO tournament) {
-        NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
+        NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament);
     }
 
-    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
-       NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
+    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO) {
+        NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
         cont.setDisplayTeamDTO(displayTeamDTO);
         cont.setSimpleTournamentDTO(simpleTournamentDTO);
     }

@@ -9,11 +9,11 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface TeamRemote extends Remote {
-    void createTeam(TeamDTO teamDTO) throws RemoteException;
+    void createTeam(TeamDTO teamDTO) throws RemoteException, NotAuthorizedException;
 
-    void editTeam(TeamDTO TeamDTO) throws RemoteException;
+    void editTeam(TeamDTO TeamDTO) throws RemoteException, NotAuthorizedException;
 
-    void addPersonToTeam(PersonDTO personDTO) throws RemoteException;
+    void addPersonToTeam(PersonDTO personDTO) throws RemoteException, NotAuthorizedException;
 
     List<TeamDTO> getAllTeams() throws RemoteException;
 

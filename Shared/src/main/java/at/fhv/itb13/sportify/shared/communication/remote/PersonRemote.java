@@ -8,11 +8,11 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface PersonRemote extends Remote {
-    void create(PersonDTO personDto) throws RemoteException;
+    void create(PersonDTO personDto) throws RemoteException, NotAuthorizedException;
 
     List<PersonDTO> searchPerson(PersonDTO personDto) throws RemoteException;
 
-    void editPerson(PersonDTO personDTO) throws RemoteException;
+    void editPerson(PersonDTO personDTO) throws RemoteException, NotAuthorizedException;
 
     List<PersonDTO> getAllPersons() throws RemoteException;
 

@@ -12,16 +12,16 @@ public class UserRole extends PersistentObjectImpl {
 
     private String _name;
     private String _description;
-    private Set<User> _users = new HashSet<>();
+    private Set<String> _userNames = new HashSet<>();
     private Set<UserRight> _userRights = new HashSet<>();
 
     public UserRole() {
     }
 
-    public UserRole(String name, String description, Set<User> users, Set<UserRight> userRights) {
+    public UserRole(String name, String description, Set<String> users, Set<UserRight> userRights) {
         _name = name;
         _description = description;
-        _users = users;
+        _userNames = users;
         _userRights = userRights;
     }
 
@@ -43,14 +43,15 @@ public class UserRole extends PersistentObjectImpl {
         _description = description;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_userrole", joinColumns = {@JoinColumn(name = "userrole_id", nullable = false, updatable = false)}, inverseJoinColumns = {@JoinColumn(name = "username", nullable = false, updatable = false)})
-    public Set<User> getUsers() {
-        return _users;
+    @ElementCollection
+    @CollectionTable(name = "user_userrole", joinColumns = @JoinColumn(name = "userrole_id", nullable = false, updatable = false))
+    @Column(name = "username")
+    public Set<String> getUserNames() {
+        return _userNames;
     }
 
-    public void setUsers(Set<User> users) {
-        _users = users;
+    public void setUserNames(Set<String> userNames) {
+        _userNames = userNames;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

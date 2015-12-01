@@ -2,11 +2,13 @@ package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.UserMapper;
 import at.fhv.itb13.sportify.server.model.User;
+import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Set;
 
 public class SessionImpl extends UnicastRemoteObject implements Session {
 
@@ -30,27 +32,27 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     }
 
     public PersonRemote getPersonRemote() throws RemoteException {
-        return new PersonServant();
+        return new PersonServant(this);
     }
 
     public TeamRemote getTeamRemote() throws RemoteException {
-        return new TeamServant();
+        return new TeamServant(this);
     }
 
     public SportRemote getSportRemote() throws RemoteException {
-        return new SportServant();
+        return new SportServant(this);
     }
 
     public TournamentRemote getTournamentRemote() throws RemoteException {
-        return new TournamentServant();
+        return new TournamentServant(this);
     }
 
     public MatchRemote getMatchRemote() throws RemoteException {
-        return new MatchServant();
+        return new MatchServant(this);
     }
 
     @Override
     public MessageRemote getMessageRemote() throws RemoteException {
-        return new MessageServant();
+        return new MessageServant(this);
     }
 }

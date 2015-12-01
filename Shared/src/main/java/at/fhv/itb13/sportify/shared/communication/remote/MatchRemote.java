@@ -7,5 +7,5 @@ import java.rmi.RemoteException;
 
 public interface MatchRemote extends Remote {
 
-    void create(MatchDTO matchDto) throws RemoteException;
+    void create(MatchDTO matchDto) throws RemoteException, NotAuthorizedException;
 }

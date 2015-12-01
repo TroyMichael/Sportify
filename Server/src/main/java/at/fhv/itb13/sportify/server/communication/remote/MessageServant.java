@@ -1,23 +1,18 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.MessageController;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.MessageRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.Session;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-/**
- * Created by KYUSS on 29.11.2015.
- *
- */
-public class MessageServant extends UnicastRemoteObject implements MessageRemote {
+public class MessageServant extends SessionServant implements MessageRemote {
 
     private MessageController _messageController;
 
-    protected MessageServant() throws RemoteException {
-        super();
+    protected MessageServant(Session session) throws RemoteException {
+        super(session);
         _messageController = new MessageController();
     }
 
@@ -28,7 +23,7 @@ public class MessageServant extends UnicastRemoteObject implements MessageRemote
     }
 
     @Override
-    public void sendMessage(String username , Serializable objectMessage) throws RemoteException {
+    public void sendMessage(String username, Serializable objectMessage) throws RemoteException {
         _messageController.sendMessage(username, objectMessage);
     }
 }

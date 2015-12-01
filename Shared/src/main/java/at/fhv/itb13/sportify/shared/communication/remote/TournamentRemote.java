@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface TournamentRemote extends Remote {
-    void createTournament(TournamentDTO tournamentDTO) throws RemoteException;
+    void createTournament(TournamentDTO tournamentDTO) throws RemoteException, NotAuthorizedException;
 
     List<TournamentDTO> getAllTournaments() throws RemoteException;
 

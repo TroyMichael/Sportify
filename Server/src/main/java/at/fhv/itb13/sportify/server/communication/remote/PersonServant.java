@@ -1,25 +1,28 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.PersonController;
+import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.Session;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class PersonServant extends UnicastRemoteObject implements PersonRemote {
-    
+public class PersonServant extends SessionServant implements PersonRemote {
+
     private PersonController _personController;
 
-    public PersonServant() throws RemoteException {
-        super();
+    public PersonServant(Session session) throws RemoteException {
+        super(session);
         _personController = new PersonController();
     }
 
     @Override
-    public void create(PersonDTO personDto) throws RemoteException {
+    public void create(PersonDTO personDto) throws RemoteException, NotAuthorizedException {
+        authorize(UserRight.RightName.PERSON_MODIFY);
         _personController.create(personDto);
     }
 
@@ -29,7 +32,8 @@ public class PersonServant extends UnicastRemoteObject implements PersonRemote {
     }
 
     @Override
-    public void editPerson(PersonDTO personDTO) throws RemoteException {
+    public void editPerson(PersonDTO personDTO) throws RemoteException, NotAuthorizedException {
+        authorize(UserRight.RightName.PERSON_MODIFY);
         _personController.saveOrUpdate(personDTO);
     }
 

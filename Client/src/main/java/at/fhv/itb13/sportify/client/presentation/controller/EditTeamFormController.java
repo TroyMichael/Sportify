@@ -3,6 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import java.util.List;
 
 /**
  * Created by Michael on 10.11.2015.
- *
  */
 public class EditTeamFormController {
 
@@ -53,7 +53,7 @@ public class EditTeamFormController {
     private SimplePersonDTO _trainer;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
 
         //set values for allMembersTableView's columns
         _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
@@ -102,12 +102,12 @@ public class EditTeamFormController {
     }
 
     @FXML
-    private void addMember () {
+    private void addMember() {
         switchMember(_allMembersTableView, _addedMembersTableView);
     }
 
     @FXML
-    private void removeMember () {
+    private void removeMember() {
         switchMember(_addedMembersTableView, _allMembersTableView);
     }
 
@@ -115,12 +115,12 @@ public class EditTeamFormController {
     private void removeAllMembers() {
         while (_addedMembersTableView.getItems().size() > 0) {
             SimplePersonDTO personToSwitch = _addedMembersTableView.getItems().get(0);
-                _addedMembersTableView.getItems().remove(personToSwitch);
-                _allMembersTableView.getItems().add(personToSwitch);
+            _addedMembersTableView.getItems().remove(personToSwitch);
+            _allMembersTableView.getItems().add(personToSwitch);
         }
     }
 
-    private void switchMember (TableView<SimplePersonDTO> viewToRemoveFrom, TableView<SimplePersonDTO> viewToAddTo) {
+    private void switchMember(TableView<SimplePersonDTO> viewToRemoveFrom, TableView<SimplePersonDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
             SimplePersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
@@ -144,7 +144,7 @@ public class EditTeamFormController {
     }
 
     @FXML
-    private void saveTeam() {
+    private void saveTeam() throws RemoteException, NotAuthorizedException {
 
         if (validate()) {
             //gather all information of the new team
@@ -161,13 +161,8 @@ public class EditTeamFormController {
             newTeam.setId(_team.getId());
 
             //call createFunction
-            try {
-                SessionController.getInstance().getSession().getTeamRemote().editTeam(newTeam);
-                initSuccessAlert();
-                //TODO switch to team detail view
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            SessionController.getInstance().getSession().getTeamRemote().editTeam(newTeam);
+            initSuccessAlert();
         } else {
             initErrorAlert();
         }
@@ -191,7 +186,7 @@ public class EditTeamFormController {
         }
 
         //TODO fix error message with style
-        if (_trainerTextField.getText().length() == 0){
+        if (_trainerTextField.getText().length() == 0) {
             _trainerTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {
@@ -236,10 +231,10 @@ public class EditTeamFormController {
         setTeamSport(_team.getSport());
     }
 
-    private void removePersonIfAlreadyInTeam (SimplePersonDTO personToRemove) {
+    private void removePersonIfAlreadyInTeam(SimplePersonDTO personToRemove) {
         for (int i = 0; i < _allMembersTableView.getItems().size(); ++i) {
             SimplePersonDTO sp = _allMembersTableView.getItems().get(i);
-            if (sp.getId().equals(personToRemove.getId())){
+            if (sp.getId().equals(personToRemove.getId())) {
                 _allMembersTableView.getItems().remove(sp);
             }
         }

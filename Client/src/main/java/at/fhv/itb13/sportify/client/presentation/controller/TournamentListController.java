@@ -3,7 +3,6 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,7 +20,6 @@ import java.util.List;
 
 /**
  * Created by KYUSS on hütt.
- *
  */
 public class TournamentListController {
 

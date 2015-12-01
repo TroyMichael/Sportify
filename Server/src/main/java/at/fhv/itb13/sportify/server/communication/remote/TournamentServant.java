@@ -1,25 +1,28 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.TournamentController;
+import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.remote.Session;
 import at.fhv.itb13.sportify.shared.communication.remote.TournamentRemote;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class TournamentServant extends UnicastRemoteObject implements TournamentRemote {
+public class TournamentServant extends SessionServant implements TournamentRemote {
 
     private TournamentController _tournamentController = null;
 
-    public TournamentServant() throws RemoteException {
-        super();
+    public TournamentServant(Session session) throws RemoteException {
+        super(session);
         _tournamentController = new TournamentController();
     }
 
     @Override
-    public void createTournament(TournamentDTO tournamentDTO) throws RemoteException {
+    public void createTournament(TournamentDTO tournamentDTO) throws RemoteException, NotAuthorizedException {
+        authorize(UserRight.RightName.TOURNAMENT_MODIFY);
         _tournamentController.create(tournamentDTO);
     }
 

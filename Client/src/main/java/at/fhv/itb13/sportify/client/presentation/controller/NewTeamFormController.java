@@ -2,7 +2,11 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
-import at.fhv.itb13.sportify.shared.communication.dtos.*;
+import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +19,6 @@ import java.util.List;
 
 /**
  * Created by Michael on 10.11.2015.
- *
  */
 public class NewTeamFormController {
 
@@ -51,7 +54,7 @@ public class NewTeamFormController {
     private PersonDTO _trainer;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
 
         //set values for allMembersTableView's columns
         _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
@@ -100,18 +103,18 @@ public class NewTeamFormController {
     }
 
     @FXML
-    private void addMember () {
+    private void addMember() {
         switchMember(_allMembersTableView, _addedMembersTableView);
     }
 
     @FXML
-    private void removeMember () {
+    private void removeMember() {
         switchMember(_addedMembersTableView, _allMembersTableView);
     }
 
     @FXML
     private void removeAllMembers() {
-       removeAllMembers(_addedMembersTableView, _allMembersTableView);
+        removeAllMembers(_addedMembersTableView, _allMembersTableView);
     }
 
     private void removeAllMembers(TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
@@ -122,7 +125,7 @@ public class NewTeamFormController {
         }
     }
 
-    private void switchMember (TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
+    private void switchMember(TableView<PersonDTO> viewToRemoveFrom, TableView<PersonDTO> viewToAddTo) {
         if (viewToRemoveFrom.getSelectionModel().getSelectedItem() != null) {
             PersonDTO personToSwitch = viewToRemoveFrom.getSelectionModel().getSelectedItem();
             viewToRemoveFrom.getItems().remove(personToSwitch);
@@ -146,7 +149,7 @@ public class NewTeamFormController {
     }
 
     @FXML
-    private void saveTeam() {
+    private void saveTeam() throws RemoteException, NotAuthorizedException {
 
         if (validate()) {
             //gather all information of the new team
@@ -161,14 +164,8 @@ public class NewTeamFormController {
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
 
-            //call createFunction
-            try {
-                SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
-                initSuccessAlert();
-                //TODO switch to team detail view
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            SessionController.getInstance().getSession().getTeamRemote().createTeam(newTeam);
+            initSuccessAlert();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Components missing!");
@@ -195,7 +192,7 @@ public class NewTeamFormController {
             _sportComboBox.setStyle("-fx-text-box-border:lightgrey;");
         }
 
-        if (_trainerTextField.getText().length() == 0){
+        if (_trainerTextField.getText().length() == 0) {
             _trainerTextField.setStyle("-fx-text-box-border:red;");
             validation = false;
         } else {

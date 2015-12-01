@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
+import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -223,7 +224,7 @@ public class EditMemberDataController {
 
 
     @FXML
-    private void clickSaveButton() throws RemoteException {
+    private void clickSaveButton() throws RemoteException, NotAuthorizedException {
         if (validateInput()) {
             _person.setFName(_fNameTextField.getText());
             _person.setLName(_lNameTextField.getText());

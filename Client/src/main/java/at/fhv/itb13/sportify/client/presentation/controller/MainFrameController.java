@@ -65,6 +65,7 @@ public class MainFrameController {
     @FXML
     public void close(ActionEvent actionEvent) {
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML

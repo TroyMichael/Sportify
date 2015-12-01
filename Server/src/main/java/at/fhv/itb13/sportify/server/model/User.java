@@ -87,6 +87,8 @@ public class User {
         }
     }
 
+
+
     @Override
     public boolean equals(Object object) {
         // if it's the same reference, return true

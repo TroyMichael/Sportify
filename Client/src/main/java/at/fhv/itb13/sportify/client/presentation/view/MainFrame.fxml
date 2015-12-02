@@ -36,6 +36,7 @@
                   </Menu>
                     </menus>
                 </MenuBar>
+            <Button fx:id="_logoutButton" disable="true" layoutX="917.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="69.0" text="Logout" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </top>

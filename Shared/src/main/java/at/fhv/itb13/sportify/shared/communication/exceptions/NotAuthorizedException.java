@@ -1,14 +1,14 @@
-package at.fhv.itb13.sportify.shared.communication.remote;
+package at.fhv.itb13.sportify.shared.communication.exceptions;
 
-import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 
 public class NotAuthorizedException extends Exception {
 
     private UserDTO _userDTO;
-    private UserRight.RightName _rightName;
+    private RightName _rightName;
 
-    public NotAuthorizedException(UserDTO userDTO, UserRight.RightName rightName) {
+    public NotAuthorizedException(UserDTO userDTO, RightName rightName) {
         _userDTO = userDTO;
         _rightName = rightName;
     }
@@ -17,7 +17,7 @@ public class NotAuthorizedException extends Exception {
         return _userDTO;
     }
 
-    public UserRight.RightName getRightName() {
+    public RightName getRightName() {
         return _rightName;
     }
 }

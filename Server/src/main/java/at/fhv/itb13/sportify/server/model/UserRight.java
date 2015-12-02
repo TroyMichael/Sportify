@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,12 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name = "userright")
 public class UserRight extends PersistentObjectImpl {
-
-    public enum RightName {
-        PERSON_MODIFY,
-        TEAM_MODIFY,
-        TOURNAMENT_MODIFY
-    }
 
     private RightName _name;
     private String _description;

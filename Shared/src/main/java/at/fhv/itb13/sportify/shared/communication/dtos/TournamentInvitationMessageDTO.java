@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import javax.jms.Message;
 import java.io.Serializable;
 
 /**

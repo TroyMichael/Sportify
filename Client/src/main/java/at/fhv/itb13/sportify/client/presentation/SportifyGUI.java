@@ -5,12 +5,10 @@ import at.fhv.itb13.sportify.client.communication.JMSCommunication;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.controller.*;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -79,6 +77,7 @@ public class SportifyGUI extends Application {
         _primaryStage.setMinWidth(980);
         _primaryStage.setMaximized(true);
         _primaryStage.getIcons().add(new Image("iconSportify.png"));
+        _primaryStage.setOnCloseRequest(e -> close());
 
         loadRootLayout();
         loadLoginWindow();
@@ -196,11 +195,11 @@ public class SportifyGUI extends Application {
     }
 
     public void loadNewTournamentView() {
-        loadView("view/newTournamentForm.fxml", _rootLayout);
+        loadView("view/NewTournamentForm.fxml", _rootLayout);
     }
 
     public void loadNewTournamentView(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
-        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        NewTournamentFormController cont = (NewTournamentFormController) loadView("view/NewTournamentForm.fxml", _rootLayout);
         cont.setTournament(tournament, externalDisplayTeamDTOs);
     }
 
@@ -213,22 +212,22 @@ public class SportifyGUI extends Application {
         cont.setPerson(person);
     }
 
-    public void loadTournamentListView () {
+    public void loadTournamentListView() {
         loadView("view/TournamentList.fxml", _rootLayout);
     }
 
     public void loadNewTournamentView(TournamentDTO tournamentDTO) {
-        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        NewTournamentFormController cont = (NewTournamentFormController) loadView("view/NewTournamentForm.fxml", _rootLayout);
         cont.setTournament(tournamentDTO);
     }
 
     public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams) {
-        NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
+        NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament, externalTeams);
     }
 
-    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO){
-       NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
+    public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO) {
+        NewRosterFormController cont = (NewRosterFormController) loadView("view/NewRosterForm.fxml", _rootLayout);
         cont.setDisplayTeamDTO(displayTeamDTO);
         cont.setSimpleTournamentDTO(simpleTournamentDTO);
     }
@@ -243,12 +242,17 @@ public class SportifyGUI extends Application {
     }
 
     public void loadTournamentDetailView(SimpleTournamentDTO tournamentToShow) {
-        TournamentDetailFormController cont = (TournamentDetailFormController)loadView("view/TournamentDetailForm.fxml", _rootLayout);
+        TournamentDetailFormController cont = (TournamentDetailFormController) loadView("view/TournamentDetailForm.fxml", _rootLayout);
         cont.setTournament(tournamentToShow);
     }
 
     public void loadEditTournamentForm(TournamentDTO tournamentToEdit) {
-        EditTournamentFormController cont = (EditTournamentFormController)loadView("view/EditTournamentForm.fxml", _rootLayout);
+        EditTournamentFormController cont = (EditTournamentFormController) loadView("view/EditTournamentForm.fxml", _rootLayout);
         cont.setTournament(tournamentToEdit);
+    }
+
+    private void close() {
+        Platform.exit();
+        System.exit(0);
     }
 }

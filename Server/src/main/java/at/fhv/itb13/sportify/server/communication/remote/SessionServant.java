@@ -4,7 +4,8 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.Session;
 import org.hibernate.HibernateException;
 
@@ -28,7 +29,7 @@ public class SessionServant extends UnicastRemoteObject {
         _facade = facade;
     }
 
-    public void authorize(UserRight.RightName rightName) throws RemoteException, NotAuthorizedException {
+    public void authorize(RightName rightName) throws RemoteException, NotAuthorizedException {
         UserDTO userDTO = _session.getUserDTO();
         if (userDTO != null) {
             if (_userRights == null) {
@@ -43,7 +44,7 @@ public class SessionServant extends UnicastRemoteObject {
             }
             if (_userRights != null) {
                 for (UserRight userRight : _userRights) {
-                    UserRight.RightName right = userRight.getName();
+                    RightName right = userRight.getName();
                     if (right.equals(rightName)) {
                         return;
                     }

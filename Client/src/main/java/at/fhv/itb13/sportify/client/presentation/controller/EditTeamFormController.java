@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

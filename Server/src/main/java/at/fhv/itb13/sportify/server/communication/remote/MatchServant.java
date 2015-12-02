@@ -3,8 +3,9 @@ package at.fhv.itb13.sportify.server.communication.remote;
 import at.fhv.itb13.sportify.server.application.controller.MatchController;
 import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.remote.MatchRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.Session;
 
 import java.rmi.RemoteException;
@@ -20,7 +21,7 @@ public class MatchServant extends SessionServant implements MatchRemote {
 
     @Override
     public void create(MatchDTO matchDto) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.TOURNAMENT_MODIFY);
+        authorize(RightName.TOURNAMENT_MODIFY);
         _matchController.create(matchDto);
     }
 }

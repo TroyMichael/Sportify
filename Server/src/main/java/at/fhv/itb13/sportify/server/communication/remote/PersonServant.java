@@ -4,7 +4,8 @@ import at.fhv.itb13.sportify.server.application.controller.PersonController;
 import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.PersonRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.Session;
 
@@ -22,7 +23,7 @@ public class PersonServant extends SessionServant implements PersonRemote {
 
     @Override
     public void create(PersonDTO personDto) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.PERSON_MODIFY);
+        authorize(RightName.PERSON_MODIFY);
         _personController.create(personDto);
     }
 
@@ -33,7 +34,7 @@ public class PersonServant extends SessionServant implements PersonRemote {
 
     @Override
     public void editPerson(PersonDTO personDTO) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.PERSON_MODIFY);
+        authorize(RightName.PERSON_MODIFY);
         _personController.saveOrUpdate(personDTO);
     }
 

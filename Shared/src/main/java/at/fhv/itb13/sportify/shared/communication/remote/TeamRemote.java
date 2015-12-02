@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.ExternalDisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

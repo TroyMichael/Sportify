@@ -1,12 +1,12 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.TeamController;
-import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.ExternalDisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.enums.RightName;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.Session;
 import at.fhv.itb13.sportify.shared.communication.remote.TeamRemote;
 
@@ -24,7 +24,7 @@ public class TeamServant extends SessionServant implements TeamRemote {
 
     @Override
     public void createTeam(TeamDTO teamDTO) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.TEAM_MODIFY);
+        authorize(RightName.TEAM_MODIFY);
         _teamController.create(teamDTO);
     }
 
@@ -35,13 +35,13 @@ public class TeamServant extends SessionServant implements TeamRemote {
 
     @Override
     public void editTeam(TeamDTO teamDTO) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.TEAM_MODIFY);
+        authorize(RightName.TEAM_MODIFY);
         _teamController.editTeam(teamDTO);
     }
 
     @Override
     public void addPersonToTeam(PersonDTO personDTO) throws RemoteException, NotAuthorizedException {
-        authorize(UserRight.RightName.TEAM_MODIFY);
+        authorize(RightName.TEAM_MODIFY);
         _teamController.addPersonToTeam(personDTO);
     }
 

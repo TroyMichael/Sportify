@@ -9,7 +9,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,7 +46,7 @@ public class SportifyGUI extends Application {
 
         // set handler for uncaught exceptions
         Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
-            // unwrap exception
+            // unwrap exceptions
             Throwable e = throwable.getCause().getCause();
             if (e instanceof RemoteException) {
                 ServiceLocator.getInstance().reload();

@@ -125,4 +125,26 @@ public class TeamController {
         }
         return null;
     }
+
+    public List<ExternalDisplayTeamDTO> getAllExternalTeams() {
+        List<ExternalTeam> allTeams = null;
+
+        try {
+            _facade.beginTransaction();
+            allTeams = _facade.getAll(ExternalTeam.class);
+            _facade.commitTransaction();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            _facade.rollbackTransaction();
+        }
+
+        if (allTeams != null) {
+            List<ExternalDisplayTeamDTO> teamDetailList = new ArrayList<>();
+            for (ExternalTeam t : allTeams) {
+                teamDetailList.add(_externalDisplayTeamMapper.toDTOObject(t));
+            }
+            return teamDetailList;
+        }
+        return null;
+    }
 }

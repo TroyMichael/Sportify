@@ -4,14 +4,17 @@ import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTOImpl;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by KYUSS on 26.11.2015.
+ *
  */
 public class SimpleTournamentMapper extends Mapper<SimpleTournamentDTO, Tournament>{
+
+    private SimpleTeamMapper _simpleTeamMapper = new SimpleTeamMapper();
+
     @Override
     public Tournament toDomainObject(SimpleTournamentDTO simpleTournamentDTO) {
         return null;
@@ -20,15 +23,10 @@ public class SimpleTournamentMapper extends Mapper<SimpleTournamentDTO, Tourname
     @Override
     public SimpleTournamentDTO toDTOObject(Tournament domainObject) {
         if (domainObject != null){
-            SimpleTournamentDTO simpleTournamentDTO = new SimpleTournamentDTOImpl();
+            SimpleTournamentDTO simpleTournamentDTO = new SimpleTournamentDTOImpl(domainObject.getDescription(), domainObject.getLocation(), domainObject.getStart(), domainObject.getSport().getName());
             simpleTournamentDTO.setId(domainObject.getId());
             simpleTournamentDTO.setVersion(domainObject.getVersion());
-            simpleTournamentDTO.setDescription(domainObject.getDescription());
-            simpleTournamentDTO.setLocation(domainObject.getLocation());
-            if(domainObject.getSport() != null) {
-                simpleTournamentDTO.setSport(domainObject.getSport().getName());
-            }
-            simpleTournamentDTO.setStartDate(domainObject.getStart());
+            simpleTournamentDTO.setTeams(_simpleTeamMapper.toDTOList(domainObject.getTeams()));
             return simpleTournamentDTO;
         }
         return null;

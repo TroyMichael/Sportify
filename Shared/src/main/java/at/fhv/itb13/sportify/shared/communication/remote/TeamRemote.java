@@ -21,5 +21,7 @@ public interface TeamRemote extends Remote {
 
     List<TeamDTO> getAllTeams() throws RemoteException;
 
+    List<ExternalDisplayTeamDTO> getAllExternalTeams() throws RemoteException;
+
     List<DisplayTeamDTO> getAllDisplayTeams() throws RemoteException;
 }

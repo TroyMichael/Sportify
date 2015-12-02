@@ -51,6 +51,11 @@ public class TeamServant extends SessionServant implements TeamRemote {
     }
 
     @Override
+    public List<ExternalDisplayTeamDTO> getAllExternalTeams() throws RemoteException {
+        return _teamController.getAllExternalTeams();
+    }
+
+    @Override
     public List<DisplayTeamDTO> getAllDisplayTeams() throws RemoteException {
         return _teamController.getAllDisplayTeams();
     }

@@ -217,6 +217,11 @@ public class SportifyGUI extends Application {
         loadView("view/TournamentList.fxml", _rootLayout);
     }
 
+    public void loadNewTournamentView(TournamentDTO tournamentDTO) {
+        NewTournamentFormController cont = (NewTournamentFormController)loadView("view/NewTournamentForm.fxml", _rootLayout);
+        cont.setTournament(tournamentDTO);
+    }
+
     public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams) {
         NewMatchFormController cont = (NewMatchFormController)loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament, externalTeams);
@@ -235,5 +240,15 @@ public class SportifyGUI extends Application {
     private void startJMSCommunication() {
         JMSCommunication jmsComThread = new JMSCommunication(_primaryStage, _userName);
         new Thread(jmsComThread).start();
+    }
+
+    public void loadTournamentDetailView(SimpleTournamentDTO tournamentToShow) {
+        TournamentDetailFormController cont = (TournamentDetailFormController)loadView("view/TournamentDetailForm.fxml", _rootLayout);
+        cont.setTournament(tournamentToShow);
+    }
+
+    public void loadEditTournamentForm(TournamentDTO tournamentToEdit) {
+        EditTournamentFormController cont = (EditTournamentFormController)loadView("view/EditTournamentForm.fxml", _rootLayout);
+        cont.setTournament(tournamentToEdit);
     }
 }

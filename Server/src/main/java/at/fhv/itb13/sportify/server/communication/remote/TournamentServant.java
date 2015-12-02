@@ -35,4 +35,9 @@ public class TournamentServant extends SessionServant implements TournamentRemot
     public List<SimpleTournamentDTO> getAllSimpleTournaments() throws RemoteException {
         return _tournamentController.getAllSimpleTournaments();
     }
+
+    @Override
+    public TournamentDTO getByID(String id) throws RemoteException {
+        return _tournamentController.getByID(id);
+    }
 }

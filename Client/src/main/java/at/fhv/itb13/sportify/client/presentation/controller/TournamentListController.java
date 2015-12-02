@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by KYUSS on hütt.
+ *
  */
 public class TournamentListController {
 
@@ -67,8 +68,8 @@ public class TournamentListController {
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     if (_tournamentTableView.getSelectionModel().getSelectedItem() != null) {
-                        //todo load detail view of tournament when implemented
-                        //SportifyGUI.getSharedMainApp().loadTournamentDataView(_tournamentTableView.getSelectionModel().getSelectedItem());
+                        SimpleTournamentDTO tournamentToShow = _tournamentTableView.getSelectionModel().getSelectedItem();
+                        SportifyGUI.getSharedMainApp().loadTournamentDetailView(tournamentToShow);
                     }
                 }
             }

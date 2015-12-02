@@ -24,7 +24,7 @@ import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.Simpl
  * Created by Michael on 10.11.2015.
  *
  */
-public class NewTournamentFormController {
+public class EditTournamentFormController {
 
     @FXML
     private TextField _nameTextField;
@@ -303,8 +303,8 @@ public class NewTournamentFormController {
     private void addForeignTeam() {
         ExternalDisplayTeamDTO externalDisplayTeamDTO = new ExternalDisplayTeamDTO(_foreignTeamTextField.getText());
         _externalDisplayTeamDTOs.add(externalDisplayTeamDTO);
+        // _tournament.addTeamID(externalDisplayTeamDTO.getId());
         _addedTeamsObservable.add(externalDisplayTeamDTO);
-        _foreignTeamTextField.clear();
     }
 
     @FXML

@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.server.communication.datatransfer.mapper.Tournament
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Match;
+import at.fhv.itb13.sportify.server.model.MatchTeam;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
@@ -37,27 +38,20 @@ public class TournamentController {
     public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
         try {
-            //_facade.beginTransaction();
-            //_facade.create(tournament);
-            //_facade.commitTransaction();
-            //_facade.beginTransaction();
             MatchMapper matchMapper = new MatchMapper();
             Set<Match> matches = new HashSet<>();
             for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
                 Match match = matchMapper.toDomainObject(matchDTO);
-                //_facade.create(match);
                 matches.add(match);
                 match.setTournament(tournament);
             }
-            //  tournament.getMatches().forEach(match -> _facade.create(match));
-
-            //_facade.commitTransaction();
-            //_facade.beginTransaction();
             tournament.setMatches(matches);
+
             _facade.beginTransaction();
             for (Match match : tournament.getMatches()) {
                 _facade.create(match);
             }
+
             _facade.create(tournament);
             _facade.commitTransaction();
         } catch (HibernateException e) {
@@ -104,5 +98,19 @@ public class TournamentController {
             e.printStackTrace();
         }
         return _simpleTournamentMapper.toDTOList(tournaments);
+    }
+
+    public TournamentDTO getByID(String id) {
+        TournamentDTO newTournamentDTO = null;
+        try {
+            _facade.beginTransaction();
+            Tournament tournament = _facade.get(Tournament.class, id);
+            newTournamentDTO = _tournamentMapper.toDTOObject(tournament);
+            _facade.commitTransaction();
+        } catch (HibernateException e) {
+            _facade.rollbackTransaction();
+            e.printStackTrace();
+        }
+        return newTournamentDTO;
     }
 }

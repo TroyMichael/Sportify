@@ -11,8 +11,10 @@ public interface SimpleTournamentDTO extends DTO, Serializable{
     String getLocation ();
     String getDescription ();
     Date getStartDate();
+    String getSport();
 
     void setLocation (String location);
     void setStartDate (Date startDate);
     void setDescription (String description);
+    void setSport(String sport);
 }

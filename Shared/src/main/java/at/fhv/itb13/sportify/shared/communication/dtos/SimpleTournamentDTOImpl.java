@@ -10,12 +10,16 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     private String _description;
     private String _location;
     private Date _startDate;
+    private String _sport;
 
-    public SimpleTournamentDTOImpl (String description, String location, Date startDate){
+    public SimpleTournamentDTOImpl (String description, String location, Date startDate, String sport){
         _description = description;
         _startDate = startDate;
         _location = location;
+        _sport = sport;
     }
+
+   public SimpleTournamentDTOImpl(){}
 
 
     @Override
@@ -34,6 +38,11 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     }
 
     @Override
+    public String getSport() {
+        return _sport;
+    }
+
+    @Override
     public void setLocation(String location) {
         _location = location;
     }
@@ -46,5 +55,10 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     @Override
     public void setDescription(String description) {
         _description = description;
+    }
+
+    @Override
+    public void setSport(String sport) {
+        _sport = sport;
     }
 }

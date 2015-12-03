@@ -50,6 +50,9 @@ public class TournamentController {
             _facade.beginTransaction();
             for (Match match : tournament.getMatches()) {
                 _facade.create(match);
+                for(MatchTeam matchTeam : match.getMatchTeams()) {
+                    _facade.create(matchTeam);
+                }
             }
 
             _facade.create(tournament);

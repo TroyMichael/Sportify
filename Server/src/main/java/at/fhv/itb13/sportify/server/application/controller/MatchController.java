@@ -34,13 +34,13 @@ public class MatchController {
         }
     }
 
-    public void update(MatchDTO matchDTO){
+    public void updateMatch (MatchDTO matchDTO){
+        Match match = _matchMapper.toExistingDomainObject(matchDTO);
         try {
-            Match match = _matchMapper.toDomainObject(matchDTO);
             _facade.beginTransaction();
             _facade.createOrUpdate(match);
             _facade.commitTransaction();
-        } catch (HibernateException e) {
+        } catch (HibernateException e){
             e.printStackTrace();
             _facade.rollbackTransaction();
         }

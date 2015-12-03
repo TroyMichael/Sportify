@@ -110,4 +110,46 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
         }
         return null;
     }
+
+    public Match toExistingDomainObject(MatchDTO matchDTO) {
+        if (matchDTO.getId() != null){
+            try {
+                _dbFacade.beginTransaction();
+                Match match = _dbFacade.get(Match.class, matchDTO.getId());
+                //set version?
+                match.setVersion(matchDTO.getVersion());
+                match.setStart(matchDTO.getStart());
+                match.setDuration(matchDTO.getDuration());
+                switch (matchDTO.getMatchStatus()) {
+                    case "PLANNED":
+                        match.setMatchStatus(PLANNED);
+                        break;
+                    case "FINISHED":
+                        match.setMatchStatus(FINISHED);
+                        break;
+                    default:
+                        match.setMatchStatus(PLANNED);
+                }
+                MatchDTOImpl.SimpleMatchTeamDTO matchTeam = matchDTO.getTeam1();
+                MatchTeam mMatchTeam = new MatchTeam();
+                mMatchTeam.setMatch(match);
+                mMatchTeam.setTeam(_dbFacade.get(Team.class, matchTeam.getId()));
+                match.addMatchTeam(mMatchTeam);
+
+                MatchDTOImpl.SimpleMatchTeamDTO matchTeam2 = matchDTO.getTeam1();
+                MatchTeam mMatchTeam2 = new MatchTeam();
+                mMatchTeam2.setMatch(match);
+                mMatchTeam2.setTeam(_dbFacade.get(Team.class, matchTeam2.getId()));
+                match.addMatchTeam(mMatchTeam2);
+
+                match.setTournament(_dbFacade.get(Tournament.class, matchDTO.getTournamentId()));
+                _dbFacade.commitTransaction();
+                return match;
+            } catch (Exception e){
+                _dbFacade.rollbackTransaction();
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

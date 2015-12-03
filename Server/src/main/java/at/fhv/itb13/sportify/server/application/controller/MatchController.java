@@ -33,4 +33,16 @@ public class MatchController {
             _facade.rollbackTransaction();
         }
     }
+
+    public void updateMatch (MatchDTO matchDTO){
+        Match match = _matchMapper.toExistingDomainObject(matchDTO);
+        try {
+            _facade.beginTransaction();
+            _facade.createOrUpdate(match);
+            _facade.commitTransaction();
+        } catch (HibernateException e){
+            e.printStackTrace();
+            _facade.rollbackTransaction();
+        }
+    }
 }

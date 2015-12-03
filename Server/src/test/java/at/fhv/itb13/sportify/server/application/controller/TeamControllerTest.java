@@ -17,7 +17,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(TeamController.class)
+@PrepareForTest(InternalTeamController.class)
 public class TeamControllerTest {
 
     @Mock
@@ -27,11 +27,11 @@ public class TeamControllerTest {
     @Mock
     private DisplayTeamMapper _displayTeamMapper;
 
-    private TeamController _teamController;
+    private InternalTeamController _teamController;
 
     @Before
     public void setUp() {
-        _teamController = new TeamController(_facade, _teamMapper, _displayTeamMapper);
+        _teamController = new InternalTeamController(_facade, _teamMapper, _displayTeamMapper);
     }
 
     @Test

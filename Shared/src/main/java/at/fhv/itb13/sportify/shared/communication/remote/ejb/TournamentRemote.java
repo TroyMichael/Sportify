@@ -16,4 +16,6 @@ public interface TournamentRemote {
     List<SimpleTournamentDTO> getAllSimpleTournaments();
 
     TournamentDTO getByID(String id);
+
+    void updateTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException;
 }

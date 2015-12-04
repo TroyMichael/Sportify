@@ -30,7 +30,6 @@ public class MatchBean implements MatchRemote {
     @Override
     public void update(MatchDTO matchDTO) throws NotAuthorizedException {
         _sessionBean.authorize(RightName.TOURNAMENT_MODIFY);
-        // TODO: implement update method
-        //_matchController.update(matchDTO);
+        _matchController.updateMatch(matchDTO);
     }
 }

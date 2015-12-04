@@ -43,4 +43,10 @@ public class TournamentBean implements TournamentRemote {
     public TournamentDTO getByID(String id) {
         return _tournamentController.getByID(id);
     }
+
+    @Override
+    public void updateTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException {
+        _sessionBean.authorize(RightName.TOURNAMENT_MODIFY);
+        _tournamentController.update(tournamentDTO);
+    }
 }

@@ -75,6 +75,8 @@ public class TournamentDetailFormController {
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team2"));
         _dateColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
         _matchTableView.setItems(_matchObservable);
+
+        setDoubleClickOnMatchTableView();
     }
 
 
@@ -104,14 +106,17 @@ public class TournamentDetailFormController {
         _matchObservable.addAll(tournament.getMatches());
     }
 
-    private void setDoubleClickOnTournamentTableView() {
+    private void setDoubleClickOnMatchTableView() {
         //set doubleclick handling of tableViewRow
+
         _matchTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
+
                     if (_matchTableView.getSelectionModel().getSelectedItem() != null) {
-                        SportifyGUI.getSharedMainApp().loadEditMatchForm(_matchTableView.getSelectionModel().getSelectedItem());
+                        MatchDTO matchDTO = _matchTableView.getSelectionModel().getSelectedItem();
+                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO);
                     }
                 }
             }

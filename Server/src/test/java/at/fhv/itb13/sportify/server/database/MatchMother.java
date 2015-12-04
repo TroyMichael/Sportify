@@ -1,13 +1,11 @@
 package at.fhv.itb13.sportify.server.database;
 
 import at.fhv.itb13.sportify.server.model.Match;
-import at.fhv.itb13.sportify.server.model.MatchStatus;
+import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
 import at.fhv.itb13.sportify.server.model.MatchTeam;
 import at.fhv.itb13.sportify.server.model.Tournament;
 import org.hibernate.Session;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashSet;

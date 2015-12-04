@@ -10,8 +10,8 @@ import org.hibernate.HibernateException;
 import java.util.HashSet;
 import java.util.Set;
 
-import static at.fhv.itb13.sportify.server.model.MatchStatus.FINISHED;
-import static at.fhv.itb13.sportify.server.model.MatchStatus.PLANNED;
+import static at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus.FINISHED;
+import static at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus.PLANNED;
 
 /**
  * Created by Caroline on 21.11.2015.
@@ -101,16 +101,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             if (domainObject.getMatchStatus() != null) {
                 matchDTO.setMatchStatus(domainObject.getMatchStatus().name());
             }
-//            switch (domainObject.getMatchStatus()) {
-//                case PLANNED:
-//                    matchDTO.setMatchStatus("PLANNED");
-//                    break;
-//                case FINISHED:
-//                    matchDTO.setMatchStatus("FINISHED");
-//                    break;
-//                default:
-//                    matchDTO.setMatchStatus("PLANNED");
-//            }
+//
 
             if (domainObject.getMatchTeams().iterator().hasNext()) {
                 MatchTeam mteam = domainObject.getMatchTeams().iterator().next();

@@ -36,6 +36,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
             match.setVersion(matchDTO.getVersion());
             match.setStart(matchDTO.getStart());
             match.setDuration(matchDTO.getDuration());
+
             switch (matchDTO.getMatchStatus()) {
                 case "PLANNED":
                     match.setMatchStatus(PLANNED);
@@ -109,6 +110,9 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
                 team1.setId(mteam.getId());
                 team1.setName(mteam.getTeam().getName());
+                if(mteam.getPoints() != null) {
+                    team1.setPoints(mteam.getPoints());
+                }
                 matchDTO.setTeam1(team1);
             }
 
@@ -118,6 +122,9 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
                 team2.setId(mteam2.getId());
                 team2.setName(mteam2.getTeam().getName());
+                if(mteam2.getPoints() != null) {
+                    team2.setPoints(mteam2.getPoints());
+                }
                 matchDTO.setTeam2(team2);
             }
             return matchDTO;
@@ -153,13 +160,15 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 MatchDTOImpl.SimpleMatchTeamDTO matchTeam = matchDTO.getTeam1();
                 MatchTeam mMatchTeam = new MatchTeam();
                 mMatchTeam.setMatch(match);
-                mMatchTeam.setTeam(_dbFacade.get(Team.class, matchTeam.getId()));
+                mMatchTeam.setTeam(_dbFacade.get(Team.class, matchDTO.getTeam1().getId()));
+                mMatchTeam.setPoints(matchDTO.getTeam1().getPoints());
                 match.addMatchTeam(mMatchTeam);
 
                 MatchDTOImpl.SimpleMatchTeamDTO matchTeam2 = matchDTO.getTeam1();
                 MatchTeam mMatchTeam2 = new MatchTeam();
                 mMatchTeam2.setMatch(match);
-                mMatchTeam2.setTeam(_dbFacade.get(Team.class, matchTeam2.getId()));
+                mMatchTeam2.setTeam(_dbFacade.get(Team.class, matchDTO.getTeam2().getId()));
+                mMatchTeam2.setPoints(matchDTO.getTeam2().getPoints());
                 match.addMatchTeam(mMatchTeam2);
 
                 match.setTournament(_dbFacade.get(Tournament.class, matchDTO.getTournamentId()));

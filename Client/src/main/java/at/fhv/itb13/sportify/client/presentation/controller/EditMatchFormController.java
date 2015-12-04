@@ -1,8 +1,10 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.rmi.RemoteException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -94,8 +97,15 @@ public class EditMatchFormController {
 
 
     private Boolean validateInput() {
-        Boolean validation = true;
+
+        if ((_pointsTeam1 != null) && (_pointsTeam2 != null)) {
+            if ((!_pointsTeam1.getText().matches("\\d*")) || (!_pointsTeam2.getText().matches("\\d*"))) {
+                return false;
+            }
+
+        }
         return true;
+
     }
 
     @FXML
@@ -116,7 +126,15 @@ public class EditMatchFormController {
     }
 
     @FXML
-    private void saveMatch(){
-
+    private void saveMatch() throws RemoteException, NotAuthorizedException {
+        if(validateInput()){
+            if(_pointsTeam1 != null) {
+                _matchDTO.getTeam1().setPoints(_pointsTeam1.getText());
+            }
+            if(_pointsTeam2 != null){
+                _matchDTO.getTeam2().setPoints(_pointsTeam2.getText());
+            }
+            SessionController.getInstance().getSession().getMatchRemote().update(_matchDTO);
+        }
     }
 }

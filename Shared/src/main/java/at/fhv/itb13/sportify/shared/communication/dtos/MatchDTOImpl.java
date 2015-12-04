@@ -85,6 +85,7 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
     public static class SimpleMatchTeamDTO extends DTOImpl{
         private String _name;
+        private String _points;
 
         public SimpleMatchTeamDTO() {
         }
@@ -99,6 +100,15 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
         public void setName(String name) {
             _name = name;
+        }
+
+        public String getPoints(){
+            return _points;
+
+        }
+
+        public void setPoints(String points){
+            _points = points;
         }
 
         @Override

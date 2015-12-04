@@ -4,8 +4,7 @@ import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTeamDTOImpl;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,8 +28,8 @@ public class SimpleTeamMapper extends Mapper<SimpleTeamDTO, Team> {
         return newSimpleTeam;
     }
 
-    public List<SimpleTeamDTO> toDTOList(Set<Team> teams) {
-        List<SimpleTeamDTO> _teams = new LinkedList<>();
+    public Set<SimpleTeamDTO> toDTOSet(Set<Team> teams) {
+        Set<SimpleTeamDTO> _teams = new HashSet<>();
         teams.forEach(team -> _teams.add(toDTOObject(team)));
         return _teams;
     }

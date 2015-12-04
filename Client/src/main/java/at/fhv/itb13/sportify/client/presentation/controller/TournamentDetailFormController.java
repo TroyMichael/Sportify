@@ -101,6 +101,7 @@ public class TournamentDetailFormController {
         _dateLabel.setText(_tournament.getStartDate().toLocalDate().toString());
         _sportLabel.setText(_tournament.getSport());
         _allTeamsObservable.addAll(_tournament.getTeams());
+        _matchObservable.addAll(tournament.getMatches());
     }
 
     private void setDoubleClickOnTournamentTableView() {

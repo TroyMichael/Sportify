@@ -27,7 +27,7 @@
              <TextField fx:id="_locationTextField" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label layoutX="21.0" layoutY="14.0" text="Create new Tournament" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <Label layoutX="21.0" layoutY="14.0" text="Edit Tournament" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -63,8 +63,8 @@
       </HBox>
       <HBox layoutX="483.0" layoutY="436.0" prefHeight="25.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#saveNewTournament" text="Save" />
-            <Button mnemonicParsing="false" onAction="#cancelNewTournament" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#saveEditTournament" text="Save" />
+            <Button mnemonicParsing="false" onAction="#cancelEditTournament" text="Cancel" />
          </children>
       </HBox>
       <VBox layoutX="14.0" layoutY="330.0" prefHeight="25.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="630.0" />

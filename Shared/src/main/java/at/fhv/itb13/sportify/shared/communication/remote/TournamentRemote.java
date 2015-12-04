@@ -16,4 +16,6 @@ public interface TournamentRemote extends Remote {
     List<SimpleTournamentDTO> getAllSimpleTournaments() throws RemoteException;
 
     TournamentDTO getByID(String id) throws RemoteException;
+
+    void updateTournament (TournamentDTO tournamentDTO) throws RemoteException, NotAuthorizedException;
 }

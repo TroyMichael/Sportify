@@ -97,11 +97,11 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
                     tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 }
                 dbFacade.commitTransaction();
+                return tournament;
             } catch (HibernateException e) {
                 e.printStackTrace();
                 dbFacade.rollbackTransaction();
             }
-            return tournament;
         }
         return null;
     }

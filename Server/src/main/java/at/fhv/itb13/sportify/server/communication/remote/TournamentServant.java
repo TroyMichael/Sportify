@@ -40,4 +40,10 @@ public class TournamentServant extends SessionServant implements TournamentRemot
     public TournamentDTO getByID(String id) throws RemoteException {
         return _tournamentController.getByID(id);
     }
+
+    @Override
+    public void updateTournament(TournamentDTO tournamentDTO) throws RemoteException, NotAuthorizedException {
+        authorize(RightName.TOURNAMENT_MODIFY);
+        _tournamentController.update(tournamentDTO);
+    }
 }

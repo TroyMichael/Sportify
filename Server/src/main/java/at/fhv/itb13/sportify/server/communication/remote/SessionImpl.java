@@ -58,4 +58,5 @@ public class SessionImpl extends UnicastRemoteObject implements Session {
     public MessageRemote getMessageRemote() throws RemoteException {
         return new MessageServant(this);
     }
+
 }

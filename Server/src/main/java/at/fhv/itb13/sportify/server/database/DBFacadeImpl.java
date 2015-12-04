@@ -19,6 +19,7 @@ public class DBFacadeImpl implements DBFacade {
         _daoMap.put(ExternalTeam.class, new ExternalTeamDAO());
         _daoMap.put(InternalTeam.class, new InternalTeamDAO());
         _daoMap.put(Match.class, new MatchDAO());
+        _daoMap.put(MatchTeam.class, new MatchTeamDAO());
         _daoMap.put(Person.class, new PersonDAO());
         _daoMap.put(Roster.class, new RosterDAO());
         _daoMap.put(Sport.class, new SportDAO());

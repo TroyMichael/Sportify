@@ -242,7 +242,7 @@ public class EditTournamentFormController {
     }
 
     @FXML
-    private void saveNewTournament() throws RemoteException, NotAuthorizedException {
+    private void saveEditTournament() throws RemoteException, NotAuthorizedException {
 
         if (createOrUpdateTournamentDTO()) {
             //call createFunction
@@ -252,9 +252,9 @@ public class EditTournamentFormController {
                 SessionController.getInstance().getSession().getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
             }
 
-            SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
+            //TODO code createOrUpdate method or toExistingDomainObject
+            //SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
             initSuccessAlert();
-            //TODO switch to tournamentdetail view
         } else {
             initErrorAlert();
         }
@@ -295,8 +295,8 @@ public class EditTournamentFormController {
     }
 
     @FXML
-    private void cancelNewTournament() {
-        SportifyGUI.getSharedMainApp().loadHelloView();
+    private void cancelEditTournament() {
+        SportifyGUI.getSharedMainApp().loadTournamentListView();
     }
 
     @FXML
@@ -380,11 +380,12 @@ public class EditTournamentFormController {
         }
         _addedTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
         setAllTeamsListData(_allTeamsObservable);
-        _tournament.getMatches().forEach(match -> _matchObservable.add(match));
+        _matchObservable.addAll(_tournament.getMatches());
     }
 
     public void setTournament(TournamentDTO tournamentDTO) {
         _tournament = tournamentDTO;
+
 
         HashSet<ExternalDisplayTeamDTO> externalTeams = new HashSet<>();
         List<ExternalDisplayTeamDTO> teams = null;

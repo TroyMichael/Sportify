@@ -122,8 +122,6 @@ public class TeamDetailViewController {
   Gets all tournaments from the database and adds them to _tournamentList
    */
     private void getAndAddDataToTournamentList() {
-
-
         if(_team.getTournaments() != null) {
 
             HashSet<SimpleTournamentDTO>  tempTournamentList = _team.getTournaments();

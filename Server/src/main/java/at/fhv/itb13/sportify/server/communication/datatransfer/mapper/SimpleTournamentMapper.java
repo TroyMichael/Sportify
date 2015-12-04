@@ -14,6 +14,7 @@ import java.util.List;
 public class SimpleTournamentMapper extends Mapper<SimpleTournamentDTO, Tournament>{
 
     private SimpleTeamMapper _simpleTeamMapper = new SimpleTeamMapper();
+    private MatchMapper _matchMapper = new MatchMapper();
 
     @Override
     public Tournament toDomainObject(SimpleTournamentDTO simpleTournamentDTO) {
@@ -26,7 +27,8 @@ public class SimpleTournamentMapper extends Mapper<SimpleTournamentDTO, Tourname
             SimpleTournamentDTO simpleTournamentDTO = new SimpleTournamentDTOImpl(domainObject.getDescription(), domainObject.getLocation(), domainObject.getStart(), domainObject.getSport().getName());
             simpleTournamentDTO.setId(domainObject.getId());
             simpleTournamentDTO.setVersion(domainObject.getVersion());
-            simpleTournamentDTO.setTeams(_simpleTeamMapper.toDTOList(domainObject.getTeams()));
+            simpleTournamentDTO.setTeams(_simpleTeamMapper.toDTOSet(domainObject.getTeams()));
+            simpleTournamentDTO.setMatches(_matchMapper.toDTOSet(domainObject.getMatches()));
             return simpleTournamentDTO;
         }
         return null;

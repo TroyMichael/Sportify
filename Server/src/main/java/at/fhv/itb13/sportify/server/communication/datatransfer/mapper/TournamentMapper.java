@@ -32,6 +32,11 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
         dbFacade = facade;
     }
 
+    /**
+     * use this method to update a tournament in the database
+     * @param tournamentDTO incoming tournament DTO to map
+     * @return tournament domain object or null
+     */
     public Tournament toExistingDomainObject(TournamentDTO tournamentDTO) {
         if (tournamentDTO.getId() != null) {
             try {
@@ -41,7 +46,8 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
                 tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 tournament.setLocation(tournamentDTO.getLocation());
                 tournament.setStart(tournamentDTO.getStartDate());
-
+                //version?
+                tournament.setVersion(tournamentDTO.getVersion());
                 if (tournamentDTO.getMatches().size() > 0) {
                     tournament.setMatches(new HashSet<>());
                     for (MatchDTO match : tournamentDTO.getMatches()) {
@@ -53,6 +59,9 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
                     for (String teamID : tournamentDTO.getTeamIDs()) {
                         tournament.addTeam(dbFacade.get(Team.class, teamID));
                     }
+                }
+                if (!tournament.getSport().getId().equals(tournamentDTO.getSportID())){
+                    tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 }
                 dbFacade.commitTransaction();
                 return tournament;

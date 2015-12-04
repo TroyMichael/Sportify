@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
-import at.fhv.itb13.sportify.server.application.controller.TeamController;
+import at.fhv.itb13.sportify.server.application.controller.InternalTeamController;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.ExternalDisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class TeamServant extends SessionServant implements TeamRemote {
 
-    private TeamController _teamController;
+    private InternalTeamController _teamController;
 
     public TeamServant(Session session) throws RemoteException {
         super(session);
-        _teamController = new TeamController();
+        _teamController = new InternalTeamController();
     }
 
     @Override

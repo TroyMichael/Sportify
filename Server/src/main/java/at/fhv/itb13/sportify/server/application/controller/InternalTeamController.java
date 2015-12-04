@@ -16,21 +16,21 @@ import org.hibernate.HibernateException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamController {
+public class InternalTeamController {
 
     private DBFacade _facade;
     private TeamMapper _teamMapper;
     private ExternalDisplayTeamMapper _externalDisplayTeamMapper;
     private DisplayTeamMapper _displayTeamMapper;
 
-    public TeamController() {
+    public InternalTeamController() {
         _facade = new DBFacadeImpl();
         _teamMapper = new TeamMapper();
         _displayTeamMapper = new DisplayTeamMapper();
         _externalDisplayTeamMapper = new ExternalDisplayTeamMapper();
     }
 
-    public TeamController(DBFacade facade, TeamMapper teamMapper, DisplayTeamMapper displayTeamMapper) {
+    public InternalTeamController(DBFacade facade, TeamMapper teamMapper, DisplayTeamMapper displayTeamMapper) {
         _facade = facade;
         _teamMapper = teamMapper;
         _displayTeamMapper = displayTeamMapper;

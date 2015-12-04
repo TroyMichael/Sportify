@@ -1,7 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by KYUSS on 26.11.2015.
@@ -13,7 +13,8 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     private String _location;
     private Date _startDate;
     private String _sport;
-    private List<SimpleTeamDTO> _teams;
+    private Set<SimpleTeamDTO> _teams;
+    private Set<MatchDTO> _matches;
 
     public SimpleTournamentDTOImpl (String description, String location, Date startDate, String sport){
         _description = description;
@@ -46,8 +47,13 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     }
 
     @Override
-    public List<SimpleTeamDTO> getTeams() {
+    public Set<SimpleTeamDTO> getTeams() {
         return _teams;
+    }
+
+    @Override
+    public Set<MatchDTO> getMatches() {
+        return _matches;
     }
 
     @Override
@@ -66,12 +72,17 @@ public class SimpleTournamentDTOImpl extends DTOImpl implements SimpleTournament
     }
 
     @Override
-    public void setTeams(List<SimpleTeamDTO> simpleTeams) {
+    public void setTeams(Set<SimpleTeamDTO> simpleTeams) {
         _teams = simpleTeams;
     }
 
     @Override
     public void setSport(String sport) {
         _sport = sport;
+    }
+
+    @Override
+    public void setMatches(Set<MatchDTO> matches) {
+        _matches = matches;
     }
 }

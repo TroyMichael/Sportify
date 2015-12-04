@@ -60,7 +60,7 @@ public class TournamentControllerTest {
         when(_mapper.toDomainObject(dto)).thenReturn(tournament);
 
         //act
-        _tournamentController.saveOrUpdate(dto);
+        _tournamentController.update(dto);
 
         //assert
         verify(_facade, times(1)).beginTransaction();

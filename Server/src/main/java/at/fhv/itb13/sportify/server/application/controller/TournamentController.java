@@ -22,35 +22,35 @@ public class TournamentController {
     private DBFacade _facade;
     private TournamentMapper _tournamentMapper;
     private SimpleTournamentMapper _simpleTournamentMapper;
+    private MatchMapper _matchMapper;
 
     public TournamentController() {
         _facade = new DBFacadeImpl();
         _tournamentMapper = new TournamentMapper();
         _simpleTournamentMapper = new SimpleTournamentMapper();
+        _matchMapper = new MatchMapper();
     }
 
-    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper, SimpleTournamentMapper simpleTournamentMapper) {
+    public TournamentController(DBFacade facade, TournamentMapper tournamentMapper, SimpleTournamentMapper simpleTournamentMapper, MatchMapper matchMapper) {
         _facade = facade;
         _tournamentMapper = tournamentMapper;
         _simpleTournamentMapper = simpleTournamentMapper;
+        _matchMapper = matchMapper;
     }
 
     public void create(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toDomainObject(tournamentDTO);
         try {
-            MatchMapper matchMapper = new MatchMapper();
             Set<Match> matches = new HashSet<>();
             for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
-                Match match = matchMapper.toDomainObject(matchDTO);
+                Match match = _matchMapper.toDomainObject(matchDTO);
                 matches.add(match);
                 match.setTournament(tournament);
             }
             tournament.setMatches(matches);
 
             _facade.beginTransaction();
-            for (Match match : tournament.getMatches()) {
-                _facade.create(match);
-            }
+            tournament.getMatches().forEach(_facade::create);
 
             _facade.create(tournament);
             _facade.commitTransaction();
@@ -60,13 +60,23 @@ public class TournamentController {
         }
     }
 
-    public void saveOrUpdate(TournamentDTO tournamentDTO) {
+    public void update(TournamentDTO tournamentDTO) {
+        Tournament tournament = _tournamentMapper.toExistingDomainObject(tournamentDTO);
         try {
-            //todo verify if tournament mapper doesn't need to call "toExistingDomainObject"
-            //todo to ensure that the tournament is not being duplicated
-            Tournament tournamentDomain = _tournamentMapper.toDomainObject(tournamentDTO);
+            Set<Match> matches = new HashSet<>();
+            for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
+                Match match = _matchMapper.toDomainObject(matchDTO);
+                matches.add(match);
+                match.setTournament(tournament);
+                match.setTournament(tournament);
+            }
+            tournament.setMatches(matches);
+
             _facade.beginTransaction();
-            _facade.createOrUpdate(tournamentDomain);
+
+            tournament.getMatches().forEach(_facade::createOrUpdate);
+
+            _facade.createOrUpdate(tournament);
             _facade.commitTransaction();
         } catch (HibernateException e) {
             _facade.rollbackTransaction();

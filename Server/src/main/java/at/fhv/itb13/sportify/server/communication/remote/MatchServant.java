@@ -24,4 +24,10 @@ public class MatchServant extends SessionServant implements MatchRemote {
         authorize(RightName.TOURNAMENT_MODIFY);
         _matchController.create(matchDto);
     }
+
+    @Override
+    public void update(MatchDTO matchDTO) throws RemoteException, NotAuthorizedException {
+        authorize(RightName.TOURNAMENT_MODIFY);
+        _matchController.updateMatch(matchDTO);
+    }
 }

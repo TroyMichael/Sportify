@@ -50,6 +50,7 @@ public class TournamentController {
             tournament.setMatches(matches);
 
             _facade.beginTransaction();
+
             for (Match match : tournament.getMatches()) {
                 _facade.create(match);
                 for(MatchTeam matchTeam : match.getMatchTeams()) {
@@ -68,18 +69,27 @@ public class TournamentController {
     public void update(TournamentDTO tournamentDTO) {
         Tournament tournament = _tournamentMapper.toExistingDomainObject(tournamentDTO);
         try {
+            _facade.beginTransaction();
+
             Set<Match> matches = new HashSet<>();
             for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
-                Match match = _matchMapper.toDomainObject(matchDTO);
+                Match match;
+                if (_facade.get(Match.class, matchDTO.getId()) != null){
+                    match = _matchMapper.toExistingDomainObject(matchDTO);
+                } else {
+                    match = _matchMapper.toDomainObject(matchDTO);
+                }
                 matches.add(match);
-                match.setTournament(tournament);
                 match.setTournament(tournament);
             }
             tournament.setMatches(matches);
 
-            _facade.beginTransaction();
-
-            tournament.getMatches().forEach(_facade::createOrUpdate);
+            for (Match match : tournament.getMatches()) {
+                _facade.createOrUpdate(match);
+                for(MatchTeam matchTeam : match.getMatchTeams()) {
+                    _facade.createOrUpdate(matchTeam);
+                }
+            }
 
             _facade.createOrUpdate(tournament);
             _facade.commitTransaction();

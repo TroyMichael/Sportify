@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Sportify</title>
+</h:head>
+<h:body>
+    <b:navBar brand="Sportify">
+        <b:navbarLinks>
+            <b:navLink value="Home" href="overview.xhtml"/>
+            <b:navLink value="Tournament" href="alltournament.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+    <b:container>
+        <b:row>
+            <b:column>
+                <h1>Hello, ${userbean.username}!</h1>
+            </b:column>
+        </b:row>
+    </b:container>
+</h:body>
+</html>

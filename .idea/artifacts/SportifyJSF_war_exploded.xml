@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SportifyJSF:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SportifyJSF_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SportifyJSF" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="SportifyJSF/web/Web" />
+      <element id="javaee-facet-resources" facet="SportifyJSF/web/Web2" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/SportifyJSF/lib/BootsFaces-OSP-dist-0.7.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/SportifyJSF/lib/javax.faces-2.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

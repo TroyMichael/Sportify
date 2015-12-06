@@ -255,4 +255,9 @@ public class SportifyGUI extends Application {
         Platform.exit();
         System.exit(0);
     }
+
+    public void loadEditMatchForm(MatchDTO matchDTO) {
+        EditMatchFormController cont = (EditMatchFormController) loadView("view/EditMatchForm.fxml", _rootLayout);
+        cont.setMatchDTO(matchDTO);
+    }
 }

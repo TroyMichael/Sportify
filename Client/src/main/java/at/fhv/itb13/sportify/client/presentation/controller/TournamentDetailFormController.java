@@ -8,11 +8,13 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.rmi.RemoteException;
 
@@ -73,6 +75,8 @@ public class TournamentDetailFormController {
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team2"));
         _dateColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
         _matchTableView.setItems(_matchObservable);
+
+        setDoubleClickOnMatchTableView();
     }
 
 
@@ -99,5 +103,23 @@ public class TournamentDetailFormController {
         _dateLabel.setText(_tournament.getStartDate().toLocalDate().toString());
         _sportLabel.setText(_tournament.getSport());
         _allTeamsObservable.addAll(_tournament.getTeams());
+        _matchObservable.addAll(tournament.getMatches());
+    }
+
+    private void setDoubleClickOnMatchTableView() {
+        //set doubleclick handling of tableViewRow
+
+        _matchTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+
+                    if (_matchTableView.getSelectionModel().getSelectedItem() != null) {
+                        MatchDTO matchDTO = _matchTableView.getSelectionModel().getSelectedItem();
+                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO);
+                    }
+                }
+            }
+        });
     }
 }

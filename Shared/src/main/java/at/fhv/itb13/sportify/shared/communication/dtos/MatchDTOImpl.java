@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.sql.Date;
+import java.util.HashSet;
 
 public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
@@ -8,6 +9,7 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     private Date _start;
     private String _tournamentId;
     private String _matchStatus;
+    private HashSet<SimpleMatchTeamDTO> _teams;
     private SimpleMatchTeamDTO _team1;
     private SimpleMatchTeamDTO _team2;
 
@@ -83,6 +85,7 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
     public static class SimpleMatchTeamDTO extends DTOImpl{
         private String _name;
+        private String _points;
 
         public SimpleMatchTeamDTO() {
         }
@@ -97,6 +100,15 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
         public void setName(String name) {
             _name = name;
+        }
+
+        public String getPoints(){
+            return _points;
+
+        }
+
+        public void setPoints(String points){
+            _points = points;
         }
 
         @Override

@@ -1,6 +1,7 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
@@ -110,7 +111,8 @@ public class EditMatchFormController {
 
     @FXML
     private void cancelNewMatch() {
-        // SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+        //todo cancel button
+        //SportifyGUI.getSharedMainApp().loadTournamentDetailView(_tournament);
     }
 
 
@@ -136,6 +138,7 @@ public class EditMatchFormController {
             }
             _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());
             SessionController.getInstance().getSession().getMatchRemote().update(_matchDTO);
+            //todo weiterleiten
         }
     }
 }

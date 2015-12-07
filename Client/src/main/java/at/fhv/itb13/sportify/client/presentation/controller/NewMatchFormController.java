@@ -49,6 +49,8 @@ public class NewMatchFormController {
     private TournamentDTO _tournament;
 
     private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs;
+    private Boolean _newTournament;
+
     @FXML
     private void initialize(){
         //set values for allTeamsTableView's columns
@@ -85,7 +87,12 @@ public class NewMatchFormController {
             _tournament.addMatch(newMatch);
 
             initSuccessAlert();
-            SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+            //todo fix correct weiterleitung
+            if (_newTournament){
+                SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+            } else {
+                SportifyGUI.getSharedMainApp().loadEditTournamentForm(_tournament);
+            }
         }
     }
 
@@ -157,8 +164,9 @@ public class NewMatchFormController {
     }
 
 
-    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
+    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs, Boolean newTournament) {
         _tournament = tournament;
+        _newTournament = newTournament;
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
         try {
             List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();

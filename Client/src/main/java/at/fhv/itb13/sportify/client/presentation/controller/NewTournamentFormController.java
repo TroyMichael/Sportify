@@ -310,7 +310,7 @@ public class NewTournamentFormController {
     @FXML
     private void addNewMatch() {
         if (createOrUpdateTournamentDTO()) {
-            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs);
+            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs, true);
         }
     }
 

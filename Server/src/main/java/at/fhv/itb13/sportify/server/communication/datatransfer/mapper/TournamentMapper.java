@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by KYUSS on 19.11.2015.
@@ -21,15 +22,15 @@ import java.util.List;
  */
 public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
 
-    private DBFacade dbFacade;
+    private DBFacade _dbFacade;
     private MatchMapper _matchMapper = new MatchMapper();
 
     public TournamentMapper() {
-        dbFacade = new DBFacadeImpl();
+        _dbFacade = new DBFacadeImpl();
     }
 
     public TournamentMapper(DBFacade facade) {
-        dbFacade = facade;
+        _dbFacade = facade;
     }
 
     /**
@@ -40,33 +41,41 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
     public Tournament toExistingDomainObject(TournamentDTO tournamentDTO) {
         if (tournamentDTO.getId() != null) {
             try {
-                dbFacade.beginTransaction();
-                Tournament tournament = dbFacade.get(Tournament.class, tournamentDTO.getId());
-                tournament.setDescription(tournamentDTO.getDescription());
-                tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
-                tournament.setLocation(tournamentDTO.getLocation());
-                tournament.setStart(tournamentDTO.getStartDate());
-                //version?
-                tournament.setVersion(tournamentDTO.getVersion());
+                _dbFacade.beginTransaction();
+                Set<Match> matches = new HashSet<>();
                 if (tournamentDTO.getMatches().size() > 0) {
-                    tournament.setMatches(new HashSet<>());
-                    for (MatchDTO match : tournamentDTO.getMatches()) {
-                        tournament.addMatch(_matchMapper.toDomainObject(match));
+                    for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
+                        if (_dbFacade.get(Match.class, matchDTO.getId()) != null){
+                            matches.add(_dbFacade.get(Match.class, matchDTO.getId()));
+                        } else {
+                            _dbFacade.commitTransaction();
+                            matches.add(_matchMapper.toDomainObject(matchDTO));
+                            _dbFacade.beginTransaction();
+                        }
                     }
                 }
+                Tournament tournament = _dbFacade.get(Tournament.class, tournamentDTO.getId());
+                tournament.setMatches(matches);
+                tournament.setDescription(tournamentDTO.getDescription());
+                tournament.setSport(_dbFacade.get(Sport.class, tournamentDTO.getSportID()));
+                tournament.setLocation(tournamentDTO.getLocation());
+                if (tournamentDTO.getVersion() != null){
+                    tournament.setVersion(tournamentDTO.getVersion());
+                }
+                tournament.setStart(tournamentDTO.getStartDate());
                 if (tournamentDTO.getTeamIDs().size() > 0) {
                     tournament.setTeams(new HashSet<>());
                     for (String teamID : tournamentDTO.getTeamIDs()) {
-                        tournament.addTeam(dbFacade.get(Team.class, teamID));
+                        tournament.addTeam(_dbFacade.get(Team.class, teamID));
                     }
                 }
                 if (!tournament.getSport().getId().equals(tournamentDTO.getSportID())){
-                    tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
+                    tournament.setSport(_dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 }
-                dbFacade.commitTransaction();
+                _dbFacade.commitTransaction();
                 return tournament;
             } catch (HibernateException e) {
-                dbFacade.rollbackTransaction();
+                _dbFacade.rollbackTransaction();
             }
         }
         return null;
@@ -79,29 +88,33 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
             tournament.setDescription(tournamentDTO.getDescription());
             tournament.setStart(tournamentDTO.getStartDate());
             tournament.setLocation(tournamentDTO.getLocation());
-            tournament.setId(tournamentDTO.getId());
-            tournament.setVersion(tournamentDTO.getVersion());
+            if (tournamentDTO.getId() != null){
+                tournament.setId(tournamentDTO.getId());
+            }
+            if (tournamentDTO.getVersion() != null){
+                tournament.setVersion(tournamentDTO.getVersion());
+            }
             if (tournamentDTO.getMatches().size() > 0){
                 for (MatchDTO matchDTO : tournamentDTO.getMatches()){
                     tournament.addMatch(_matchMapper.toDomainObject(matchDTO));
                 }
             }
             try {
-                dbFacade.beginTransaction();
+                _dbFacade.beginTransaction();
                 if (tournamentDTO.getTeamIDs().size() > 0) {
                     for (String teamID : tournamentDTO.getTeamIDs()) {
-                        tournament.addTeam(dbFacade.get(Team.class, teamID));
+                        tournament.addTeam(_dbFacade.get(Team.class, teamID));
                     }
                 }
                 if (tournamentDTO.getSportID().length() > 0) {
-                    tournament.setSport(dbFacade.get(Sport.class, tournamentDTO.getSportID()));
+                    tournament.setSport(_dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 }
-                dbFacade.commitTransaction();
-                return tournament;
+                _dbFacade.commitTransaction();
             } catch (HibernateException e) {
                 e.printStackTrace();
-                dbFacade.rollbackTransaction();
+                _dbFacade.rollbackTransaction();
             }
+            return tournament;
         }
         return null;
     }

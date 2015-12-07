@@ -128,12 +128,13 @@ public class EditMatchFormController {
     @FXML
     private void saveMatch() throws RemoteException, NotAuthorizedException {
         if(validateInput()){
-            if(_pointsTeam1 != null) {
+            if(_pointsTeam1.getText() != null) {
                 _matchDTO.getTeam1().setPoints(_pointsTeam1.getText());
             }
-            if(_pointsTeam2 != null){
+            if(_pointsTeam2.getText() != null){
                 _matchDTO.getTeam2().setPoints(_pointsTeam2.getText());
             }
+            _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());
             SessionController.getInstance().getSession().getMatchRemote().update(_matchDTO);
         }
     }

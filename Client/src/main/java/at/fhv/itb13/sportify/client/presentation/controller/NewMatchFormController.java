@@ -67,12 +67,12 @@ public class NewMatchFormController {
             newMatch.setDuration(_duration);
             newMatch.setStart(Date.valueOf(_localDate));
 
-            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
-            team1.setId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            team1.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team1.setName(_allTeamsTableView.getSelectionModel().getSelectedItem().getName());
             team1.setVersion(_allTeamsTableView.getSelectionModel().getSelectedItem().getVersion());
 
-            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team2.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team2.setName(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getName());
             team2.setVersion(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getVersion());

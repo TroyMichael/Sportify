@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.MatchRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,7 +14,7 @@ import javax.ejb.Stateless;
 public class MatchBean implements MatchRemote {
 
     @EJB
-    private SessionBean _sessionBean;
+    private SessionLocal _sessionBean;
 
     private MatchController _matchController;
 

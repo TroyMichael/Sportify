@@ -15,7 +15,6 @@ public class MessageBean implements MessageRemote {
         _messageController = new MessageController();
     }
 
-
     @Override
     public Serializable getMessage(String username) {
         return _messageController.getMessage(username);

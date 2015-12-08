@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface SportRemote extends Remote {
     List<SportDTO> getSports() throws RemoteException;
+
     List<SimpleSportDTO> getAllSimpleSports() throws RemoteException;
 }

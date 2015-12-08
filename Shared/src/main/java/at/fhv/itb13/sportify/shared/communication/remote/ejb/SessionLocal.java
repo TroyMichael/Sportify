@@ -4,12 +4,13 @@ import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
-@Remote
-public interface SessionRemote {
-
+@Local
+public interface SessionLocal {
     boolean login(UserDTO userDTO);
 
     UserDTO getUserDTO();
+
+    void authorize(RightName rightName) throws NotAuthorizedException;
 }

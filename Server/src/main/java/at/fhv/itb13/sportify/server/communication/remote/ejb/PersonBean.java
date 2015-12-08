@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,7 +16,7 @@ import java.util.List;
 public class PersonBean implements PersonRemote {
 
     @EJB
-    private SessionBean _sessionBean;
+    private SessionLocal _sessionBean;
 
     private PersonController _personController;
 

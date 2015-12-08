@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
 
 import javax.ejb.EJB;
@@ -15,7 +16,7 @@ import java.util.List;
 public class TournamentBean implements TournamentRemote {
 
     @EJB
-    private SessionBean _sessionBean;
+    private SessionLocal _sessionBean;
 
     private TournamentController _tournamentController;
 

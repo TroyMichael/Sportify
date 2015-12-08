@@ -6,10 +6,10 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 import java.util.List;
 
-@Local
+@Remote
 public interface TeamRemote {
     void createTeam(TeamDTO teamDTO) throws NotAuthorizedException;
 

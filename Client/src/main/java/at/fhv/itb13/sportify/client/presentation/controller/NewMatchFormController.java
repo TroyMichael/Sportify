@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
-import java.time.LocalDate;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class NewMatchFormController {
     @FXML
     private TableColumn<DisplayTeamDTO, String> _allTeamsOpponentNameColumn;
 
-    private LocalDate _localDate;
+    private Date _date;
 
     private int _duration;
 
@@ -67,7 +67,7 @@ public class NewMatchFormController {
 
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
-            newMatch.setStart(Date.valueOf(_localDate));
+            newMatch.setStart(_date);
 
             MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
             team1.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
@@ -140,9 +140,13 @@ public class NewMatchFormController {
 
             //define Regex: 0-24h, 0-59min, 0-69sek
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
-                _localDate = _datePicker.getValue();
-                String[] times = _startTimeTextField.getText().split(":");
-                _localDate.atTime(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[2]));
+                _date = Date.valueOf(_datePicker.getValue());
+                //String[] times = _startTimeTextField.getText().split(":");
+                Time time = Time.valueOf(_startTimeTextField.getText());
+                Long longDate = _date.getTime();
+                Long longTime = time.getTime();
+                Long longDateTime = longDate + longTime;
+                _date.setTime(longDateTime);
                 _startTimeTextField.setStyle("-fx-text-box-border: lightgrey;");
             } else {
                 _startTimeTextField.setStyle("-fx-text-box-border: red;");

@@ -41,8 +41,13 @@ public class TournamentBean implements TournamentRemote {
     }
 
     @Override
-    public TournamentDTO getByID(String id) {
+    public TournamentDTO getTournamentDTOByID(String id) {
         return _tournamentController.getTournamentDTOByID(id);
+    }
+
+    @Override
+    public SimpleTournamentDTO getSimpleTournamentDTOByID(String id){
+        return _tournamentController.getSimpleTournamentDTOByID(id);
     }
 
     @Override

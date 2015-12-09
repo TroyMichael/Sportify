@@ -1,7 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.sql.Date;
-import java.util.HashSet;
 
 public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 

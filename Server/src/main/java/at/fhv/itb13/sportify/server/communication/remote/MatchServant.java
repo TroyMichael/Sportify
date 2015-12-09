@@ -1,7 +1,6 @@
 package at.fhv.itb13.sportify.server.communication.remote;
 
 import at.fhv.itb13.sportify.server.application.controller.MatchController;
-import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.remote.MatchRemote;

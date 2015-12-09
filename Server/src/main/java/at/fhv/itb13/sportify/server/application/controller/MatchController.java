@@ -5,6 +5,8 @@ import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Match;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import org.hibernate.HibernateException;
 
 public class MatchController {

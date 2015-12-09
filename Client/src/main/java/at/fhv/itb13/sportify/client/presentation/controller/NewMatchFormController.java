@@ -87,7 +87,6 @@ public class NewMatchFormController {
             _tournament.addMatch(newMatch);
 
             initSuccessAlert();
-            //todo fix correct weiterleitung
             if (_newTournament){
                 SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
             } else {

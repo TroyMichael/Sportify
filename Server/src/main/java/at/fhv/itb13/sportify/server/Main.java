@@ -9,14 +9,14 @@ import java.rmi.RemoteException;
 
 public class Main {
 
-//    public static void main(String[] args) {
-//        try {
-//            SessionFactory sessionFactory = new SessionFactoryImpl();
-//            Naming.rebind("rmi://localhost:12345/SessionFactory", sessionFactory);
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void main(String[] args) {
+        try {
+            SessionFactory sessionFactory = new SessionFactoryImpl();
+            Naming.rebind("rmi://localhost:12345/SessionFactory", sessionFactory);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 }

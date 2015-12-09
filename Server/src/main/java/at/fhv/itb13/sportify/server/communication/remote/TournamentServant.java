@@ -37,8 +37,13 @@ public class TournamentServant extends SessionServant implements TournamentRemot
     }
 
     @Override
-    public TournamentDTO getByID(String id) throws RemoteException {
-        return _tournamentController.getByID(id);
+    public TournamentDTO getTournamentDTOByID(String id) throws RemoteException {
+        return _tournamentController.getTournamentDTOByID(id);
+    }
+
+    @Override
+    public SimpleTournamentDTO getSimpleTournamentDTOByID(String id) throws RemoteException {
+        return _tournamentController.getSimpleTournamentDTOByID(id);
     }
 
     @Override

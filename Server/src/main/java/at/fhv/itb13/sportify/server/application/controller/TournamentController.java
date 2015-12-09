@@ -67,7 +67,6 @@ public class TournamentController {
     }
 
     public void update(TournamentDTO tournamentDTO) {
-        System.out.println("TEST");
         try {
             Tournament tournament = _tournamentMapper.toExistingDomainObject(tournamentDTO);
             _facade.beginTransaction();
@@ -114,7 +113,7 @@ public class TournamentController {
         return _simpleTournamentMapper.toDTOList(tournaments);
     }
 
-    public TournamentDTO getByID(String id) {
+    public TournamentDTO getTournamentDTOByID(String id) {
         TournamentDTO newTournamentDTO = null;
         try {
             _facade.beginTransaction();
@@ -126,5 +125,19 @@ public class TournamentController {
             e.printStackTrace();
         }
         return newTournamentDTO;
+    }
+
+    public SimpleTournamentDTO getSimpleTournamentDTOByID(String tournamentID) {
+        SimpleTournamentDTO simpleTournamentDTO = null;
+        try {
+            _facade.beginTransaction();
+            Tournament tournament = _facade.get(Tournament.class, tournamentID);
+            simpleTournamentDTO = _simpleTournamentMapper.toDTOObject(tournament);
+            _facade.commitTransaction();
+        } catch (HibernateException e){
+            _facade.rollbackTransaction();
+            e.printStackTrace();
+        }
+        return simpleTournamentDTO;
     }
 }

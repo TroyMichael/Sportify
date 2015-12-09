@@ -216,10 +216,6 @@ public class SportifyGUI extends Application {
         loadView("view/TournamentList.fxml", _rootLayout);
     }
 
-    public void loadNewTournamentView(TournamentDTO tournamentDTO) {
-        NewTournamentFormController cont = (NewTournamentFormController) loadView("view/NewTournamentForm.fxml", _rootLayout);
-        cont.setTournament(tournamentDTO);
-    }
 
     public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams, Boolean newTournament) {
         NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
@@ -256,8 +252,9 @@ public class SportifyGUI extends Application {
         System.exit(0);
     }
 
-    public void loadEditMatchForm(MatchDTO matchDTO) {
+    public void loadEditMatchForm(MatchDTO matchDTO, TournamentDTO tournamentDTO) {
         EditMatchFormController cont = (EditMatchFormController) loadView("view/EditMatchForm.fxml", _rootLayout);
         cont.setMatchDTO(matchDTO);
+        cont.setTournamentDTO(tournamentDTO);
     }
 }

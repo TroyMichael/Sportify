@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="BootsFaces-OSP-dist-0.7.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SportifyJSF/lib/BootsFaces-OSP-dist-0.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SportifyJSF/lib/javax.faces-2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -42,7 +42,7 @@ public class TournamentBean implements TournamentRemote {
 
     @Override
     public TournamentDTO getByID(String id) {
-        return _tournamentController.getByID(id);
+        return _tournamentController.getTournamentDTOByID(id);
     }
 
     @Override

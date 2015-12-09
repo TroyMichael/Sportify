@@ -18,50 +18,32 @@
     <b:container>
         <h1>Tournament</h1>
         <h2>Detail</h2>
-        <h:outputText value="Name:     #{tournamentbean.current.name}"/><br></br>
-        <h:outputText value="Location: #{tournamentbean.current.location}"/><br></br>
-        <h:outputText value="Start:    #{tournamentbean.current.start}"/><br></br>
-        <h:outputText value="Sport:    #{tournamentbean.current.sport}"/><br></br>
+        <h:outputText value="Name:     #{controllerbean._currentTournament.description}"/><br></br>
+        <h:outputText value="Location: #{controllerbean._currentTournament.location}"/><br></br>
+        <h:outputText value="Start:    #{controllerbean._currentTournament.startDate}"/><br></br>
+        <h:outputText value="Sport:    #{controllerbean._currentTournament.sportID}"/><br></br>
         <h2>Matches</h2>
         <h:form>
-            <h:dataTable value="#{matchbean.matches}" var="match"
+            <h:dataTable value="#{controllerbean.matches}" var="match"
                          styleClass="order-table"
                          headerClass="order-table-header"
                          rowClasses="order-table-odd-row,order-table-even-row">
                 <h:column>
                     <f:facet name="header">Team1</f:facet>
                     <h:inputText value="#{match.team1}"
-                                 size="10" rendered="#{match.canEdit}"/>
-                    <h:outputText value="#{match.team1}"
-                                  rendered="#{not match.canEdit}"/>
+                                 size="10" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Team2</f:facet>
-                    <h:inputText value="#{match.team2}"
-                                 size="10" rendered="#{match.canEdit}"/>
-                    <h:outputText value="#{match.team2}"
-                                  rendered="#{not match.canEdit}"/>
+                    <h:inputText value="#{match.team2}" size="10" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Score1</f:facet>
-                    <h:inputText value="#{match.score1}" size="5"
-                                 rendered="#{match.canEdit}"/>
-                    <h:outputText value="#{match.score1}"
-                                  rendered="#{not match.canEdit}"/>
+                    <h:inputText value="#{match.team1.points}" size="5"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Score2</f:facet>
-                    <h:inputText value="#{match.score2}" size="5"
-                                 rendered="#{match.canEdit}"/>
-                    <h:outputText value="#{match.score2}"
-                                  rendered="#{not match.canEdit}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Edit</f:facet>
-                    <h:commandButton value="Edit"
-                                     action="#{matchbean.editMatch(match)}"
-                                     rendered="#{not match.canEdit}">
-                    </h:commandButton>
+                    <h:inputText value="#{match.team2.points}" size="5"/>
                 </h:column>
             </h:dataTable>
             <br/>

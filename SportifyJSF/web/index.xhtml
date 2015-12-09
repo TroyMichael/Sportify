@@ -16,19 +16,19 @@
         <a:form>
             <b:row styleClass="show-grid">
                 <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="username" value="#{userbean.username}"/></b:column>
+                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="username" binding="usernamevalue" value="#{controllerbean.username}"/></b:column>
                 <b:column col-xs="6" col-md="4"></b:column>
 
             </b:row>
             <b:row styleClass="show-grid">
                 <b:column col-xs="6" col-md="4"></b:column>
                 <b:column col-xs="6" col-md="4"> <b:inputText placeholder="password"
-                                                              value="#{userbean.password}"/></b:column>
+                                                              value="#{controllerbean.password}"/></b:column>
                 <b:column col-xs="6" col-md="4"></b:column>
             </b:row>
             <b:row styleClass="show-grid">
                 <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:commandButton look="primary" action="${userbean.authentification()}"
+                <b:column col-xs="6" col-md="4"> <b:commandButton look="primary" action="${controllerbean.authentificate()}"
                                                                   value="Sign In"/></b:column>
                 <b:column col-xs="6" col-md="4"></b:column>
             </b:row>

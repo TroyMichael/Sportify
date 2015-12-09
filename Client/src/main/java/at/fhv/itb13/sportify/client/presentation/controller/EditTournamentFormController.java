@@ -73,7 +73,7 @@ public class EditTournamentFormController {
     private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
     private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs = new HashSet<>();
     private TournamentDTO _tournament;
-    private SimpleTournamentDTO _simpleTournament;
+
 
     @FXML
     private void initialize() {
@@ -256,6 +256,8 @@ public class EditTournamentFormController {
 
             SessionController.getInstance().getSession().getTournamentRemote().updateTournament(_tournament);
             initSuccessAlert();
+           SimpleTournamentDTO simpleTournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
+            SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
         } else {
             initErrorAlert();
         }

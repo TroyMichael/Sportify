@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.NewMemberFormController">
+    <children>
+        <GridPane layoutX="15.0" layoutY="54.0" prefHeight="263.0" prefWidth="399.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="54.0">
+            <children>
+                <Label text="Name" />
+                <Label text="Street" GridPane.rowIndex="1" />
+                <Label text="Postal Code" GridPane.rowIndex="2" />
+                <Label text="City" GridPane.rowIndex="3" />
+                <Label text="E-Mail" GridPane.rowIndex="4" />
+                <Label text="Date of Birth" GridPane.rowIndex="5" />
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1">
+                    <children>
+                        <TextField fx:id="_fNameTextField" promptText="First Name" />
+                        <TextField fx:id="_lNameTextField" promptText="Last Name" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <TextField fx:id="_streetTextField" promptText="Street" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="_streetNoTextField" prefHeight="25.0" prefWidth="109.0" promptText="Street No." HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <TextField fx:id="_postalCodeTextField" promptText="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="_cityTextField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="_eMailTextField" promptText="E-Mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="_birthdayTextField" promptText="Date of Birth (dd.MM.yyyy)" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="113.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="237.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <HBox layoutX="476.0" layoutY="613.0" prefHeight="27.0" prefWidth="103.0" spacing="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="476.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="613.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#saveNewMember" text="Save" />
+                <Button mnemonicParsing="false" onAction="#cancelNewMember" text="Cancel" />
+            </children>
+        </HBox>
+      <Label layoutX="14.0" layoutY="14.0" text="Add New Member" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <HBox layoutX="15.0" layoutY="378.0" prefHeight="218.0" prefWidth="570.0" spacing="30.0">
+         <children>
+            <TableView fx:id="_allTeamsTableView" prefHeight="207.0" prefWidth="199.0">
+               <columns>
+                  <TableColumn fx:id="_allTeamsNameColumn" prefWidth="197.0" text="Name" />
+               </columns>
+            </TableView>
+            <VBox prefHeight="196.0" prefWidth="115.0" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addTeam" prefHeight="25.0" prefWidth="115.0" text="add --&gt;" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeTeam" prefHeight="25.0" prefWidth="140.0" text="&lt;-- remove" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#removeAllTeams" prefHeight="25.0" prefWidth="129.0" text="&lt;&lt;-- remove all" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <TableView fx:id="_addedTeamsTableView" prefHeight="207.0" prefWidth="199.0">
+               <columns>
+                  <TableColumn fx:id="_addedTeamsNameColumn" prefWidth="197.0" text="Name" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <Label layoutX="15.0" layoutY="337.0" text="Add Teams">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="_sportComboBox" layoutX="429.0" layoutY="88.0" prefWidth="150.0" />
+      <TableView fx:id="_sportTableView" layoutX="429.0" layoutY="125.0" prefHeight="184.0" prefWidth="150.0">
+        <columns>
+          <TableColumn fx:id="_sportTableColumn" prefWidth="149.0" text="Sport" />
+        </columns>
+      </TableView>
+      <Label layoutX="429.0" layoutY="54.0" text="Add Sport">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="429.0" layoutY="313.0" mnemonicParsing="false" onAction="#addSport" text="Add" />
+      <Button layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#removeSport" text="Remove" />
+    </children>
+</AnchorPane>

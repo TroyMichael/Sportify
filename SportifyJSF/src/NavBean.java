@@ -8,7 +8,7 @@ public class NavBean {
 
     public void moveToTournament(){
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("alltournament.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("displayalltournament.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

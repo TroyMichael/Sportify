@@ -32,5 +32,6 @@
     <orderEntry type="library" name="Mojarra-2.2.1" level="project" />
     <orderEntry type="library" name="BootsFaces-OSP-dist-0.7.0" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module" module-name="Shared" />
   </component>
 </module>

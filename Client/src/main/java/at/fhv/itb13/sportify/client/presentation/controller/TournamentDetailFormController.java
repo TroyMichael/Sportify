@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -83,7 +84,7 @@ public class TournamentDetailFormController {
     @FXML
     private void editTournament() throws RemoteException {
 
-        TournamentDTO tournamentToEdit = SessionController.getInstance().getSession().getTournamentRemote().getByID(_tournament.getId());
+        TournamentDTO tournamentToEdit = SessionController.getInstance().getSession().getTournamentRemote().getTournamentDTOByID(_tournament.getId());
 
         SportifyGUI.getSharedMainApp().loadEditTournamentForm(tournamentToEdit);
     }
@@ -116,7 +117,13 @@ public class TournamentDetailFormController {
 
                     if (_matchTableView.getSelectionModel().getSelectedItem() != null) {
                         MatchDTO matchDTO = _matchTableView.getSelectionModel().getSelectedItem();
-                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO);
+                        TournamentDTO tournamentDTO = null;
+                        try {
+                            tournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getTournamentDTOByID(_tournament.getId());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO, tournamentDTO);
                     }
                 }
             }

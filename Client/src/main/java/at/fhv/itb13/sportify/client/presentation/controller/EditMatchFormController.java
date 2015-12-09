@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.beans.value.ChangeListener;
@@ -111,14 +112,23 @@ public class EditMatchFormController {
 
     @FXML
     private void cancelNewMatch() {
-        //todo cancel button
-        //SportifyGUI.getSharedMainApp().loadTournamentDetailView(_tournament);
+        SimpleTournamentDTO simpleTournamentDTO = null;
+        try {
+            simpleTournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
     }
 
 
     public void setMatchDTO(MatchDTO matchDTO) {
         _matchDTO = matchDTO;
         setDataToTextFields();
+    }
+
+    public void setTournamentDTO (TournamentDTO tournamentDTO){
+        _tournament = tournamentDTO;
     }
 
     private void setPointsVisible(Boolean bool){
@@ -138,7 +148,10 @@ public class EditMatchFormController {
             }
             _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());
             SessionController.getInstance().getSession().getMatchRemote().update(_matchDTO);
-            //todo weiterleiten
+            _tournament.addMatch(_matchDTO);
+            SessionController.getInstance().getSession().getTournamentRemote().updateTournament(_tournament);
+            SimpleTournamentDTO simpleTournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
+            SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
         }
     }
 }

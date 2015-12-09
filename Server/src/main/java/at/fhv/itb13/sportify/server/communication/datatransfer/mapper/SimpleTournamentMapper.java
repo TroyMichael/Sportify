@@ -1,11 +1,18 @@
 package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
+import at.fhv.itb13.sportify.server.model.Match;
+import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.server.model.Tournament;
+import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTOImpl;
+import org.hibernate.HibernateException;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by KYUSS on 26.11.2015.

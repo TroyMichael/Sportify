@@ -18,6 +18,7 @@ import java.util.TimerTask;
 
 /**
  * Created by Michael on 28.11.2015.
+ *
  */
 public class JMSCommunication implements Runnable {
 

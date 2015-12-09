@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 
 /**
  * Created by Michael on 15.11.2015.
+ *
  */
 public class TeamListController {
 

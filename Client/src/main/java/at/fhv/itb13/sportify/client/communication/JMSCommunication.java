@@ -30,31 +30,37 @@ public class JMSCommunication implements Runnable {
         _userName = userName;
     }
 
+
+
     public void run() {
         //create TimerTask that asks for new Messages
         TimerTask askForMessages = new TimerTask() {
             @Override
             public void run() {
-                //check what message it is and start the respective alert
-                try {
-                    //get message
-                    Serializable message = SessionController.getInstance().getSession().getMessageRemote().getMessage(_userName);
+                //get message
 
+                final Serializable message;
+                try {
+                    message = SessionController.getInstance().getSession().getMessageRemote().getMessage(_userName);
                     if (message != null) {
-                        Platform.runLater(() -> {
-                            //check what kind of message it is and start respective alert
-                            if (message instanceof TournamentInvitationMessageDTOImpl) {
-                                TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
-                                createRosterInvitationAlert(invMessage);
-                            } else if (message instanceof TournamentInvResponseMessageDTOImpl) {
-                                TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
-                                createInvitationResponseAlert(respMessage);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                //check what kind of message it is and start respective alert
+                                if (message instanceof TournamentInvitationMessageDTOImpl) {
+                                    TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
+                                    createRosterInvitationAlert(invMessage);
+                                } else if (message instanceof TournamentInvResponseMessageDTOImpl) {
+                                    TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
+                                    createInvitationResponseAlert(respMessage);
+                                }
                             }
                         });
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+
             }
         };
 

@@ -3,6 +3,8 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 /**
@@ -45,13 +48,13 @@ public class TeamListController {
     @FXML
     private void initialize() {
 
-        _nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        _sportColumn.setCellValueFactory(new PropertyValueFactory<>("Sport"));
-        _trainerColumn.setCellValueFactory(new PropertyValueFactory<>("Trainer"));
+        _nameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
+        _sportColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Sport"));
+        _trainerColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Trainer"));
 
         try {
             List<DisplayTeamDTO> tempTeamList = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
-            tempTeamList.forEach(team -> _teams.add(team));
+            _teams.addAll(tempTeamList);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -65,34 +68,44 @@ public class TeamListController {
 
         //wrap observableList into filter list
         //p -> true shows all teams
-        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, p -> true);
+        final FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, new Predicate<DisplayTeamDTO>() {
+            @Override
+            public boolean test(DisplayTeamDTO displayTeamDTO) {
+                return true;
+            }
+        });
 
         //set changeListener to textfield
-        _filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            _filteredTeamList.setPredicate(team -> {
+        _filterTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, final String newValue) {
+                _filteredTeamList.setPredicate(new Predicate<DisplayTeamDTO>() {
+                    @Override
+                    public boolean test(DisplayTeamDTO team) {
+                        //define here all rules of filtering and what should be searched and filtered
 
-                //define here all rules of filtering and what should be searched and filtered
+                        //if textfield is empty/null show all teams
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
 
-                //if textfield is empty/null show all teams
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+                        //else compare the filter string to the different columns
+                        String filterString = _filterTextField.getText().toLowerCase();
 
-                //else compare the filter string to the different columns
-                String filterString = _filterTextField.getText().toLowerCase();
+                        if (team.getName().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (team.getSport().getName().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if ((team.getTrainer().getFName() + " " + team.getTrainer().getLName()).toLowerCase().contains(filterString)) {
+                            return true;
+                        }
+                        //filter more attributes if wanted
 
-                if (team.getName().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (team.getSport().getName().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if ((team.getTrainer().getFName() + " " + team.getTrainer().getLName()).toLowerCase().contains(filterString)) {
-                    return true;
-                }
-                //filter more attributes if wanted
-
-                //if nothing matches, return false, so that that person won't be shown in the list
-                return false;
-            });
+                        //if nothing matches, return false, so that that person won't be shown in the list
+                        return false;
+                    }
+                });
+            }
         });
 
         //FilteredList cannot be modified -> not sortable
@@ -100,7 +113,11 @@ public class TeamListController {
         SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedTeamList.comparatorProperty().bind(_teamTableView.comparatorProperty());
+        sortedTeamList.comparatorProperty().
+
+                bind(_teamTableView.comparatorProperty()
+
+                );
 
         //set sortedList as items to teamTableView
         _teamTableView.setItems(sortedTeamList);

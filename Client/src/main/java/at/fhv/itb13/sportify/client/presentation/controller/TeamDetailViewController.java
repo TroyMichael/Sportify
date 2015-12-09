@@ -6,8 +6,6 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,6 +19,7 @@ import java.util.HashSet;
 
 /**
  * Created by Michael on 15.11.2015.
+ *
  */
 public class TeamDetailViewController {
 
@@ -78,16 +77,16 @@ public class TeamDetailViewController {
     private void initialize() {
 
         //set values of each column in Member Table
-        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
-        _birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("BirthDate"));
-        _emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        _feeColumn.setCellValueFactory(new PropertyValueFactory<>("Payed"));
+        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("FName"));
+        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("LName"));
+        _birthdateColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("BirthDate"));
+        _emailColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("Email"));
+        _feeColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("Payed"));
 
         //set column values in Tournament Table
-        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        _startDateColumn.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-        _locationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("Description"));
+        _startDateColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("StartDate"));
+        _locationColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("Location"));
 
 
     }
@@ -109,7 +108,7 @@ public class TeamDetailViewController {
         _sportLabel.setText(_team.getSport().getName());
 
         HashSet<SimplePersonDTO> _tempList = _team.getMembers();
-        _tempList.forEach(person -> _memberList.add(person));
+        _memberList.addAll(_tempList);
         _membersTableView.setItems(_memberList);
 
 
@@ -125,7 +124,7 @@ public class TeamDetailViewController {
         if(_team.getTournaments() != null) {
 
             HashSet<SimpleTournamentDTO>  tempTournamentList = _team.getTournaments();
-            tempTournamentList.forEach(tournamentDTO -> _tournamentList.add(tournamentDTO));
+            _tournamentList.addAll(tempTournamentList);
         }
         _tournamentTableView.setItems(_tournamentList);
     }

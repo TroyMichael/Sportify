@@ -3,6 +3,8 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by KYUSS on hütt.
@@ -48,10 +51,10 @@ public class TournamentListController {
     private void initialize() {
 
         //set column values
-        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        _sportColumn.setCellValueFactory(new PropertyValueFactory<>("Sport"));
-        _startDateColumn.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-        _locationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        _descriptionColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("Description"));
+        _sportColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("Sport"));
+        _startDateColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("StartDate"));
+        _locationColumn.setCellValueFactory(new PropertyValueFactory<SimpleTournamentDTO, String>("Location"));
 
         getAndAddDataToTournamentList();
         setDoubleClickOnTournamentTableView();
@@ -85,34 +88,44 @@ public class TournamentListController {
 
         //wrap observableList into filter list
         //tournamentDTO -> true shows all tournaments
-        FilteredList<SimpleTournamentDTO> _filteredTournamentDTOList = new FilteredList<>(_tournamentList, tournamentDTO -> true);
+        final FilteredList<SimpleTournamentDTO> _filteredTournamentDTOList = new FilteredList<>(_tournamentList, new Predicate<SimpleTournamentDTO>() {
+            @Override
+            public boolean test(SimpleTournamentDTO simpleTournamentDTO) {
+                return true;
+            }
+        });
 
         //set changeListener to textfield
-        _filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            _filteredTournamentDTOList.setPredicate(tournamentDTO -> {
+        _filterTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, final String newValue) {
+                _filteredTournamentDTOList.setPredicate(new Predicate<SimpleTournamentDTO>() {
+                    @Override
+                    public boolean test(SimpleTournamentDTO tournamentDTO) {
+                        //define here all rules of filtering and what should be searched and filtered
 
-                //define here all rules of filtering and what should be searched and filtered
+                        //if textfield is empty/null show all persons
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
 
-                //if textfield is empty/null show all persons
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+                        //else compare the filter string to the different columns
+                        String filterString = _filterTextField.getText().toLowerCase();
 
-                //else compare the filter string to the different columns
-                String filterString = _filterTextField.getText().toLowerCase();
+                        if (tournamentDTO.getDescription().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (String.valueOf(tournamentDTO.getStartDate()).toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (tournamentDTO.getLocation().toLowerCase().contains(filterString)) {
+                            return true;
+                        }
+                        //filter more attributes if wanted
 
-                if (tournamentDTO.getDescription().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (String.valueOf(tournamentDTO.getStartDate()).toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (tournamentDTO.getLocation().toLowerCase().contains(filterString)) {
-                    return true;
-                }
-                //filter more attributes if wanted
-
-                //if nothing matches, return false, so that the searched tournament won't be shown in the list
-                return false;
-            });
+                        //if nothing matches, return false, so that the searched tournament won't be shown in the list
+                        return false;
+                    }
+                });
+            }
         });
 
         //FilteredList cannot be modified -> not sortable
@@ -132,7 +145,7 @@ public class TournamentListController {
     private void getAndAddDataToTournamentList() {
         try {
             List<SimpleTournamentDTO> tempTournamentList = SessionController.getInstance().getSession().getTournamentRemote().getAllSimpleTournaments();
-            tempTournamentList.forEach(tournamentDTO -> _tournamentList.add(tournamentDTO));
+            _tournamentList.addAll(tempTournamentList);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

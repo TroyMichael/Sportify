@@ -23,6 +23,7 @@ import java.util.function.Predicate;
 
 /**
  * Created by KYUSS on hütt.
+ *
  */
 public class TournamentListController {
 

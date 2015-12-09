@@ -79,8 +79,6 @@ public class EditMemberDataController {
 
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
 
- //   private ObservableList<SimpleSportDTO> _sportObservable = FXCollections.observableArrayList();
-
     private ObservableList<SimpleSportDTO> _addedSportObservable = FXCollections.observableArrayList();
 
     private PersonDTO _person;
@@ -127,10 +125,10 @@ public class EditMemberDataController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
@@ -150,7 +148,7 @@ public class EditMemberDataController {
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all members
                 ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
-                allTeams.forEach(team -> allTeamsObservable.add(team));
+                allTeamsObservable.addAll(allTeams);
                 _allTeamsTableView.setItems(allTeamsObservable);
             }
         } catch (RemoteException e) {

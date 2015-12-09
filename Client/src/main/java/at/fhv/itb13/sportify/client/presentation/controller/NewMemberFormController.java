@@ -31,7 +31,7 @@ public class NewMemberFormController {
     public TableView<SimpleSportDTO> _sportTableView;
 
     @FXML
-    public TableColumn _sportTableColumn;
+    public TableColumn<SimpleSportDTO, String> _sportTableColumn;
 
     @FXML
     private TextField _fNameTextField;
@@ -76,12 +76,12 @@ public class NewMemberFormController {
     @FXML
     private void initialize(){
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
-        _sportTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _sportTableColumn.setCellValueFactory(new PropertyValueFactory<SimpleSportDTO, String>("Name"));
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
 
@@ -114,7 +114,7 @@ public class NewMemberFormController {
             if (allTeams != null) {
                 //create an observableArrayList and fill it with all members
                 ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
-                allTeams.forEach(team -> allTeamsObservable.add(team));
+                allTeamsObservable.addAll(allTeams);
                 _allTeamsTableView.setItems(allTeamsObservable);
             }
         } catch (RemoteException e) {
@@ -150,7 +150,6 @@ public class NewMemberFormController {
     }
 
     /**
-     * TODO: get PAYMENTSTATUS
      *
      * @throws RemoteException
      */
@@ -183,7 +182,7 @@ public class NewMemberFormController {
 
             SessionController.getInstance().getSession().getPersonRemote().create(newMember);
             initSuccessAlert();
-            SportifyGUI.getSharedMainApp().loadMemberDataView(newMember); //TODO check if this conflicts with database if this member is edited and changes are saved
+            SportifyGUI.getSharedMainApp().loadMemberDataView(newMember);
         }
     }
 

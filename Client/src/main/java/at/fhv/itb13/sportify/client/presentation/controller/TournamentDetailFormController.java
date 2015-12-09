@@ -68,13 +68,13 @@ public class TournamentDetailFormController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<SimpleTeamDTO, String>("Name"));
         _allTeamsTableView.setItems(_allTeamsObservable);
 
         //set values for matchTable
-        _team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team1"));
-        _team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team2"));
-        _dateColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
+        _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
+        _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
         _matchTableView.setItems(_matchObservable);
 
         setDoubleClickOnMatchTableView();

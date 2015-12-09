@@ -56,12 +56,12 @@ public class EditTeamFormController {
     private void initialize() {
 
         //set values for allMembersTableView's columns
-        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("FName"));
+        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("LName"));
 
         //set values for addedMembersTableViews' columns
-        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("FName"));
+        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("LName"));
 
         _addedMembersTableView.setItems(_addedMembersObservable);
 
@@ -77,7 +77,7 @@ public class EditTeamFormController {
             if (allMembers != null) {
                 //create an observableArrayList and fill it with all members
                 ObservableList<SimplePersonDTO> allMembersObservable = FXCollections.observableArrayList();
-                allMembers.forEach(person -> allMembersObservable.add(person));
+                allMembersObservable.addAll(allMembers);
                 _allMembersTableView.setItems(allMembersObservable);
             }
         } catch (RemoteException e) {
@@ -88,12 +88,11 @@ public class EditTeamFormController {
 
     private void setSportComboBoxData() {
         try {
-            List<SportDTO> sportList;
-            sportList = SessionController.getInstance().getSession().getSportRemote().getSports();
+            List<SportDTO> sportList = SessionController.getInstance().getSession().getSportRemote().getSports();
 
             if (sportList != null) {
                 ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
-                sportList.forEach(sport -> sportObservable.add(sport));
+                sportObservable.addAll(sportList);
                 _sportComboBox.getItems().addAll((sportObservable));
             }
         } catch (RemoteException e) {
@@ -153,8 +152,10 @@ public class EditTeamFormController {
 
             //read all person IDs and save them into a hashset
             HashSet<String> addedMembersIDs = new HashSet<>();
-            _addedMembersObservable.forEach(person -> addedMembersIDs.add(person.getId()));
 
+            for (SimplePersonDTO person : _addedMembersObservable) {
+                addedMembersIDs.add(person.getId());
+            }
 
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
@@ -220,10 +221,12 @@ public class EditTeamFormController {
     public void setTeam(DisplayTeamDTO team) {
         _team = team;
         _nameTextField.setText(_team.getName());
-        _team.getMembers().forEach(p -> {
-            _addedMembersObservable.add(p);
-            removePersonIfAlreadyInTeam(p);
-        });
+
+        for (SimplePersonDTO person : _team.getMembers()) {
+            _addedMembersObservable.add(person);
+            removePersonIfAlreadyInTeam(person);
+        }
+
         _trainer = _team.getTrainer();
         removePersonIfAlreadyInTeam(_trainer);
         _trainerTextField.setText(_trainer.getFName() + " " + _trainer.getLName());

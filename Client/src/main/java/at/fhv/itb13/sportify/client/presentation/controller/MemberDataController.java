@@ -130,11 +130,12 @@ public class MemberDataController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
+        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         _teamTableView.setItems(_teamsObservable);
 
-        _sportNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _sportNameColumn.setCellValueFactory(new PropertyValueFactory<SimpleSportDTO, String>("Name"));
 
         _sportsTableView.setItems(_sportsObservable);
     }

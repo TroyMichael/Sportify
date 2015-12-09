@@ -54,10 +54,10 @@ public class NewMatchFormController {
     @FXML
     private void initialize(){
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _allTeamsOpponentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsOpponentNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
     }
 
     @FXML
@@ -173,12 +173,14 @@ public class NewMatchFormController {
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
         try {
             List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
-            teams.forEach(team -> {
+
+            for (DisplayTeamDTO team : teams) {
                 if (_tournament.getTeamIDs().contains(team.getId())) {
                     _allTeamsTableView.getItems().add(team);
                     _allTeamsOpponentTableView.getItems().add(team);
                 }
-            });
+            }
+
             _allTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
             _allTeamsOpponentTableView.getItems().addAll(_externalDisplayTeamDTOs);
         } catch (RemoteException e) {

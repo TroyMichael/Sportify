@@ -2,10 +2,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 
 import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
-import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Michael on 10.11.2015.
+ *
  */
 public class NewTeamFormController {
 
@@ -57,12 +55,12 @@ public class NewTeamFormController {
     private void initialize() {
 
         //set values for allMembersTableView's columns
-        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         //set values for addedMembersTableViews' columns
-        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         _addedMembersTableView.setItems(_addedMembersObservable);
 
@@ -78,7 +76,7 @@ public class NewTeamFormController {
             if (allMembers != null) {
                 //create an observableArrayList and fill it with all members
                 ObservableList<PersonDTO> allMembersObservable = FXCollections.observableArrayList();
-                allMembers.forEach(person -> allMembersObservable.add(person));
+                allMembersObservable.addAll(allMembers);
                 _allMembersTableView.setItems(allMembersObservable);
             }
         } catch (RemoteException e) {
@@ -94,7 +92,7 @@ public class NewTeamFormController {
 
             if (sportList != null) {
                 ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
-                sportList.forEach(sport -> sportObservable.add(sport));
+                sportObservable.addAll(sportList);
                 _sportComboBox.getItems().addAll((sportObservable));
             }
         } catch (RemoteException e) {
@@ -158,8 +156,10 @@ public class NewTeamFormController {
 
             //read all person IDs and save them into a hashset
             HashSet<String> addedMembersIDs = new HashSet<>();
-            _addedMembersObservable.forEach(person -> addedMembersIDs.add(person.getId()));
 
+            for (PersonDTO personDTO : _addedMembersObservable) {
+                addedMembersIDs.add(personDTO.getId());
+            }
 
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());

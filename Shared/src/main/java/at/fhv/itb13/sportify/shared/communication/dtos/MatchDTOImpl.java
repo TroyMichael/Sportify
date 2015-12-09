@@ -9,7 +9,6 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     private Date _start;
     private String _tournamentId;
     private String _matchStatus;
-    private HashSet<SimpleMatchTeamDTO> _teams;
     private SimpleMatchTeamDTO _team1;
     private SimpleMatchTeamDTO _team2;
 
@@ -86,12 +85,10 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     public static class SimpleMatchTeamDTO extends DTOImpl{
         private String _name;
         private String _points;
+        private String _teamID;
 
-        public SimpleMatchTeamDTO() {
-        }
-
-        public SimpleMatchTeamDTO(String name) {
-            _name = name;
+        public SimpleMatchTeamDTO(String teamID) {
+            _teamID = teamID;
         }
 
         public String getName() {
@@ -114,6 +111,14 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
         @Override
         public String toString() {
             return _name;
+        }
+
+        public void setTeamID (String teamID){
+            _teamID = teamID;
+        }
+
+        public String getTeamID (){
+            return _teamID;
         }
     }
 }

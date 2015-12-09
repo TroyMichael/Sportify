@@ -14,7 +14,7 @@ public interface TeamRemote extends Remote {
     void createTeam(TeamDTO teamDTO) throws RemoteException, NotAuthorizedException;
 
     void createExternalTeam(ExternalDisplayTeamDTO team) throws RemoteException;
-    
+
     void editTeam(TeamDTO TeamDTO) throws RemoteException, NotAuthorizedException;
 
     void addPersonToTeam(PersonDTO personDTO) throws RemoteException, NotAuthorizedException;

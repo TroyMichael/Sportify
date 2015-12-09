@@ -67,24 +67,13 @@ public class TournamentController {
     }
 
     public void update(TournamentDTO tournamentDTO) {
-        Tournament tournament = _tournamentMapper.toExistingDomainObject(tournamentDTO);
+        System.out.println("TEST");
         try {
+            Tournament tournament = _tournamentMapper.toExistingDomainObject(tournamentDTO);
             _facade.beginTransaction();
 
-            Set<Match> matches = new HashSet<>();
-            for (MatchDTO matchDTO : tournamentDTO.getMatches()) {
-                Match match;
-                if (_facade.get(Match.class, matchDTO.getId()) != null){
-                    match = _matchMapper.toExistingDomainObject(matchDTO);
-                } else {
-                    match = _matchMapper.toDomainObject(matchDTO);
-                }
-                matches.add(match);
-                match.setTournament(tournament);
-            }
-            tournament.setMatches(matches);
-
             for (Match match : tournament.getMatches()) {
+                match.setTournament(tournament);
                 _facade.createOrUpdate(match);
                 for(MatchTeam matchTeam : match.getMatchTeams()) {
                     _facade.createOrUpdate(matchTeam);

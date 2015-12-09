@@ -221,9 +221,9 @@ public class SportifyGUI extends Application {
         cont.setTournament(tournamentDTO);
     }
 
-    public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams) {
+    public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams, Boolean newTournament) {
         NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
-        cont.setTournament(tournament, externalTeams);
+        cont.setTournament(tournament, externalTeams, newTournament);
     }
 
     public void loadNewRosterForm(SimpleTournamentDTO simpleTournamentDTO, DisplayTeamDTO displayTeamDTO) {

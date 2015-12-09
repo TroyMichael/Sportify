@@ -49,6 +49,8 @@ public class NewMatchFormController {
     private TournamentDTO _tournament;
 
     private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs;
+    private Boolean _newTournament;
+
     @FXML
     private void initialize(){
         //set values for allTeamsTableView's columns
@@ -67,12 +69,12 @@ public class NewMatchFormController {
             newMatch.setDuration(_duration);
             newMatch.setStart(Date.valueOf(_localDate));
 
-            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO();
-            team1.setId(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
+            team1.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team1.setName(_allTeamsTableView.getSelectionModel().getSelectedItem().getName());
             team1.setVersion(_allTeamsTableView.getSelectionModel().getSelectedItem().getVersion());
 
-            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO();
+            MatchDTOImpl.SimpleMatchTeamDTO team2 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team2.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
             team2.setName(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getName());
             team2.setVersion(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getVersion());
@@ -85,7 +87,12 @@ public class NewMatchFormController {
             _tournament.addMatch(newMatch);
 
             initSuccessAlert();
-            SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+            //todo fix correct weiterleitung
+            if (_newTournament){
+                SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+            } else {
+                SportifyGUI.getSharedMainApp().loadEditTournamentForm(_tournament);
+            }
         }
     }
 
@@ -157,8 +164,9 @@ public class NewMatchFormController {
     }
 
 
-    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs) {
+    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs, Boolean newTournament) {
         _tournament = tournament;
+        _newTournament = newTournament;
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
         try {
             List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();

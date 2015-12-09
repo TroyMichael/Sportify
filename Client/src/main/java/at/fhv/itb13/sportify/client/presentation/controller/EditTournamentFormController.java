@@ -152,6 +152,7 @@ public class EditTournamentFormController {
         sortedTeamList.comparatorProperty().bind(_allTeamsTableView.comparatorProperty());
 
         //set sortedList as items to allTeamsTableView
+        //set sortedList as items to allTeamsTableVie
         _allTeamsTableView.setItems(sortedTeamList);
     }
 
@@ -252,8 +253,7 @@ public class EditTournamentFormController {
                 SessionController.getInstance().getSession().getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
             }
 
-            //TODO code createOrUpdate method or toExistingDomainObject
-            //SessionController.getInstance().getSession().getTournamentRemote().createTournament(_tournament);
+            SessionController.getInstance().getSession().getTournamentRemote().updateTournament(_tournament);
             initSuccessAlert();
         } else {
             initErrorAlert();
@@ -310,7 +310,7 @@ public class EditTournamentFormController {
     @FXML
     private void addNewMatch() {
         if (createOrUpdateTournamentDTO()) {
-            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs);
+            SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs, false);
         }
     }
 

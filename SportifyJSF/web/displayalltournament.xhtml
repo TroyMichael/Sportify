@@ -18,13 +18,13 @@
     </b:navBar>
     <b:container>
         <h1>Overview of all Tournaments</h1>
-        <h:dataTable value="${tournamentbean.tournaments}" var="tour"
+        <h:dataTable value="${controllerbean.tournaments}" var="tour"
                      styleClass="order-table"
                      headerClass="order-table-header"
                      rowClasses="order-table-odd-row,order-table-even-row">
             <h:column>
                 <f:facet name="header"><h2>Tournamentname</h2></f:facet>
-               <h:outputText value="#{tour.name}"/>
+               <h:outputText value="#{tour.description}"/>
             </h:column>
             <h:column>
                 <f:facet name="header"><h2>Location</h2></f:facet>
@@ -32,15 +32,11 @@
             </h:column>
             <h:column>
                 <f:facet name="header"><h2>Sport</h2></f:facet>
-                <h:outputText value="#{tour.sport}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header"><h2>Start</h2></f:facet>
-                <h:outputText value="#{tour.start}"/>
+                <h:outputText value="#{tour.sportID}"/>
             </h:column>
             <h:column>
                 <h:form>
-                <h:commandLink action="#{tournamentbean.processWithTournament(tour)}">Edit</h:commandLink>
+                <h:commandLink action="#{controllerbean.processWithTournament(tour)}">Edit</h:commandLink>
                 </h:form>
             </h:column>
         </h:dataTable>

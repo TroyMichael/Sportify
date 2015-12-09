@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.Department;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.server.model.Sport;
+import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTOImpl;
 
@@ -58,7 +59,9 @@ public class SportMapper extends Mapper<SportDTO, Sport> {
             if (sportDepartment != null) {
                 newSportDTO.setDepartment(sportDepartment.getId());
             }
-            domainObject.getTeams().forEach(team -> newSportDTO.addTeam(team.getId()));
+            for (Team team : domainObject.getTeams()) {
+                newSportDTO.addTeam(team.getId());
+            }
             newSportDTO.setId(domainObject.getId());
             newSportDTO.setVersion(domainObject.getVersion());
             return newSportDTO;

@@ -26,7 +26,7 @@ public class SessionFactoryRule implements MethodRule {
     }
 
     @Override
-    public Statement apply(Statement statement, FrameworkMethod method, Object test) {
+    public Statement apply(final Statement statement, FrameworkMethod method, Object test) {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {

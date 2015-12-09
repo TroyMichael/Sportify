@@ -35,17 +35,20 @@ public class JMSCommunication implements Runnable {
             @Override
             public void run() {
                 //get message
-                Serializable message = ServiceLocator.getInstance().getRemote(MessageRemote.class).getMessage(_userName);
+                final Serializable message = ServiceLocator.getInstance().getRemote(MessageRemote.class).getMessage(_userName);
 
                 if (message != null) {
-                    Platform.runLater(() -> {
-                        //check what kind of message it is and start respective alert
-                        if (message instanceof TournamentInvitationMessageDTOImpl) {
-                            TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
-                            createRosterInvitationAlert(invMessage);
-                        } else if (message instanceof TournamentInvResponseMessageDTOImpl) {
-                            TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
-                            createInvitationResponseAlert(respMessage);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            //check what kind of message it is and start respective alert
+                            if (message instanceof TournamentInvitationMessageDTOImpl) {
+                                TournamentInvitationMessageDTO invMessage = (TournamentInvitationMessageDTOImpl) message;
+                                createRosterInvitationAlert(invMessage);
+                            } else if (message instanceof TournamentInvResponseMessageDTOImpl) {
+                                TournamentInvResponseMessageDTO respMessage = (TournamentInvResponseMessageDTOImpl) message;
+                                createInvitationResponseAlert(respMessage);
+                            }
                         }
                     });
                 }

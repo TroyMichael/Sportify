@@ -52,12 +52,12 @@ public class NewRosterFormController {
     private void initialize() {
 
         //set values for allMembersTableView's columns
-        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("FName"));
+        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("LName"));
 
         //set values for addedMembersTableViews' columns
-        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("FName"));
+        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<SimplePersonDTO, String>("LName"));
 
         _addedMembersTableView.setItems(_addedMembersObservable);
 
@@ -81,13 +81,13 @@ public class NewRosterFormController {
         if (allMembers != null) {
             //create an observableArrayList and fill it with all members
             ObservableList<SimplePersonDTO> allMembersObservable = FXCollections.observableArrayList();
-            allMembers.forEach(person -> allMembersObservable.add(person));
+            for (SimplePersonDTO person : allMembers) {
+                allMembersObservable.add(person);
+            }
             _allMembersTableView.setItems(allMembersObservable);
         }
-
     }
-
-
+    
     @FXML
     private void addMember() {
         switchMember(_allMembersTableView, _addedMembersTableView);

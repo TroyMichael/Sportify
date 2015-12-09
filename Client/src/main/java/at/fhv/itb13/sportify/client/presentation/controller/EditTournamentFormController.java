@@ -74,6 +74,7 @@ public class EditTournamentFormController {
     private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs = new HashSet<>();
     private TournamentDTO _tournament;
 
+
     @FXML
     private void initialize() {
 
@@ -255,6 +256,8 @@ public class EditTournamentFormController {
 
             SessionController.getInstance().getSession().getTournamentRemote().updateTournament(_tournament);
             initSuccessAlert();
+           SimpleTournamentDTO simpleTournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
+            SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
         } else {
             initErrorAlert();
         }
@@ -341,7 +344,7 @@ public class EditTournamentFormController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Saving successful!");
         alert.setTitle("Saving successful");
-        alert.setContentText("A new Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
+        alert.setContentText("The Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully updated!");
         alert.showAndWait();
     }
 

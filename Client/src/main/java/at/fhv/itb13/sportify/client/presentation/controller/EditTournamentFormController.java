@@ -73,6 +73,7 @@ public class EditTournamentFormController {
     private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
     private HashSet<ExternalDisplayTeamDTO> _externalDisplayTeamDTOs = new HashSet<>();
     private TournamentDTO _tournament;
+    private SimpleTournamentDTO _simpleTournament;
 
     @FXML
     private void initialize() {
@@ -341,7 +342,7 @@ public class EditTournamentFormController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Saving successful!");
         alert.setTitle("Saving successful");
-        alert.setContentText("A new Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
+        alert.setContentText("The Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully updated!");
         alert.showAndWait();
     }
 

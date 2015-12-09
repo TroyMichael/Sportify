@@ -9,6 +9,7 @@ import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedExcept
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -43,29 +45,32 @@ public class SportifyGUI extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // set handler for uncaught exceptions
-        Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
-            // unwrap exceptions
-            Throwable e = throwable.getCause().getCause();
-            if (e instanceof RemoteException) {
-                ServiceLocator.getInstance().reload();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Server not reachable");
-                alert.setTitle("Server not reachable");
-                alert.setContentText("The server or your network connection may be down.");
-                alert.showAndWait();
-            } else if (e instanceof NotAuthorizedException) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("User not authorized");
-                alert.setTitle("User not authorized");
-                alert.setContentText("The current user is not authorized to fulfill this action.");
-                alert.showAndWait();
-            } else {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("An error occurred");
-                alert.setTitle("An error occurred");
-                alert.setContentText("Please restart the application.");
-                alert.showAndWait();
+        Thread.currentThread().setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                // unwrap exceptions
+                Throwable e = throwable.getCause().getCause();
+                if (e instanceof RemoteException) {
+                    ServiceLocator.getInstance().reload();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Server not reachable");
+                    alert.setTitle("Server not reachable");
+                    alert.setContentText("The server or your network connection may be down.");
+                    alert.showAndWait();
+                } else if (e instanceof NotAuthorizedException) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("User not authorized");
+                    alert.setTitle("User not authorized");
+                    alert.setContentText("The current user is not authorized to fulfill this action.");
+                    alert.showAndWait();
+                } else {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("An error occurred");
+                    alert.setTitle("An error occurred");
+                    alert.setContentText("Please restart the application.");
+                    alert.showAndWait();
+                }
             }
         });
 
@@ -77,7 +82,12 @@ public class SportifyGUI extends Application {
         _primaryStage.setMinWidth(980);
         _primaryStage.setMaximized(true);
         _primaryStage.getIcons().add(new Image("iconSportify.png"));
-        _primaryStage.setOnCloseRequest(e -> close());
+        _primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                close();
+            }
+        });
 
         loadRootLayout();
         loadLoginWindow();

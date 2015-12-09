@@ -4,6 +4,8 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Michael on 15.11.2015.
@@ -47,10 +50,10 @@ public class MemberListController {
     private void initialize() {
 
         //set column values
-        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
-        _birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("Birthdate"));
-        _emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        _firstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _lastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
+        _birthdateColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("Birthdate"));
+        _emailColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("Email"));
 
         getAndAddDataToPersonList();
         setDoubleClickOnMemberTableView();
@@ -83,36 +86,46 @@ public class MemberListController {
 
         //wrap observableList into filter list
         //p -> true shows all persons
-        FilteredList<PersonDTO> _filteredPersonList = new FilteredList<>(_personList, p -> true);
+        final FilteredList<PersonDTO> _filteredPersonList = new FilteredList<>(_personList, new Predicate() {
+            @Override
+            public boolean test(Object o) {
+                return true;
+            }
+        });
 
         //set changeListener to textfield
-        _filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            _filteredPersonList.setPredicate(person -> {
+        _filterTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, final String newValue) {
+                _filteredPersonList.setPredicate(new Predicate<PersonDTO>() {
+                    @Override
+                    public boolean test(PersonDTO person) {
+                        //define here all rules of filtering and what should be searched and filtered
 
-                //define here all rules of filtering and what should be searched and filtered
+                        //if textfield is empty/null show all persons
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
 
-                //if textfield is empty/null show all persons
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+                        //else compare the filter string to the different columns
+                        String filterString = _filterTextField.getText().toLowerCase();
 
-                //else compare the filter string to the different columns
-                String filterString = _filterTextField.getText().toLowerCase();
+                        if (person.getFName().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (person.getLName().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (person.getBirthdate().toLowerCase().contains(filterString)) {
+                            return true;
+                        } else if (person.getEmail().toLowerCase().contains(filterString)) {
+                            return true;
+                        }
+                        //filter more attributes if wanted
 
-                if (person.getFName().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (person.getLName().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (person.getBirthdate().toLowerCase().contains(filterString)) {
-                    return true;
-                } else if (person.getEmail().toLowerCase().contains(filterString)) {
-                    return true;
-                }
-                //filter more attributes if wanted
-
-                //if nothing matches, return false, so that that person won't be shown in the list
-                return false;
-            });
+                        //if nothing matches, return false, so that that person won't be shown in the list
+                        return false;
+                    }
+                });
+            }
         });
 
         //FilteredList cannot be modified -> not sortable
@@ -131,7 +144,9 @@ public class MemberListController {
      */
     private void getAndAddDataToPersonList() {
         List<PersonDTO> tempPersonList = ServiceLocator.getInstance().getRemote(PersonRemote.class).getAllPersons();
-        tempPersonList.forEach(person -> _personList.add(person));
+        for (PersonDTO person : tempPersonList) {
+            _personList.add(person);
+        }
     }
 
     @FXML

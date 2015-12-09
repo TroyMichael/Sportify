@@ -5,7 +5,6 @@ import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
 import at.fhv.itb13.sportify.server.model.InternalTeam;
 import at.fhv.itb13.sportify.server.model.Person;
 import at.fhv.itb13.sportify.server.model.Sport;
-import at.fhv.itb13.sportify.server.model.Team;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
 import org.hibernate.HibernateException;
@@ -14,16 +13,16 @@ import java.util.HashSet;
 
 /**
  * Created by Caroline on 10.11.2015.
- *
  */
 
 
-public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
+public class TeamMapper extends Mapper<TeamDTO, InternalTeam> {
     DBFacade dbFacade = new DBFacadeImpl();
 
-    public TeamMapper(){}
+    public TeamMapper() {
+    }
 
-    public TeamMapper(DBFacade facade){
+    public TeamMapper(DBFacade facade) {
         dbFacade = facade;
     }
 
@@ -33,22 +32,22 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
      * @param teamDTO team DTO from the editing of the team
      * @return team loaded from database and mapped from teamDTO or null
      */
-    public InternalTeam toExistingDomainObject (TeamDTO teamDTO){
-        if (teamDTO.getId() != null){
+    public InternalTeam toExistingDomainObject(TeamDTO teamDTO) {
+        if (teamDTO.getId() != null) {
             try {
                 dbFacade.beginTransaction();
                 InternalTeam team = dbFacade.get(InternalTeam.class, teamDTO.getId());
                 team.setName(teamDTO.getName());
                 //todo check if version is older? odr so
-                if(teamDTO.getSportId() != null) {
+                if (teamDTO.getSportId() != null) {
                     team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 }
-                if(teamDTO.getTrainerId() != null) {
+                if (teamDTO.getTrainerId() != null) {
                     team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
                 }
-                if (teamDTO.getPersonIds() != null){
-                    team.setPersons(new HashSet<>());
-                    for (String personID : teamDTO.getPersonIds()){
+                if (teamDTO.getPersonIds() != null) {
+                    team.setPersons(new HashSet<Person>());
+                    for (String personID : teamDTO.getPersonIds()) {
                         team.addPerson(dbFacade.get(Person.class, personID));
                     }
                 }
@@ -60,7 +59,7 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
 //                }
                 dbFacade.commitTransaction();
                 return team;
-            } catch (HibernateException e){
+            } catch (HibernateException e) {
                 dbFacade.rollbackTransaction();
             }
         }
@@ -72,15 +71,15 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
         if (teamDTO != null) {
             InternalTeam team = new InternalTeam();
             team.setName(teamDTO.getName());
-            if (teamDTO.getId() != null){
+            if (teamDTO.getId() != null) {
                 team.setId(teamDTO.getId());
             }
-            if (teamDTO.getVersion() != null){
+            if (teamDTO.getVersion() != null) {
                 team.setVersion(teamDTO.getVersion());
             }
             try {
                 dbFacade.beginTransaction();
-                if (teamDTO.getPersonIds() != null){
+                if (teamDTO.getPersonIds() != null) {
                     for (String personId : teamDTO.getPersonIds()) {
                         team.addPerson(dbFacade.get(Person.class, personId));
                     }
@@ -90,10 +89,10 @@ public class TeamMapper extends Mapper <TeamDTO, InternalTeam> {
 //                        team.addRoster(dbFacade.get(Roster.class, rosterId));
 //                    }
 //                }
-                if (teamDTO.getSportId().length() > 0){
+                if (teamDTO.getSportId().length() > 0) {
                     team.setSport(dbFacade.get(Sport.class, teamDTO.getSportId()));
                 }
-                if (teamDTO.getTrainerId().length() > 0){
+                if (teamDTO.getTrainerId().length() > 0) {
                     team.setTrainer(dbFacade.get(Person.class, teamDTO.getTrainerId()));
                 }
                 dbFacade.commitTransaction();

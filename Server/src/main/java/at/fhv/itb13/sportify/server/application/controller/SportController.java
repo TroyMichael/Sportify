@@ -41,22 +41,26 @@ public class SportController {
         }
 
         List<SportDTO> sportDTOList = new LinkedList<>();
-        allSports.forEach(sport -> sportDTOList.add(_sportMapper.toDTOObject(sport)));
+        for (Sport sport : allSports) {
+            sportDTOList.add(_sportMapper.toDTOObject(sport));
+        }
         return sportDTOList;
     }
 
-    public List<SimpleSportDTO> getAllSimpleSports (){
+    public List<SimpleSportDTO> getAllSimpleSports() {
         List<Sport> allSports = null;
         try {
             _facade.beginTransaction();
             allSports = _facade.getAll(Sport.class);
             _facade.commitTransaction();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             _facade.rollbackTransaction();
         }
-        List <SimpleSportDTO> simpleSportDTOs = new LinkedList<>();
-        allSports.forEach(sport -> simpleSportDTOs.add(_simpleSportMapper.toDTOObject(sport)));
+        List<SimpleSportDTO> simpleSportDTOs = new LinkedList<>();
+        for (Sport sport : allSports) {
+            simpleSportDTOs.add(_simpleSportMapper.toDTOObject(sport));
+        }
         return simpleSportDTOs;
     }
 }

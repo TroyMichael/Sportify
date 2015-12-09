@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -55,10 +55,10 @@ public class NewMatchFormController {
     @FXML
     private void initialize() {
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _allTeamsOpponentNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsOpponentNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
     }
 
     @FXML
@@ -171,12 +171,12 @@ public class NewMatchFormController {
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
 
         List<DisplayTeamDTO> teams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
-        teams.forEach(team -> {
+        for (DisplayTeamDTO team : teams) {
             if (_tournament.getTeamIDs().contains(team.getId())) {
                 _allTeamsTableView.getItems().add(team);
                 _allTeamsOpponentTableView.getItems().add(team);
             }
-        });
+        }
         _allTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
         _allTeamsOpponentTableView.getItems().addAll(_externalDisplayTeamDTOs);
     }

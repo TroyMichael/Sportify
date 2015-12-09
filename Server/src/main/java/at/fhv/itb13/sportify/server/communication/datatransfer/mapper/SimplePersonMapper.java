@@ -39,7 +39,9 @@ public class SimplePersonMapper extends Mapper<SimplePersonDTO, Person> {
     public List<SimplePersonDTO> toDTOList(List<Person> personList) {
         if (personList != null) {
             List<SimplePersonDTO> simplePersonList = new LinkedList<>();
-            personList.forEach(p -> simplePersonList.add(toDTOObject(p)));
+            for(Person person : personList) {
+                simplePersonList.add(toDTOObject(person));
+            }
             return simplePersonList;
         }
         return null;

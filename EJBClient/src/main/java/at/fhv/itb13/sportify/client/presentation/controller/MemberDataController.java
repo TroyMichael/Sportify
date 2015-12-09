@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -126,11 +126,11 @@ public class MemberDataController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _teamNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         _teamTableView.setItems(_teamsObservable);
 
-        _sportNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _sportNameColumn.setCellValueFactory(new PropertyValueFactory<SimpleSportDTO, String>("Name"));
 
         _sportsTableView.setItems(_sportsObservable);
     }

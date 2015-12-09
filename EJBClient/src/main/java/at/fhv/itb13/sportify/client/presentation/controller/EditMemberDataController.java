@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -129,10 +129,10 @@ public class EditMemberDataController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedTeamsTableViews' columns
-        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
@@ -151,7 +151,9 @@ public class EditMemberDataController {
         if (allTeams != null) {
             //create an observableArrayList and fill it with all members
             ObservableList<DisplayTeamDTO> allTeamsObservable = FXCollections.observableArrayList();
-            allTeams.forEach(team -> allTeamsObservable.add(team));
+            for (DisplayTeamDTO team : allTeams) {
+                allTeamsObservable.add(team);
+            }
             _allTeamsTableView.setItems(allTeamsObservable);
         }
     }

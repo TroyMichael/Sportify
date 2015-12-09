@@ -7,6 +7,8 @@ import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedExcept
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,6 +22,7 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.SimpleMatchTeamDTO;
 
@@ -80,10 +83,10 @@ public class EditTournamentFormController {
     private void initialize() {
 
         //set values for allTeamsTableView's columns
-        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         //set values for addedMembersTableViews' columns
-        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        _addedTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
         _addedTeamsTableView.setItems(_addedTeamsObservable);
 
@@ -93,9 +96,9 @@ public class EditTournamentFormController {
 
         //set values for matchTable
 
-        _team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team1"));
-        _team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("Team2"));
-        _dateColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
+        _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
+        _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
         _matchTableView.setItems(_matchObservable);
     }
 
@@ -105,7 +108,9 @@ public class EditTournamentFormController {
 
         if (allTeams != null) {
             //create an observableArrayList and fill it with all teams
-            allTeams.forEach(team -> _allTeamsObservable.add(team));
+            for (DisplayTeamDTO team : allTeams) {
+                _allTeamsObservable.add(team);
+            }
             setFilterAndDataToAllTeams(_allTeamsObservable);
         }
     }
@@ -116,16 +121,77 @@ public class EditTournamentFormController {
         //wrap observableList into filter list
         //p -> true shows all teams
         //p -> false shows no teams
-        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, p -> false);
+        final FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(_teams, new Predicate<DisplayTeamDTO>() {
+            @Override
+            public boolean test(DisplayTeamDTO displayTeamDTO) {
+                return false;
+            }
+        });
 
         //set changeListener to sportComboBox
-        _sportComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            _filteredTeamList.setPredicate(team -> {
+        _sportComboBox.valueProperty().addListener(new ChangeListener<SimpleSportDTO>() {
+            @Override
+            public void changed(ObservableValue<? extends SimpleSportDTO> observable, SimpleSportDTO oldValue, final SimpleSportDTO newValue) {
+                _filteredTeamList.setPredicate(new Predicate<DisplayTeamDTO>() {
+                    @Override
+                    public boolean test(DisplayTeamDTO team) {
+                        //define here all rules of filtering and what should be searched and filtered
 
+                        //if nothing is selected in the combobox show no teams
+                        if (newValue == null) {
+                            return false;
+                        }
+
+                        //else compare the ID of the selected combobox to the sportIDs of the teams
+                        String filterID = _sportComboBox.getValue().getId();
+
+                        if (team.getSport().getId().equals(filterID)) {
+                            return true;
+                        }
+                        //filter more attributes if wanted
+
+                        //if nothing matches, return false, so that that person won't be shown in the list
+                        return false;
+                    }
+                });
+            }
+        });
+
+        //FilteredList cannot be modified -> not sortable
+        //wrap filteredList in sortedList
+        SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedTeamList.comparatorProperty().
+
+                bind(_allTeamsTableView.comparatorProperty()
+
+                );
+
+        //set sortedList as items to allTeamsTableView
+        //set sortedList as items to allTeamsTableVie
+        _allTeamsTableView.setItems(sortedTeamList);
+    }
+
+    private void setAllTeamsListData(ObservableList<DisplayTeamDTO> teams) {
+
+        //wrap observableList into filter list
+        //p -> true shows all teams
+        //p -> false shows no teams
+        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(teams, new Predicate<DisplayTeamDTO>() {
+            @Override
+            public boolean test(DisplayTeamDTO displayTeamDTO) {
+                return false;
+            }
+        });
+
+        _filteredTeamList.setPredicate(new Predicate<DisplayTeamDTO>() {
+            @Override
+            public boolean test(DisplayTeamDTO team) {
                 //define here all rules of filtering and what should be searched and filtered
 
                 //if nothing is selected in the combobox show no teams
-                if (newValue == null) {
+                if (_sportComboBox.getSelectionModel().getSelectedItem() == null) {
                     return false;
                 }
 
@@ -139,47 +205,7 @@ public class EditTournamentFormController {
 
                 //if nothing matches, return false, so that that person won't be shown in the list
                 return false;
-            });
-        });
-
-        //FilteredList cannot be modified -> not sortable
-        //wrap filteredList in sortedList
-        SortedList<DisplayTeamDTO> sortedTeamList = new SortedList<>(_filteredTeamList);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedTeamList.comparatorProperty().bind(_allTeamsTableView.comparatorProperty());
-
-        //set sortedList as items to allTeamsTableView
-        //set sortedList as items to allTeamsTableVie
-        _allTeamsTableView.setItems(sortedTeamList);
-    }
-
-    private void setAllTeamsListData(ObservableList<DisplayTeamDTO> teams) {
-
-        //wrap observableList into filter list
-        //p -> true shows all teams
-        //p -> false shows no teams
-        FilteredList<DisplayTeamDTO> _filteredTeamList = new FilteredList<>(teams, p -> false);
-
-        _filteredTeamList.setPredicate(team -> {
-
-            //define here all rules of filtering and what should be searched and filtered
-
-            //if nothing is selected in the combobox show no teams
-            if (_sportComboBox.getSelectionModel().getSelectedItem() == null) {
-                return false;
             }
-
-            //else compare the ID of the selected combobox to the sportIDs of the teams
-            String filterID = _sportComboBox.getValue().getId();
-
-            if (team.getSport().getId().equals(filterID)) {
-                return true;
-            }
-            //filter more attributes if wanted
-
-            //if nothing matches, return false, so that that person won't be shown in the list
-            return false;
         });
 
         //FilteredList cannot be modified -> not sortable
@@ -200,7 +226,9 @@ public class EditTournamentFormController {
 
         if (sportList != null) {
             ObservableList<SimpleSportDTO> sportObservable = FXCollections.observableArrayList();
-            sportList.forEach(sport -> sportObservable.add(sport));
+            for (SimpleSportDTO sport : sportObservable) {
+                sportObservable.add(sport);
+            }
             _sportComboBox.getItems().addAll((sportObservable));
             _sportComboBox.setValue(_sportComboBox.getItems().get(0));
         }
@@ -324,8 +352,12 @@ public class EditTournamentFormController {
             _tournament.setSportID(selectedSport.getId());
             _tournament.setLocation(_locationTextField.getText());
             _tournament.setStartDate(startDate);
-            _addedTeamsTableView.getItems().forEach(team -> _tournament.addTeamID(team.getId()));
-            _matchTableView.getItems().forEach(match -> _tournament.addMatch(match));
+            for (DisplayTeamDTO team : _addedTeamsTableView.getItems()) {
+                _tournament.addTeamID(team.getId());
+            }
+            for (MatchDTO match : _matchTableView.getItems()) {
+                _tournament.addMatch(match);
+            }
             return true;
         }
         return false;

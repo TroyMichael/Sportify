@@ -60,12 +60,12 @@ public class NewTeamFormController {
     private void initialize() {
 
         //set values for allMembersTableView's columns
-        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _allMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _allMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         //set values for addedMembersTableViews' columns
-        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FName"));
-        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LName"));
+        _addedMembersFirstNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("FName"));
+        _addedMembersLastNameColumn.setCellValueFactory(new PropertyValueFactory<PersonDTO, String>("LName"));
 
         _addedMembersTableView.setItems(_addedMembersObservable);
 
@@ -80,7 +80,9 @@ public class NewTeamFormController {
         if (allMembers != null) {
             //create an observableArrayList and fill it with all members
             ObservableList<PersonDTO> allMembersObservable = FXCollections.observableArrayList();
-            allMembers.forEach(person -> allMembersObservable.add(person));
+            for (PersonDTO person : allMembers) {
+                allMembersObservable.add(person);
+            }
             _allMembersTableView.setItems(allMembersObservable);
         }
     }
@@ -92,7 +94,9 @@ public class NewTeamFormController {
 
         if (sportList != null) {
             ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
-            sportList.forEach(sport -> sportObservable.add(sport));
+            for (SportDTO sport : sportList) {
+                sportObservable.add(sport);
+            }
             _sportComboBox.getItems().addAll((sportObservable));
         }
     }
@@ -153,8 +157,9 @@ public class NewTeamFormController {
 
             //read all person IDs and save them into a hashset
             HashSet<String> addedMembersIDs = new HashSet<>();
-            _addedMembersObservable.forEach(person -> addedMembersIDs.add(person.getId()));
-
+            for (PersonDTO person : _addedMembersObservable) {
+                addedMembersIDs.add(person.getId());
+            }
 
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());

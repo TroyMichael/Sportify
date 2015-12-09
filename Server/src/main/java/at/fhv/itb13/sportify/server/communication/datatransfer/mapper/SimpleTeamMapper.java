@@ -9,7 +9,6 @@ import java.util.Set;
 
 /**
  * Created by Michael on 02.12.2015.
- *
  */
 public class SimpleTeamMapper extends Mapper<SimpleTeamDTO, Team> {
     @Override
@@ -30,7 +29,9 @@ public class SimpleTeamMapper extends Mapper<SimpleTeamDTO, Team> {
 
     public Set<SimpleTeamDTO> toDTOSet(Set<Team> teams) {
         Set<SimpleTeamDTO> _teams = new HashSet<>();
-        teams.forEach(team -> _teams.add(toDTOObject(team)));
+        for (Team team : teams) {
+            _teams.add(toDTOObject(team));
+        }
         return _teams;
     }
 }

@@ -2,7 +2,10 @@ package at.fhv.itb13.sportify.server.communication.datatransfer.mapper;
 
 import at.fhv.itb13.sportify.server.database.DBFacade;
 import at.fhv.itb13.sportify.server.database.DBFacadeImpl;
-import at.fhv.itb13.sportify.server.model.*;
+import at.fhv.itb13.sportify.server.model.Match;
+import at.fhv.itb13.sportify.server.model.MatchTeam;
+import at.fhv.itb13.sportify.server.model.Team;
+import at.fhv.itb13.sportify.server.model.Tournament;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
 import org.hibernate.HibernateException;
@@ -16,7 +19,6 @@ import static at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus.PLANNE
 
 /**
  * Created by Caroline on 21.11.2015.
- *
  */
 public class MatchMapper extends Mapper<MatchDTO, Match> {
     private DBFacade _dbFacade = new DBFacadeImpl();
@@ -32,10 +34,10 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
     public Match toDomainObject(MatchDTO matchDTO) {
         if (matchDTO != null) {
             Match match = new Match();
-            if (matchDTO.getId() != null){
+            if (matchDTO.getId() != null) {
                 match.setId(matchDTO.getId());
             }
-            if (matchDTO.getVersion() != null){
+            if (matchDTO.getVersion() != null) {
                 match.setVersion(matchDTO.getVersion());
             }
             match.setDuration(matchDTO.getDuration());
@@ -57,7 +59,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 MatchTeam matchTeam1 = new MatchTeam();
                 matchTeam1.setMatch(match);
                 Team team1;
-                if (matchDTO.getTeam1().getTeamID() != null){
+                if (matchDTO.getTeam1().getTeamID() != null) {
                     team1 = _dbFacade.get(Team.class, matchDTO.getTeam1().getTeamID());
                 } else {
                     //old items from DB were saved wrong
@@ -73,7 +75,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 MatchTeam matchTeam2 = new MatchTeam();
                 matchTeam2.setMatch(match);
                 Team team2;
-                if (matchDTO.getTeam2().getTeamID() != null){
+                if (matchDTO.getTeam2().getTeamID() != null) {
                     team2 = _dbFacade.get(Team.class, matchDTO.getTeam2().getTeamID());
                 } else {
                     //old items from DB were saved wrong
@@ -127,7 +129,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 simpleMatchTeamDTO1.setId(matchTeam1.getId());
                 //simpleMatchTeamDTO1.setTeamID(matchTeam1.getId());
                 simpleMatchTeamDTO1.setName(matchTeam1.getTeam().getName());
-                if(matchTeam1.getPoints() != null) {
+                if (matchTeam1.getPoints() != null) {
                     simpleMatchTeamDTO1.setPoints(matchTeam1.getPoints());
                 }
                 matchDTO.setTeam1(simpleMatchTeamDTO1);
@@ -140,7 +142,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
                 simpleMatchTeamDTO2.setId(matchTeam2.getId());
                 //simpleMatchTeamDTO2.setTeamID(matchTeam2.getId());
                 simpleMatchTeamDTO2.setName(matchTeam2.getTeam().getName());
-                if(matchTeam2.getPoints() != null) {
+                if (matchTeam2.getPoints() != null) {
                     simpleMatchTeamDTO2.setPoints(matchTeam2.getPoints());
                 }
                 matchDTO.setTeam2(simpleMatchTeamDTO2);
@@ -152,12 +154,14 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 
     public Set<MatchDTO> toDTOSet(Set<Match> matches) {
         Set<MatchDTO> tempMatches = new HashSet<>();
-        matches.forEach(match -> tempMatches.add(toDTOObject(match)));
+        for (Match match : matches) {
+            tempMatches.add(toDTOObject(match));
+        }
         return tempMatches;
     }
 
     public Match toExistingDomainObject(MatchDTO matchDTO) {
-        if (matchDTO.getId() != null){
+        if (matchDTO.getId() != null) {
             try {
                 _dbFacade.beginTransaction();
                 Match match = _dbFacade.get(Match.class, matchDTO.getId());
@@ -180,7 +184,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 
                 MatchDTOImpl.SimpleMatchTeamDTO simpleMatchTeamDTO1 = matchDTO.getTeam1();
                 MatchTeam matchTeam1;
-                if (_dbFacade.get(MatchTeam.class, simpleMatchTeamDTO1.getId()) != null){
+                if (_dbFacade.get(MatchTeam.class, simpleMatchTeamDTO1.getId()) != null) {
                     matchTeam1 = _dbFacade.get(MatchTeam.class, simpleMatchTeamDTO1.getId());
                 } else {
                     matchTeam1 = new MatchTeam();
@@ -192,7 +196,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 
                 MatchDTOImpl.SimpleMatchTeamDTO simpleMatchTeamDTO2 = matchDTO.getTeam2();
                 MatchTeam matchTeam2;
-                if (_dbFacade.get(MatchTeam.class, simpleMatchTeamDTO2.getId()) != null){
+                if (_dbFacade.get(MatchTeam.class, simpleMatchTeamDTO2.getId()) != null) {
                     matchTeam2 = _dbFacade.get(MatchTeam.class, simpleMatchTeamDTO2.getId());
                 } else {
                     matchTeam2 = new MatchTeam();
@@ -204,7 +208,7 @@ public class MatchMapper extends Mapper<MatchDTO, Match> {
 
                 _dbFacade.commitTransaction();
                 return match;
-            } catch (Exception e){
+            } catch (Exception e) {
                 _dbFacade.rollbackTransaction();
                 e.printStackTrace();
             }

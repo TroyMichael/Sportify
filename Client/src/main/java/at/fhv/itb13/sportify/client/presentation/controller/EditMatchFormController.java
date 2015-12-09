@@ -94,6 +94,15 @@ public class EditMatchFormController {
             _dateTextField.setText(_matchDTO.getStart().toString());
             _team1TextField.setText(_matchDTO.getTeam1().getName());
             _team2TextField.setText(_matchDTO.getTeam2().getName());
+            if (_matchDTO.getMatchStatus().equals("FINISHED")){
+                _statusComboBox.setValue(_statusComboBox.getItems().get(1));
+            }
+            if (_matchDTO.getTeam1().getPoints() != null){
+                _pointsTeam1.setText(_matchDTO.getTeam1().getPoints());
+            }
+            if (_matchDTO.getTeam2().getPoints() != null){
+                _pointsTeam2.setText(_matchDTO.getTeam2().getPoints());
+            }
         }
     }
 
@@ -104,7 +113,6 @@ public class EditMatchFormController {
             if ((!_pointsTeam1.getText().matches("\\d*")) || (!_pointsTeam2.getText().matches("\\d*"))) {
                 return false;
             }
-
         }
         return true;
 

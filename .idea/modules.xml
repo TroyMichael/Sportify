@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shared/Shared.iml" filepath="$PROJECT_DIR$/Shared/Shared.iml" />
       <module fileurl="file://$PROJECT_DIR$/SportifyJSF/SportifyJSF.iml" filepath="$PROJECT_DIR$/SportifyJSF/SportifyJSF.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SportifyJSF/out/artifacts/SportifyJSF_war_exploded/WEB-INF/WEB-INF.iml" filepath="$PROJECT_DIR$/SportifyJSF/out/artifacts/SportifyJSF_war_exploded/WEB-INF/WEB-INF.iml" />
     </modules>
   </component>
 </project>

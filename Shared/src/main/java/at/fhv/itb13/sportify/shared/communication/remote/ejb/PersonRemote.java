@@ -9,6 +9,9 @@ import java.util.List;
 
 @Remote
 public interface PersonRemote {
+
+    void setSession(SessionRemote session);
+
     void create(PersonDTO personDto) throws NotAuthorizedException;
 
     List<PersonDTO> searchPerson(PersonDTO personDto);

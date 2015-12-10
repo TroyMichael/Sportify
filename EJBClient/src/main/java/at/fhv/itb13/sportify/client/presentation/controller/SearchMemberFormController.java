@@ -1,11 +1,10 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
-import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -15,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -66,7 +65,7 @@ public class SearchMemberFormController {
                 true
         );
 
-        List<PersonDTO> results = ServiceLocator.getInstance().getRemote(PersonRemote.class).searchPerson(member);
+        List<PersonDTO> results = ServiceLocator.getInstance().getRemote(SessionRemote.class).getPersonRemote().searchPerson(member);
         if ((results.size() > 0) && (input.length() > 0)) {
             loadSearchResultView(results, input);
         } else {

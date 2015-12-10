@@ -6,9 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -98,12 +96,12 @@ public class NewMemberFormController {
     }
 
     private List<SimpleSportDTO> setSports() {
-        return ServiceLocator.getInstance().getRemote(SportRemote.class).getAllSimpleSports();
+        return ServiceLocator.getInstance().getRemote(SessionRemote.class).getSportRemote().getAllSimpleSports();
     }
 
     private void setAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
-        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
+        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllDisplayTeams();
 
         if (allTeams != null) {
             //create an observableArrayList and fill it with all members
@@ -174,7 +172,7 @@ public class NewMemberFormController {
                 }
             }
 
-            ServiceLocator.getInstance().getRemote(PersonRemote.class).create(newMember);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getPersonRemote().create(newMember);
             initSuccessAlert();
             SportifyGUI.getSharedMainApp().loadMemberDataView(newMember); //TODO check if this conflicts with database if this member is edited and changes are saved
         }

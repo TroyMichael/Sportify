@@ -8,19 +8,32 @@ import at.fhv.itb13.sportify.server.model.UserRight;
 import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.*;
 import org.hibernate.HibernateException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import java.util.Set;
 
 @Stateful
-public class SessionBean implements SessionLocal, SessionRemote {
+public class SessionBean implements SessionRemote {
 
     private UserDTO _userDto;
     private DBFacade _facade;
     private Set<UserRight> _userRights;
+
+    @EJB
+    private MatchRemote _matchRemote;
+    @EJB
+    private MessageRemote _messageRemote;
+    @EJB
+    private PersonRemote _personRemote;
+    @EJB
+    private SportRemote _sportRemote;
+    @EJB
+    private TeamRemote _teamRemote;
+    @EJB
+    private TournamentRemote _tournamentRemote;
 
     public SessionBean() {
         _facade = new DBFacadeImpl();
@@ -63,5 +76,41 @@ public class SessionBean implements SessionLocal, SessionRemote {
             }
         }
         throw new NotAuthorizedException(_userDto, rightName);
+    }
+
+    @Override
+    public MatchRemote getMatchRemote() {
+        _matchRemote.setSession(this);
+        return _matchRemote;
+    }
+
+    @Override
+    public MessageRemote getMessageRemote() {
+        _messageRemote.setSession(this);
+        return _messageRemote;
+    }
+
+    @Override
+    public PersonRemote getPersonRemote() {
+        _personRemote.setSession(this);
+        return _personRemote;
+    }
+
+    @Override
+    public SportRemote getSportRemote() {
+        _sportRemote.setSession(this);
+        return _sportRemote;
+    }
+
+    @Override
+    public TeamRemote getTeamRemote() {
+        _teamRemote.setSession(this);
+        return _teamRemote;
+    }
+
+    @Override
+    public TournamentRemote getTournamentRemote() {
+        _tournamentRemote.setSession(this);
+        return _tournamentRemote;
     }
 }

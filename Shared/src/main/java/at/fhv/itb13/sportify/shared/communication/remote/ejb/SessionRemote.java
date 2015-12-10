@@ -12,4 +12,18 @@ public interface SessionRemote {
     boolean login(UserDTO userDTO);
 
     UserDTO getUserDTO();
+
+    void authorize(RightName rightName) throws NotAuthorizedException;
+
+    MatchRemote getMatchRemote();
+
+    MessageRemote getMessageRemote();
+
+    PersonRemote getPersonRemote();
+
+    SportRemote getSportRemote();
+
+    TeamRemote getTeamRemote();
+
+    TournamentRemote getTournamentRemote();
 }

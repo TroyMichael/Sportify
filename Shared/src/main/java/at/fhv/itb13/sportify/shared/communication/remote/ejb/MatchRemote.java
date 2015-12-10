@@ -8,6 +8,8 @@ import javax.ejb.Remote;
 @Remote
 public interface MatchRemote {
 
+    void setSession(SessionRemote session);
+
     void create(MatchDTO matchDto) throws NotAuthorizedException;
 
     void update(MatchDTO matchDTO) throws NotAuthorizedException;

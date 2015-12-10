@@ -4,7 +4,7 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.MessageRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -87,7 +87,7 @@ public class NewRosterFormController {
             _allMembersTableView.setItems(allMembersObservable);
         }
     }
-    
+
     @FXML
     private void addMember() {
         switchMember(_allMembersTableView, _addedMembersTableView);
@@ -123,7 +123,7 @@ public class NewRosterFormController {
         message.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
 
         for (SimplePersonDTO p : _addedMembersTableView.getItems()) {
-            ServiceLocator.getInstance().getRemote(MessageRemote.class).sendMessage(p.getUserName(), message);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getMessageRemote().sendMessage(p.getUserName(), message);
         }
 
         initSuccessAlert();

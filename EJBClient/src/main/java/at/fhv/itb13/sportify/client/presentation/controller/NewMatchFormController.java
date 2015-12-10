@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -170,7 +170,7 @@ public class NewMatchFormController {
         _newTournament = newTournament;
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
 
-        List<DisplayTeamDTO> teams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
+        List<DisplayTeamDTO> teams = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllDisplayTeams();
         for (DisplayTeamDTO team : teams) {
             if (_tournament.getTeamIDs().contains(team.getId())) {
                 _allTeamsTableView.getItems().add(team);

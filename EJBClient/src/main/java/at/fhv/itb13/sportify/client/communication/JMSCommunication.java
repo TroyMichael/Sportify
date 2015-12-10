@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvResponseMess
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentInvitationMessageDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.MessageRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -36,7 +37,7 @@ public class JMSCommunication implements Runnable {
             @Override
             public void run() {
                 //get message
-                final Serializable message = ServiceLocator.getInstance().getRemote(MessageRemote.class).getMessage(_userName);
+                final Serializable message = ServiceLocator.getInstance().getRemote(SessionRemote.class).getMessageRemote().getMessage(_userName);
 
                 if (message != null) {
                     Platform.runLater(new Runnable() {
@@ -94,7 +95,7 @@ public class JMSCommunication implements Runnable {
             }
 
             respMessage.setSender(SessionController.getInstance().getSession().getUserDTO().getName());
-            ServiceLocator.getInstance().getRemote(MessageRemote.class).sendMessage(invMessage.getSender(), respMessage);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getMessageRemote().sendMessage(invMessage.getSender(), respMessage);
         }
     }
 

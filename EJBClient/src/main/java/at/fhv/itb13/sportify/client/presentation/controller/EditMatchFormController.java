@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.MatchRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -138,7 +139,7 @@ public class EditMatchFormController {
                 _matchDTO.getTeam2().setPoints(_pointsTeam2.getText());
             }
             _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());
-            ServiceLocator.getInstance().getRemote(MatchRemote.class).update(_matchDTO);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getMatchRemote().update(_matchDTO);
             //todo weiterleiten
         }
     }

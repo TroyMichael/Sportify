@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.client.communication;
 
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.*;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
@@ -23,13 +23,7 @@ public class ServiceLocator {
         // init map for remote urls
         _remoteUrls = new HashMap<>();
         // add remote urls to map
-        _remoteUrls.put(MatchRemote.class, MatchRemote.class.getCanonicalName());
-        _remoteUrls.put(MessageRemote.class, MessageRemote.class.getCanonicalName());
-        _remoteUrls.put(PersonRemote.class, PersonRemote.class.getCanonicalName());
         _remoteUrls.put(SessionRemote.class, SessionRemote.class.getCanonicalName());
-        _remoteUrls.put(SportRemote.class, SportRemote.class.getCanonicalName());
-        _remoteUrls.put(TeamRemote.class, TeamRemote.class.getCanonicalName());
-        _remoteUrls.put(TournamentRemote.class, TournamentRemote.class.getCanonicalName());
     }
 
     public static ServiceLocator getInstance() {

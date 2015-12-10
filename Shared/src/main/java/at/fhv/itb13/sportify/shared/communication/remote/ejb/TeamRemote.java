@@ -11,6 +11,9 @@ import java.util.List;
 
 @Remote
 public interface TeamRemote {
+
+    void setSession(SessionRemote session);
+
     void createTeam(TeamDTO teamDTO) throws NotAuthorizedException;
 
     void createExternalTeam(ExternalDisplayTeamDTO team);

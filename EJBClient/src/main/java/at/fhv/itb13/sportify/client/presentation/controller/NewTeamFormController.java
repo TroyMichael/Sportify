@@ -7,9 +7,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTOImpl;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,7 +73,7 @@ public class NewTeamFormController {
 
     private void setAllMembersTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
-        List<PersonDTO> allMembers = ServiceLocator.getInstance().getRemote(PersonRemote.class).getAllPersons();
+        List<PersonDTO> allMembers = ServiceLocator.getInstance().getRemote(SessionRemote.class).getPersonRemote().getAllPersons();
 
         if (allMembers != null) {
             //create an observableArrayList and fill it with all members
@@ -90,7 +88,7 @@ public class NewTeamFormController {
 
     private void setSportComboBoxData() {
         List<SportDTO> sportList;
-        sportList = ServiceLocator.getInstance().getRemote(SportRemote.class).getSports();
+        sportList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getSportRemote().getSports();
 
         if (sportList != null) {
             ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
@@ -164,7 +162,7 @@ public class NewTeamFormController {
             //create new TeamDTO
             TeamDTO newTeam = new TeamDTOImpl(teamName, _trainer.getId(), addedMembersIDs, selectedSport.getId());
 
-            ServiceLocator.getInstance().getRemote(TeamRemote.class).createTeam(newTeam);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().createTeam(newTeam);
             initSuccessAlert();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

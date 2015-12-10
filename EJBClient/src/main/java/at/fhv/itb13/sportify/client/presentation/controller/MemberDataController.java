@@ -5,8 +5,7 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -108,7 +107,7 @@ public class MemberDataController {
     }
 
     private void setSportTableViewData() {
-        List<SimpleSportDTO> allSports = ServiceLocator.getInstance().getRemote(SportRemote.class).getAllSimpleSports();
+        List<SimpleSportDTO> allSports = ServiceLocator.getInstance().getRemote(SessionRemote.class).getSportRemote().getAllSimpleSports();
         HashSet<String> sports = new HashSet<>();
         sports = _person.getSportIDs();
         if (sports != null) {
@@ -136,7 +135,7 @@ public class MemberDataController {
     }
 
     private void setTeamsTableViewData() {
-        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
+        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllDisplayTeams();
         HashSet<String> teams = new HashSet<>();
         teams = _person.getTeamIds();
 

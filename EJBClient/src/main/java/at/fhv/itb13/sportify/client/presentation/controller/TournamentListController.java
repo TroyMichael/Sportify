@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,7 +23,6 @@ import java.util.function.Predicate;
 
 /**
  * Created by KYUSS on hütt.
- *
  */
 public class TournamentListController {
 
@@ -143,7 +142,7 @@ public class TournamentListController {
     Gets all tournaments from the database and adds them to _tournamentList
      */
     private void getAndAddDataToTournamentList() {
-        List<SimpleTournamentDTO> tempTournamentList = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getAllSimpleTournaments();
+        List<SimpleTournamentDTO> tempTournamentList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().getAllSimpleTournaments();
         for (SimpleTournamentDTO tournamentDTO : tempTournamentList) {
             _tournamentList.add(tournamentDTO);
         }

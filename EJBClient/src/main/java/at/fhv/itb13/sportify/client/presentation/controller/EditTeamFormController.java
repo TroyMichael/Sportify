@@ -4,9 +4,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -74,7 +72,7 @@ public class EditTeamFormController {
 
     private void setAllMembersTableViewData() {
         //retrieve list of all members and set the list to the _allMembersTableView
-        List<SimplePersonDTO> allMembers = ServiceLocator.getInstance().getRemote(PersonRemote.class).getAllSimplePersons();
+        List<SimplePersonDTO> allMembers = ServiceLocator.getInstance().getRemote(SessionRemote.class).getPersonRemote().getAllSimplePersons();
 
         if (allMembers != null) {
             //create an observableArrayList and fill it with all members
@@ -89,7 +87,7 @@ public class EditTeamFormController {
 
     private void setSportComboBoxData() {
         List<SportDTO> sportList;
-        sportList = ServiceLocator.getInstance().getRemote(SportRemote.class).getSports();
+        sportList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getSportRemote().getSports();
 
         if (sportList != null) {
             ObservableList<SportDTO> sportObservable = FXCollections.observableArrayList();
@@ -161,7 +159,7 @@ public class EditTeamFormController {
             newTeam.setId(_team.getId());
 
             //call createFunction
-            ServiceLocator.getInstance().getRemote(TeamRemote.class).editTeam(newTeam);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().editTeam(newTeam);
             initSuccessAlert();
         } else {
             initErrorAlert();
@@ -220,7 +218,7 @@ public class EditTeamFormController {
     public void setTeam(DisplayTeamDTO team) {
         _team = team;
         _nameTextField.setText(_team.getName());
-        for(SimplePersonDTO person : _team.getMembers()) {
+        for (SimplePersonDTO person : _team.getMembers()) {
             _addedMembersObservable.add(person);
             removePersonIfAlreadyInTeam(person);
         }

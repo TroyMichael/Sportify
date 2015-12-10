@@ -9,10 +9,10 @@ import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class TournamentBean implements TournamentRemote {
 
     @EJB

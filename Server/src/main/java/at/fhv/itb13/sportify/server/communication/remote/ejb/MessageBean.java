@@ -3,10 +3,11 @@ package at.fhv.itb13.sportify.server.communication.remote.ejb;
 import at.fhv.itb13.sportify.server.application.controller.MessageController;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.MessageRemote;
 
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import java.io.Serializable;
 
-@Stateless
+@Stateful
 public class MessageBean implements MessageRemote {
 
     private MessageController _messageController;

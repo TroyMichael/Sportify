@@ -8,9 +8,9 @@ import at.fhv.itb13.sportify.shared.communication.remote.ejb.MatchRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
-@Stateless
+@Stateful
 public class MatchBean implements MatchRemote {
 
     @EJB

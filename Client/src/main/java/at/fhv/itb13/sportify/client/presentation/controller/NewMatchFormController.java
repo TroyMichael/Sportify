@@ -62,9 +62,7 @@ public class NewMatchFormController {
 
     @FXML
     private void saveNewMatch() throws RemoteException {
-
         if (validateInput()) {
-
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
             newMatch.setStart(_date);

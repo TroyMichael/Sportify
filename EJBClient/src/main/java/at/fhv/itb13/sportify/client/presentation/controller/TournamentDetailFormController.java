@@ -83,7 +83,7 @@ public class TournamentDetailFormController {
     @FXML
     private void editTournament() throws RemoteException {
 
-        TournamentDTO tournamentToEdit = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getByID(_tournament.getId());
+        TournamentDTO tournamentToEdit = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getTournamentDTOByID(_tournament.getId());
 
         SportifyGUI.getSharedMainApp().loadEditTournamentForm(tournamentToEdit);
     }

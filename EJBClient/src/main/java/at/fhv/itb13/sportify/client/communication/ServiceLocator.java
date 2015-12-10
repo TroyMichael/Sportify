@@ -3,8 +3,6 @@ package at.fhv.itb13.sportify.client.communication;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 
 import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +41,6 @@ public class ServiceLocator {
         if (_remoteObjects.get(cls) == null) {
             try {
                 InitialContext context = new InitialContext();
-                NamingEnumeration<NameClassPair> list = context.list("");
-                while (list.hasMore()) {
-                    System.out.println(list.next().getName());
-                }
                 _remoteObjects.put(cls, context.lookup(getUrl(cls)));
             } catch (NamingException e) {
                 throw new InternalError();

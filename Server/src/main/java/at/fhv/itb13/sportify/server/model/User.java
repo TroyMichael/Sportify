@@ -2,10 +2,14 @@ package at.fhv.itb13.sportify.server.model;
 
 import org.hibernate.annotations.Parent;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import java.util.Properties;
 
 @Embeddable
 public class User {
@@ -60,29 +64,28 @@ public class User {
      * lets the user login if the correct login data has been entered
      */
     public boolean login() {
-//        Properties env = new Properties();
-//        env.put("java.naming.factory.initial", "com.sun.jndi.ldap.LdapCtxFactory");
-//        env.put(LdapContext.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
-//        env.put(LdapContext.SECURITY_AUTHENTICATION, "simple");
-//        env.put(LdapContext.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
-//        env.put(LdapContext.SECURITY_CREDENTIALS, _password);
-//
-//        Context context = null;
-//        try {
-//            context = new InitialContext(env);
-//            return true;
-//        } catch (NamingException e) {
-//            return false;
-//        } finally {
-//            if (context != null) {
-//                try {
-//                    context.close();
-//                } catch (NamingException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-        return true;
+        Properties env = new Properties();
+        env.put("java.naming.factory.initial", "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
+        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+        env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
+        env.put(Context.SECURITY_CREDENTIALS, _password);
+
+        Context context = null;
+        try {
+            context = new InitialContext(env);
+            return true;
+        } catch (NamingException e) {
+            return false;
+        } finally {
+            if (context != null) {
+                try {
+                    context.close();
+                } catch (NamingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

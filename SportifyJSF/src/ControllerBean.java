@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by mod on 12/9/15.
+ *
  */
 @ManagedBean(name = "controllerbean", eager = true)
 @SessionScoped
@@ -27,17 +28,20 @@ public class ControllerBean {
     private TournamentDTO _currentTournament;
     private ArrayList<TournamentDTO> _tournaments = new ArrayList<>();
 
-    @EJB
-    private TournamentRemote _tournamentRemote;
-    @EJB
-    private SessionRemote _sessionRemote;
+    public ControllerBean() {
+    }
 
-    @EJB
-    private MatchRemote _matchRemote;
+   // @EJB
+   // private TournamentRemote _tournamentRemote;
+  //  @EJB
+   // private SessionRemote _sessionRemote;
+
+  //  @EJB
+  //  private MatchRemote _matchRemote;
 
     public ArrayList<TournamentDTO> getTournaments(){
         if(_tournaments.size() == 0){
-            _tournaments.addAll(_tournamentRemote.getAllTournaments());
+   //         _tournaments.addAll(_tournamentRemote.getAllTournaments());
         }
         return _tournaments;
     }
@@ -55,7 +59,7 @@ public class ControllerBean {
         userDTO.setName(username);
         userDTO.setPassword(password);
         if(userDTO != null) {
-            return _sessionRemote.login(userDTO);
+   //         return _sessionRemote.login(userDTO);
         }
         return false;
     }
@@ -91,14 +95,14 @@ public class ControllerBean {
      */
     public String saveMatches(){
         for (MatchDTO match : _currentTournament.getMatches()){
-            try {
-                _matchRemote.update(match);
-            } catch (NotAuthorizedException e) {
+    //        try {
+      //          _matchRemote.update(match);
+   //         } catch (NotAuthorizedException e) {
                 FacesMessage facesMessage = new FacesMessage();
                 facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
                 facesMessage.setDetail("Not Authorized");
                 FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-            }
+    //        }
         }
         return null;
     }

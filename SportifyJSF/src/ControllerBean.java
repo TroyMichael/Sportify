@@ -22,7 +22,8 @@ import java.util.ArrayList;
 @SessionScoped
 public class ControllerBean {
 
-    private UserDTO userDTO;
+    private String username;
+    private String password;
     private TournamentDTO _currentTournament;
     private ArrayList<TournamentDTO> _tournaments = new ArrayList<>();
 
@@ -50,6 +51,9 @@ public class ControllerBean {
     }
 
     public boolean authentificate(){
+        UserDTO userDTO = new UserDTOImpl();
+        userDTO.setName(username);
+        userDTO.setPassword(password);
         if(userDTO != null) {
             return _sessionRemote.login(userDTO);
         }
@@ -57,24 +61,20 @@ public class ControllerBean {
     }
 
     public void setPassword(String password){
-        if(userDTO == null){
-            userDTO = new UserDTOImpl();
-        }
-        userDTO.setPassword(password);
+     this.password = password;
     }
     public void setUsername(String username){
-        if(userDTO == null){
-            userDTO = new UserDTOImpl();
-        }
-        userDTO.setPassword(username);
+      this.username = username;
     }
 
     public String getUsername(){
-        if(userDTO == null){
-            return "";
-        }
-        return userDTO.getName();
+       return username;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
     public String processWithTournament(TournamentDTO tournament) {
         //set "canEdit" of all employees to false
         try {

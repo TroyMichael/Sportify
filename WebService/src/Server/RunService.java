@@ -9,6 +9,7 @@ import javax.xml.ws.Endpoint;
 public class RunService {
 
     public static void main(String[] args) {
+
         Endpoint.publish("http://localhost:4711/ws/hello", new WebServiceImpl());
     }
 }

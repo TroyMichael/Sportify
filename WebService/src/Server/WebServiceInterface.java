@@ -13,5 +13,6 @@ import javax.jws.soap.*;
 public interface WebServiceInterface {
 
     @WebMethod String getHelloWorldAsString(String name);
+    @WebMethod String getAllClosedMatches();
 
 }

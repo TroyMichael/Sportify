@@ -5,10 +5,10 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimpleSportDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SportDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class SportBean implements SportRemote {
 
     private SportController _sportController;

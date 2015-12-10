@@ -9,10 +9,10 @@ import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class PersonBean implements PersonRemote {
 
     @EJB

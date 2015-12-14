@@ -16,8 +16,10 @@ public class WSMatch {
     }
 
     public WSMatch(MatchDTO match) {
-        _team1 = new WSTeam(match.getTeam1());
-        _team2 = new WSTeam(match.getTeam2());
+        if (match.getTeam1() != null && match.getTeam2() != null) {
+            _team1 = new WSTeam(match.getTeam1());
+            _team2 = new WSTeam(match.getTeam2());
+        }
     }
 
     public WSTeam getTeam1() {

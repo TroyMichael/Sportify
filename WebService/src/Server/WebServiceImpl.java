@@ -1,11 +1,9 @@
 package Server;
 
 import at.fhv.itb13.sportify.server.application.controller.TournamentController;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import dataContainers.WSTournament;
 
-import javax.ejb.EJB;
 import javax.jws.WebService;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,13 +16,13 @@ import java.util.List;
 
 public class WebServiceImpl implements WebServiceInterface {
 
-    TournamentController tournamentController = new TournamentController();
+    private TournamentController _tournamentController = new TournamentController();
 
     @Override
     public List<WSTournament> getAllClosedMatches() {
 
         List<WSTournament> wsTournaments = new LinkedList<>();
-        List<TournamentDTO> tournamentDTOs = tournamentController.getAllTournaments();
+        List<TournamentDTO> tournamentDTOs = _tournamentController.getAllTournaments();
 
         for (TournamentDTO tournamentDTO : tournamentDTOs) {
             wsTournaments.add(new WSTournament(tournamentDTO));

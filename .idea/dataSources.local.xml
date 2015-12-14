@@ -13,11 +13,5 @@
       <schema-pattern>sportify.*</schema-pattern>
       <default-schemas>sportify.*</default-schemas>
     </data-source>
-    <data-source name="MySQL - sportify@sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com" uuid="1d17d853-074d-41ff-9e75-19154b1e07fd">
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-pattern>sportify.*</schema-pattern>
-      <default-schemas>sportify.*</default-schemas>
-    </data-source>
   </component>
 </project>

@@ -30,7 +30,7 @@ public class ServiceClient {
                     if (match.getTeam1() != null && match.getTeam2() != null) {
                         System.out.println("\t" + match.getTeam1().getTeamName() + " vs " + match.getTeam2().getTeamName() + "\t" + match.getTeam1().getScore() + " : " + match.getTeam2().getScore());
                     } else {
-                        System.out.println("\told Testdata, match or matchTeams not correctly defined");
+                        System.out.println("\told TestData, match or matchTeams not correctly defined");
                     }
                 }
             } else {

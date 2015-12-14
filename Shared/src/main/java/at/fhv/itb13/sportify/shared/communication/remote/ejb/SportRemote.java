@@ -8,6 +8,9 @@ import java.util.List;
 
 @Remote
 public interface SportRemote {
+
+    void setSession(SessionRemote session);
+
     List<SportDTO> getSports();
 
     List<SimpleSportDTO> getAllSimpleSports();

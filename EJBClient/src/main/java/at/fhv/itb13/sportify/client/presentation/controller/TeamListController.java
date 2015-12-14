@@ -3,7 +3,7 @@ package at.fhv.itb13.sportify.client.presentation.controller;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.DisplayTeamDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,7 +24,6 @@ import java.util.function.Predicate;
 
 /**
  * Created by Michael on 15.11.2015.
- *
  */
 public class TeamListController {
 
@@ -52,7 +51,7 @@ public class TeamListController {
         _sportColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Sport"));
         _trainerColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Trainer"));
 
-        List<DisplayTeamDTO> tempTeamList = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
+        List<DisplayTeamDTO> tempTeamList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllDisplayTeams();
         for (DisplayTeamDTO team : tempTeamList) {
             _teams.add(team);
         }

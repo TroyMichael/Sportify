@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:a="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://java.sun.com/jsf/html">
 <h:head>
     <title>Sportify</title>
 </h:head>
@@ -16,7 +17,7 @@
         <a:form>
             <b:row styleClass="show-grid">
                 <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="username" binding="usernamevalue" value="#{controllerbean.username}"/></b:column>
+                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="username" value="#{controllerbean.username}"/></b:column>
                 <b:column col-xs="6" col-md="4"></b:column>
 
             </b:row>
@@ -28,7 +29,7 @@
             </b:row>
             <b:row styleClass="show-grid">
                 <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:commandButton look="primary" action="${controllerbean.authentificate()}"
+                <b:column col-xs="6" col-md="4"> <b:commandButton look="primary" action="${controllerbean.authenticate()}"
                                                                   value="Sign In"/></b:column>
                 <b:column col-xs="6" col-md="4"></b:column>
             </b:row>

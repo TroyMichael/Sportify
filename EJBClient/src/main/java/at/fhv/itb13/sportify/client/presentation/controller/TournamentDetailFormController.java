@@ -6,7 +6,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -83,7 +83,7 @@ public class TournamentDetailFormController {
     @FXML
     private void editTournament() throws RemoteException {
 
-        TournamentDTO tournamentToEdit = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getByID(_tournament.getId());
+        TournamentDTO tournamentToEdit = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().getTournamentDTOByID(_tournament.getId());
 
         SportifyGUI.getSharedMainApp().loadEditTournamentForm(tournamentToEdit);
     }

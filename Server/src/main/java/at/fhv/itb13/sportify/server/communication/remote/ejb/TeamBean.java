@@ -7,28 +7,29 @@ import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TeamDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class TeamBean implements TeamRemote {
 
-    @EJB
-    private SessionLocal _sessionBean;
-
+    private SessionRemote _session;
     private InternalTeamController _teamController;
 
     public TeamBean() {
         _teamController = new InternalTeamController();
     }
 
+    public void setSession(SessionRemote session) {
+        _session = session;
+    }
+
     @Override
     public void createTeam(TeamDTO teamDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.TEAM_MODIFY);
+        _session.authorize(RightName.TEAM_MODIFY);
         _teamController.create(teamDTO);
     }
 
@@ -39,13 +40,13 @@ public class TeamBean implements TeamRemote {
 
     @Override
     public void editTeam(TeamDTO teamDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.TEAM_MODIFY);
+        _session.authorize(RightName.TEAM_MODIFY);
         _teamController.editTeam(teamDTO);
     }
 
     @Override
     public void addPersonToTeam(PersonDTO personDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.TEAM_MODIFY);
+        _session.authorize(RightName.TEAM_MODIFY);
         _teamController.addPersonToTeam(personDTO);
     }
 

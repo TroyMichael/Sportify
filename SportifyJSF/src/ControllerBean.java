@@ -17,12 +17,14 @@ import java.util.ArrayList;
 
 /**
  * Created by mod on 12/9/15.
+ *
  */
 @ManagedBean(name = "controllerbean", eager = true)
 @SessionScoped
 public class ControllerBean {
 
-    private UserDTO userDTO;
+    private String _username;
+    private String _password;
     private TournamentDTO _currentTournament;
     private ArrayList<TournamentDTO> _tournaments = new ArrayList<>();
 
@@ -30,7 +32,6 @@ public class ControllerBean {
     private TournamentRemote _tournamentRemote;
     @EJB
     private SessionRemote _sessionRemote;
-
     @EJB
     private MatchRemote _matchRemote;
 
@@ -49,36 +50,32 @@ public class ControllerBean {
         return result;
     }
 
-    public boolean authentificate(){
-        if(userDTO != null) {
-            return _sessionRemote.login(userDTO);
-        }
-        return false;
+    public boolean authenticate(){
+        UserDTO userDTO = new UserDTOImpl();
+        userDTO.setName(_username);
+        userDTO.setPassword(_password);
+        return _sessionRemote.login(userDTO);
     }
 
     public void setPassword(String password){
-        if(userDTO == null){
-            userDTO = new UserDTOImpl();
-        }
-        userDTO.setPassword(password);
+        _password = password;
     }
     public void setUsername(String username){
-        if(userDTO == null){
-            userDTO = new UserDTOImpl();
-        }
-        userDTO.setPassword(username);
+        _username = username;
     }
 
     public String getUsername(){
-        if(userDTO == null){
-            return "";
-        }
-        return userDTO.getName();
+        return _username;
     }
-    public String processWithTournament(TournamentDTO tournament) {
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public String processWithTournament(TournamentDTO tournamentDTO) {
         //set "canEdit" of all employees to false
         try {
-            _currentTournament = tournament;
+            _currentTournament = tournamentDTO;
             FacesContext.getCurrentInstance().getExternalContext().redirect("tournamentoverview.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,7 +85,7 @@ public class ControllerBean {
 
     /*
     * TODO: edit match false;
-     */
+    */
     public String saveMatches(){
         for (MatchDTO match : _currentTournament.getMatches()){
             try {

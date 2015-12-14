@@ -9,15 +9,18 @@ import java.util.List;
 
 @Remote
 public interface TournamentRemote {
+
+    void setSession(SessionRemote session);
+
     void createTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException;
 
     List<TournamentDTO> getAllTournaments();
 
     List<SimpleTournamentDTO> getAllSimpleTournaments();
 
-    TournamentDTO getTournamentDTOByID(String id) ;
+    TournamentDTO getTournamentDTOByID(String id);
 
-    SimpleTournamentDTO getSimpleTournamentDTOByID(String id) ;
+    SimpleTournamentDTO getSimpleTournamentDTOByID(String id);
 
     void updateTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException;
 }

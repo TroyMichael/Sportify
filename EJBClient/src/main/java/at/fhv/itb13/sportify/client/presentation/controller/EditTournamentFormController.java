@@ -5,9 +5,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SportRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TeamRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,8 +27,6 @@ import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.Simpl
 
 /**
  * Created by Michael on 10.11.2015.
- *
- *
  */
 public class EditTournamentFormController {
 
@@ -107,7 +103,7 @@ public class EditTournamentFormController {
 
     private void getAllTeamsTableViewData() {
         //retrieve list of all members and set the list to the _allTeamsTableView
-        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllDisplayTeams();
+        List<DisplayTeamDTO> allTeams = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllDisplayTeams();
 
         if (allTeams != null) {
             //create an observableArrayList and fill it with all teams
@@ -225,7 +221,7 @@ public class EditTournamentFormController {
 
     private void setSportComboBoxData() {
         List<SimpleSportDTO> sportList;
-        sportList = ServiceLocator.getInstance().getRemote(SportRemote.class).getAllSimpleSports();
+        sportList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getSportRemote().getAllSimpleSports();
 
         if (sportList != null) {
             ObservableList<SimpleSportDTO> sportObservable = FXCollections.observableArrayList();
@@ -275,10 +271,10 @@ public class EditTournamentFormController {
 
             for (ExternalDisplayTeamDTO externalDisplayTeamDTO : _externalDisplayTeamDTOs) {
                 externalDisplayTeamDTO.setSport(_sportComboBox.getValue());
-                ServiceLocator.getInstance().getRemote(TeamRemote.class).createExternalTeam(externalDisplayTeamDTO);
+                ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
             }
 
-            ServiceLocator.getInstance().getRemote(TournamentRemote.class).updateTournament(_tournament);
+            ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().updateTournament(_tournament);
             initSuccessAlert();
             SimpleTournamentDTO simpleTournamentDTO = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getSimpleTournamentDTOByID(_tournament.getId());
             SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
@@ -421,7 +417,7 @@ public class EditTournamentFormController {
 
         HashSet<ExternalDisplayTeamDTO> externalTeams = new HashSet<>();
         List<ExternalDisplayTeamDTO> teams = null;
-        teams = ServiceLocator.getInstance().getRemote(TeamRemote.class).getAllExternalTeams();
+        teams = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTeamRemote().getAllExternalTeams();
         Iterator<ExternalDisplayTeamDTO> it = teams.iterator();
         while (it.hasNext()) {
             ExternalDisplayTeamDTO team = it.next();

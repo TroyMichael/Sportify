@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.PersonDTO;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -144,7 +145,7 @@ public class MemberListController {
     Gets all Persons from the database and adds them to _personList
      */
     private void getAndAddDataToPersonList() {
-        List<PersonDTO> tempPersonList = ServiceLocator.getInstance().getRemote(PersonRemote.class).getAllPersons();
+        List<PersonDTO> tempPersonList = ServiceLocator.getInstance().getRemote(SessionRemote.class).getPersonRemote().getAllPersons();
         for (PersonDTO person : tempPersonList) {
             _personList.add(person);
         }

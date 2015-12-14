@@ -6,27 +6,28 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimplePersonDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.PersonRemote;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class PersonBean implements PersonRemote {
 
-    @EJB
-    private SessionLocal _sessionBean;
-
+    private SessionRemote _session;
     private PersonController _personController;
 
     public PersonBean() {
         _personController = new PersonController();
     }
 
+    public void setSession(SessionRemote session) {
+        _session = session;
+    }
+
     @Override
     public void create(PersonDTO personDto) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.PERSON_MODIFY);
+        _session.authorize(RightName.PERSON_MODIFY);
         _personController.create(personDto);
     }
 
@@ -37,7 +38,7 @@ public class PersonBean implements PersonRemote {
 
     @Override
     public void editPerson(PersonDTO personDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.PERSON_MODIFY);
+        _session.authorize(RightName.PERSON_MODIFY);
         _personController.saveOrUpdate(personDTO);
     }
 

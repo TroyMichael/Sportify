@@ -5,28 +5,29 @@ import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionLocal;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import java.util.List;
 
-@Stateless
+@Stateful
 public class TournamentBean implements TournamentRemote {
 
-    @EJB
-    private SessionLocal _sessionBean;
-
+    private SessionRemote _session;
     private TournamentController _tournamentController;
 
     public TournamentBean() {
         _tournamentController = new TournamentController();
     }
 
+    public void setSession(SessionRemote session) {
+        _session = session;
+    }
+
     @Override
     public void createTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.TOURNAMENT_MODIFY);
+        _session.authorize(RightName.TOURNAMENT_MODIFY);
         _tournamentController.create(tournamentDTO);
     }
 
@@ -46,13 +47,13 @@ public class TournamentBean implements TournamentRemote {
     }
 
     @Override
-    public SimpleTournamentDTO getSimpleTournamentDTOByID(String id){
+    public SimpleTournamentDTO getSimpleTournamentDTOByID(String id) {
         return _tournamentController.getSimpleTournamentDTOByID(id);
     }
 
     @Override
     public void updateTournament(TournamentDTO tournamentDTO) throws NotAuthorizedException {
-        _sessionBean.authorize(RightName.TOURNAMENT_MODIFY);
+        _session.authorize(RightName.TOURNAMENT_MODIFY);
         _tournamentController.update(tournamentDTO);
     }
 }

@@ -6,6 +6,8 @@ import java.io.Serializable;
 @Remote
 public interface MessageRemote {
 
+    void setSession(SessionRemote session);
+
     Serializable getMessage(String username);
 
     void sendMessage(String username, Serializable objectMessage);

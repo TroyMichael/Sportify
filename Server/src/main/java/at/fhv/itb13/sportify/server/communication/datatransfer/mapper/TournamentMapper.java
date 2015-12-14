@@ -57,7 +57,6 @@ public class TournamentMapper extends Mapper<TournamentDTO, Tournament> {
                 Tournament tournament = _dbFacade.get(Tournament.class, tournamentDTO.getId());
                 tournament.setMatches(matches);
                 tournament.setDescription(tournamentDTO.getDescription());
-                tournament.setSport(_dbFacade.get(Sport.class, tournamentDTO.getSportID()));
                 tournament.setLocation(tournamentDTO.getLocation());
                 if (tournamentDTO.getVersion() != null) {
                     tournament.setVersion(tournamentDTO.getVersion());

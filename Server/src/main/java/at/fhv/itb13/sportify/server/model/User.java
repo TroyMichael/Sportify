@@ -1,6 +1,5 @@
 package at.fhv.itb13.sportify.server.model;
 
-import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 import org.hibernate.annotations.Parent;
 
 import javax.naming.Context;
@@ -66,6 +65,8 @@ public class User {
      */
     public boolean login() {
         Properties env = new Properties();
+        env.put("java.naming.factory.initial", "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
         env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
         env.put(Context.SECURITY_CREDENTIALS, _password);
@@ -86,8 +87,6 @@ public class User {
             }
         }
     }
-
-
 
     @Override
     public boolean equals(Object object) {

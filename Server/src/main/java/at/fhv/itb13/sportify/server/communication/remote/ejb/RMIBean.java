@@ -3,12 +3,16 @@ package at.fhv.itb13.sportify.server.communication.remote.ejb;
 import at.fhv.itb13.sportify.server.communication.remote.SessionFactoryImpl;
 import at.fhv.itb13.sportify.shared.communication.remote.SessionFactory;
 
+import javax.ejb.Local;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-//@Singleton
-//@Local
+@Startup
+@Singleton
+@Local
 public class RMIBean {
 
     public RMIBean() {

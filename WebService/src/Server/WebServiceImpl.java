@@ -1,11 +1,11 @@
 package Server;
 
 import at.fhv.itb13.sportify.server.application.controller.TournamentController;
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
+import dataContainers.WSTournament;
 
-import javax.ejb.EJB;
 import javax.jws.WebService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,34 +13,21 @@ import java.util.List;
  *
  */
 @WebService(endpointInterface = "Server.WebServiceInterface")
+
 public class WebServiceImpl implements WebServiceInterface {
-    TournamentController tournamentController = new TournamentController();
-    @Override
-    public String getHelloWorldAsString(String name) {
-        return "Hello webservice " + name;
-    }
+
+    private TournamentController _tournamentController = new TournamentController();
 
     @Override
-    public String getAllClosedMatches() {
-        boolean complete = true;
+    public List<WSTournament> getAllClosedMatches() {
 
-        List<TournamentDTO> tournamentDTOs =  tournamentController.getAllTournaments();
-        StringBuilder builder = new StringBuilder();
-            for(TournamentDTO simpleTournamentDTO : tournamentDTOs){
-            int counter = 0;
-            for(MatchDTO matchDTO:simpleTournamentDTO.getMatches()){
-                if(matchDTO.getMatchStatus() == "FINISHED"){
-                    builder.append(matchDTO.getTeam1().getName() + " vs. " + matchDTO.getTeam2().getName() + " " + matchDTO.getTeam1().getPoints() + ":" + matchDTO.getTeam2().getPoints());
-                    builder.append("\n");
-                    counter++;
-                }
+        List<WSTournament> wsTournaments = new LinkedList<>();
+        List<TournamentDTO> tournamentDTOs = _tournamentController.getAllTournaments();
 
-            }
-            if(counter < simpleTournamentDTO.getMatches().size()){
-                complete = false;
-            }
+        for (TournamentDTO tournamentDTO : tournamentDTOs) {
+            wsTournaments.add(new WSTournament(tournamentDTO));
         }
-        builder.append("Alle Wettkämpfe wurden ausgeführt: "+ complete + "\n");
-        return builder.toString();
+
+        return wsTournaments;
     }
 }

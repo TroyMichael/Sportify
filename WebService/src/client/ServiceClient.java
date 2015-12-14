@@ -1,13 +1,11 @@
 package client;
 
-import Server.WebServiceImpl;
-import Server.WebServiceInterface;
+import client.wsdlGenerated.WebServiceImplService;
+import client.wsdlGenerated.WebServiceInterface;
+import client.wsdlGenerated.WsMatch;
+import client.wsdlGenerated.WsTournament;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceRef;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
 
 /**
  * Created by Michael on 09.12.2015.
@@ -17,15 +15,28 @@ public class ServiceClient {
 
 
     public static void main(String[] args) {
-        try {
-            URL url = new URL("http://localhost:4711/ws/hello?wsdl");
-            QName qName = new QName("http://Server/", "WebServiceImplService");
-            Service service = Service.create(url, qName);
-            WebServiceInterface impl = service.getPort(WebServiceInterface.class);
-            System.out.println(impl.getAllClosedMatches());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
+        WebServiceImplService service = new WebServiceImplService();
+        WebServiceInterface serviceInterface = service.getWebServiceImplPort();
+
+        List<WsTournament> tournamentList = serviceInterface.getAllClosedMatches();
+
+        for (WsTournament wsTournament : tournamentList) {
+
+            System.out.println(wsTournament.getTournamentName());
+
+            if (wsTournament.getMatches().size() > 0) {
+                for (WsMatch match : wsTournament.getMatches()) {
+                    if (match.getTeam1() != null && match.getTeam2() != null) {
+                        System.out.println("\t" + match.getTeam1().getTeamName() + " vs " + match.getTeam2().getTeamName() + "\t" + match.getTeam1().getScore() + " : " + match.getTeam2().getScore());
+                    } else {
+                        System.out.println("\told Testdata, match or matchTeams not correctly defined");
+                    }
+                }
+            } else {
+                System.out.println("\tNo Matches!");
+            }
+            System.out.println("\n");
+        }
     }
 }

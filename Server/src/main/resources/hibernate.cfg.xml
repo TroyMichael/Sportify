@@ -1,18 +1,20 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">$p0rtifY</property>
-        <property name="connection.url">jdbc:mysql://sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com:3306/sportify</property>
+        <property name="connection.url">
+            jdbc:mysql://sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com:3306/sportify
+        </property>
 
         <!-- transaction management -->
-        <property name="hibernate.transaction.factory_class">
-            org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
-        </property>
+        <!--<property name="hibernate.transaction.factory_class">
+            org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory
+        </property>-->
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 

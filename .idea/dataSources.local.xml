@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - sportify@52.28.97.28" uuid="9d4c3788-5715-4f22-8129-3476046baea5">
+    <data-source name="MySQL - sportify@52.28.78.153" uuid="9d4c3788-5715-4f22-8129-3476046baea5">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>sportify.*</schema-pattern>
       <default-schemas>sportify.*</default-schemas>
     </data-source>
-    <data-source name="MySQL - sportify@sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com" uuid="1d17d853-074d-41ff-9e75-19154b1e07fd">
+    <data-source name="MySQL - sportify@sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com" uuid="0cf22b3e-7ba1-4ad4-8cb6-14057815dc54">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>sportify.*</schema-pattern>

@@ -56,6 +56,6 @@ public class ServiceLocator {
         if (url == null) {
             throw new InternalError();
         }
-        return "corbaname:iiop:localhost:3700#" + url;
+        return url;
     }
 }

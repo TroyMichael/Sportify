@@ -51,15 +51,12 @@
                     <f:facet name="header">Status</f:facet>
                     <h:inputText value="#{match._matchStatus}"
                                  size="10" rendered="#{match.editable}"/>
-                    <h:outputText value="#{match.score2}" rendered="#{not match.editable}" />
+                    <h:outputText value="#{match._matchStatus}" rendered="#{not match.editable}" />
                 </h:column>
                 <h:column>
-
                     <f:facet name="header">Edit</f:facet>
-
                     <h:commandLink value="Edit" action="#{controllerbean.editAction(match)}"
                                    rendered="#{not match.editable}" />
-
                 </h:column>
             </h:dataTable>
             <h:commandButton value="Save Matches" action="#{controllerbean.saveMatches}"/>

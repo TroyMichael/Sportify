@@ -2,10 +2,12 @@ package at.fhv.itb13.sportify.client.communication;
 
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class ServiceLocator {
 
@@ -54,6 +56,6 @@ public class ServiceLocator {
         if (url == null) {
             throw new InternalError();
         }
-        return url;
+        return "corbaname:iiop:localhost:3700#" + url;
     }
 }

@@ -29,15 +29,12 @@ public class ControllerBean {
     private HashMap<TournamentDTO, ArrayList<Match>> _tournamentMatch = new HashMap<>();
 
     @EJB
-    private TournamentRemote _tournamentRemote;
-    @EJB
     private SessionRemote _sessionRemote;
-    @EJB
-    private MatchRemote _matchRemote;
+
 
     public ArrayList<TournamentDTO> getTournaments(){
         if(_tournaments.size() == 0){
-            _tournaments.addAll(_tournamentRemote.getAllTournaments());
+            _tournaments.addAll(_sessionRemote.getTournamentRemote().getAllTournaments());
         }
         return _tournaments;
     }
@@ -54,10 +51,12 @@ public class ControllerBean {
         UserDTO userDTO = new UserDTOImpl();
         userDTO.setName(_username);
         userDTO.setPassword(_password);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("overview.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(_sessionRemote.login(userDTO)) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("overview.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -93,18 +92,17 @@ public class ControllerBean {
     */
     public String saveMatches(){
         for (Match match : _tournamentMatch.get(_currentTournament)){
-            try {
-                MatchDTO matchdto = convertToDTO(match);
+               MatchDTO matchdto = convertToDTO(match);
                 match.setEditable(false);
-                _matchRemote.update(matchdto);
+            try {
+                _sessionRemote.getMatchRemote().update(matchdto);
             } catch (NotAuthorizedException e) {
-                FacesMessage facesMessage = new FacesMessage();
-                facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
-                facesMessage.setDetail("Not Authorized");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                e.printStackTrace();
             }
+
+
         }
-        return "overview.xhtml";
+        return "displayAllTournaments.xhtml";
     }
     private Match convertToMatch(MatchDTO matchDTO){
         Match match = new Match();

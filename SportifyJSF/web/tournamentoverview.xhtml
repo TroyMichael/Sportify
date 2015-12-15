@@ -48,6 +48,12 @@
                     <h:outputText value="#{match.score2}" rendered="#{not match.editable}" />
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Status</f:facet>
+                    <h:inputText value="#{match._matchStatus}"
+                                 size="10" rendered="#{match.editable}"/>
+                    <h:outputText value="#{match.score2}" rendered="#{not match.editable}" />
+                </h:column>
+                <h:column>
 
                     <f:facet name="header">Edit</f:facet>
 

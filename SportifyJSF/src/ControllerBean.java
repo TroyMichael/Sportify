@@ -1,7 +1,4 @@
-import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
-import at.fhv.itb13.sportify.shared.communication.dtos.UserDTOImpl;
+import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.MatchRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
@@ -14,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by mod on 12/9/15.
@@ -27,6 +25,8 @@ public class ControllerBean {
     private String _password;
     private TournamentDTO _currentTournament;
     private ArrayList<TournamentDTO> _tournaments = new ArrayList<>();
+
+    private HashMap<TournamentDTO, ArrayList<Match>> _tournamentMatch = new HashMap<>();
 
     @EJB
     private TournamentRemote _tournamentRemote;
@@ -50,11 +50,16 @@ public class ControllerBean {
         return result;
     }
 
-    public boolean authenticate(){
+    public String authenticate(){
         UserDTO userDTO = new UserDTOImpl();
         userDTO.setName(_username);
         userDTO.setPassword(_password);
-        return _sessionRemote.login(userDTO);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("overview.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setPassword(String password){
@@ -87,9 +92,11 @@ public class ControllerBean {
     * TODO: edit match false;
     */
     public String saveMatches(){
-        for (MatchDTO match : _currentTournament.getMatches()){
+        for (Match match : _tournamentMatch.get(_currentTournament)){
             try {
-                _matchRemote.update(match);
+                MatchDTO matchdto = convertToDTO(match);
+                match.setEditable(false);
+                _matchRemote.update(matchdto);
             } catch (NotAuthorizedException e) {
                 FacesMessage facesMessage = new FacesMessage();
                 facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -97,16 +104,62 @@ public class ControllerBean {
                 FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             }
         }
-        return null;
+        return "overview.xhtml";
     }
+    private Match convertToMatch(MatchDTO matchDTO){
+        Match match = new Match();
+        match.setId(matchDTO.getId());
+        match.setVersion(matchDTO.getVersion());
+        match.set_duration(matchDTO.getDuration());
+        match.set_start(matchDTO.getStart());
 
+        match.set_tournamentId(matchDTO.getTournamentId());
+        match.set_matchStatus(matchDTO.getMatchStatus());
+
+        match.set_team1(matchDTO.getTeam1());
+        match.set_team2(matchDTO.getTeam2());
+
+        match.setScore1(match.get_team1().getPoints());
+        match.setScore2(match.get_team2().getPoints());
+
+        return match;
+    }
+    private MatchDTO convertToDTO(Match match){
+        MatchDTO matchDTO = new MatchDTOImpl();
+        matchDTO.setId(match.getId());
+        matchDTO.setVersion(match.getVersion());
+        matchDTO.setDuration(match.get_duration());
+        matchDTO.setStart(match.get_start());
+        matchDTO.setTournamentId(match.get_tournamentId());
+        matchDTO.setMatchStatus(match.get_matchStatus());
+        matchDTO.setTeam1(match.get_team1());
+        matchDTO.setTeam2(match.get_team2());
+        matchDTO.getTeam1().setPoints(match.getScore1());
+        matchDTO.getTeam2().setPoints(match.getScore2());
+
+        return matchDTO;
+    }
     public TournamentDTO get_currentTournament() {
         return _currentTournament;
     }
 
-    public ArrayList<MatchDTO> getMatches(){
-        ArrayList result = new ArrayList();
-        result.addAll(_currentTournament.getMatches());
-        return result;
+    public ArrayList<Match> getMatches() {
+        ArrayList<Match> matches = new ArrayList<>();
+        if(_tournamentMatch.containsKey(_currentTournament)){
+            return _tournamentMatch.get(_currentTournament);
+        } else {
+            if(_currentTournament != null) {
+
+                for (MatchDTO matchDTO : _currentTournament.getMatches()) {
+                    matches.add(convertToMatch(matchDTO));
+                }
+            }
+            _tournamentMatch.put(_currentTournament,matches);
+            return _tournamentMatch.get(_currentTournament);
+        }
+    }
+    public String editAction(Match match) {
+        match.setEditable(true);
+        return null;
     }
 }

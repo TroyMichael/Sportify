@@ -9,30 +9,17 @@
 </h:head>
 <h:body>
     <b:container>
-        <b:row styleClass="show-grid">
-            <b:column col-xs="6" col-md="4"></b:column>
-            <b:column col-xs="6" col-md="4"><h1>Log In</h1></b:column>
-            <b:column col-xs="6" col-md="4"></b:column>
-        </b:row>
         <a:form>
-            <b:row styleClass="show-grid">
-                <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="username" value="#{controllerbean.username}"/></b:column>
-                <b:column col-xs="6" col-md="4"></b:column>
-
-            </b:row>
-            <b:row styleClass="show-grid">
-                <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:inputText placeholder="password"
-                                                              value="#{controllerbean.password}"/></b:column>
-                <b:column col-xs="6" col-md="4"></b:column>
-            </b:row>
-            <b:row styleClass="show-grid">
-                <b:column col-xs="6" col-md="4"></b:column>
-                <b:column col-xs="6" col-md="4"> <b:commandButton look="primary" action="${controllerbean.authenticate()}"
-                                                                  value="Sign In"/></b:column>
-                <b:column col-xs="6" col-md="4"></b:column>
-            </b:row>
+            <a:outputText>Sign In</a:outputText>
+            Username:
+            <a:inputText placeholder="username" value="#{controllerbean.username}"/>
+            <br></br>
+            Password:
+            <a:inputSecret placeholder="password"
+                           value="#{controllerbean.password}"/>
+            <br></br>
+            <a:commandButton look="primary" action="${controllerbean.authenticate}"
+                             value="Sign In"/>
         </a:form>
     </b:container>
 </h:body>

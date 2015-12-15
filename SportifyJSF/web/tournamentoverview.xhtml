@@ -30,24 +30,33 @@
                          rowClasses="order-table-odd-row,order-table-even-row">
                 <h:column>
                     <f:facet name="header">Team1</f:facet>
-                    <h:inputText value="#{match.team1}"
-                                 size="10" />
-                </h:column>
+                    <h:outputText value="#{match._team1}" />
+                 </h:column>
                 <h:column>
                     <f:facet name="header">Team2</f:facet>
-                    <h:inputText value="#{match.team2}" size="10" />
+                    <h:outputText value="#{match._team2}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Score1</f:facet>
-                    <h:inputText value="#{match.team1.points}" size="5"/>
+                    <h:inputText value="#{match.score1}" size="10" rendered="#{match.editable}"/>
+                    <h:outputText value="#{match.score1}" rendered="#{not match.editable}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Score2</f:facet>
-                    <h:inputText value="#{match.team2.points}" size="5"/>
+                    <h:inputText value="#{match.score2}"
+                                 size="10" rendered="#{match.editable}"/>
+                    <h:outputText value="#{match.score2}" rendered="#{not match.editable}" />
+                </h:column>
+                <h:column>
+
+                    <f:facet name="header">Edit</f:facet>
+
+                    <h:commandLink value="Edit" action="#{controllerbean.editAction(match)}"
+                                   rendered="#{not match.editable}" />
+
                 </h:column>
             </h:dataTable>
-            <br/>
-            <h:commandButton value="Save Matches" action="#{matchbean.saveMatch}"/>
+            <h:commandButton value="Save Matches" action="#{controllerbean.saveMatches}"/>
         </h:form>
     </b:container>
 </h:body>

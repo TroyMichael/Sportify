@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.shared.communication.dtos.UserDTO;
 import at.fhv.itb13.sportify.shared.communication.enums.RightName;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 
 @Remote

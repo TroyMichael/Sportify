@@ -8,7 +8,6 @@ import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedExcept
 
 import javax.ejb.Remote;
 import java.util.List;
-
 @Remote
 public interface TeamRemote {
 

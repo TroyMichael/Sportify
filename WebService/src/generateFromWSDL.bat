@@ -1,1 +1,1 @@
-wsimport -extension -keep -p client.wsdlGenerated -XadditionalHeaders http://localhost:4711/ws/Sportify?wsdl
+wsimport -extension -keep -p client.wsdlGenerated -XadditionalHeaders http://52.28.78.153:8080/SportifyWS/WebServiceImplService?wsdl

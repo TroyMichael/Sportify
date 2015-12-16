@@ -1,5 +1,6 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
@@ -275,6 +276,9 @@ public class EditTournamentFormController {
 
             ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().updateTournament(_tournament);
             initSuccessAlert();
+            SimpleTournamentDTO simpleTournamentDTO = ServiceLocator.getInstance().getRemote(TournamentRemote.class).getSimpleTournamentDTOByID(_tournament.getId());
+            SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
+
         } else {
             initErrorAlert();
         }
@@ -365,7 +369,7 @@ public class EditTournamentFormController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Saving successful!");
         alert.setTitle("Saving successful");
-        alert.setContentText("A new Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully created!");
+        alert.setContentText("The Tournament with the name: " + _nameTextField.getText() + " and the Sport: " + _sportComboBox.getValue().getName() + "' was successfully updated!");
         alert.showAndWait();
     }
 

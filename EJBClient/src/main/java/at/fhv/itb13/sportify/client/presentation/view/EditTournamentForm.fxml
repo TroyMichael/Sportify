@@ -95,7 +95,7 @@
       <HBox layoutX="10.0" layoutY="89.0" prefHeight="25.0" prefWidth="200.0" spacing="5.0">
          <children>
             <Label text="Sport:" />
-            <ComboBox fx:id="_sportComboBox" prefHeight="25.0" prefWidth="149.0" />
+            <ComboBox fx:id="_sportComboBox" disable="true" prefHeight="25.0" prefWidth="149.0" />
          </children>
       </HBox>
    </children>

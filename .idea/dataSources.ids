@@ -1,199 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - sportify@52.28.78.153" uuid="9d4c3788-5715-4f22-8129-3476046baea5">
-    <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-  </data-source>
-  <data-source name="MySQL - sportify@sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com" uuid="1d17d853-074d-41ff-9e75-19154b1e07fd">
-    <database-info product="MySQL" version="5.6.23-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-    <schema name="" catalog="sportify"/>
-    <table name="department" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="sport_department__fk" table="sport" schema="" catalog="sportify" columns="department_id"/>
-    </table>
-    <table name="externalteam" schema="" catalog="sportify" type="TABLE">
-      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="team_id"/>
-    </table>
-    <table name="internalteam" schema="" catalog="sportify" type="TABLE">
-      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="trainer_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="team_id"/>
-      <foreign-key name="internalteam_person__fk" columns="trainer_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="internalteam_person__fk" unique="false" columns="trainer_id"/>
-    </table>
-    <table name="match_" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="duration" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="tournament_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="match_tournament__fk" columns="tournament_id" ref-table="tournament" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="match_team_match__fk" table="match_team" schema="" catalog="sportify" columns="match_id"/>
-      <index name="match_tournament__fk" unique="false" columns="tournament_id"/>
-    </table>
-    <table name="match_team" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="match_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="roster_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="points" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="match_team_match__fk" columns="match_id" ref-table="match_" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="match_team_roster__fk" columns="roster_id" ref-table="roster" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="match_team_team__fk" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="match_team_match__fk" unique="false" columns="match_id"/>
-      <index name="match_team_roster__fk" unique="false" columns="roster_id"/>
-      <index name="match_team_team__fk" unique="false" columns="team_id"/>
-    </table>
-    <table name="person" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="firstname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="housenumber" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="postalcode" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="birthdate" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="paid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="internalteam_person__fk" table="internalteam" schema="" catalog="sportify" columns="trainer_id"/>
-      <exported-key name="person_sport_person__fk" table="person_sport" schema="" catalog="sportify" columns="person_id"/>
-      <exported-key name="roster_person_person__fk" table="roster_person" schema="" catalog="sportify" columns="person_id"/>
-      <exported-key name="team_person_person__fk" table="team_person" schema="" catalog="sportify" columns="person_id"/>
-      <exported-key name="user_userrole_person_username_fk" table="user_userrole" schema="" catalog="sportify" columns="username"/>
-      <index name="person_username_uindex" unique="true" columns="username"/>
-    </table>
-    <table name="person_sport" schema="" catalog="sportify" type="TABLE">
-      <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="person_id,sport_id"/>
-      <foreign-key name="person_sport_person__fk" columns="person_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="person_sport_sport__fk" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="person_sport_sport__fk" unique="false" columns="sport_id"/>
-    </table>
-    <table name="roster" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="match_team_roster__fk" table="match_team" schema="" catalog="sportify" columns="roster_id"/>
-      <exported-key name="roster_person_roster__fk" table="roster_person" schema="" catalog="sportify" columns="roster_id"/>
-    </table>
-    <table name="roster_person" schema="" catalog="sportify" type="TABLE">
-      <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="roster_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="person_id,roster_id"/>
-      <foreign-key name="roster_person_person__fk" columns="person_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="roster_person_roster__fk" columns="roster_id" ref-table="roster" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="roster_person_roster__fk" unique="false" columns="roster_id"/>
-    </table>
-    <table name="sport" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="department_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="sport_department__fk" columns="department_id" ref-table="department" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="person_sport_sport__fk" table="person_sport" schema="" catalog="sportify" columns="sport_id"/>
-      <exported-key name="team_sport__fk" table="team" schema="" catalog="sportify" columns="sport_id"/>
-      <exported-key name="tournament_sport__fk" table="tournament" schema="" catalog="sportify" columns="sport_id"/>
-      <index name="sport_department__fk" unique="false" columns="department_id"/>
-    </table>
-    <table name="team" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="team_sport__fk" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="match_team_team__fk" table="match_team" schema="" catalog="sportify" columns="team_id"/>
-      <exported-key name="team_person_team__fk" table="team_person" schema="" catalog="sportify" columns="team_id"/>
-      <exported-key name="tournament_team_team__fk" table="tournament_team" schema="" catalog="sportify" columns="team_id"/>
-      <index name="team_sport__fk" unique="false" columns="sport_id"/>
-    </table>
-    <table name="team_person" schema="" catalog="sportify" type="TABLE">
-      <column name="person_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="person_id,team_id"/>
-      <foreign-key name="team_person_person__fk" columns="person_id" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="team_person_team__fk" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="team_person_team__fk" unique="false" columns="team_id"/>
-    </table>
-    <table name="tournament" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="sport_id" sqlType="VARCHAR" precision="36" scale="0" nullable="true" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="location" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="tournament_sport__fk" columns="sport_id" ref-table="sport" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="match_tournament__fk" table="match_" schema="" catalog="sportify" columns="tournament_id"/>
-      <exported-key name="tournament_team_tournament__fk" table="tournament_team" schema="" catalog="sportify" columns="tournament_id"/>
-      <index name="tournament_sport__fk" unique="false" columns="sport_id"/>
-    </table>
-    <table name="tournament_team" schema="" catalog="sportify" type="TABLE">
-      <column name="tournament_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="team_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="tournament_id,team_id"/>
-      <foreign-key name="tournament_team_team__fk" columns="team_id" ref-table="team" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="tournament_team_tournament__fk" columns="tournament_id" ref-table="tournament" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="tournament_team_team__fk" unique="false" columns="team_id"/>
-    </table>
-    <table name="user_userrole" schema="" catalog="sportify" type="TABLE">
-      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="userrole_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="username,userrole_id"/>
-      <foreign-key name="user_userrole_person_username_fk" columns="username" ref-table="person" ref-schema="" ref-catalog="sportify" ref-columns="username" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="user_userrole_userrole__fk" columns="userrole_id" ref-table="userrole" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="user_userrole_userrole__fk" unique="false" columns="userrole_id"/>
-    </table>
-    <table name="userright" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="userrole_userright_userright_id_fk" table="userrole_userright" schema="" catalog="sportify" columns="userright_id"/>
-    </table>
-    <table name="userrole" schema="" catalog="sportify" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="user_userrole_userrole__fk" table="user_userrole" schema="" catalog="sportify" columns="userrole_id"/>
-      <exported-key name="userrole_userright_userrole_id_fk" table="userrole_userright" schema="" catalog="sportify" columns="userrole_id"/>
-    </table>
-    <table name="userrole_userright" schema="" catalog="sportify" type="TABLE">
-      <column name="userrole_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="userright_id" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="userrole_id,userright_id"/>
-      <foreign-key name="userrole_userright_userright_id_fk" columns="userright_id" ref-table="userright" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="userrole_userright_userrole_id_fk" columns="userrole_id" ref-table="userrole" ref-schema="" ref-catalog="sportify" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="userrole_userright_userright_id_fk" unique="false" columns="userright_id"/>
-    </table>
-  </data-source>
   <data-source name="MySQL - sportify@sportify.cvacw0mmie8q.eu-central-1.rds.amazonaws.com" uuid="0cf22b3e-7ba1-4ad4-8cb6-14057815dc54">
     <database-info product="MySQL" version="5.6.23-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
@@ -252,435 +58,447 @@
         <columns>team_id</columns>
         <primary>1</primary>
       </key>
-      <column id="28" parent="4" name="team_id">
+      <foreign-key id="28" parent="3" name="externalteam_team__fk">
+        <columns>team_id</columns>
+        <ref-key>team.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="29" parent="4" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="29" parent="4" name="trainer_id">
+      <column id="30" parent="4" name="trainer_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="30" parent="4" name="version">
+      <column id="31" parent="4" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="31" parent="4" name="PRIMARY">
+      <key id="32" parent="4" name="PRIMARY">
         <columns>team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="32" parent="4" name="internalteam_person__fk">
+      <foreign-key id="33" parent="4" name="internalteam_person__fk">
         <columns>trainer_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="33" parent="5" name="id">
+      <foreign-key id="34" parent="4" name="internalteam_team_id_fk">
+        <columns>team_id</columns>
+        <ref-key>team.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="35" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="34" parent="5" name="duration">
+      <column id="36" parent="5" name="duration">
         <data-type>int(11)</data-type>
       </column>
-      <column id="35" parent="5" name="start">
+      <column id="37" parent="5" name="start">
         <data-type>datetime</data-type>
       </column>
-      <column id="36" parent="5" name="tournament_id">
+      <column id="38" parent="5" name="tournament_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="37" parent="5" name="version">
+      <column id="39" parent="5" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="38" parent="5" name="status">
+      <column id="40" parent="5" name="status">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="39" parent="5" name="PRIMARY">
+      <key id="41" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="40" parent="5" name="match_tournament__fk">
+      <foreign-key id="42" parent="5" name="match_tournament__fk">
         <columns>tournament_id</columns>
         <ref-key>tournament.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="41" parent="6" name="id">
+      <column id="43" parent="6" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="42" parent="6" name="match_id">
+      <column id="44" parent="6" name="match_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="43" parent="6" name="team_id">
+      <column id="45" parent="6" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="44" parent="6" name="roster_id">
+      <column id="46" parent="6" name="roster_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="45" parent="6" name="points">
+      <column id="47" parent="6" name="points">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="46" parent="6" name="version">
+      <column id="48" parent="6" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="47" parent="6" name="PRIMARY">
+      <key id="49" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="48" parent="6" name="match_team_match__fk">
+      <foreign-key id="50" parent="6" name="match_team_match__fk">
         <columns>match_id</columns>
         <ref-key>match_.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="49" parent="6" name="match_team_roster__fk">
+      <foreign-key id="51" parent="6" name="match_team_roster__fk">
         <columns>roster_id</columns>
         <ref-key>roster.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="50" parent="6" name="match_team_team__fk">
+      <foreign-key id="52" parent="6" name="match_team_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="51" parent="7" name="id">
+      <column id="53" parent="7" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="52" parent="7" name="firstname">
+      <column id="54" parent="7" name="firstname">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="53" parent="7" name="lastname">
+      <column id="55" parent="7" name="lastname">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="54" parent="7" name="street">
+      <column id="56" parent="7" name="street">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="55" parent="7" name="housenumber">
+      <column id="57" parent="7" name="housenumber">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="56" parent="7" name="postalcode">
+      <column id="58" parent="7" name="postalcode">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="57" parent="7" name="city">
+      <column id="59" parent="7" name="city">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="58" parent="7" name="email">
+      <column id="60" parent="7" name="email">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="59" parent="7" name="birthdate">
+      <column id="61" parent="7" name="birthdate">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="60" parent="7" name="paid">
+      <column id="62" parent="7" name="paid">
         <data-type>int(11)</data-type>
       </column>
-      <column id="61" parent="7" name="version">
+      <column id="63" parent="7" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="62" parent="7" name="username">
+      <column id="64" parent="7" name="username">
         <data-type>varchar(255)</data-type>
       </column>
-      <index id="63" parent="7" name="person_username_uindex">
+      <index id="65" parent="7" name="person_username_uindex">
         <columns>username</columns>
         <unique>1</unique>
       </index>
-      <key id="64" parent="7" name="person_username_uindex">
+      <key id="66" parent="7" name="person_username_uindex">
         <columns>username</columns>
         <underlying-index>person_username_uindex</underlying-index>
       </key>
-      <key id="65" parent="7" name="PRIMARY">
+      <key id="67" parent="7" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="66" parent="8" name="person_id">
+      <column id="68" parent="8" name="person_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="67" parent="8" name="sport_id">
+      <column id="69" parent="8" name="sport_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="68" parent="8" name="PRIMARY">
+      <key id="70" parent="8" name="PRIMARY">
         <columns>person_id
 sport_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="69" parent="8" name="person_sport_person__fk">
+      <foreign-key id="71" parent="8" name="person_sport_person__fk">
         <columns>person_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="70" parent="8" name="person_sport_sport__fk">
+      <foreign-key id="72" parent="8" name="person_sport_sport__fk">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="71" parent="9" name="id">
+      <column id="73" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="72" parent="9" name="name">
+      <column id="74" parent="9" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="73" parent="9" name="version">
+      <column id="75" parent="9" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="74" parent="9" name="PRIMARY">
+      <key id="76" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="75" parent="10" name="person_id">
+      <column id="77" parent="10" name="person_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="76" parent="10" name="roster_id">
+      <column id="78" parent="10" name="roster_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="77" parent="10" name="PRIMARY">
+      <key id="79" parent="10" name="PRIMARY">
         <columns>person_id
 roster_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="78" parent="10" name="roster_person_person__fk">
+      <foreign-key id="80" parent="10" name="roster_person_person__fk">
         <columns>person_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="79" parent="10" name="roster_person_roster__fk">
+      <foreign-key id="81" parent="10" name="roster_person_roster__fk">
         <columns>roster_id</columns>
         <ref-key>roster.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="80" parent="11" name="id">
+      <column id="82" parent="11" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="81" parent="11" name="name">
+      <column id="83" parent="11" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="82" parent="11" name="department_id">
+      <column id="84" parent="11" name="department_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="83" parent="11" name="version">
+      <column id="85" parent="11" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="84" parent="11" name="PRIMARY">
+      <key id="86" parent="11" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="85" parent="11" name="sport_department__fk">
+      <foreign-key id="87" parent="11" name="sport_department__fk">
         <columns>department_id</columns>
         <ref-key>department.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="86" parent="12" name="id">
+      <column id="88" parent="12" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="87" parent="12" name="name">
+      <column id="89" parent="12" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="88" parent="12" name="sport_id">
+      <column id="90" parent="12" name="sport_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="89" parent="12" name="version">
+      <column id="91" parent="12" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="90" parent="12" name="PRIMARY">
+      <key id="92" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="91" parent="12" name="team_sport__fk">
+      <foreign-key id="93" parent="12" name="team_sport__fk">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="92" parent="13" name="person_id">
+      <column id="94" parent="13" name="person_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="93" parent="13" name="team_id">
+      <column id="95" parent="13" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="94" parent="13" name="PRIMARY">
+      <key id="96" parent="13" name="PRIMARY">
         <columns>person_id
 team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="95" parent="13" name="team_person_person__fk">
+      <foreign-key id="97" parent="13" name="team_person_person__fk">
         <columns>person_id</columns>
         <ref-key>person.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="96" parent="13" name="team_person_team__fk">
+      <foreign-key id="98" parent="13" name="team_person_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="97" parent="14" name="id">
+      <column id="99" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="98" parent="14" name="description">
+      <column id="100" parent="14" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="99" parent="14" name="sport_id">
+      <column id="101" parent="14" name="sport_id">
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="100" parent="14" name="version">
+      <column id="102" parent="14" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="101" parent="14" name="location">
+      <column id="103" parent="14" name="location">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="102" parent="14" name="start">
+      <column id="104" parent="14" name="start">
         <data-type>datetime</data-type>
       </column>
-      <key id="103" parent="14" name="PRIMARY">
+      <key id="105" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="104" parent="14" name="tournament_sport__fk">
+      <foreign-key id="106" parent="14" name="tournament_sport__fk">
         <columns>sport_id</columns>
         <ref-key>sport.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="105" parent="15" name="tournament_id">
+      <column id="107" parent="15" name="tournament_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="106" parent="15" name="team_id">
+      <column id="108" parent="15" name="team_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="107" parent="15" name="PRIMARY">
+      <key id="109" parent="15" name="PRIMARY">
         <columns>tournament_id
 team_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="108" parent="15" name="tournament_team_team__fk">
+      <foreign-key id="110" parent="15" name="tournament_team_team__fk">
         <columns>team_id</columns>
         <ref-key>team.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="109" parent="15" name="tournament_team_tournament__fk">
+      <foreign-key id="111" parent="15" name="tournament_team_tournament__fk">
         <columns>tournament_id</columns>
         <ref-key>tournament.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="110" parent="16" name="username">
+      <column id="112" parent="16" name="username">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="111" parent="16" name="userrole_id">
+      <column id="113" parent="16" name="userrole_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="112" parent="16" name="PRIMARY">
+      <key id="114" parent="16" name="PRIMARY">
         <columns>username
 userrole_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="113" parent="16" name="user_userrole_person_username_fk">
+      <foreign-key id="115" parent="16" name="user_userrole_person_username_fk">
         <columns>username</columns>
         <ref-key>person.person_username_uindex</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="114" parent="16" name="user_userrole_userrole__fk">
+      <foreign-key id="116" parent="16" name="user_userrole_userrole__fk">
         <columns>userrole_id</columns>
         <ref-key>userrole.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="115" parent="17" name="id">
+      <column id="117" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="116" parent="17" name="version">
+      <column id="118" parent="17" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="117" parent="17" name="description">
+      <column id="119" parent="17" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="118" parent="17" name="name">
+      <column id="120" parent="17" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="119" parent="17" name="PRIMARY">
+      <key id="121" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="120" parent="18" name="id">
+      <column id="122" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="121" parent="18" name="version">
+      <column id="123" parent="18" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="122" parent="18" name="description">
+      <column id="124" parent="18" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="123" parent="18" name="name">
+      <column id="125" parent="18" name="name">
         <data-type>varchar(255)</data-type>
       </column>
-      <key id="124" parent="18" name="PRIMARY">
+      <key id="126" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="125" parent="19" name="userrole_id">
+      <column id="127" parent="19" name="userrole_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <column id="126" parent="19" name="userright_id">
+      <column id="128" parent="19" name="userright_id">
         <mandatory>1</mandatory>
         <data-type>varchar(36)</data-type>
       </column>
-      <key id="127" parent="19" name="PRIMARY">
+      <key id="129" parent="19" name="PRIMARY">
         <columns>userrole_id
 userright_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="128" parent="19" name="userrole_userright_userright_id_fk">
+      <foreign-key id="130" parent="19" name="userrole_userright_userright_id_fk">
         <columns>userright_id</columns>
         <ref-key>userright.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="129" parent="19" name="userrole_userright_userrole_id_fk">
+      <foreign-key id="131" parent="19" name="userrole_userright_userrole_id_fk">
         <columns>userrole_id</columns>
         <ref-key>userrole.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>

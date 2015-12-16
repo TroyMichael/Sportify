@@ -90,7 +90,7 @@ public class EditTournamentFormController {
 
         getAllTeamsTableViewData();
         setSportComboBoxData();
-        _sportComboBox.setValue(_sportComboBox.getItems().get(3));
+        //_sportComboBox.setValue(_sportComboBox.getItems().get(3));
 
         //set values for matchTable
 
@@ -224,10 +224,10 @@ public class EditTournamentFormController {
 
         if (sportList != null) {
             ObservableList<SimpleSportDTO> sportObservable = FXCollections.observableArrayList();
-            for (SimpleSportDTO sport : sportObservable) {
+            for (SimpleSportDTO sport : sportList) {
                 sportObservable.add(sport);
             }
-            _sportComboBox.getItems().addAll((sportObservable));
+            _sportComboBox.getItems().addAll(sportObservable);
             _sportComboBox.setValue(_sportComboBox.getItems().get(0));
         }
     }

@@ -11,6 +11,7 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     private SimpleMatchTeamDTO _team1;
     private SimpleMatchTeamDTO _team2;
 
+
     public MatchDTOImpl() {
     }
 
@@ -80,6 +81,25 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
     public void setTeam2(SimpleMatchTeamDTO team2) {
         _team2 = team2;
     }
+
+    @Override
+    public String getPoints1() {
+
+        if(_team1 != null) {
+            return _team1.getPoints();
+        }
+        return "";
+    }
+
+    @Override
+    public String getPoints2() {
+        if(_team2 != null){
+            return _team2.getPoints();
+        }
+        return  "";
+    }
+
+
 
     public static class SimpleMatchTeamDTO extends DTOImpl{
         private String _name;

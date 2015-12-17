@@ -4,6 +4,7 @@ import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
+import at.fhv.itb13.sportify.shared.communication.remote.TournamentRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -71,6 +72,12 @@ public class EditTournamentFormController {
     @FXML
     private TableColumn<MatchDTO, String> _timeColumn;
 
+    @FXML
+    private TableColumn<MatchDTO, String> _points1Column;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _points2Column;
+
     private ObservableList<DisplayTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<DisplayTeamDTO> _addedTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
@@ -98,6 +105,8 @@ public class EditTournamentFormController {
         _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
         _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
+        _points1Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points1"));
+        _points2Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points2"));
         _matchTableView.setItems(_matchObservable);
     }
 
@@ -322,8 +331,11 @@ public class EditTournamentFormController {
     }
 
     @FXML
-    private void cancelEditTournament() {
-        SportifyGUI.getSharedMainApp().loadTournamentListView();
+    private void cancelEditTournament() throws RemoteException {
+       // SportifyGUI.getSharedMainApp().loadTournamentListView();
+        SimpleTournamentDTO tournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
+        SportifyGUI.getSharedMainApp().loadTournamentDetailView(tournamentDTO);
+
     }
 
     @FXML

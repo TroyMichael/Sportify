@@ -29,4 +29,10 @@ public interface MatchDTO extends Serializable, DTO {
     MatchDTOImpl.SimpleMatchTeamDTO getTeam2();
 
     void setTeam2(MatchDTOImpl.SimpleMatchTeamDTO team2);
+
+    String getPoints1();
+
+    String getPoints2();
+
+
 }

@@ -68,24 +68,26 @@
          </children>
       </HBox>
       <VBox layoutX="14.0" layoutY="330.0" prefHeight="25.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="630.0" />
-      <VBox layoutX="15.0" layoutY="385.0" prefHeight="250.0" prefWidth="446.0" spacing="10.0" AnchorPane.leftAnchor="15.0">
+      <VBox layoutX="15.0" layoutY="385.0" prefHeight="250.0" prefWidth="574.0" spacing="10.0" AnchorPane.leftAnchor="15.0">
          <children>
             <Label text="Matches">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="_matchTableView" prefHeight="215.0" prefWidth="446.0">
-              <columns>
-                <TableColumn fx:id="_team1NameColumn" prefWidth="75.0" text="Team 1" />
-                <TableColumn fx:id="_team2NameColumn" prefWidth="75.0" text="Team 2" />
-                <TableColumn fx:id="_dateColumn" prefWidth="75.0" text="Date" />
-                <TableColumn fx:id="_timeColumn" prefWidth="75.0" text="Time" />
-              </columns>
+            <TableView fx:id="_matchTableView1" prefHeight="214.0" prefWidth="576.0">
+               <columns>
+                  <TableColumn fx:id="_team1NameColumn1" prefWidth="108.0" text="Team 1" />
+                  <TableColumn fx:id="_team2NameColumn1" prefWidth="110.0" text="Team 2" />
+                  <TableColumn fx:id="_dateColumn1" prefWidth="70.0" text="Date" />
+                  <TableColumn fx:id="_timeColumn1" text="Time" />
+                  <TableColumn fx:id="_points1Column" prefWidth="104.0" text="Points Team1" />
+                  <TableColumn fx:id="_points2Column" prefWidth="101.0" text="Points Team2" />
+               </columns>
             </TableView>
          </children>
       </VBox>
-      <Button alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="361.0" layoutY="662.0" mnemonicParsing="false" onAction="#addNewMatch" text="Add new Match" AnchorPane.bottomAnchor="15.0" />
+      <Button alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="490.0" layoutY="642.0" mnemonicParsing="false" onAction="#addNewMatch" text="Add new Match" AnchorPane.bottomAnchor="15.0" />
       <HBox layoutX="390.0" layoutY="355.0" prefHeight="25.0" prefWidth="199.0" spacing="5.0">
          <children>
             <TextField fx:id="_foreignTeamTextField" prefHeight="25.0" prefWidth="157.0" promptText="Add Foreign Team" />

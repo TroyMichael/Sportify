@@ -59,6 +59,12 @@ public class TournamentDetailFormController {
     @FXML
     private TableColumn<MatchDTO, String> _timeColumn;
 
+    @FXML
+    private TableColumn<MatchDTO, String> _points1Column;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _points2Column;
+
     private ObservableList<SimpleTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
     private SimpleTournamentDTO _tournament;
@@ -74,6 +80,8 @@ public class TournamentDetailFormController {
         _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
         _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
+        _points1Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points1"));
+        _points2Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points2"));
         _matchTableView.setItems(_matchObservable);
 
         setDoubleClickOnMatchTableView();
@@ -81,7 +89,7 @@ public class TournamentDetailFormController {
 
 
     @FXML
-    private void editTournament() throws RemoteException {
+    private void editTournament() {
 
         TournamentDTO tournamentToEdit = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().getTournamentDTOByID(_tournament.getId());
 
@@ -91,6 +99,7 @@ public class TournamentDetailFormController {
     @FXML
     private void back() {
         SportifyGUI.getSharedMainApp().loadTournamentListView();
+
     }
 
 

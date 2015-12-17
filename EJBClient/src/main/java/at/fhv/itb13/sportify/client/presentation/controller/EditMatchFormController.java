@@ -1,16 +1,21 @@
 package at.fhv.itb13.sportify.client.presentation.controller;
 
+import at.fhv.itb13.sportify.client.application.SessionController;
 import at.fhv.itb13.sportify.client.communication.ServiceLocator;
+import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
+import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,7 +59,7 @@ public class EditMatchFormController {
     @FXML
     private ComboBox<MatchStatus> _statusComboBox;
 
-    private TournamentDTO _tournament;
+    private SimpleTournamentDTO _tournament;
 
     private MatchDTO _matchDTO;
 
@@ -125,8 +130,8 @@ public class EditMatchFormController {
 
     @FXML
     private void cancelNewMatch() {
-        //todo cancel button
-        //SportifyGUI.getSharedMainApp().loadTournamentDetailView(_tournament);
+
+        SportifyGUI.getSharedMainApp().loadTournamentDetailView(_tournament);
     }
 
 
@@ -152,7 +157,31 @@ public class EditMatchFormController {
             }
             _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());
             ServiceLocator.getInstance().getRemote(SessionRemote.class).getMatchRemote().update(_matchDTO);
-            //todo weiterleiten
+            initSuccessAlert();
+            SportifyGUI.getSharedMainApp().loadTournamentDetailView(_tournament);
+        } else {
+            initErrorAlert();
         }
     }
+
+    private void initSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Saving successful!");
+        alert.setTitle("Saving successful");
+        alert.setContentText("The Match was successfully updated!");
+        alert.showAndWait();
+    }
+
+    private void initErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("Components missing!");
+        alert.setTitle("Components missing!");
+        alert.setContentText("A new Team could not be created due to missing fields!");
+        alert.showAndWait();
+    }
+
+    public void setTournamentDTO(SimpleTournamentDTO tournamentDTO) {
+        _tournament = tournamentDTO;
+    }
+
 }

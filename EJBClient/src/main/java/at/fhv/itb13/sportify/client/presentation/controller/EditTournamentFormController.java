@@ -354,7 +354,7 @@ public class EditTournamentFormController {
 
     @FXML
     private void cancelEditTournament() {
-        SportifyGUI.getSharedMainApp().loadTournamentListView();
+       // SportifyGUI.getSharedMainApp().loadTournamentListView();
 
         SimpleTournamentDTO tournamentDTO = ServiceLocator.getInstance().getRemote(SessionRemote.class).getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
         SportifyGUI.getSharedMainApp().loadTournamentDetailView(tournamentDTO);

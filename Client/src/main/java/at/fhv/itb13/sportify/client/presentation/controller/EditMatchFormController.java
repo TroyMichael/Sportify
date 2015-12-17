@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -164,8 +165,27 @@ public class EditMatchFormController {
             SessionController.getInstance().getSession().getMatchRemote().update(_matchDTO);
             _tournament.addMatch(_matchDTO);
             SessionController.getInstance().getSession().getTournamentRemote().updateTournament(_tournament);
+            initSuccessAlert();
             SimpleTournamentDTO simpleTournamentDTO = SessionController.getInstance().getSession().getTournamentRemote().getSimpleTournamentDTOByID(_tournament.getId());
             SportifyGUI.getSharedMainApp().loadTournamentDetailView(simpleTournamentDTO);
+        }else{
+            initErrorAlert();
         }
+    }
+
+    private void initSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Saving successful!");
+        alert.setTitle("Saving successful");
+        alert.setContentText("The Match was successfully updated!");
+        alert.showAndWait();
+    }
+
+    private void initErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("Components missing!");
+        alert.setTitle("Components missing!");
+        alert.setContentText("A new Team could not be created due to missing fields!");
+        alert.showAndWait();
     }
 }

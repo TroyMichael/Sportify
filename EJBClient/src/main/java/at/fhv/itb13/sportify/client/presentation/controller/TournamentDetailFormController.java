@@ -152,7 +152,9 @@ public class TournamentDetailFormController {
 
                     if (_matchTableView.getSelectionModel().getSelectedItem() != null) {
                         MatchDTO matchDTO = _matchTableView.getSelectionModel().getSelectedItem();
-                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO);
+
+
+                        SportifyGUI.getSharedMainApp().loadEditMatchForm(matchDTO, _tournament);
                     }
                 }
             }

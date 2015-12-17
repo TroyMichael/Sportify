@@ -75,12 +75,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="_matchTableView1" prefHeight="214.0" prefWidth="576.0">
+            <TableView fx:id="_matchTableView" prefHeight="214.0" prefWidth="576.0">
                <columns>
-                  <TableColumn fx:id="_team1NameColumn1" prefWidth="108.0" text="Team 1" />
-                  <TableColumn fx:id="_team2NameColumn1" prefWidth="110.0" text="Team 2" />
-                  <TableColumn fx:id="_dateColumn1" prefWidth="70.0" text="Date" />
-                  <TableColumn fx:id="_timeColumn1" text="Time" />
+                  <TableColumn fx:id="_team1NameColumn" prefWidth="108.0" text="Team 1" />
+                  <TableColumn fx:id="_team2NameColumn" prefWidth="110.0" text="Team 2" />
+                  <TableColumn fx:id="_dateColumn" prefWidth="70.0" text="Date" />
+                  <TableColumn fx:id="_timeColumn" text="Time" />
                   <TableColumn fx:id="_points1Column" prefWidth="104.0" text="Points Team1" />
                   <TableColumn fx:id="_points2Column" prefWidth="101.0" text="Points Team2" />
                </columns>

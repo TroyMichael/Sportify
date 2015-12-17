@@ -9,8 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
@@ -45,6 +47,8 @@ public class NewMatchFormController {
 
     private LocalDate _localDate;
 
+    private LocalTime _localTime;
+
     private int _duration;
 
     private TournamentDTO _tournament;
@@ -68,7 +72,9 @@ public class NewMatchFormController {
 
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
-            newMatch.setStart(Date.valueOf(_localDate));
+            Calendar cal = new GregorianCalendar();
+            cal.set(_localDate.getYear(), _localDate.getMonthValue(), _localDate.getDayOfMonth(), _localTime.getHour(), _localTime.getMinute(), _localTime.getSecond());
+            newMatch.setStart(cal.getTime());
 
             MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
             team1.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
@@ -144,7 +150,7 @@ public class NewMatchFormController {
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
                 _localDate = _datePicker.getValue();
                 String[] times = _startTimeTextField.getText().split(":");
-                _localDate.atTime(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[2]));
+                _localTime = LocalTime.of(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[2]));
                 _startTimeTextField.setStyle("-fx-text-box-border: lightgrey;");
             } else {
                 _startTimeTextField.setStyle("-fx-text-box-border: red;");

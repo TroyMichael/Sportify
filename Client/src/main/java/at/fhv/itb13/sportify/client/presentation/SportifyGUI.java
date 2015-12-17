@@ -8,7 +8,6 @@ import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -227,7 +226,7 @@ public class SportifyGUI extends Application {
     }
 
 
-    public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams, Boolean newTournament) {
+    public void loadNewMatchForm(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalTeams, Boolean newTournament) throws RemoteException {
         NewMatchFormController cont = (NewMatchFormController) loadView("view/NewMatchForm.fxml", _rootLayout);
         cont.setTournament(tournament, externalTeams, newTournament);
     }

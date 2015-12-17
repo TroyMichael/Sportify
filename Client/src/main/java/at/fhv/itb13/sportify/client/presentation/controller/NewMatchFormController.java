@@ -8,14 +8,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -42,7 +44,9 @@ public class NewMatchFormController {
     @FXML
     private TableColumn<DisplayTeamDTO, String> _allTeamsOpponentNameColumn;
 
-    private Date _date;
+    private LocalDate _localDate;
+
+    private LocalTime _localTime;
 
     private int _duration;
 
@@ -52,7 +56,7 @@ public class NewMatchFormController {
     private Boolean _newTournament;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         //set values for allTeamsTableView's columns
         _allTeamsNameColumn.setCellValueFactory(new PropertyValueFactory<DisplayTeamDTO, String>("Name"));
 
@@ -62,10 +66,14 @@ public class NewMatchFormController {
 
     @FXML
     private void saveNewMatch() throws RemoteException {
+
         if (validateInput()) {
+
             MatchDTO newMatch = new MatchDTOImpl();
             newMatch.setDuration(_duration);
-            newMatch.setStart(_date);
+            Calendar cal = new GregorianCalendar();
+            cal.set(_localDate.getYear(), _localDate.getMonthValue(), _localDate.getDayOfMonth(), _localTime.getHour(), _localTime.getMinute(), _localTime.getSecond());
+            newMatch.setStart(cal.getTime());
 
             MatchDTOImpl.SimpleMatchTeamDTO team1 = new MatchDTOImpl.SimpleMatchTeamDTO(_allTeamsTableView.getSelectionModel().getSelectedItem().getId());
             team1.setId(_allTeamsOpponentTableView.getSelectionModel().getSelectedItem().getId());
@@ -85,8 +93,9 @@ public class NewMatchFormController {
             _tournament.addMatch(newMatch);
 
             initSuccessAlert();
-            if (_newTournament){
-                SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+            //todo fix correct weiterleitung
+            if (_newTournament) {
+                SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament, _externalDisplayTeamDTOs);
             } else {
                 SportifyGUI.getSharedMainApp().loadEditTournamentForm(_tournament);
             }
@@ -112,7 +121,7 @@ public class NewMatchFormController {
             _durationTextField.setStyle("-fx-text-box-border: lightgrey;");
         }
 
-        if (_datePicker.getValue() == null){
+        if (_datePicker.getValue() == null) {
             _datePicker.setStyle("-fx-date-picker-border: red;");
             validation = false;
         } else {
@@ -138,13 +147,9 @@ public class NewMatchFormController {
 
             //define Regex: 0-24h, 0-59min, 0-69sek
             if (_startTimeTextField.getText().matches("([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])")) {
-                _date = Date.valueOf(_datePicker.getValue());
-                //String[] times = _startTimeTextField.getText().split(":");
-                Time time = Time.valueOf(_startTimeTextField.getText());
-                Long longDate = _date.getTime();
-                Long longTime = time.getTime();
-                Long longDateTime = longDate + longTime;
-                _date.setTime(longDateTime);
+                _localDate = _datePicker.getValue();
+                String[] times = _startTimeTextField.getText().split(":");
+                _localTime = LocalTime.of(Integer.parseInt(times[0]), Integer.parseInt(times[1]), Integer.parseInt(times[2]));
                 _startTimeTextField.setStyle("-fx-text-box-border: lightgrey;");
             } else {
                 _startTimeTextField.setStyle("-fx-text-box-border: red;");
@@ -161,28 +166,23 @@ public class NewMatchFormController {
 
     @FXML
     private void cancelNewMatch() {
-        SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament,_externalDisplayTeamDTOs);
+        SportifyGUI.getSharedMainApp().loadNewTournamentView(_tournament, _externalDisplayTeamDTOs);
     }
 
 
-    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs, Boolean newTournament) {
+    public void setTournament(TournamentDTO tournament, HashSet<ExternalDisplayTeamDTO> externalDisplayTeamDTOs, Boolean newTournament) throws RemoteException {
         _tournament = tournament;
         _newTournament = newTournament;
         _externalDisplayTeamDTOs = externalDisplayTeamDTOs;
-        try {
-            List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
 
-            for (DisplayTeamDTO team : teams) {
-                if (_tournament.getTeamIDs().contains(team.getId())) {
-                    _allTeamsTableView.getItems().add(team);
-                    _allTeamsOpponentTableView.getItems().add(team);
-                }
+        List<DisplayTeamDTO> teams = SessionController.getInstance().getSession().getTeamRemote().getAllDisplayTeams();
+        for (DisplayTeamDTO team : teams) {
+            if (_tournament.getTeamIDs().contains(team.getId())) {
+                _allTeamsTableView.getItems().add(team);
+                _allTeamsOpponentTableView.getItems().add(team);
             }
-
-            _allTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
-            _allTeamsOpponentTableView.getItems().addAll(_externalDisplayTeamDTOs);
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
+        _allTeamsTableView.getItems().addAll(_externalDisplayTeamDTOs);
+        _allTeamsOpponentTableView.getItems().addAll(_externalDisplayTeamDTOs);
     }
 }

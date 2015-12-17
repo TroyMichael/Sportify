@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SportifyJSF:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/SportifyJSF_war</output-path>
+    <root id="archive" name="SportifyJSF_war.war">
+      <element id="artifact" artifact-name="SportifyJSF:war exploded" />
+    </root>
+  </artifact>
+</component>

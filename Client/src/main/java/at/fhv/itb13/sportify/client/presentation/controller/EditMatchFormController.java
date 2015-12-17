@@ -17,11 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
-import java.util.concurrent.TimeUnit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -73,12 +74,13 @@ public class EditMatchFormController {
         _statusComboBox.setValue(_statusComboBox.getItems().get(0));
 
         _statusComboBox.valueProperty().addListener(new ChangeListener<MatchStatus>() {
-            @Override public void changed(ObservableValue ov, MatchStatus T, MatchStatus t) {
-              if(ov.getValue().equals(MatchStatus.FINISHED)){
-                  setPointsVisible(true);
-              }else{
-                  setPointsVisible(false);
-              }
+            @Override
+            public void changed(ObservableValue ov, MatchStatus T, MatchStatus t) {
+                if (ov.getValue().equals(MatchStatus.FINISHED)) {
+                    setPointsVisible(true);
+                } else {
+                    setPointsVisible(false);
+                }
             }
         });
     }
@@ -86,21 +88,25 @@ public class EditMatchFormController {
     private void setDataToTextFields() {
         if (_matchDTO != null) {
             _durationTextField.setText(_matchDTO.getDuration().toString());
-            long millis = _matchDTO.getStart().getTime();
-            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                    TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
-            _startTimeTextField.setText(hms);
-            _dateTextField.setText(_matchDTO.getStart().toString());
+            DateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
+            _startTimeTextField.setText("");
+            if (_matchDTO.getStart() != null) {
+                _startTimeTextField.setText(dfTime.format(_matchDTO.getStart()));
+            }
+            DateFormat dfDate = new SimpleDateFormat("dd.MM.yyyy");
+            _dateTextField.setText("");
+            if (_matchDTO.getStart() != null) {
+                _dateTextField.setText(dfDate.format(_matchDTO.getStart()));
+            }
             _team1TextField.setText(_matchDTO.getTeam1().getName());
             _team2TextField.setText(_matchDTO.getTeam2().getName());
-            if (_matchDTO.getMatchStatus().equals("FINISHED")){
+            if (_matchDTO.getMatchStatus().equals("FINISHED")) {
                 _statusComboBox.setValue(_statusComboBox.getItems().get(1));
             }
-            if (_matchDTO.getTeam1().getPoints() != null){
+            if (_matchDTO.getTeam1().getPoints() != null) {
                 _pointsTeam1.setText(_matchDTO.getTeam1().getPoints());
             }
-            if (_matchDTO.getTeam2().getPoints() != null){
+            if (_matchDTO.getTeam2().getPoints() != null) {
                 _pointsTeam2.setText(_matchDTO.getTeam2().getPoints());
             }
         }
@@ -135,11 +141,11 @@ public class EditMatchFormController {
         setDataToTextFields();
     }
 
-    public void setTournamentDTO (TournamentDTO tournamentDTO){
+    public void setTournamentDTO(TournamentDTO tournamentDTO) {
         _tournament = tournamentDTO;
     }
 
-    private void setPointsVisible(Boolean bool){
+    private void setPointsVisible(Boolean bool) {
         _pointsLabel.setVisible(bool);
         _pointsTeam1.setVisible(bool);
         _pointsTeam2.setVisible(bool);
@@ -147,11 +153,11 @@ public class EditMatchFormController {
 
     @FXML
     private void saveMatch() throws RemoteException, NotAuthorizedException {
-        if(validateInput()){
-            if(_pointsTeam1.getText() != null) {
+        if (validateInput()) {
+            if (_pointsTeam1.getText() != null) {
                 _matchDTO.getTeam1().setPoints(_pointsTeam1.getText());
             }
-            if(_pointsTeam2.getText() != null){
+            if (_pointsTeam2.getText() != null) {
                 _matchDTO.getTeam2().setPoints(_pointsTeam2.getText());
             }
             _matchDTO.setMatchStatus(_statusComboBox.getSelectionModel().getSelectedItem().name());

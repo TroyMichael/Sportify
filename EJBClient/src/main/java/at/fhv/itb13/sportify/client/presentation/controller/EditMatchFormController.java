@@ -5,7 +5,6 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
-import at.fhv.itb13.sportify.shared.communication.remote.MatchRemote;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,11 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
-import java.util.concurrent.TimeUnit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Michael on 26.10.2015.
- * <p>
+ * <p/>
  * Controls the view NewMemberForm. Checks if all required text fields contain values when trying to add a new member
  * and then creates a DTO.
  */
@@ -87,17 +87,29 @@ public class EditMatchFormController {
     private void setDataToTextFields() {
         if (_matchDTO != null) {
             _durationTextField.setText(_matchDTO.getDuration().toString());
-            long millis = _matchDTO.getStart().getTime();
-            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                    TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                    TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
-            _startTimeTextField.setText(hms);
-            _dateTextField.setText(_matchDTO.getStart().toString());
+            DateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
+            _startTimeTextField.setText("");
+            if (_matchDTO.getStart() != null) {
+                _startTimeTextField.setText(dfTime.format(_matchDTO.getStart()));
+            }
+            DateFormat dfDate = new SimpleDateFormat("dd.MM.yyyy");
+            _dateTextField.setText("");
+            if (_matchDTO.getStart() != null) {
+                _dateTextField.setText(dfDate.format(_matchDTO.getStart()));
+            }
             _team1TextField.setText(_matchDTO.getTeam1().getName());
             _team2TextField.setText(_matchDTO.getTeam2().getName());
+            if (_matchDTO.getMatchStatus().equals("FINISHED")) {
+                _statusComboBox.setValue(_statusComboBox.getItems().get(1));
+            }
+            if (_matchDTO.getTeam1().getPoints() != null) {
+                _pointsTeam1.setText(_matchDTO.getTeam1().getPoints());
+            }
+            if (_matchDTO.getTeam2().getPoints() != null) {
+                _pointsTeam2.setText(_matchDTO.getTeam2().getPoints());
+            }
         }
     }
-
 
     private Boolean validateInput() {
 

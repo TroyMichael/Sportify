@@ -6,6 +6,7 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
+import at.fhv.itb13.sportify.shared.communication.remote.ejb.TournamentRemote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

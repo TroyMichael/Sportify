@@ -1,6 +1,6 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MatchDTOImpl extends DTOImpl implements MatchDTO {
 
@@ -81,7 +81,26 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
         _team2 = team2;
     }
 
-    public static class SimpleMatchTeamDTO extends DTOImpl{
+    @Override
+    public String getPoints1() {
+
+        if(_team1 != null) {
+            return _team1.getPoints();
+        }
+        return "";
+    }
+
+    @Override
+    public String getPoints2() {
+        if(_team2 != null){
+            return _team2.getPoints();
+        }
+        return  "";
+    }
+
+
+
+    public static class SimpleMatchTeamDTO extends DTOImpl {
         private String _name;
         private String _points;
         private String _teamID;
@@ -98,12 +117,12 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
             _name = name;
         }
 
-        public String getPoints(){
+        public String getPoints() {
             return _points;
 
         }
 
-        public void setPoints(String points){
+        public void setPoints(String points) {
             _points = points;
         }
 
@@ -112,11 +131,11 @@ public class MatchDTOImpl extends DTOImpl implements MatchDTO {
             return _name;
         }
 
-        public void setTeamID (String teamID){
+        public void setTeamID(String teamID) {
             _teamID = teamID;
         }
 
-        public String getTeamID (){
+        public String getTeamID() {
             return _teamID;
         }
     }

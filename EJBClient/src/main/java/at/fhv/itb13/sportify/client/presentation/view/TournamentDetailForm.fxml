@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.TournamentDetailFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.itb13.sportify.client.presentation.controller.TournamentDetailFormController">
    <children>
       <GridPane layoutX="270.0" layoutY="84.0" prefHeight="124.0" prefWidth="200.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="84.0">
         <columnConstraints>
@@ -42,27 +42,29 @@
             <Button mnemonicParsing="false" onAction="#editTournament" prefHeight="25.0" prefWidth="122.0" text="Edit Tournament" />
          </children>
       </HBox>
-      <VBox layoutX="15.0" layoutY="331.0" prefHeight="250.0" prefWidth="446.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+      <TableView fx:id="_allTeamsTableView" layoutX="14.0" layoutY="84.0" prefHeight="218.0" prefWidth="219.0" AnchorPane.leftAnchor="15.0">
+         <columns>
+            <TableColumn fx:id="_allTeamsNameColumn" prefWidth="197.0" text="Team Name" />
+         </columns>
+      </TableView>
+      <VBox layoutX="5.0" layoutY="328.0" prefHeight="250.0" prefWidth="574.0" spacing="10.0">
          <children>
             <Label text="Matches">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="_matchTableView" prefHeight="215.0" prefWidth="446.0">
-              <columns>
-                <TableColumn fx:id="_team1NameColumn" prefWidth="75.0" text="Team 1" />
-                <TableColumn fx:id="_team2NameColumn" prefWidth="75.0" text="Team 2" />
-                <TableColumn fx:id="_dateColumn" prefWidth="75.0" text="Date" />
-                <TableColumn fx:id="_timeColumn" prefWidth="75.0" text="Time" />
-              </columns>
+            <TableView fx:id="_matchTableView" prefHeight="214.0" prefWidth="492.0">
+               <columns>
+                  <TableColumn fx:id="_team1NameColumn" prefWidth="108.0" text="Team 1" />
+                  <TableColumn fx:id="_team2NameColumn" prefWidth="110.0" text="Team 2" />
+                  <TableColumn fx:id="_dateColumn" prefWidth="70.0" text="Date" />
+                  <TableColumn fx:id="_timeColumn" text="Time" />
+                  <TableColumn fx:id="_points1Column" prefWidth="104.0" text="Points Team1" />
+                  <TableColumn fx:id="_points2Column" prefWidth="101.0" text="Points Team2" />
+               </columns>
             </TableView>
          </children>
       </VBox>
-      <TableView fx:id="_allTeamsTableView" layoutX="14.0" layoutY="84.0" prefHeight="218.0" prefWidth="219.0" AnchorPane.leftAnchor="15.0">
-         <columns>
-            <TableColumn fx:id="_allTeamsNameColumn" prefWidth="197.0" text="Team Name" />
-         </columns>
-      </TableView>
    </children>
 </AnchorPane>

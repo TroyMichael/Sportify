@@ -2,10 +2,9 @@ package at.fhv.itb13.sportify.server.model;
 
 import at.fhv.itb13.sportify.server.database.PersistentObjectImpl;
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchStatus;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,8 +37,8 @@ public class Match extends PersistentObjectImpl {
         _duration = duration;
     }
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start")
-    @Type(type = "date")
     public Date getStart() {
         return _start;
     }

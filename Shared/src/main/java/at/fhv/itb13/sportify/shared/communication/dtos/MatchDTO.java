@@ -1,8 +1,7 @@
 package at.fhv.itb13.sportify.shared.communication.dtos;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.Set;
+import java.util.Date;
 
 public interface MatchDTO extends Serializable, DTO {
 
@@ -29,4 +28,10 @@ public interface MatchDTO extends Serializable, DTO {
     MatchDTOImpl.SimpleMatchTeamDTO getTeam2();
 
     void setTeam2(MatchDTOImpl.SimpleMatchTeamDTO team2);
+
+    String getPoints1();
+
+    String getPoints2();
+
+
 }

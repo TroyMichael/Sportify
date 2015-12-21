@@ -1,6 +1,6 @@
 import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by mod on 12/15/15.
@@ -21,10 +21,13 @@ public class Match {
     public boolean getEditable() {
         return editable;
     }
+
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
-    public Match(){}
+
+    public Match() {
+    }
 
 
     public Integer get_duration() {

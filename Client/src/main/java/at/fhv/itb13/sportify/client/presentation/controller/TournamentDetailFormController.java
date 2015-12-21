@@ -6,7 +6,8 @@ import at.fhv.itb13.sportify.shared.communication.dtos.MatchDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTeamDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.SimpleTournamentDTO;
 import at.fhv.itb13.sportify.shared.communication.dtos.TournamentDTO;
-import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -16,8 +17,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 import java.rmi.RemoteException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.SimpleMatchTeamDTO;
 
@@ -60,6 +64,12 @@ public class TournamentDetailFormController {
     @FXML
     private TableColumn<MatchDTO, String> _timeColumn;
 
+    @FXML
+    private TableColumn<MatchDTO, String> _points1Column;
+
+    @FXML
+    private TableColumn<MatchDTO, String> _points2Column;
+
     private ObservableList<SimpleTeamDTO> _allTeamsObservable = FXCollections.observableArrayList();
     private ObservableList<MatchDTO> _matchObservable = FXCollections.observableArrayList();
     private SimpleTournamentDTO _tournament;
@@ -74,7 +84,32 @@ public class TournamentDetailFormController {
         //set values for matchTable
         _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
-        _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
+        _points1Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points1"));
+        _points2Column.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Points2"));
+        _dateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MatchDTO, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<MatchDTO, String> param) {
+                SimpleStringProperty prop = new SimpleStringProperty("");
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+                java.util.Date start = param.getValue().getStart();
+                if (start != null) {
+                    prop.setValue(df.format(param.getValue().getStart()));
+                }
+                return prop;
+            }
+        });
+        _timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MatchDTO, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<MatchDTO, String> param) {
+                SimpleStringProperty prop = new SimpleStringProperty("");
+                DateFormat df = new SimpleDateFormat("HH:mm:ss");
+                java.util.Date start = param.getValue().getStart();
+                if (start != null) {
+                    prop.setValue(df.format(param.getValue().getStart()));
+                }
+                return prop;
+            }
+        });
         _matchTableView.setItems(_matchObservable);
 
         setDoubleClickOnMatchTableView();

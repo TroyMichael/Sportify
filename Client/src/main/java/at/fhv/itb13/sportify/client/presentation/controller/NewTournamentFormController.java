@@ -25,7 +25,6 @@ import static at.fhv.itb13.sportify.shared.communication.dtos.MatchDTOImpl.Simpl
 
 /**
  * Created by Michael on 10.11.2015.
- *
  */
 public class NewTournamentFormController {
 
@@ -265,7 +264,7 @@ public class NewTournamentFormController {
 
         if (createOrUpdateTournamentDTO()) {
             //call createFunction
-            
+
             for (ExternalDisplayTeamDTO externalDisplayTeamDTO : _externalDisplayTeamDTOs) {
                 externalDisplayTeamDTO.setSport(_sportComboBox.getValue());
                 SessionController.getInstance().getSession().getTeamRemote().createExternalTeam(externalDisplayTeamDTO);
@@ -327,7 +326,7 @@ public class NewTournamentFormController {
     }
 
     @FXML
-    private void addNewMatch() {
+    private void addNewMatch() throws RemoteException {
         if (createOrUpdateTournamentDTO()) {
             SportifyGUI.getSharedMainApp().loadNewMatchForm(_tournament, _externalDisplayTeamDTOs, true);
         }

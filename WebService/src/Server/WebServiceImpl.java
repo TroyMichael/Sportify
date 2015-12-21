@@ -13,7 +13,6 @@ import java.util.List;
  *
  */
 @WebService(endpointInterface = "Server.WebServiceInterface")
-
 public class WebServiceImpl implements WebServiceInterface {
 
     private TournamentController _tournamentController = new TournamentController();

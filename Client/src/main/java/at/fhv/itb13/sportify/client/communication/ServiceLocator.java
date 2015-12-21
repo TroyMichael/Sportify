@@ -2,6 +2,7 @@ package at.fhv.itb13.sportify.client.communication;
 
 import at.fhv.itb13.sportify.shared.communication.remote.SessionFactory;
 
+import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -9,18 +10,47 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
-/**
- * Created by Patrick on 29.10.2015.
- */
 public class ServiceLocator {
 
-    private static final String RMI_SERVER = "rmi://localhost:12345/";
-
+    private static Properties _props;
     private static ServiceLocator _instance;
 
     private Map<Class, Remote> _remoteObjects;
     private Map<Class, String> _remoteUrls;
+
+    static {
+        InputStream inputStream = null;
+        try {
+            String path = System.getProperty("user.dir") + "\\client.properties";
+            File props = new File(path);
+            if (props.exists()) {
+                inputStream = new FileInputStream(props);
+                System.out.println("Loading configuration file from " + path + "...");
+            } else {
+                inputStream = ServiceLocator.class.getClassLoader().getResourceAsStream("client.properties");
+                System.out.println("Configuration file " + path + " not found!");
+                System.out.println("Loading default configuration file...");
+            }
+            _props = new Properties();
+            try {
+                _props.load(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     private ServiceLocator() {
         // init map for remote objects
@@ -63,6 +93,10 @@ public class ServiceLocator {
         if (url == null) {
             throw new InternalError();
         }
-        return RMI_SERVER + url;
+        return getRMIServer() + url;
+    }
+
+    private String getRMIServer() {
+        return "rmi://" + _props.getProperty("SERVER") + ":" + _props.getProperty("RMI_REGISTRY_PORT") + "/";
     }
 }

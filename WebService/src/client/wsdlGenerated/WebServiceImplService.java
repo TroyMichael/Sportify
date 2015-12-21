@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WebServiceImplService", targetNamespace = "http://Server/", wsdlLocation = "http://52.28.78.153:8080/SportifyWS/WebServiceImplService?wsdl")
+@WebServiceClient(name = "WebServiceImplService", targetNamespace = "http://Server/", wsdlLocation = "http://localhost:8080/WSSportify/services/ShowAllTournaments?wsdl")
 public class WebServiceImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class WebServiceImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://52.28.78.153:8080/SportifyWS/WebServiceImplService?wsdl");
+            url = new URL("http://localhost:8080/WSSportify/services/ShowAllTournaments?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

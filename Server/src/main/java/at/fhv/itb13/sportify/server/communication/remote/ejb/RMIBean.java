@@ -1,8 +1,5 @@
 package at.fhv.itb13.sportify.server.communication.remote.ejb;
 
-import at.fhv.itb13.sportify.server.communication.remote.SessionFactoryImpl;
-import at.fhv.itb13.sportify.shared.communication.remote.SessionFactory;
-
 import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -16,13 +13,13 @@ import java.rmi.RemoteException;
 public class RMIBean {
 
     public RMIBean() {
-        try {
-            SessionFactory sessionFactory = new SessionFactoryImpl();
-            Naming.rebind("rmi://localhost:12345/SessionFactory", sessionFactory);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            SessionFactory sessionFactory = new SessionFactoryImpl();
+////            Naming.rebind("rmi://localhost:12345/SessionFactory", sessionFactory);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
     }
 }

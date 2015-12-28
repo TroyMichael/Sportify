@@ -5,6 +5,7 @@ import at.fhv.itb13.sportify.client.presentation.SportifyGUI;
 import at.fhv.itb13.sportify.shared.communication.dtos.*;
 import at.fhv.itb13.sportify.shared.communication.exceptions.NotAuthorizedException;
 import at.fhv.itb13.sportify.shared.communication.remote.ejb.SessionRemote;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,9 +15,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.rmi.RemoteException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -96,7 +100,30 @@ public class NewTournamentFormController {
 
         _team1NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team1"));
         _team2NameColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, SimpleMatchTeamDTO>("Team2"));
-        _dateColumn.setCellValueFactory(new PropertyValueFactory<MatchDTO, String>("Start"));
+        _dateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MatchDTO, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<MatchDTO, String> param) {
+                SimpleStringProperty prop = new SimpleStringProperty("");
+                DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+                java.util.Date start = param.getValue().getStart();
+                if (start != null) {
+                    prop.setValue(df.format(param.getValue().getStart()));
+                }
+                return prop;
+            }
+        });
+        _timeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MatchDTO, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<MatchDTO, String> param) {
+                SimpleStringProperty prop = new SimpleStringProperty("");
+                DateFormat df = new SimpleDateFormat("HH:mm:ss");
+                java.util.Date start = param.getValue().getStart();
+                if (start != null) {
+                    prop.setValue(df.format(param.getValue().getStart()));
+                }
+                return prop;
+            }
+        });
         _matchTableView.setItems(_matchObservable);
     }
 

@@ -1,1 +1,1 @@
-wsimport -extension -keep -p client.wsdlGenerated -XadditionalHeaders http://localhost:8080/WSSportify/services/ShowAllTournaments?wsdl
+wsimport -extension -keep -p client.wsdlGenerated -XadditionalHeaders http://52.28.78.153:8080/WSSportify/services/ShowAllTournaments?wsdl

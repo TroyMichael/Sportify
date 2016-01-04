@@ -5,8 +5,8 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="WebService" />
-          <element id="module-output" name="Server" />
           <element id="module-output" name="Shared" />
+          <element id="module-output" name="Server" />
         </element>
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/lib/antlr-2.7.7.jar" />

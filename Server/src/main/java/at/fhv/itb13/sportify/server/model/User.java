@@ -3,8 +3,12 @@ package at.fhv.itb13.sportify.server.model;
 import org.hibernate.annotations.Parent;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
@@ -67,14 +71,34 @@ public class User {
         Properties env = new Properties();
         env.put("java.naming.factory.initial", "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636");
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "uid=" + _username + ",ou=fhv,ou=people,dc=uclv,dc=net");
-        env.put(Context.SECURITY_CREDENTIALS, _password);
 
-        Context context = null;
+        DirContext context = null;
         try {
-            context = new InitialContext(env);
-            return true;
+            context = new InitialDirContext(env);
+
+            // configure search controls to search whole subtree
+            SearchControls ctls = new SearchControls();
+            ctls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+            // define filter to search for user with the specified username
+            String filter = "(uid=" + _username + ")";
+
+            NamingEnumeration namingEnum = context.search("dc=uclv,dc=net", filter, ctls);
+            if ((namingEnum != null) && namingEnum.hasMore()) {
+                SearchResult searchResult = (SearchResult) namingEnum.next();
+
+                // check if search returned unique result
+                if ((searchResult != null) && !namingEnum.hasMore()) {
+                    // authenticate user with specified password
+                    env.put(Context.SECURITY_AUTHENTICATION, "simple");
+                    env.put(Context.SECURITY_PRINCIPAL, searchResult.getNameInNamespace());
+                    env.put(Context.SECURITY_CREDENTIALS, _password);
+
+                    context = new InitialDirContext(env);
+                    return true;
+                }
+            }
+            return false;
         } catch (NamingException e) {
             return false;
         } finally {

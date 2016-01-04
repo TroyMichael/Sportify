@@ -9,16 +9,13 @@
 </h:head>
 <h:body>
     <b:container>
+        <h1>Sportify</h1>
         <a:form>
             <a:outputText>Sign In</a:outputText>
-            Username:
             <a:inputText placeholder="username" value="#{controllerbean.username}"/>
-            <br></br>
-            Password:
             <a:inputSecret placeholder="password"
                            value="#{controllerbean.password}"/>
-            <br></br>
-            <a:commandButton look="primary" action="${controllerbean.authenticate}"
+            <b:commandButton look="primary" action="${controllerbean.authenticate}"
                              value="Sign In"/>
         </a:form>
     </b:container>

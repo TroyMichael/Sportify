@@ -21,7 +21,7 @@
         <h:outputText value="Name:     #{controllerbean._currentTournament.description}"/><br></br>
         <h:outputText value="Location: #{controllerbean._currentTournament.location}"/><br></br>
         <h:outputText value="Start:    #{controllerbean._currentTournament.startDate}"/><br></br>
-        <h:outputText value="Sport:    #{controllerbean._currentTournament.sportID}"/><br></br>
+        <h:outputText value="Sport:    #{controllerbean.getSportByID(controllerbean._currentTournament.sportID)}"/><br></br>
         <h2>Matches</h2>
         <h:form>
             <h:dataTable value="#{controllerbean.matches}" var="match"
